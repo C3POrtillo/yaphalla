@@ -15,14 +15,9 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
       fontFamily: {
-        sans: ['var(--font-inconsolata)'],
+        sans: ['var(--font-lato)'],
       },
       colors: {
-        'high-power-rounds': '#c54dfe',
-        'impact-rounds': '#21ba08',
-        'special-rounds': '#e47121',
-        electric: '#36c6f2',
-        toxic: '#40c41d',
         'primary-800': '#121d3b',
         'primary-600': '#1a387b',
         'secondary-600': '#a6dcd0',

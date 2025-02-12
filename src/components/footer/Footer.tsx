@@ -1,11 +1,10 @@
 import Image from 'next/image';
 
-import Socials from '@/components/socials/Socials';
-
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
 import Link from '@/components/header/Link';
+import Socials from '@/components/socials/Socials';
 import { discordNames } from '@/utils/types';
 
 const Footer: FC = () => (

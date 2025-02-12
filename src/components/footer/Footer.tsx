@@ -10,7 +10,7 @@ import { discordNames } from '@/utils/types';
 const Footer: FC = () => (
   <>
     <Container className="flex grow flex-col" />
-    <footer className="footer flex flex-col place-items-center content-center justify-center gap-2 px-1 py-8 text-center lg:p-8">
+    <footer className="footer flex flex-col place-items-center content-center justify-center gap-2 p-4 text-center">
       <div className="flex flex-row justify-around gap-16 items-center">
         <div className="relative h-16 logo">
           <Link path="/">

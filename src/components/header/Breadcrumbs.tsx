@@ -1,10 +1,10 @@
-'use client'
+'use client';
 import { usePathname } from 'next/navigation';
 
 import type { FC } from 'react';
 
-import AFKJLink from '@/components/header/Link';
 import Container from '@/components/container/Container';
+import AFKJLink from '@/components/header/Link';
 import { titleCase } from '@/utils/utils';
 
 interface BreadcrumbsProps {
@@ -12,7 +12,7 @@ interface BreadcrumbsProps {
 }
 
 const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
-  const currentPath = usePathname()
+  const currentPath = usePathname();
   let buildPathString = '';
   const paths = currentPath.split('/').slice(2);
   let slugIndex = 0;

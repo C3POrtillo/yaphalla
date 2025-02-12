@@ -1,5 +1,6 @@
-import { joinStrings } from '@/utils/utils';
 import type { FC, PropsWithChildren } from 'react';
+
+import { joinStrings } from '@/utils/utils';
 
 interface ContainerProps extends PropsWithChildren {
   className?: string;

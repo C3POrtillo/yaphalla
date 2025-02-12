@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 @theme {
+  --breakpoint-xs: 425px;
   --breakpoint-3xl: 1920px;
   --breakpoint-4xl: 2160px;
   --color-primary-950: #090E1F;
@@ -177,17 +178,8 @@
     @apply sticky top-0 z-40;
   }
   .social {
-    .fa-discord {
-      @apply text-[#7289da];
-    }
-    .fa-twitter { 
-      @apply text-sky-500 hover:text-sky-300 focus:text-sky-300 active:text-sky-300;
-    }
-    .fa-instagram { 
-      @apply text-fuchsia-600 hover:text-fuchsia-400 focus:text-fuchsia-400 active:text-fuchsia-400;
-    }
-    .fa-github {
-      @apply text-purple-600 hover:text-purple-400 focus:text-purple-400  active:text-purple-400 ;
+    .fa-discord, .fa-twitter, .fa-instagram {
+      @apply text-white hover:text-tertiary-300;
     }
   }
 }

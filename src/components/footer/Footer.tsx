@@ -11,7 +11,7 @@ const Footer: FC = () => (
   <>
     <Container className="flex grow flex-col" />
     <footer className="footer flex flex-col place-items-center content-center justify-center gap-2 p-4 text-center">
-      <div className="flex flex-row justify-around gap-16 items-center">
+      <div className="flex flex-col xs:flex-row justify-around gap-2 xs:gap-16 items-center">
         <div className="relative h-16 logo">
           <Link path="/">
             <Image src="/assets/images/yaphalla-logo.png" alt="Homepage" fill />

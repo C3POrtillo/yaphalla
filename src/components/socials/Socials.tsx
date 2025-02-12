@@ -16,7 +16,7 @@ const Socials: FC = () => (
         target="_blank"
         aria-label={`Yaphalla's ${site}`}
       >
-        <i className={['fab text-2xl md:before:text-3xl', `fa-${site}`].join(' ')} />
+        <i className={['fab text-3xl md:before:text-4xl', `fa-${site}`].join(' ')} />
       </Link>
     ))}
   </div>

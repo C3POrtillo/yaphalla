@@ -11,12 +11,12 @@ const Socials: FC = () => (
       <Link
         key={site}
         {...parseUrl(href)}
-        className="size-8 px-1 no-underline md:size-12"
+        className="px-1 no-underline"
         rel="noreferrer"
         target="_blank"
-        aria-label={`open cam's ${site} account`}
+        aria-label={`Yaphalla's ${site}`}
       >
-        <i className={['fab text-3xl md:before:text-5xl', `fa-${site}`].join(' ')} />
+        <i className={['fab text-2xl md:before:text-3xl', `fa-${site}`].join(' ')} />
       </Link>
     ))}
   </div>

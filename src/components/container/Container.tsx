@@ -1,3 +1,4 @@
+import { joinStrings } from '@/utils/utils';
 import type { FC, PropsWithChildren } from 'react';
 
 interface ContainerProps extends PropsWithChildren {
@@ -5,7 +6,7 @@ interface ContainerProps extends PropsWithChildren {
 }
 
 const Container: FC<ContainerProps> = ({ children, className, ...props }) => (
-  <section className={className} {...props}>
+  <section className={joinStrings('py-4', className)} {...props}>
     {children}
   </section>
 );

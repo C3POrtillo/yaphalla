@@ -1,8 +1,12 @@
 import { Lato } from 'next/font/google';
 import Script from 'next/script';
+import '@/styles/globals.css';
 
 import type { Metadata } from 'next';
-import { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
+import Header from '@/components/header/Header';
+import Footer from '@/components/footer/Footer';
+
 
 const font = Lato({
   subsets: ['latin', 'latin-ext'],
@@ -20,7 +24,12 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
     <head>
       <Script src="https://kit.fontawesome.com/8a3bf2a858.js" crossOrigin="anonymous" />
     </head>
-    <body className={`${font.variable} flex grow flex-col justify-between gap-4 font-sans`}>{children}</body>
+    <body className={`${font.variable} flex grow flex-col justify-between font-sans relative`}>
+      <Header/>
+      {children}
+      <Footer/>
+      <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] -z-10 opacity-35"></div>
+    </body>
   </html>
 );
 

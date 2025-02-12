@@ -11,7 +11,7 @@
     "plugin:react-hooks/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:jsx-a11y/recommended",
-    "plugin:tailwindcss/recommended",
+    // "plugin:tailwindcss/recommended",
     "plugin:@next/next/recommended",
     "prettier"
   ],
@@ -26,6 +26,7 @@
   "plugins": [
     "react",
     "react-hooks",
+    "@stylistic/ts",
     "@typescript-eslint",
     "import",
     "jsx-a11y",
@@ -73,8 +74,8 @@
     "@typescript-eslint/consistent-type-imports": "warn",
     "@typescript-eslint/no-use-before-define": "error",
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/member-delimiter-style": "warn",
-    "@typescript-eslint/no-duplicate-imports": "error",
+    "@stylistic/ts/member-delimiter-style": "warn",
+    "import/no-duplicates": "error",
     "import/first": "error",
     "import/default": "error",
     "import/no-named-as-default-member": "warn",
@@ -121,6 +122,6 @@
     ],
     "prefer-arrow/prefer-arrow-functions": ["warn", { "singleReturnOnly": true }],
     "no-inline-styles/no-inline-styles": 1,
-    "tailwindcss/no-arbitrary-value": 1
+    // "tailwindcss/no-arbitrary-value": 1
   }
 }

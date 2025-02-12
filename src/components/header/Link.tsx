@@ -15,7 +15,7 @@ interface LinkProps extends PathType, PropsWithChildren {
 
 const Link: FC<LinkProps> = ({ path, label, isExternal, className, disabled, children, target }) => {
   const currentPath = usePathname();
-  const href = isExternal && path ? path : `/${path}`;
+  const href = (isExternal && path) ? path : `${path}`;
   const disabledClass = (disabled ?? currentPath === href) && 'disabled-link';
 
   return (

@@ -8,21 +8,14 @@ import Image from 'next/image';
 
 interface HeaderProps {
   slug?: string[];
-  seo?: NextSeoProps;
 }
 
-const Header: FC<HeaderProps> = ({ slug, seo }) => {
+const Header: FC<HeaderProps> = ({ slug }) => {
   const navLinks = afkj.slice(1).map(data => {
-    const className = 'bg-hover tfd-link text-link text-hover';
+    const className = 'bg-hover text-link text-hover';
 
     return <Link className={className} key={data.path} {...data} />;
   });
-
-  const homeLink = (
-    <Link key="home" className="home-link text-nowrap lg:p-0" path={afkj[0].path}>
-      <h1 className="text-2xl font-semibold lg:text-4xl">{afkj[0].label}</h1>
-    </Link>
-  );
 
   return (
     <>

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import Socials from 'components/socials/Socials';
+import Socials from '@/components/socials/Socials';
 
 import type { FC } from 'react';
 

@@ -11,7 +11,7 @@ Functions related to a `[component_name]` that can be extracted from their `[nam
 `Next Link` component is implemented under `src/components/link/Link.tsx` and uses the `src/utils/parseUrl.ts` utility to
 automatically parse and convert hrefs/paths/slugs/links automatically to internal/external.
 Import the `Link` component from `@/components/link/Link.tsx` for MOST situations.
-`Next Link` can be leveraged if needed.
+`Next Link` can be leveraged if needed, use the `parseUrl` util still.
 
 ## Styles `src/styles/...`
 Just `globals.css`

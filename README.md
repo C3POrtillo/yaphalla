@@ -1,5 +1,10 @@
 # Yaphalla
 
+# COMMIT RULES
+[Conventional Commit Messages](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13)
+Pull request titles should follow the same process but summarizing the branch's
+Pull request descriptions should summarize commits or add additional context if the title is not enough.
+
 ## Components - `src/components/[component_name]/...`
 Functional Components include their interface and export themselves under `[name].tsx`
 * This includes `ReactProviders` or reusable components related to `[component_name]`
@@ -11,7 +16,7 @@ Functions related to a `[component_name]` that can be extracted from their `[nam
 `Next Link` component is implemented under `src/components/link/Link.tsx` and uses the `src/utils/parseUrl.ts` utility to
 automatically parse and convert hrefs/paths/slugs/links automatically to internal/external.
 Import the `Link` component from `@/components/link/Link.tsx` for MOST situations.
-`Next Link` can be leveraged if needed.
+`Next Link` can be leveraged if needed, use the `parseUrl` util still.
 
 ## Styles `src/styles/...`
 Just `globals.css`

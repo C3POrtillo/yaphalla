@@ -3,7 +3,7 @@
 # COMMIT RULES
 [Conventional Commit Messages](https://gist.github.com/qoomon/5dfcdf8eec66a051ecd85625518cfd13)
 
-Pull request titles should follow the same process but summarizing the branch's
+Pull request titles should follow the same process but summarizing the branch's purpose.
 
 Pull request descriptions should summarize commits or add additional context if the title is not enough.
 

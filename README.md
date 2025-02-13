@@ -19,3 +19,6 @@ Just `globals.css`
 ## Utils `src/utils/...`
 Functions that are not specific to components are found in a specific `[util_name].ts` file or `utils.ts` if its generic
 Website paths and external links are found in `paths.ts`, nested navigation is currently not supported (or needed).
+
+## Component Previews
+Slug/Path: `/preview` for input components and styling

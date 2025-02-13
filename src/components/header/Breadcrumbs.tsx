@@ -29,7 +29,7 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
   return (
     !!formattedPaths.length && (
       <Container className="justify-start">
-        <div className="flex flex-row flex-wrap gap-2 button-base bg-primary-950/80">
+        <div className="flex flex-row flex-wrap gap-2 input-base bg-primary-950/80">
           {formattedPaths.map((path, index) => {
             const label = titleCase(path);
             buildPathString += `${path}/`;
@@ -38,7 +38,7 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
               <div key={path} className="flex flex-row items-center gap-2">
                 <p>/</p>
                 <Link
-                  className="button-text"
+                  className="input-text"
                   label={label}
                   href={buildPathString}
                   disabled={index === paths.length - 1}

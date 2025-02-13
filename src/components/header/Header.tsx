@@ -11,7 +11,9 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ slug }) => {
-  const navLinks = afkj.slice(1).map(data => <Link className="button-text button-base button-secondary" key={data.href} {...data} />);
+  const navLinks = afkj
+    .slice(1)
+    .map(data => <Link className="input-text input-base input-secondary" key={data.href} {...data} />);
 
   return (
     <>

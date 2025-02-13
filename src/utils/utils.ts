@@ -64,16 +64,16 @@ export const roundToHundreth = (number: number) => number.toFixed(2);
 
 export const compareRates = (a: string, b: string) => parseFloat(a) - parseFloat(b);
 
-export const geSEO = ({ title, description, slug, canonical, imageUrl, ...props }: Record<string, string>) => ({
+export const getSEO = ({ title, description, slug, canonical, imageUrl, ...props }: Record<string, string>) => ({
   title,
   description,
   canonical: canonical ? `https://yaphalla.com${canonical}` : null,
   ...props,
   openGraph: {
-    url: `https://yaphalla.com/afkj${slug || ''}`,
+    url: `https://yaphalla.com/${slug || ''}`,
     title,
     description,
-    images: [{ url: imageUrl || 'https://yaphalla.com/logo-512x512.png' }],
+    images: [{ url: imageUrl || 'https://yaphalla.com/assets/images/Yaphalla Dog Hex.png' }],
   },
 });
 

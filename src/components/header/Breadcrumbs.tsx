@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
-import AFKJLink from '@/components/header/Link';
+import Link from '@/components/link/Link';
 import { titleCase } from '@/utils/utils';
 
 interface BreadcrumbsProps {
@@ -13,39 +13,42 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
   const currentPath = usePathname();
-  let buildPathString = '';
-  const paths = currentPath.split('/').slice(2);
+  let buildPathString = '/';
+  const paths = currentPath.split('/').slice(1);
   let slugIndex = 0;
-  const formattedPaths = paths.map(path => {
-    if (slug?.length && slugIndex < slug.length && path.match(/\[.*\]/)) {
-      return slug[slugIndex++];
-    }
+  const formattedPaths = paths
+    .filter(path => !!path)
+    .map(path => {
+      if (slug?.length && slugIndex < slug.length && path.match(/\[.*\]/)) {
+        return slug[slugIndex++];
+      }
 
-    return path;
-  });
+      return path;
+    });
 
   return (
-    <Container className="justify-start">
-      <div className="flex flex-row flex-wrap gap-2">
-        {formattedPaths.map((path, index) => {
-          const label = titleCase(path);
-          const copy = buildPathString;
-          buildPathString += `${path}/`;
+    !!formattedPaths.length && (
+      <Container className="justify-start">
+        <div className="flex flex-row flex-wrap gap-2 input-base bg-primary-950/80">
+          {formattedPaths.map((path, index) => {
+            const label = titleCase(path);
+            buildPathString += `${path}/`;
 
-          return (
-            <div key={path} className="flex flex-row items-center gap-2">
-              <p>/</p>
-              <AFKJLink
-                className="text-hover bg-hover rounded-md px-2 py-1"
-                label={label}
-                path={`/${copy}${path}`}
-                disabled={index === paths.length - 1}
-              />
-            </div>
-          );
-        })}
-      </div>
-    </Container>
+            return (
+              <div key={path} className="flex flex-row items-center gap-2">
+                <p>/</p>
+                <Link
+                  className="input-text"
+                  label={label}
+                  href={buildPathString}
+                  disabled={index === paths.length - 1}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </Container>
+    )
   );
 };
 

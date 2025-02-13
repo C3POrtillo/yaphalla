@@ -1,13 +1,20 @@
 import Link from 'next/link';
 
-const parseUrl = (href: string) => {
+const parseUrl = (href?: string) => {
   if (!href) {
     return {
       component: 'button',
       href: '',
     } as const;
   }
-
+  const isPath = href[0] === '/';
+  if (isPath) {
+    return {
+      component: Link,
+      href,
+      isInternal: true,
+    };
+  }
   const domain = 'yaphalla.com';
 
   let url: URL;
@@ -23,6 +30,7 @@ const parseUrl = (href: string) => {
     rel: isInternal ? '' : 'noreferrer noopener',
     target: isInternal ? '' : '_blank',
     href: isInternal ? url.href.split(url.host)[1] : href,
+    isInternal,
   } as const;
 };
 

@@ -12,6 +12,7 @@ const parseUrl = (href?: string) => {
     return {
       component: Link,
       href,
+      isInternal: true,
     };
   }
   const domain = 'yaphalla.com';
@@ -29,6 +30,7 @@ const parseUrl = (href?: string) => {
     rel: isInternal ? '' : 'noreferrer noopener',
     target: isInternal ? '' : '_blank',
     href: isInternal ? url.href.split(url.host)[1] : href,
+    isInternal,
   } as const;
 };
 

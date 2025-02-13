@@ -28,7 +28,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
       <Header />
       {children}
       <Footer />
-      <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-cover -z-10 opacity-35"></div>
+      <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_auto] -z-10 opacity-35"></div>
     </body>
   </html>
 );

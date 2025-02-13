@@ -1,3 +1,4 @@
+export const domain = 'yaphalla.com' as const;
 export type PathType = {
   href?: string;
   label?: string;
@@ -24,7 +25,7 @@ export const supportEmail = {
   label: 'Contact Support',
 } as const;
 
-export const afkjPaths = {
+export const paths = {
   Home: {
     href: '/',
     label: 'Home',
@@ -39,10 +40,19 @@ export const afkjPaths = {
   },
 } as const;
 
+const previews = {
+  Previews: {
+    href: '/preview',
+    label: 'Previews',
+  },
+  Inputs: {
+    href: '/preview/inputs',
+    label: 'Inputs',
+  },
+} as const;
+
 export const validHrefs = new Set(
-  Object.values(afkjPaths)
-    .filter(({ href }) => href[0] === '/')
-    .map(({ href }) => href),
+  [...Object.values(paths), ...Object.values(previews)].filter(({ href }) => href[0] === '/').map(({ href }) => href),
 );
 
-export const afkj = [afkjPaths['Home'], afkjPaths['Editor'], afkjPaths['Talents']] as PathType[];
+export const navigation = [paths['Home'], paths['Editor'], paths['Talents']] as PathType[];

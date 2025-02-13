@@ -1,12 +1,12 @@
 import type { MetadataRoute } from 'next';
 
-import { afkjPaths } from '@/utils/paths';
+import { domain, paths } from '@/utils/paths';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const url = 'https://yapphalla.com';
+  const url = `https://${domain}`;
 
-  const afkjPathsData = Object.values(afkjPaths).map(({ path }) => ({
-    url: `${url}/${path}`,
+  const pathData = Object.values(paths).map(({ href }) => ({
+    url: `${url}/${href}`,
     lastModified: new Date(),
     priority: 1,
   }));
@@ -17,6 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       priority: 1,
     },
-    ...afkjPathsData,
+    ...pathData,
   ];
 }

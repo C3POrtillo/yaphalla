@@ -4,14 +4,14 @@ import Breadcrumbs from '@/components/header/Breadcrumbs';
 import Link from '@/components/link/Link';
 import LogoLink from '@/components/link/Logo';
 import Socials from '@/components/socials/Socials';
-import { afkj } from '@/utils/paths';
+import { navigation } from '@/utils/paths';
 
 interface HeaderProps {
   slug?: string[];
 }
 
 const Header: FC<HeaderProps> = ({ slug }) => {
-  const navLinks = afkj
+  const navLinks = navigation
     .slice(1)
     .map(data => <Link className="input-text input-base input-secondary" key={data.href} {...data} />);
 

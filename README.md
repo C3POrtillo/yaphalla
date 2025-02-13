@@ -21,4 +21,4 @@ Functions that are not specific to components are found in a specific `[util_nam
 Website paths and external links are found in `paths.ts`, nested navigation is currently not supported (or needed).
 
 ## Component Previews
-Slug/Path: `/preview` for input components and styling
+Slug/Path: `/preview/inputs` for input components and styling

@@ -1,26 +1,40 @@
 export type PathType = {
-  path?: string;
+  href?: string;
   label?: string;
   options?: PathType[];
-  isExternal?: boolean;
 };
 
+export const socials = [
+  {
+    site: 'discord',
+    href: 'https://discord.gg/yaphalla',
+  },
+  {
+    site: 'twitter',
+    href: 'https://twitter.com/yaphalla',
+  },
+  {
+    site: 'instagram',
+    href: 'https://www.instagram.com/yaphallaafkj/',
+  },
+] as const;
+
 export const supportEmail = {
-  path: 'mailto:support@yaphalla.com', // TO-DO make zoho mail account if we need it
+  href: 'mailto:support@yaphalla.com', // TO-DO make zoho mail account if we need it
   label: 'Contact Support',
 } as const;
 
 export const afkjPaths = {
   Home: {
-    path: '',
+    href: '',
     label: 'Home',
   },
   Editor: {
-    path: '/editor',
+    href: '/editor',
     label: 'Formation Editor',
   },
   Talents: {
-    path: '/seasonal/talents',
+    href: '/talents',
     label: 'Talents',
   },
 } as const;

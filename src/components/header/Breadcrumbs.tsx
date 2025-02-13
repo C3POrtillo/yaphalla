@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
-import AFKJLink from '@/components/header/Link';
+import Link from '@/components/link/Link';
 import { titleCase } from '@/utils/utils';
 
 interface BreadcrumbsProps {
@@ -35,10 +35,10 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
           return (
             <div key={path} className="flex flex-row items-center gap-2">
               <p>/</p>
-              <AFKJLink
+              <Link
                 className="text-hover bg-hover rounded-md px-2 py-1"
                 label={label}
-                path={`/${copy}${path}`}
+                href={`/${copy}${path}`}
                 disabled={index === paths.length - 1}
               />
             </div>

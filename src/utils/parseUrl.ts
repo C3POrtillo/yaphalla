@@ -1,18 +1,18 @@
 import Link from 'next/link';
 
-const parseUrl = (href: string) => {
+const parseUrl = (href?: string) => {
   if (!href) {
     return {
       component: 'button',
       href: '',
     } as const;
   }
-
   const domain = 'yaphalla.com';
 
+  const isPath = href[0] === '/';
   let url: URL;
   try {
-    url = new URL(href);
+    url = isPath ? new URL(href, `https://${domain}`) : new URL(href);
   } catch (error) {
     throw new Error(`Invalid URL: ${href} - ${error}`);
   }

@@ -1,11 +1,11 @@
 import Image from 'next/image';
 
-import Socials from '@/components/socials/Socials';
 
 import type { FC } from 'react';
 
 import Breadcrumbs from '@/components/header/Breadcrumbs';
-import Link from '@/components/header/Link';
+import Link from '@/components/link/Link';
+import Socials from '@/components/socials/Socials';
 import { afkj } from '@/utils/paths';
 
 interface HeaderProps {
@@ -14,18 +14,18 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ slug }) => {
   const navLinks = afkj.slice(1).map(data => {
-    const className = 'bg-hover text-link text-hover';
+    const className = 'button-text button-base button-secondary';
 
-    return <Link className={className} key={data.path} {...data} />;
+    return <Link className={className} key={data.href} {...data} />;
   });
 
   return (
     <>
-      <header className="header sticky-header relative flex flex-col place-items-center justify-center bg-neutral-900 text-center shadow-md shadow-black lg:py-3">
+      <header className="sticky-header relative flex flex-col place-items-center justify-center bg-neutral-900 text-center shadow-md shadow-black lg:py-3">
         <div className="flex mx-auto min-h-6 w-full max-w-7xl flex-row items-center justify-between gap-4 px-4">
           <div className="flex flex-row items-center gap-6">
             <div className="relative h-16 logo">
-              <Link path="/">
+              <Link href="/">
                 <Image src="/assets/images/yaphalla-logo.png" alt="Homepage" fill />
               </Link>
             </div>

@@ -1,3 +1,5 @@
+import { domain } from "./paths";
+
 const wordSeparators = /[-_\\.+\s]+/g;
 const notAlphaNumericOrSpace = /[^ a-zA-Z0-9]+/g;
 const notAlphaNumericSpaceOrDash = /[^ a-zA-Z0-9-]/g;
@@ -67,13 +69,13 @@ export const compareRates = (a: string, b: string) => parseFloat(a) - parseFloat
 export const getSEO = ({ title, description, slug, canonical, imageUrl, ...props }: Record<string, string>) => ({
   title,
   description,
-  canonical: canonical ? `https://yaphalla.com${canonical}` : null,
+  canonical: canonical ? `https://${domain}${canonical}` : null,
   ...props,
   openGraph: {
-    url: `https://yaphalla.com/${slug || ''}`,
+    url: `https://${domain}/${slug || ''}`,
     title,
     description,
-    images: [{ url: imageUrl || 'https://yaphalla.com/assets/images/Yaphalla Dog Hex.png' }],
+    images: [{ url: imageUrl || `https://${domain}/assets/images/Yaphalla Dog Hex.png` }],
   },
 });
 

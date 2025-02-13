@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { domain } from '@/utils/paths';
 
 const parseUrl = (href?: string) => {
   if (!href) {
@@ -15,7 +16,6 @@ const parseUrl = (href?: string) => {
       isInternal: true,
     };
   }
-  const domain = 'yaphalla.com';
 
   let url: URL;
   try {

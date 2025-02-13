@@ -21,7 +21,7 @@ export const socials = [
 ] as const;
 
 export const supportEmail = {
-  href: 'mailto:support@yaphalla.com', // TO-DO make zoho mail account if we need it
+  href: `mailto:support@${domain}`, // TO-DO make zoho mail account if we need it
   label: 'Contact Support',
 } as const;
 

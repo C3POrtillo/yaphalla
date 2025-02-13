@@ -7,12 +7,18 @@ const parseUrl = (href?: string) => {
       href: '',
     } as const;
   }
+  const isPath = href[0] === '/';
+  if (isPath) {
+    return {
+      component: Link,
+      href,
+    };
+  }
   const domain = 'yaphalla.com';
 
-  const isPath = href[0] === '/';
   let url: URL;
   try {
-    url = isPath ? new URL(href, `https://${domain}`) : new URL(href);
+    url = new URL(href);
   } catch (error) {
     throw new Error(`Invalid URL: ${href} - ${error}`);
   }

@@ -1,9 +1,7 @@
-import Image from 'next/image';
-
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
-import Link from '@/components/link/Link';
+import LogoLink from '@/components/link/Logo';
 import Socials from '@/components/socials/Socials';
 import { discordNames } from '@/utils/types';
 
@@ -12,11 +10,7 @@ const Footer: FC = () => (
     <Container className="flex grow flex-col" />
     <footer className="flex flex-col place-items-center content-center justify-center gap-2 p-4 text-center">
       <div className="flex flex-col xs:flex-row justify-around gap-2 xs:gap-16 items-center">
-        <div className="relative h-16 logo">
-          <Link href="/">
-            <Image src="/assets/images/yaphalla-logo.png" alt="Homepage" fill />
-          </Link>
-        </div>
+        <LogoLink />
         <Socials />
       </div>
       <span>Credits to: The Yaphalla Community</span>

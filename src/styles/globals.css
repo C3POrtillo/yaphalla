@@ -181,7 +181,7 @@
     }
   }
   .button-text {
-    @apply text-white hover:text-tertiary-300 hover:underline disabled:text-neutral-400;
+    @apply hover:text-tertiary-300 hover:underline disabled:text-neutral-400;
   }
   .button-base {
     @apply shadow-sm p-2 rounded-lg;
@@ -191,5 +191,8 @@
   }
   .button-secondary {
     @apply bg-neutral-600/20 hover:bg-neutral-300/20 active:bg-neutral-300/20 disabled:bg-neutral-600/10;
+  }
+  .active-link {
+    @apply pointer-events-none text-tertiary-300;
   }
 }

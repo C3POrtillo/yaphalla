@@ -26,7 +26,7 @@ export const supportEmail = {
 
 export const afkjPaths = {
   Home: {
-    href: '',
+    href: '/',
     label: 'Home',
   },
   Editor: {
@@ -38,5 +38,11 @@ export const afkjPaths = {
     label: 'Talents',
   },
 } as const;
+
+export const validHrefs = new Set(
+  Object.values(afkjPaths)
+    .filter(({ href }) => href[0] === '/')
+    .map(({ href }) => href),
+);
 
 export const afkj = [afkjPaths['Home'], afkjPaths['Editor'], afkjPaths['Talents']] as PathType[];

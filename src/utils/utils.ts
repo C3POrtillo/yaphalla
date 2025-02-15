@@ -1,4 +1,4 @@
-import { domain } from "./paths";
+import { domain } from '@/utils/paths';
 
 const wordSeparators = /[-_\\.+\s]+/g;
 const notAlphaNumericOrSpace = /[^ a-zA-Z0-9]+/g;

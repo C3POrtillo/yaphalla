@@ -9,7 +9,7 @@ const Index: FC = () => (
       <h1>Site In Progress</h1>
       <p>Please use ortillo.cam in the meantime</p>
       <Link href="https://ortillo.cam/afkj/editor" className="input-text input-base input-secondary">
-          ortillo.cam
+        ortillo.cam
       </Link>
     </div>
   </Container>

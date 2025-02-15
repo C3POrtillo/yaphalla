@@ -7,6 +7,8 @@ Pull request titles should follow the same process but summarizing the branch's 
 
 Pull request descriptions should summarize commits or add additional context if the title is not enough.
 
+I would install `Husky` to packages, but it does not work nicely with WSL - Run `yarn lint` and `yarn format` before merging.
+
 ## Components - `src/components/[component_name]/...`
 Functional Components include their interface and export themselves under `[name].tsx`
 * This includes `ReactProviders` or reusable components related to `[component_name]`

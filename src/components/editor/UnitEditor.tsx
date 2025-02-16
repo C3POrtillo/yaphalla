@@ -11,21 +11,21 @@ const UnitEditor: FC = () => {
 
   const gridProps = isEditArena
     ? {
-        label: preset,
-        hideEmptyArtifact: true,
-        hideUnits: true,
-        hideNumbers: isNumber,
-        onClick: updateArena,
-      }
+      label: preset,
+      hideEmptyArtifact: true,
+      hideUnits: true,
+      hideNumbers: isNumber,
+      onClick: updateArena,
+    }
     : {
-        id: 'unit-grid',
-        hideEnemy: isEnemy,
-        hideEmpty: isEmpty,
-        hideNumbers: isNumber,
-        hideEmptyArtifact,
-        disableEmpty: true,
-        onClick: updateUnit,
-      };
+      id: 'unit-grid',
+      hideEnemy: isEnemy,
+      hideEmpty: isEmpty,
+      hideNumbers: isNumber,
+      hideEmptyArtifact,
+      disableEmpty: true,
+      onClick: updateUnit,
+    };
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-2">

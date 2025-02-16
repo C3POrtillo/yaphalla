@@ -26,7 +26,7 @@ export const Artifacts = {
 type ClassData = Record<UnitClass, string[]>;
 type FactionData = Record<Faction, ClassData>;
 
-export type UnitType = {
+type UnitType = {
   unit: string;
   type: number;
 };
@@ -34,7 +34,6 @@ export type UnitType = {
 export type UnitFormationData = Record<number, UnitType>;
 export type ArtifactFormationData = Record<'player' | 'enemy', string[]>;
 
-export type UnitData = Record<string, FactionData>;
 export type Unit = {
   unit: string;
   faction: string;
@@ -103,12 +102,6 @@ export const Units = {
   Celestial,
   Hypogean,
 } as FactionData;
-
-export type Artifact = {
-  name: string;
-  imagUrl: string;
-  source: ArtifactSource;
-};
 
 export type Formation = {
   id?: number;

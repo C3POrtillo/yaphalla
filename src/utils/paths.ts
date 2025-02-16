@@ -5,20 +5,20 @@ export type PathType = {
   options?: PathType[];
 };
 
-export const socials = [
-  {
+export const socials = {
+  Discord: {
     site: 'discord',
     href: 'https://discord.gg/yaphalla',
   },
-  {
+  Twitter: {
     site: 'twitter',
     href: 'https://twitter.com/yaphalla',
   },
-  {
+  Instagram: {
     site: 'instagram',
     href: 'https://www.instagram.com/yaphallaafkj/',
   },
-] as const;
+} as const;
 
 export const supportEmail = {
   href: `mailto:support@${domain}`, // TO-DO make zoho mail account if we need it

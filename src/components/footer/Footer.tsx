@@ -11,7 +11,7 @@ const Footer: FC = () => (
       <Socials />
     </div>
     <span>Credits to: The Yaphalla Community</span>
-    <div>
+    <div className="flex flex-row gap-1 items-center">
       <span>Developed by: </span>
       <i className="fab fa-discord" /> <span>{discordNames.map(name => name)}</span>
     </div>

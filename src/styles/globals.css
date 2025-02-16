@@ -62,17 +62,23 @@
   html {
     @apply text-white font-semibold font-sans snap-y lg:text-lg min-h-max;
     h1 {
-      @apply text-2xl lg:text-3xl;
+      @apply font-bold text-2xl lg:text-3xl;
     }
-    h2 {
-      @apply text-xl lg:text-2xl;
+    h2, h3 {
+      @apply font-bold text-xl lg:text-2xl;
+    }
+    p {
+      @apply text-lg lg:text-xl;
     }
   }
   input::placeholder {
     @apply px-1;
   }
   body {
-    @apply min-h-[100vh] bg-gradient-to-b from-primary-900 via-primary-950 to-black; 
+    @apply min-h-[100vh]; 
+  }
+  main {
+    @apply bg-gradient-to-b from-primary-900 via-primary-950 to-black;
   }
   .header {
     @apply w-full bg-gradient-to-b from-black to-primary-800 shadow-black;
@@ -237,6 +243,9 @@
 }
 
 @layer utilities {
+  .fab {
+    @apply text-xl md:text-2xl;
+  }
   .scroll-bar-left {
     direction: rtl;
     scrollbar-gutter: stable;
@@ -279,6 +288,9 @@
   }
   .input-warning {
     @apply hover:bg-red-600 active:bg-red-600 disabled:bg-red-950;
+  }
+  .input-link {
+    @apply text-tertiary-600 hover:text-tertiary-300 underline;
   }
   .bg-primary {
     @apply bg-primary-800;

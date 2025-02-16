@@ -1,3 +1,3 @@
 {
-  "ignore": "src/(pages|app)/"
+  "ignore": "(\\.next|src)/(types|pages|app)/"
 }

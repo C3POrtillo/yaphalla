@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
 import Footer from '@/components/footer/Footer';
+import Breadcrumbs from '@/components/header/Breadcrumbs';
 import Header from '@/components/header/Header';
 
 const font = Lato({
@@ -26,8 +27,9 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
     </head>
     <body className="h-[100vh] w-[100vw] snap-y">
       <div className="flex min-w-full max-w-full min-h-full">
-        <main className={`${font.variable} font-sans flex grow flex-col items-center justify-between relative`}>
+        <main className={`${font.variable} font-sans flex grow flex-col items-center justify-between relative z-0`}>
           <Header />
+          <Breadcrumbs />
           {children}
           <Footer />
           <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_auto] -z-10 opacity-20"></div>

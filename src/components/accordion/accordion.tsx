@@ -15,7 +15,6 @@ interface AccordionProps extends PropsWithChildren {
   keepOpen?: boolean;
   ariaLabel?: string;
   defaultState?: boolean;
-  panelHeight?: number;
 }
 
 const Accordion: FC<AccordionProps> = ({
@@ -24,11 +23,10 @@ const Accordion: FC<AccordionProps> = ({
   label,
   icon,
   children,
-  labelIsClickable,
+  labelIsClickable = true,
   keepOpen = true,
   ariaLabel,
   defaultState = false,
-  panelHeight = 1000,
 }) => {
   const [isOpen, setOpen] = useState(defaultState);
   const [isClickable] = useState(labelIsClickable);
@@ -53,7 +51,7 @@ const Accordion: FC<AccordionProps> = ({
   useEffect(() => {
     if (isOpen) {
       document.addEventListener('click', handleClickOutside);
-      setMaxHeight(`${panelHeight}px  `);
+      setMaxHeight('100vh');
     } else {
       document.removeEventListener('click', handleClickOutside);
       setMaxHeight('0px');
@@ -86,7 +84,7 @@ const Accordion: FC<AccordionProps> = ({
               'cursor-pointer inline-flex flex-row items-center justify-between gap-2',
               isClickable && 'w-full',
               !isClickable && hierarchy && `input-${hierarchy}`,
-              !isClickable && 'size-sm !shadow-none',
+              !isClickable && 'size-10 size-sm !shadow-none',
             )}
             aria-label={!isClickable ? ariaLabel : undefined}
           >

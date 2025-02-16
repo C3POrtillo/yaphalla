@@ -32,7 +32,7 @@ export const paths = {
   },
   Editor: {
     href: '/editor',
-    label: 'Formation Editor',
+    label: 'New Formation',
   },
   Talents: {
     href: '/talents',
@@ -55,4 +55,4 @@ export const validHrefs = new Set(
   [...Object.values(paths), ...Object.values(previews)].filter(({ href }) => href[0] === '/').map(({ href }) => href),
 );
 
-export const navigation = [paths['Home'], paths['Editor'], paths['Talents']] as PathType[];
+export const navigation = [paths['Home'], paths['Editor']] as PathType[];

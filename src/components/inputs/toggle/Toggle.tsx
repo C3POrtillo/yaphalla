@@ -15,6 +15,7 @@ interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Toggle: FC<ToggleProps> = ({
+  className,
   variant = 'checkbox',
   activeLabel,
   disableLabel,
@@ -46,6 +47,7 @@ const Toggle: FC<ToggleProps> = ({
       htmlFor={id}
       className={joinStrings(
         'size-base flex flex-row items-center gap-2',
+        className,
         !disabled && `bg-${hierarchy} input-${hierarchy}`,
       )}
     >

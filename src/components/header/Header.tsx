@@ -37,6 +37,7 @@ const Header: FC<HeaderProps> = ({ slug }) => {
             hierarchy="tertiary"
             icon="fa-bars"
             ariaLabel="Toggle Navigation Menu"
+            labelIsClickable={false}
           >
             <div className="inset flex flex-col gap-3 items-center p-2 bg-primary-800">
               {navLinks}

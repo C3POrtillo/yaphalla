@@ -75,7 +75,7 @@ const Index: FC = () => {
                       key={hierarchy}
                       label={`Label${i ? '' : ' Not'} Clickable (${hierarchy})`}
                       hierarchy={hierarchy}
-                      labelIsClickable={!!i}
+                      labelIsClickable={!i}
                     >
                       <div className="inset p-2 max-h-24 overflow-auto bg-primary-750">
                         <p>

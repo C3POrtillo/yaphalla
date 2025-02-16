@@ -28,7 +28,7 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
 
   return (
     !!formattedPaths.length && (
-      <Container className="justify-start">
+      <Container className="justify-start px-2 lg:max-w-2/3 lg:px-0">
         <div className="flex flex-row flex-wrap gap-2 size-base bg-primary-950/80">
           {formattedPaths.map((path, index) => {
             const label = titleCase(path);

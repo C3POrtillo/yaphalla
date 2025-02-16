@@ -11,7 +11,7 @@ interface FilterButtonProps {
 }
 
 const FilterButton: FC<FilterButtonProps> = ({ src, path, selected, onClick }) => (
-  <button onClick={onClick} className="relative size-10">
+  <button onClick={onClick} className="relative size-10 cursor-pointer">
     {!selected && <div className="absolute top-0 z-10 size-10 rounded-full bg-black opacity-50"></div>}
     <Image
       src={`/assets/images/${path}/${src.toLocaleLowerCase()}.png`}

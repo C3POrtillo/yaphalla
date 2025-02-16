@@ -72,6 +72,7 @@ const UnitGrid: FC = () => {
         return (
           <button
             key={unit}
+            className="cursor-pointer disabled:cursor-auto"
             onClick={() => {
               if (disabled) {
                 return;

@@ -151,14 +151,18 @@ const TileGrid: FC<TileGridProps> = ({
       <div
         key={i}
         className={joinStrings(
-          'flex min-h-20 flex-row',
+          'flex min-h-[100px] flex-row',
           i && !relativeFirstRow && '-mt-5',
           hideEnemy && hideEmpty && isTopRight ? reverse : offset,
         )}
       >
         {isLast && (
           <>
-            <button onClick={() => setArtifact(0, playerArtifact)} disabled={isDisabled}>
+            <button
+              className="cursor-pointer disabled:cursor-auto"
+              onClick={() => setArtifact(0, playerArtifact)}
+              disabled={isDisabled}
+            >
               <HexImage
                 src={playerArtifact || 'Artifact-Hex'}
                 selected={currentArtifact === 0 && !hideArtifacts}
@@ -206,7 +210,12 @@ const TileGrid: FC<TileGridProps> = ({
 
           return (
             !omitHex && (
-              <button key={index} onClick={() => onClick && onClick(tile)} disabled={disabled}>
+              <button
+                key={index}
+                className="cursor-pointer disabled:cursor-auto"
+                onClick={() => onClick && onClick(tile)}
+                disabled={disabled}
+              >
                 <HexImage
                   src={src}
                   selected={isSelected}
@@ -224,7 +233,11 @@ const TileGrid: FC<TileGridProps> = ({
         {isFirst && (
           <>
             <Logo isCat />
-            <button onClick={() => setArtifact(1, enemyArtifact)} disabled={isDisabled}>
+            <button
+              className="cursor-pointer disabled:cursor-auto"
+              onClick={() => setArtifact(1, enemyArtifact)}
+              disabled={isDisabled}
+            >
               <HexImage
                 src={enemyArtifact || 'Artifact-Hex'}
                 selected={currentArtifact === 1 && !hideArtifacts}

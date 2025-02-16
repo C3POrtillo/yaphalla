@@ -151,7 +151,7 @@ const TileGrid: FC<TileGridProps> = ({
       <div
         key={i}
         className={joinStrings(
-          'flex min-h-[100px] flex-row',
+          'flex flex-row',
           i && !relativeFirstRow && '-mt-5',
           hideEnemy && hideEmpty && isTopRight ? reverse : offset,
         )}
@@ -209,7 +209,7 @@ const TileGrid: FC<TileGridProps> = ({
           const { src, path } = getImage();
 
           return (
-            !omitHex && (
+            (!omitHex || !relativeIndex) && (
               <button
                 key={index}
                 className="cursor-pointer disabled:cursor-auto"

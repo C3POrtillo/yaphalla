@@ -6,6 +6,7 @@ import type { Metadata } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
 import Footer from '@/components/footer/Footer';
+import Breadcrumbs from '@/components/header/Breadcrumbs';
 import Header from '@/components/header/Header';
 
 const font = Lato({
@@ -24,11 +25,16 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
     <head>
       <Script src="https://kit.fontawesome.com/8a3bf2a858.js" crossOrigin="anonymous" />
     </head>
-    <body className={`${font.variable} flex grow flex-col justify-between font-sans relative`}>
-      <Header />
-      {children}
-      <Footer />
-      <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_auto] -z-10 opacity-35"></div>
+    <body className="h-[100vh] w-[100vw] snap-y">
+      <div className="flex min-w-full max-w-full min-h-full">
+        <main className={`${font.variable} font-sans flex grow flex-col items-center justify-between relative z-0`}>
+          <Header />
+          <Breadcrumbs />
+          {children}
+          <Footer />
+          <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_auto] -z-10 opacity-20"></div>
+        </main>
+      </div>
     </body>
   </html>
 );

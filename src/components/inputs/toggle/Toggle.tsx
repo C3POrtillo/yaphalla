@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
+import type { HierarchyTypes } from '@/utils/types';
 import type { ChangeEvent, FC, InputHTMLAttributes } from 'react';
 
 import { joinStrings, kebabCase } from '@/utils/utils';
@@ -10,10 +11,11 @@ interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
   value: string;
   activeLabel?: string;
   disableLabel?: string;
-  hierarchy?: 'primary' | 'secondary' | 'tertiary' | 'warning';
+  hierarchy?: HierarchyTypes;
 }
 
 const Toggle: FC<ToggleProps> = ({
+  className,
   variant = 'checkbox',
   activeLabel,
   disableLabel,
@@ -21,6 +23,7 @@ const Toggle: FC<ToggleProps> = ({
   hierarchy = 'primary',
   defaultChecked,
   onChange,
+  disabled,
   ...props
 }) => {
   const [isChecked, setChecked] = useState(defaultChecked);
@@ -43,8 +46,9 @@ const Toggle: FC<ToggleProps> = ({
     <label
       htmlFor={id}
       className={joinStrings(
-        'input-base input-text flex flex-row items-center gap-2',
-        !props.disabled && `input-${hierarchy}`,
+        'size-base flex flex-row items-center gap-2',
+        className,
+        !disabled && `bg-${hierarchy} input-${hierarchy}`,
       )}
     >
       <input
@@ -54,17 +58,26 @@ const Toggle: FC<ToggleProps> = ({
         name={value}
         checked={isChecked}
         onChange={handleChange}
+        disabled={disabled}
         {...props}
       />
       <div className="flex flex-row items-center justify-center gap-1 xl:gap-2">
         {!isCheckbox && (
           <>
             {disableLabel && <span>{disableLabel}</span>}
-            <div className={joinStrings('inset slider ease-in-out', isChecked ? 'bg-primary-400' : 'bg-white')}>
+            <div
+              className={joinStrings(
+                'inset slider ease-in-out',
+                !disabled && (isChecked ? 'bg-primary-400' : 'bg-white'),
+                disabled && 'bg-neutral-500',
+              )}
+            >
               <div
                 className={joinStrings(
                   'slider-ball ease-in-out',
-                  isChecked ? 'bg-white translate-x-[50%]' : 'bg-primary-400 translate-x-[-50%]',
+                  !disabled && (isChecked ? 'bg-white' : 'bg-primary-400'),
+                  disabled && 'bg-neutral-400',
+                  isChecked ? 'translate-x-[50%]' : 'translate-x-[-50%]',
                 )}
               />
             </div>

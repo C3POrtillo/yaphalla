@@ -108,7 +108,6 @@
     "react/jsx-filename-extension": [2, { "extensions": [".tsx", ".jsx", ".mdx"] }],
     "react/require-default-props": [0, { "forbidDefaultForRequired": true }],
     "react/no-unused-prop-types": 1,
-    "react/no-array-index-key": "warn",
     "react/function-component-definition": [
       "warn",
       {

@@ -4,9 +4,13 @@ import type { FC } from 'react';
 
 import Link from '@/components/link/Link';
 
-const LogoLink: FC = () => (
-  <Link href="/" className="relative h-16 logo">
-    <Image src="/assets/images/yaphalla-logo.png" alt="Homepage" fill />
+interface LogoLinkProps {
+  alt?: string;
+}
+
+const LogoLink: FC<LogoLinkProps> = ({ alt }) => (
+  <Link href="/" className="relative logo input-secondary size-sm">
+    <Image src="/assets/images/yaphalla-logo.png" alt={alt || 'Homepage'} fill priority />
   </Link>
 );
 

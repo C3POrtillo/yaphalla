@@ -11,7 +11,7 @@ const Index: FC = () => (
           <span className="text-red-700">404</span> | <span className="text-red-700">Not Found</span>
         </h1>
         <p>Page does not exist.</p>
-        <Link href="/" className="input-text input-base input-secondary">
+        <Link href="/" className="size-base input-secondary">
           Return Home
         </Link>
       </div>

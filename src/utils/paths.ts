@@ -5,23 +5,23 @@ export type PathType = {
   options?: PathType[];
 };
 
-export const socials = [
-  {
+export const socials = {
+  Discord: {
     site: 'discord',
     href: 'https://discord.gg/yaphalla',
   },
-  {
+  Twitter: {
     site: 'twitter',
     href: 'https://twitter.com/yaphalla',
   },
-  {
+  Instagram: {
     site: 'instagram',
     href: 'https://www.instagram.com/yaphallaafkj/',
   },
-] as const;
+} as const;
 
 export const supportEmail = {
-  href: 'mailto:support@yaphalla.com', // TO-DO make zoho mail account if we need it
+  href: `mailto:support@${domain}`, // TO-DO make zoho mail account if we need it
   label: 'Contact Support',
 } as const;
 
@@ -32,7 +32,7 @@ export const paths = {
   },
   Editor: {
     href: '/editor',
-    label: 'Formation Editor',
+    label: 'New Formation',
   },
   Talents: {
     href: '/talents',
@@ -55,4 +55,4 @@ export const validHrefs = new Set(
   [...Object.values(paths), ...Object.values(previews)].filter(({ href }) => href[0] === '/').map(({ href }) => href),
 );
 
-export const navigation = [paths['Home'], paths['Editor'], paths['Talents']] as PathType[];
+export const navigation = [paths['Home'], paths['Editor']] as PathType[];

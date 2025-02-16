@@ -5,13 +5,13 @@ import Socials from '@/components/socials/Socials';
 import { discordNames } from '@/utils/types';
 
 const Footer: FC = () => (
-  <footer className="flex flex-col mt-auto place-items-center content-center justify-center gap-2 p-4 text-center">
+  <footer className="footer flex flex-col mt-auto place-items-center content-center justify-center gap-2 p-4 text-center">
     <div className="flex flex-col xs:flex-row justify-around gap-2 xs:gap-16 items-center">
       <LogoLink />
       <Socials />
     </div>
     <span>Credits to: The Yaphalla Community</span>
-    <div>
+    <div className="flex flex-row gap-1 items-center">
       <span>Developed by: </span>
       <i className="fab fa-discord" /> <span>{discordNames.map(name => name)}</span>
     </div>

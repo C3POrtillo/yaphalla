@@ -67,7 +67,7 @@ const Text: FC<TextProps> = ({
       )}
       <input
         className={joinStrings(
-          'inset flex w-full rounded-lg bg-primary-750 px-3 py-2 border-2',
+          'inset-secondary flex w-full rounded-lg px-3 py-2 border-2',
           isValid ? 'border-primary-950/80' : 'border-red-400',
           className,
         )}

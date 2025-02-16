@@ -6,7 +6,7 @@ import Link from '@/components/link/Link';
 
 const LogoLink: FC = () => (
   <Link href="/" className="relative h-16 logo">
-    <Image src="/assets/images/yaphalla-logo.png" alt="Homepage" fill />
+    <Image src="/assets/images/yaphalla-logo.png" alt="Homepage" fill priority />
   </Link>
 );
 

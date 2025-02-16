@@ -230,6 +230,9 @@
       }
     }
   }
+  .accordion-panel {
+    @apply flex w-full flex-col;
+  }
 }
 
 @layer utilities {
@@ -244,26 +247,44 @@
       @apply text-white hover:text-tertiary-300;
     }
   }
-  .input-text {
-    @apply hover:text-tertiary-300 hover:underline disabled:text-neutral-400;
+  .size-sm {
+    @apply shadow-sm p-1 rounded-lg;
   }
-  .input-base {
+  .size-base {
     @apply shadow-sm p-2 rounded-lg;
   }
+  .input-primary, .input-secondary, .input-tertiary, .input-warning {
+    @apply cursor-pointer hover:text-tertiary-300 disabled:text-neutral-400 disabled:cursor-auto;
+    transition: ease-in-out .2s;
+    --webkit-transition: ease-in-out .2s;
+    transition-propery: all;
+  }
   .input-primary {
-    @apply bg-primary-800 hover:bg-primary-600 active:bg-primary-600 disabled:bg-primary-950;
+    @apply hover:bg-primary-600 active:bg-primary-600 disabled:bg-primary-950;
   }
   .input-secondary {
-    @apply bg-neutral-600/20 hover:bg-neutral-300/20 active:bg-neutral-300/20 disabled:bg-neutral-600/10;
+    @apply hover:bg-neutral-300/20 active:bg-neutral-300/20 disabled:bg-neutral-600/10;
+  }
+  .input-tertiary {
+    @apply hover:underline disabled:no-underline;
   }
   .input-warning {
-    @apply bg-red-800 hover:bg-red-700 active:bg-red-700 disabled:bg-red-950
+    @apply hover:bg-red-700 active:bg-red-700 disabled:bg-red-950;
+  }
+  .bg-primary {
+    @apply bg-primary-800;
+  }
+  .bg-secondary {
+    @apply bg-neutral-600/20;
+  }
+  .bg-warning {
+    @apply bg-red-800;
   }
   .active-link {
     @apply pointer-events-none text-tertiary-300;
   }
   .checkbox {
-    @apply size-4 self-center accent-primary-400;
+    @apply size-4 self-center;
   }
   .inset {
     box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.50) inset;
@@ -275,7 +296,8 @@
     @apply size-4 rounded-full;
   }
   .ease-in-out {
-    transition: all ease-in-out .2s;
-    --webkit-transition: all ease-in-out .2s;
+    transition: ease-in-out .2s;
+    --webkit-transition: ease-in-out .2s;
+    transition-propery: all;
   }
 }

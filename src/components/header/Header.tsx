@@ -13,7 +13,7 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ slug }) => {
   const navLinks = navigation
     .slice(1)
-    .map(data => <Link className="input-text input-base input-secondary" key={data.href} {...data} />);
+    .map(data => <Link className="size-base input-secondary" key={data.href} {...data} />);
 
   return (
     <>

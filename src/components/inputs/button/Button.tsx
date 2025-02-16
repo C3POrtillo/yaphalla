@@ -1,11 +1,12 @@
+import type { HierarchyTypes, InputSizeTypes } from '@/utils/types';
 import type { ButtonHTMLAttributes, FC } from 'react';
 
 import { joinStrings } from '@/utils/utils';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   selected?: boolean;
-  size?: 'base';
-  hierarchy?: 'primary' | 'secondary' | 'tertiary' | 'warning';
+  size?: InputSizeTypes;
+  hierarchy?: HierarchyTypes;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -18,7 +19,7 @@ const Button: FC<ButtonProps> = ({
   ...props
 }) => (
   <button
-    className={joinStrings('input-text', `input-${size}`, `input-${hierarchy}`, className, selected && 'active-link')}
+    className={joinStrings(`size-${size} bg-${hierarchy} input-${hierarchy}`, className, selected && 'active-link')}
     disabled={selected || disabled}
     {...props}
   >

@@ -8,7 +8,7 @@ const Index: FC = () => (
     <div className="flex flex-col bg-primary-950/80 gap-4 rounded-lg p-4 justify-center items-center">
       <h1>Site In Progress</h1>
       <p>Please use ortillo.cam in the meantime</p>
-      <Link href="https://ortillo.cam/afkj/editor" className="input-text input-base input-secondary">
+      <Link href="https://ortillo.cam/afkj/editor" className="size-base input-secondary">
         ortillo.cam
       </Link>
     </div>

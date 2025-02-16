@@ -74,11 +74,11 @@
   body {
     @apply min-h-[100vh] bg-gradient-to-b from-primary-700 via-primary-950 to-black; 
   }
-  header {
+  .header {
     @apply bg-gradient-to-b from-black to-primary-800 shadow-black;
     box-shadow: 0px 4px -4px 0px rgba(0, 0, 0, 0.50);
   }
-  footer {
+  .footer {
     @apply bg-gradient-to-b from-primary-800 to-black shadow-black;
     box-shadow: 0px -4px 4px 0px rgba(0, 0, 0, 0.50);
   }
@@ -106,6 +106,7 @@
     }
   }
   .logo {
+    @apply h-12;
     aspect-ratio: 1735 / 577;
   }
   .hex-icon {
@@ -242,11 +243,6 @@
   .sticky-below-header {
     @apply sticky top-[80px] z-10;
   }
-  .social {
-    .fa-discord, .fa-twitter, .fa-instagram {
-      @apply text-white hover:text-tertiary-300;
-    }
-  }
   .size-sm {
     @apply shadow-sm p-1 rounded-lg;
   }
@@ -264,9 +260,6 @@
   }
   .input-secondary {
     @apply hover:bg-neutral-300/20 active:bg-neutral-300/20 disabled:bg-neutral-600/10;
-  }
-  .input-tertiary {
-    @apply hover:underline disabled:no-underline;
   }
   .input-warning {
     @apply hover:bg-red-700 active:bg-red-700 disabled:bg-red-950;

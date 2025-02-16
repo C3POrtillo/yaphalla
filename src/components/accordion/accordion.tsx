@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useRef, useState } from 'react';
 
 import type { HierarchyTypes } from '@/utils/types';
@@ -6,9 +7,10 @@ import type { FC, PropsWithChildren, ReactNode } from 'react';
 import { joinStrings } from '@/utils/utils';
 
 interface AccordionProps extends PropsWithChildren {
+  className?: string;
   hierarchy?: HierarchyTypes;
   label?: string | ReactNode;
-  icon?: string;
+  icon?: 'fa-bars';
   labelIsClickable?: boolean;
   keepOpen?: boolean;
   ariaLabel?: string;
@@ -17,7 +19,8 @@ interface AccordionProps extends PropsWithChildren {
 }
 
 const Accordion: FC<AccordionProps> = ({
-  hierarchy,
+  className,
+  hierarchy = 'primary',
   label,
   icon,
   children,
@@ -68,6 +71,7 @@ const Accordion: FC<AccordionProps> = ({
       {label && (
         <div
           className={joinStrings(
+            className,
             'flex w-full flex-row items-center justify-between ease-in-out',
             `size-${isClickable ? 'base' : 'sm'}`,
             hierarchy && `bg-${hierarchy}`,
@@ -75,7 +79,7 @@ const Accordion: FC<AccordionProps> = ({
             isOpen && '!rounded-b-none',
           )}
         >
-          {!isClickable && <div className="pl-1">{label}</div>}
+          {!isClickable && <div className="pl-1 w-full">{label}</div>}
           <button
             onClick={toggleDropdown}
             className={joinStrings(
@@ -87,11 +91,15 @@ const Accordion: FC<AccordionProps> = ({
             aria-label={!isClickable ? ariaLabel : undefined}
           >
             {isClickable && label}
-            <i className={joinStrings('fa self-center before:text-lg', faIcon)} />
+            <i className={joinStrings('fa self-center before:text-2xl lg:before:text-lg', faIcon)} />
           </button>
         </div>
       )}
-      <div ref={panelRef} className="accordion-panel ease-in-out rounded-b-lg overflow-hidden" style={{ maxHeight }}>
+      <div
+        ref={panelRef}
+        className={joinStrings('accordion-panel ease-in-out rounded-b-lg overflow-hidden')}
+        style={{ maxHeight }}
+      >
         {children}
       </div>
     </div>

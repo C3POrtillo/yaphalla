@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import Link from '@/components/link/Link';
 
 const LogoLink: FC = () => (
-  <Link href="/" className="relative h-16 logo">
+  <Link href="/" className="relative logo input-secondary size-sm">
     <Image src="/assets/images/yaphalla-logo.png" alt="Homepage" fill priority />
   </Link>
 );

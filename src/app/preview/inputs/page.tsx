@@ -23,7 +23,7 @@ const Index: FC = () => {
             {Array(2)
               .fill(0)
               .map((_, i) => (
-                <div key={i} className="flex flex-row gap-2">
+                <div key={i} className="flex flex-row gap-2 flex-wrap">
                   {hierarchies.map(hierarchy => (
                     <Button key={hierarchy} hierarchy={hierarchy} disabled={!!i}>
                       {hierarchy}
@@ -34,7 +34,7 @@ const Index: FC = () => {
           </div>
           <div className="h-min flex flex-col bg-primary-950/80 justify-center items-center rounded-lg p-4 gap-4">
             <h2>Text</h2>
-            <div className="flex flex-row gap-2 items-end">
+            <div className="flex flex-row gap-2 items-end flex-wrap">
               {input.map((label, i) => (
                 <Text key={label} label={label} placeholder={label} hideLabel={!!i} />
               ))}
@@ -46,7 +46,7 @@ const Index: FC = () => {
               .fill(0)
               .map((_, i) =>
                 toggles.map(variant => (
-                  <div key={`${i}-${variant}`} className="flex flex-row gap-2">
+                  <div key={`${i}-${variant}`} className="flex flex-row flex-wrap justify-center gap-2">
                     {hierarchies.map((hierarchy, j) => (
                       <Toggle
                         variant={variant}
@@ -73,7 +73,7 @@ const Index: FC = () => {
                   {hierarchies.map(hierarchy => (
                     <Accordion
                       key={hierarchy}
-                      label={`${i ? '' : ' Not'} Clickable (${hierarchy})`}
+                      label={`Label${i ? '' : ' Not'} Clickable (${hierarchy})`}
                       hierarchy={hierarchy}
                       labelIsClickable={!!i}
                     >

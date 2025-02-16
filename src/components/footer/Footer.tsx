@@ -5,7 +5,7 @@ import Socials from '@/components/socials/Socials';
 import { discordNames } from '@/utils/types';
 
 const Footer: FC = () => (
-  <footer className="flex flex-col mt-auto place-items-center content-center justify-center gap-2 p-4 text-center">
+  <footer className="footer flex flex-col mt-auto place-items-center content-center justify-center gap-2 p-4 text-center">
     <div className="flex flex-col xs:flex-row justify-around gap-2 xs:gap-16 items-center">
       <LogoLink />
       <Socials />

@@ -25,7 +25,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
     <head>
       <Script src="https://kit.fontawesome.com/8a3bf2a858.js" crossOrigin="anonymous" />
     </head>
-    <body className="h-[100vh] w-[100vw] snap-y">
+    <body className="h-[100vh] snap-y">
       <div className="flex min-w-full max-w-full min-h-full">
         <main className={`${font.variable} font-sans flex grow flex-col items-center justify-between relative z-0`}>
           <Header />

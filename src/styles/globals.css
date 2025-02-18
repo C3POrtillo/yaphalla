@@ -61,15 +61,15 @@
 @layer base {
   html {
     @apply text-white font-semibold font-sans snap-y lg:text-lg min-h-max;
-    h1 {
-      @apply font-bold text-2xl lg:text-3xl;
-    }
-    h2, h3 {
-      @apply font-bold text-xl lg:text-2xl;
-    }
-    p {
-      @apply text-lg lg:text-xl;
-    }
+  }
+  h1 {
+    @apply font-bold text-2xl lg:text-3xl;
+  }
+  h2, h3 {
+    @apply font-bold text-xl lg:text-2xl;
+  }
+  h4, h5, h6, p {
+    @apply text-lg lg:text-xl;
   }
   input::placeholder {
     @apply px-1;
@@ -81,15 +81,15 @@
     @apply bg-gradient-to-b from-primary-900 via-primary-950 to-black;
   }
   .header {
-    @apply w-full bg-gradient-to-b from-black to-primary-800 shadow-black;
+    @apply w-full bg-gradient-to-b from-black to-primary-800 shadow-black relative flex flex-col place-items-center justify-center text-center shadow-sm shadow-black lg:py-3;
     box-shadow: 0px 4px -4px 0px rgba(0, 0, 0, 0.50);
   }
   .footer {
-    @apply w-full bg-gradient-to-b from-primary-800 to-black shadow-black;
+    @apply mt-4 w-full bg-gradient-to-b from-primary-800 to-black shadow-black flex flex-col place-items-center content-center justify-center gap-2 p-4 text-center;
     box-shadow: 0px -4px 4px 0px rgba(0, 0, 0, 0.50);
   }
   section {
-    @apply flex w-full scroll-mt-[84px] lg:scroll-mt-[128px] xl:scroll-mt-[-132px] content-center justify-center gap-4 place-self-center mx-auto;
+    @apply flex w-full scroll-mt-[56px] lg:scroll-mt-[81px] content-center justify-center gap-4 place-self-center mx-auto;
   }
 }
 
@@ -247,6 +247,7 @@
     @apply text-xl md:text-2xl;
   }
   .scroll-bar-left {
+    @apply lg:pr-[17px];
     direction: rtl;
     scrollbar-gutter: stable;
   }
@@ -304,11 +305,11 @@
   .active-link {
     @apply pointer-events-none text-tertiary-300 disabled:text-tertiary-300;
   }
+  .active-border {
+    @apply border-2 border-solid border-tertiary-300;
+  }
   .checkbox {
     @apply size-4 self-center;
-  }
-  .inset, .inset-primary, .inset-secondary {
-    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.50) inset;
   }
   .slider {
     @apply min-w-10 h-6 rounded-full flex flex-row p-1 items-center justify-center;
@@ -324,13 +325,19 @@
   .container-primary {
     @apply bg-primary-950/80 p-2 rounded-lg shadow-sm shadow-black;
   }
-  .inset-primary, .inset-secondary {
+  .inset, .inset-primary, .inset-secondary, .inset-black {
+    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.50) inset;
+  }
+  .inset-primary, .inset-secondary, .inset-black {
     @apply p-2 rounded-lg;
   }
   .inset-primary {
-    @apply bg-primary-900;
+    @apply bg-primary-950;
   }
   .inset-secondary {
     @apply bg-primary-750;
+  }
+  .inset-black {
+    @apply bg-black/50;
   }
 }

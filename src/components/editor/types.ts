@@ -3,7 +3,9 @@ export const Faction = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celesti
 
 export type Faction = (typeof Faction)[number];
 export type UnitClass = (typeof UnitClass)[number];
-type ArtifactSource = 'Pre-Season' | `Season ${number}`;
+export type ArtifactSource = 'Pre-Season' | `Season ${number}`;
+
+export const currentSeason = 'Season 3' as const;
 
 export const Artifacts = {
   'Pre-Season': ['Awakening', 'Starshard', 'Enlightening', 'Blazing', 'Confining', 'Ironwall'],
@@ -118,14 +120,14 @@ export type Formation = {
 };
 
 export const TileLayout = [
-  { length: 2, offset: 'pl-60', reverse: 'self-end', preview: 'pl-36' },
-  { length: 5, offset: 'pl-30', reverse: 'self-end pr-10', preview: 'pl-18' },
-  { length: 6, offset: 'pl-20', reverse: 'self-end', preview: 'pl-12' },
-  { length: 6, offset: 'pl-10', reverse: 'self-end pr-10', preview: 'pl-6' },
+  { length: 2, offset: 'pl-60', reverse: 'self-end', preview: 'pl-24' },
+  { length: 5, offset: 'pl-30', reverse: 'self-end pr-10', preview: 'pl-12' },
+  { length: 6, offset: 'pl-20', reverse: 'self-end', preview: 'pl-8' },
+  { length: 6, offset: 'pl-10', reverse: 'self-end pr-10', preview: 'pl-4' },
   { length: 7, offset: '', reverse: 'self-end', preview: '' },
-  { length: 6, offset: 'pl-10', reverse: 'self-end pr-10', preview: 'pl-6' },
+  { length: 6, offset: 'pl-10', reverse: 'self-end pr-10', preview: 'pl-4' },
   { length: 6, offset: '', reverse: 'self-end pr-20', preview: '' },
-  { length: 5, offset: 'pl-10', reverse: 'self-end pr-30', preview: 'pl-6' },
+  { length: 5, offset: 'pl-10', reverse: 'self-end pr-30', preview: 'pl-4' },
   { length: 2, offset: '', reverse: 'self-end pr-60', preview: '' },
 ] as const;
 
@@ -184,6 +186,14 @@ export const ArenaPresets = {
   'Supreme Arena III': [
     0, -1, -1, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0,
     0, 1, 1, 1, 0, 0, 1, 1, 0,
+  ],
+  'Supreme Arena IV': [
+    -1, -1, 0, -1, -1, -1, -1, 0, 0, 0, -1, -1, -1, 1, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, -1, 1, 1, 1,
+    0, 0, 0, 1, 1, 1, 1, 0, 1, 1,
+  ],
+  'Supreme Arena V': [
+    0, -1, -1, -1, 0, 0, -1, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, -1, 0, -1, -1, 1, 1, 0, 0, 0, 0, 1, 1, 1,
+    1, 0, 0, 1, 1, 1, 1, 0, 1, 1,
   ],
 } as const;
 

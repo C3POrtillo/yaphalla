@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import type { FC } from 'react';
 
 import { HexPath } from '@/components/editor/types';
+import { getSizeClass } from '@/components/editor/utils';
 import { joinStrings } from '@/utils/utils';
 
 interface HexImageProps {
@@ -32,10 +33,6 @@ const HexImage: FC<HexImageProps> = ({
   size = 'md',
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const mdClass = size === 'md' && 'min-w-20';
-  const smClass = size === 'sm' && 'min-w-16';
-  const xsClass = size === 'xs' && 'min-w-12';
-  const twoXsClass = size === '2xs' && 'min-w-8';
 
   useEffect(() => {
     if (disabled) {
@@ -49,10 +46,7 @@ const HexImage: FC<HexImageProps> = ({
         'hex-icon relative',
         !disabled && !disabledOverlay && 'hex-overlay',
         disabledOverlay && 'disabled-overlay',
-        mdClass,
-        smClass,
-        xsClass,
-        twoXsClass,
+        getSizeClass(size),
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

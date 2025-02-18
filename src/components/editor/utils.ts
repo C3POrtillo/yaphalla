@@ -59,7 +59,7 @@ export const getRelativeTileLabels = (tiles: (-1 | 0 | 1)[]) => {
 };
 
 export const getIsTopRight = (tileData: (-1 | 0 | 1)[]) =>
-  [28, 38, 39, 43].some(i => tileData[i] !== 1) || [1, 5, 6, 16].some(i => tileData[i] === 1);
+  [28, 38, 39, 43].some(i => tileData[i] !== 1) && [1, 5, 6, 16].some(i => tileData[i] === 1);
 
 export const getSizeClass = (size: 'md' | 'sm' | 'xs' | '2xs') => {
   if (size === 'sm') {

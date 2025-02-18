@@ -120,7 +120,7 @@ const UnitEditor: FC = () => {
     {
       name: 'enemyToggle',
       defaultChecked: !isEnemy,
-      value: 'Enemy Tiles',
+      value: 'Enemy',
       disabled: isEditArena,
       onChange: setEnemy,
     },
@@ -141,7 +141,7 @@ const UnitEditor: FC = () => {
 
   const controlDivs = [
     {
-      label: 'Hide/Show',
+      label: 'Enable:',
       divs: unitControls.map(({ onChange, name, ...props }) => (
         <Toggle
           key={name}
@@ -163,7 +163,8 @@ const UnitEditor: FC = () => {
           <TileGrid {...gridProps}>
             <div className="flex flex-col w-full gap-2">
               {controlDivs.map(({ label, divs }) => (
-                <div key={label} className="w-full flex flex-col gap-2 items-center">
+                <div key={label} className="w-full flex flex-row gap-2 items-center">
+                  <span>{label}</span>
                   <div className="w-full flex flex-row gap-2">{divs}</div>
                 </div>
               ))}

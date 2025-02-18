@@ -135,7 +135,7 @@ const TileGrid: FC<TileGridProps> = ({
   const tileDivs = formattedTiles.map(({ tiles, offset, reverse }, i) => {
     const beforeFirst = firstPlayerRow !== undefined && i < firstPlayerRow;
     const afterLast = lastPlayerRow !== undefined && i > lastPlayerRow;
-    const hideRow = hideEnemy && (beforeFirst || afterLast);
+    const hideRow = hideEmpty && hideEnemy && (beforeFirst || afterLast);
     if (hideRow) {
       return null;
     }
@@ -145,7 +145,7 @@ const TileGrid: FC<TileGridProps> = ({
     const hideEmptyLast = hideEmptyArtifact && !enemyArtifact;
     const isDisabled = hideArtifacts || disableArtifacts || hideEmptyLast || hideEmptyFirst;
     const hideLabel = hideNumbers || hideArtifacts;
-    const relativeFirstRow = hideEnemy && i === firstPlayerRow;
+    const relativeFirstRow = hideEmpty && hideEnemy && i === firstPlayerRow;
 
     return (
       <div
@@ -182,6 +182,9 @@ const TileGrid: FC<TileGridProps> = ({
           const omitDirection = isTopRight
             ? relativeIndex < tiles.findIndex(a => a.state === 1)
             : relativeIndex > tiles.findLastIndex(a => a.state === 1);
+          const showFirstHex =
+            tiles.every((a) => a.state === 0 || a.state === -1) &&
+            (isTopRight ? relativeIndex === tiles.length - 1 : relativeIndex === 0);
           const omitHex =
             hideEnemy &&
             hideEmpty &&
@@ -209,7 +212,7 @@ const TileGrid: FC<TileGridProps> = ({
           const { src, path } = getImage();
 
           return (
-            (!omitHex || !relativeIndex) && (
+            (!omitHex || showFirstHex) && (
               <button
                 key={index}
                 className="cursor-pointer disabled:cursor-auto"
@@ -262,18 +265,20 @@ const TileGrid: FC<TileGridProps> = ({
         <Text
           className="h-12"
           value={title}
-          label={title}
+          label="Formation Title"
           placeholder="Formation Title"
           hideLabel
           setState={setTitle}
         />
       )}
-      <div className="inset-black size-full flex items-center justify-center m-auto">
-        <div id={id} className="relative flex flex-col">
-          {tileDivs}
+      {children}
+      <div className="inset rounded-lg bg-primary-900 size-full flex items-center justify-center m-auto">
+        <div className="inset-black">
+          <div id={id} className="relative flex flex-col">
+            {tileDivs}
+          </div>
         </div>
       </div>
-      {children}
     </div>
   );
 };

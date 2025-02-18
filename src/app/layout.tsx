@@ -19,7 +19,7 @@ const font = Lato({
 export const viewport: Viewport = {
   width: 'device-width',
   height: 'device-height',
-}
+};
 
 export const metadata: Metadata = {
   title: 'Yaphalla',
@@ -54,7 +54,12 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
     </head>
     <body className="h-[100vh] snap-y">
       <div className="flex min-w-full max-w-full min-h-full">
-        <main className={joinStrings(font.variable, 'font-sans flex grow flex-col items-center justify-between relative z-0')}>
+        <main
+          className={joinStrings(
+            font.variable,
+            'font-sans flex grow flex-col items-center justify-between relative z-0',
+          )}
+        >
           <Header />
           <Breadcrumbs />
           {children}

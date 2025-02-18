@@ -311,9 +311,6 @@
   .checkbox {
     @apply size-4 self-center;
   }
-  .inset, .inset-primary, .inset-secondary {
-    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.50) inset;
-  }
   .slider {
     @apply min-w-10 h-6 rounded-full flex flex-row p-1 items-center justify-center;
   }
@@ -328,6 +325,9 @@
   .container-primary {
     @apply bg-primary-950/80 p-2 rounded-lg shadow-sm shadow-black;
   }
+  .inset, .inset-primary, .inset-secondary, .inset-black {
+    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.50) inset;
+  }
   .inset-primary, .inset-secondary, .inset-black {
     @apply p-2 rounded-lg;
   }
@@ -338,6 +338,6 @@
     @apply bg-primary-750;
   }
   .inset-black {
-    @apply bg-black/30;
+    @apply bg-black/50;
   }
 }

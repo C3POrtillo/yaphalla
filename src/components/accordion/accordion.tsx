@@ -71,7 +71,7 @@ const Accordion: FC<AccordionProps> = ({
           className={joinStrings(
             className,
             'flex w-full flex-row items-center justify-between ease-in-out',
-            `size-${isClickable ? 'base' : 'sm'}`,
+            isClickable ? 'size-base': 'shadow-sm p-1',
             hierarchy && `bg-${hierarchy}`,
             isClickable && hierarchy && `input-${hierarchy}`,
             isOpen && '!rounded-b-none',
@@ -89,7 +89,7 @@ const Accordion: FC<AccordionProps> = ({
             aria-label={!isClickable ? ariaLabel : undefined}
           >
             {isClickable && label}
-            <i className={joinStrings('fa self-center before:text-2xl lg:before:text-lg', faIcon)} />
+            <i className={joinStrings('fa self-center before:text-2xl lg:before:text-lg', faIcon, !isClickable && 'mx-auto')} />
           </button>
         </div>
       )}

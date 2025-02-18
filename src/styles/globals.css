@@ -81,7 +81,7 @@
     @apply bg-gradient-to-b from-primary-900 via-primary-950 to-black;
   }
   .header {
-    @apply mb-4 w-full bg-gradient-to-b from-black to-primary-800 shadow-black relative flex flex-col place-items-center justify-center text-center shadow-md shadow-black lg:py-3;
+    @apply w-full bg-gradient-to-b from-black to-primary-800 shadow-black relative flex flex-col place-items-center justify-center text-center shadow-sm shadow-black lg:py-3;
     box-shadow: 0px 4px -4px 0px rgba(0, 0, 0, 0.50);
   }
   .footer {

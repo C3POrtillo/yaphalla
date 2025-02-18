@@ -1,5 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
+
+export const viewport: Viewport = {
+  initialScale: .7
+}
 
 export const metadata: Metadata = {
   title: 'YapBuilder',

@@ -268,7 +268,7 @@ const TileGrid: FC<TileGridProps> = ({
           setState={setTitle}
         />
       )}
-      <div className="inset-primary size-full flex items-center justify-center m-auto">
+      <div className="inset-black size-full flex items-center justify-center m-auto">
         <div id={id} className="relative flex flex-col">
           {tileDivs}
         </div>

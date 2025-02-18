@@ -328,13 +328,16 @@
   .container-primary {
     @apply bg-primary-950/80 p-2 rounded-lg shadow-sm shadow-black;
   }
-  .inset-primary, .inset-secondary {
+  .inset-primary, .inset-secondary, .inset-black {
     @apply p-2 rounded-lg;
   }
   .inset-primary {
-    @apply bg-primary-900;
+    @apply bg-primary-950;
   }
   .inset-secondary {
     @apply bg-primary-750;
+  }
+  .inset-black {
+    @apply bg-black/30;
   }
 }

@@ -18,6 +18,27 @@ const font = Lato({
 export const metadata: Metadata = {
   title: 'Yaphalla',
   description: 'Providing players with the best tools and content for AFK Journey by Lilith Games!',
+  openGraph: {
+    title: 'Yaphalla',
+    description: 'Providing players with the best tools and content for AFK Journey by Lilith Games!',
+    url: 'https://yaphalla.com',
+    siteName: 'Yaphalla',
+    images: [
+      {
+        url: 'https://www.yaphalla.com/assets/images/yaphalla-dog.png',
+        width: 512,
+        height: 512,
+        alt: 'Yaphalla',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Yaphalla',
+    description: 'Providing players with the best tools and content for AFK Journey by Lilith Games!',
+    images: ['https://www.yaphalla.com/assets/images/yaphalla-dog.png'],
+  },
 };
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => (

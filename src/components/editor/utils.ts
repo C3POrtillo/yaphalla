@@ -60,3 +60,32 @@ export const getRelativeTileLabels = (tiles: (-1 | 0 | 1)[]) => {
 
 export const getIsTopRight = (tileData: (-1 | 0 | 1)[]) =>
   [28, 38, 39, 43].some(i => tileData[i] !== 1) || [1, 5, 6, 16].some(i => tileData[i] === 1);
+
+export const getSizeClass = (size: 'md' | 'sm' | 'xs' | '2xs') => {
+  if (size === 'sm') {
+    return 'min-w-16';
+  }
+  if (size === 'xs') {
+    return 'min-w-12';
+  }
+  if (size === '2xs') {
+    return 'min-w-8';
+  }
+
+  return 'min-w-20';
+};
+
+export const getDrawImage = (str: string) => {
+  const label = str.toLowerCase();
+  const path = label === 'unit' ? ('unit' as const) : ('base' as const);
+  let src = 'Hammie';
+
+  if (label === 'player') {
+    src = 'Generic-Hex';
+  }
+  if (label === 'enemy') {
+    src = 'Enemy-Hex';
+  }
+
+  return { src, path };
+};

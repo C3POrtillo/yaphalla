@@ -11,6 +11,8 @@ interface TilePreviewProps {
 }
 
 const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
+  const size = '2xs' as const;
+
   const formattedTileData = () => {
     const result: TileDivData[] = [];
     let index = 0;
@@ -39,11 +41,11 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
     const isLast = i === formattedTiles.length - 1;
 
     return (
-      <div key={i} className={joinStrings('flex min-h-12 flex-row', i && '-mt-3', offset)}>
+      <div key={i} className={joinStrings('flex flex-row', i && '-mt-2', offset)}>
         {isLast && (
           <>
-            <HexImage src="Artifact-Hex" hideLabel path="artifact" disabled hideImage size="xs" />
-            <Logo size="xs" />
+            <HexImage src="Artifact-Hex" hideLabel path="artifact" disabled hideImage size={size} />
+            <Logo size={size} />
           </>
         )}
         {tiles.map((tile, j) => {
@@ -62,12 +64,12 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
 
           const src = getImage();
 
-          return <HexImage key={j} src={src} path="base" size="xs" disabled />;
+          return <HexImage key={j} src={src} path="base" size={size} disabled />;
         })}
         {isFirst && (
           <>
-            <Logo isCat size="xs" />
-            <HexImage src="Artifact-Hex" hideLabel path="artifact" disabled hideImage size="xs" />
+            <Logo isCat size={size} />
+            <HexImage src="Artifact-Hex" hideLabel path="artifact" disabled hideImage size={size} />
           </>
         )}
       </div>

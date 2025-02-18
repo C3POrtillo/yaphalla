@@ -7,6 +7,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   selected?: boolean;
   size?: InputSizeTypes;
   hierarchy?: HierarchyTypes;
+  hasActiveBorder?: boolean;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -16,10 +17,16 @@ const Button: FC<ButtonProps> = ({
   disabled,
   size = 'base',
   hierarchy = 'primary',
+  hasActiveBorder,
   ...props
 }) => (
   <button
-    className={joinStrings(`size-${size} bg-${hierarchy} input-${hierarchy}`, className, selected && 'active-link')}
+    className={joinStrings(
+      `border-2 border-transparent size-${size} bg-${hierarchy} input-${hierarchy}`,
+      className,
+      selected && 'active-link',
+      selected && hasActiveBorder && 'active-border',
+    )}
     disabled={selected || disabled}
     {...props}
   >

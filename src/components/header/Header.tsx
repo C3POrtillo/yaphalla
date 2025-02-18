@@ -14,7 +14,7 @@ const Header: FC = () => {
     ));
 
   return (
-    <header className="header sticky-header relative flex flex-col place-items-center justify-center text-center shadow-md shadow-black lg:py-3">
+    <header className="header sticky-header">
       <div className="mx-auto hidden min-h-6 w-full max-w-7xl flex-row items-center justify-between gap-4 px-4 lg:flex">
         <div className="flex flex-row items-center gap-6">
           <LogoLink />

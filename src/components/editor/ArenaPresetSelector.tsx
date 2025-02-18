@@ -24,7 +24,7 @@ const ArenaPresetSelector: FC<ArenaPresetSelectorProps> = ({ variant = 'base' })
       <div className="relative h-16 w-full block sm:hidden">
         <div className="container-primary absolute top-0 left-0 z-20 w-full p-2">
           <Accordion label={isPreset ? preset : 'Select Map'} keepOpen={false}>
-            <div className="scroll-bar-left scroll-bar-auto inset-secondary flex flex-col p-2 gap-1 max-h-[360px] overflow-auto">
+            <div className="scroll-bar-left scroll-bar-auto inset-secondary !rounded-t-none flex flex-col p-2 gap-1 max-h-[360px] overflow-auto">
               {Object.keys(ArenaPresets)
                 .slice(1)
                 .map(label => (

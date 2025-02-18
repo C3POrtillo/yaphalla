@@ -67,7 +67,7 @@ const ArtifactGrid: FC = () => {
               )}
             >
               <Accordion label={label.includes('Season ') ? 'Seasonal' : label} keepOpen={false}>
-                <div className="scroll-bar-left scroll-bar-auto inset-secondary flex flex-col p-2 gap-1 max-h-[360px] overflow-auto">
+                <div className="scroll-bar-left scroll-bar-auto inset-secondary !rounded-t-none flex flex-col p-2 gap-1 max-h-[360px] overflow-auto">
                   {getArtifactButtons(artifacts, 'tertiary')}
                 </div>
               </Accordion>

@@ -17,6 +17,7 @@ interface HexImageProps {
   disabled?: boolean;
   disabledOverlay?: boolean;
   isEnemy?: boolean;
+  isTalent?: boolean;
   size?: 'md' | 'sm' | 'xs' | '2xs';
 }
 
@@ -30,6 +31,7 @@ const HexImage: FC<HexImageProps> = ({
   disabled,
   disabledOverlay,
   isEnemy,
+  isTalent,
   size = 'md',
 }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -39,6 +41,25 @@ const HexImage: FC<HexImageProps> = ({
       setIsHovered(false);
     }
   }, [disabled]);
+
+  const overlaySrcs = [
+    isEnemy && 'base/Enemy-Overlay',
+    isTalent && 'base/Talent-Selected',
+    !disabled && (selected || isHovered) && 'base/Select-Outline',
+  ].filter(Boolean) as string[];
+
+  const renderImage = (imageSrc: string, zIndex: string) => (
+    <Image
+      key={imageSrc}
+      src={`${HexPath}${imageSrc}.png`}
+      alt=""
+      fill
+      sizes="256px"
+      unoptimized
+      className={zIndex}
+      priority
+    />
+  );
 
   return (
     <div
@@ -56,29 +77,8 @@ const HexImage: FC<HexImageProps> = ({
           {label}
         </div>
       )}
-      {isEnemy && (
-        <Image
-          src={`${HexPath}base/Enemy-Overlay.png`}
-          alt=""
-          fill
-          sizes="256px"
-          unoptimized
-          className="z-10"
-          priority
-        />
-      )}
-      {!disabled && (selected || isHovered) && (
-        <Image
-          src={`${HexPath}base/Select-Outline.png`}
-          alt=""
-          fill
-          sizes="256px"
-          unoptimized
-          className="z-10"
-          priority
-        />
-      )}
-      {!hideImage && <Image src={`${HexPath}${path}/${src}.png`} alt={src} fill sizes="256px" unoptimized priority />}
+      {overlaySrcs.map((imageSrc, index) => renderImage(imageSrc, `z-${10 + index * 10}`))}
+      {!hideImage && renderImage(`${path}/${src}`, 'z-0')}
     </div>
   );
 };

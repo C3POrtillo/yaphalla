@@ -5,7 +5,7 @@ import { useFormation } from '@/components/editor/FormationProvider';
 import TilePreview from '@/components/editor/TilePreview';
 import { ArenaPresets } from '@/components/editor/types';
 import Button from '@/components/inputs/button/Button';
-import { joinStrings } from '@/utils/utils';
+import { compareStrings, joinStrings } from '@/utils/utils';
 
 interface ArenaPresetSelectorProps {
   variant?: 'sm' | 'base';
@@ -15,7 +15,7 @@ const ArenaPresetSelector: FC<ArenaPresetSelectorProps> = ({ variant = 'base' })
   const { preset, setPreset } = useFormation();
   const isPreset = preset !== undefined && preset !== 'Custom';
   const displayClasses =
-    variant === 'base'
+    compareStrings(variant, 'base') === 0
       ? 'xl:grid xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6'
       : 'flex-col flex-wrap sm:flex xl:grid xl:grid-cols-2 ';
 

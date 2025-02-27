@@ -1,12 +1,13 @@
-import { type FC, type PropsWithChildren, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import type { TileData, TileDivData } from '@/components/editor/types';
+import type { FC, PropsWithChildren } from 'react';
 
+import ArtifactButton from '@/components/editor/ArtifactButton';
 import { useFormation } from '@/components/editor/FormationProvider';
-import HexImage from '@/components/editor/HexImage';
-import Logo from '@/components/editor/Logo';
+import TileButton from '@/components/editor/TileButton';
 import { TileLayout, indexToPosition } from '@/components/editor/types';
-import { getIsTopRight, getRelativeTileLabels } from '@/components/editor/utils';
+import { getIsTopRight, getRelativeTileLabels, getTalentTiles } from '@/components/editor/utils';
 import Text from '@/components/inputs/text/Text';
 import { joinStrings } from '@/utils/utils';
 
@@ -21,6 +22,7 @@ interface TileGridProps extends PropsWithChildren {
   hideUnits?: boolean;
   disableArtifacts?: boolean;
   hideEmptyArtifact?: boolean;
+  hideTalents?: boolean;
   onClick?: (tile: TileData) => void;
 }
 
@@ -35,28 +37,38 @@ const TileGrid: FC<TileGridProps> = ({
   disableArtifacts,
   hideUnits,
   hideEmptyArtifact,
+  hideTalents,
   onClick,
   children,
 }) => {
-  const {
-    preset,
-    isPreset,
-    tileData,
-    title,
-    setTitle,
-    currentTile,
-    currentArtifact,
-    setCurrentArtifact,
-    artifactData,
-    setArtifactData,
-    units,
-  } = useFormation();
+  const { preset, isPreset, tileData, title, setTitle, currentTile, units, activeFaction, getTileImage } =
+    useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
   const [formattedTiles, setFormattedTiles] = useState<TileDivData[]>([]);
-  const playerArtifact = !!artifactData.player.length && artifactData.player[0];
-  const enemyArtifact = !!artifactData.enemy.length && artifactData.enemy[0];
   const isTopRight = getIsTopRight(tileData);
+  const showTalents = !hideTalents && activeFaction;
+  const relativeTileLabel = getRelativeTileLabels(tileData);
+  const getArtifactProps = () => ({
+    hideNumbers,
+    hideArtifacts,
+    disableArtifacts,
+    hideEmptyArtifact,
+  });
+
+  const getTileLabel = (state: -1 | 0 | 1, index: number) => {
+    const absolutePosition = indexToPosition[index];
+    if (hideEmpty) {
+      if (state === 0) {
+        return;
+      }
+      const relativePosition = relativeTileLabel[hideEnemy ? 'player' : 'all'].indexOf(absolutePosition);
+
+      return 1 + relativePosition;
+    }
+
+    return absolutePosition;
+  };
 
   const formattedTileData = () => {
     setFirstPlayerRow(undefined);
@@ -76,8 +88,8 @@ const TileGrid: FC<TileGridProps> = ({
 
         const tileSlice = tileData.slice(index, index + length);
         const hasPlayer = tileSlice.includes(1);
-        const rowData = tileSlice.map((tile, i) => ({ state: tile, index: index + i }));
-        result.push({ offset, tiles: rowData, reverse });
+        const tiles = tileSlice.map((tile, i) => ({ state: tile, index: index + i }));
+        result.push({ offset, tiles, reverse });
 
         if (hasPlayer) {
           if (firstRow === undefined) {
@@ -101,50 +113,44 @@ const TileGrid: FC<TileGridProps> = ({
     setFormattedTiles(formattedTileData());
   }, [preset, isPreset, tileData]);
 
-  const setArtifact = (position: number, artifact: string | boolean) => {
-    setCurrentArtifact(currentArtifact === position ? undefined : position);
-    if (currentArtifact === position) {
-      const key = position ? 'enemy' : 'player';
-      if (typeof artifact === 'string' && !!artifactData[key].length) {
-        setArtifactData(prev => {
-          const updated = { ...prev };
-          const currentArtifacts = updated[key] || [];
+  const shouldOmitHex = (state: number, relativeIndex: number, tiles: TileData[]) => {
+    const omitDirection = isTopRight
+      ? relativeIndex < tiles.findIndex(a => a.state === 1)
+      : relativeIndex > tiles.findLastIndex(a => a.state === 1);
 
-          if (currentArtifacts.includes(artifact)) {
-            const filteredArtifacts = currentArtifacts.filter(a => a !== artifact);
-            delete updated[key];
-            updated[key] = filteredArtifacts;
-          }
+    const showFirstHex =
+      tiles.every(a => a.state === 0 || a.state === -1) &&
+      (isTopRight ? relativeIndex === tiles.length - 1 : relativeIndex === 0);
 
-          return updated;
-        });
-      }
-    }
+    return (
+      hideEnemy &&
+      hideEmpty &&
+      ((state !== 1 && tiles.some(a => a.state === 1) && omitDirection) || tiles.every(a => a.state !== 1)) &&
+      !showFirstHex
+    );
   };
 
-  const relativeTileLabel = getRelativeTileLabels(tileData);
-  const getRelativeLabel = (state: -1 | 0 | 1, tileLabel: number) => {
-    if (state === 0) {
-      return;
-    }
-    const relativePosition = relativeTileLabel[hideEnemy ? 'player' : 'all'].indexOf(tileLabel);
+  const shouldHideRow = (i: number) => {
+    const beforeFirst = firstPlayerRow !== undefined && i < firstPlayerRow;
+    const afterLast = lastPlayerRow !== undefined && i > lastPlayerRow;
 
-    return 1 + relativePosition;
+    return hideEmpty && hideEnemy && (beforeFirst || afterLast);
+  };
+
+  const getDisabledProps = (state: -1 | 0 | 1) => {
+    const disableGrid = (state === 0 && hideEmpty) || (hideEmpty && hideEnemy && state !== 1);
+    const disableEnemy = state === -1 && hideEnemy;
+    const disabled = disableGrid || disableEnemy || (state === 0 && disableEmpty);
+
+    return { disableGrid, disableEnemy, disabled };
   };
 
   const tileDivs = formattedTiles.map(({ tiles, offset, reverse }, i) => {
-    const beforeFirst = firstPlayerRow !== undefined && i < firstPlayerRow;
-    const afterLast = lastPlayerRow !== undefined && i > lastPlayerRow;
-    const hideRow = hideEmpty && hideEnemy && (beforeFirst || afterLast);
-    if (hideRow) {
+    if (shouldHideRow(i)) {
       return null;
     }
     const isFirst = i === 0;
     const isLast = i === formattedTiles.length - 1;
-    const hideEmptyFirst = hideEmptyArtifact && !playerArtifact;
-    const hideEmptyLast = hideEmptyArtifact && !enemyArtifact;
-    const isDisabled = hideArtifacts || disableArtifacts || hideEmptyLast || hideEmptyFirst;
-    const hideLabel = hideNumbers || hideArtifacts;
     const relativeFirstRow = hideEmpty && hideEnemy && i === firstPlayerRow;
 
     return (
@@ -156,103 +162,39 @@ const TileGrid: FC<TileGridProps> = ({
           hideEnemy && hideEmpty && isTopRight ? reverse : offset,
         )}
       >
-        {isLast && (
-          <>
-            <button
-              className="cursor-pointer disabled:cursor-auto"
-              onClick={() => setArtifact(0, playerArtifact)}
-              disabled={isDisabled}
-            >
-              <HexImage
-                src={playerArtifact || 'Artifact-Hex'}
-                selected={currentArtifact === 0 && !hideArtifacts}
-                label={playerArtifact ? '' : 'A1'}
-                hideLabel={hideLabel || hideEmptyFirst}
-                path="artifact"
-                disabled={isDisabled}
-                hideImage={hideArtifacts || hideEmptyFirst}
-              />
-            </button>
-            <Logo />
-          </>
-        )}
+        {isLast && <ArtifactButton index={0} label="A1" {...getArtifactProps()} />}
         {tiles.map((tile, relativeIndex) => {
           const { state, index } = tile;
-          const isSelected = !label && currentTile === index;
-          const omitDirection = isTopRight
-            ? relativeIndex < tiles.findIndex(a => a.state === 1)
-            : relativeIndex > tiles.findLastIndex(a => a.state === 1);
-          const showFirstHex =
-            tiles.every(a => a.state === 0 || a.state === -1) &&
-            (isTopRight ? relativeIndex === tiles.length - 1 : relativeIndex === 0);
-          const omitHex =
-            hideEnemy &&
-            hideEmpty &&
-            ((state !== 1 && tiles.some(a => a.state === 1) && omitDirection) || tiles.every(a => a.state !== 1));
-          const disableGrid = (state === 0 && hideEmpty) || (hideEmpty && hideEnemy && state !== 1);
-          const disableEnemy = state === -1 && hideEnemy;
-          const disabled = disableGrid || disableEnemy || (state === 0 && disableEmpty);
+          const omitHex = shouldOmitHex(state, relativeIndex, tiles);
+
+          if (omitHex) {
+            return null;
+          }
+
           const unit = units[index]?.unit;
-          const tileLabel = hideEmpty ? getRelativeLabel(state, indexToPosition[index]) : indexToPosition[index];
-
-          const getImage = () => {
-            const path = unit ? ('unit' as const) : ('base' as const);
-
-            let src = 'Generic-Outline';
-            if (state === 1) {
-              src = (!hideUnits && unit) || 'Generic-Hex';
-            }
-            if (state === -1 && !disableEnemy) {
-              src = (!hideUnits && unit) || 'Enemy-Hex';
-            }
-
-            return { src, path };
-          };
-
-          const { src, path } = getImage();
+          const tileLabel = getTileLabel(state, index);
+          const { disableGrid, disableEnemy, disabled } = getDisabledProps(state);
+          const { src, path } = getTileImage(unit, state, showTalents, hideUnits, hideEnemy);
 
           return (
-            (!omitHex || showFirstHex) && (
-              <button
-                key={index}
-                className="cursor-pointer disabled:cursor-auto"
-                onClick={() => onClick && onClick(tile)}
-                disabled={disabled}
-              >
-                <HexImage
-                  src={src}
-                  selected={isSelected}
-                  label={tileLabel}
-                  hideLabel={(!hideUnits && (disableGrid || (!disableEnemy && !!unit))) || hideNumbers}
-                  hideImage={disableGrid}
-                  isEnemy={!!unit && state === -1 && !disableEnemy}
-                  disabled={disabled}
-                  path={hideUnits || disableEnemy ? 'base' : path}
-                />
-              </button>
-            )
+            <TileButton
+              key={index}
+              src={src}
+              selected={!label && currentTile === index}
+              label={tileLabel}
+              hideLabel={(!hideUnits && (disableGrid || (!disableEnemy && !!unit))) || hideNumbers}
+              hideImage={disableGrid}
+              isEnemy={!!unit && state === -1 && !hideEnemy}
+              isTalent={
+                showTalents && getTalentTiles(relativeTileLabel.player, activeFaction).has(indexToPosition[index])
+              }
+              disabled={disabled}
+              path={hideUnits || disableEnemy ? 'base' : path}
+              onClick={() => onClick && onClick(tile)}
+            />
           );
         })}
-        {isFirst && (
-          <>
-            <Logo isCat />
-            <button
-              className="cursor-pointer disabled:cursor-auto"
-              onClick={() => setArtifact(1, enemyArtifact)}
-              disabled={isDisabled}
-            >
-              <HexImage
-                src={enemyArtifact || 'Artifact-Hex'}
-                selected={currentArtifact === 1 && !hideArtifacts}
-                label={enemyArtifact ? '' : 'A2'}
-                hideLabel={hideLabel || hideEmptyLast}
-                path="artifact"
-                disabled={isDisabled}
-                hideImage={hideArtifacts || hideEmptyLast}
-              />
-            </button>
-          </>
-        )}
+        {isFirst && <ArtifactButton index={1} label="A2" {...getArtifactProps()} isReverse isCat />}
       </div>
     );
   });

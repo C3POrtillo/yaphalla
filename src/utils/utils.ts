@@ -21,7 +21,7 @@ const capitalizeFirstLetter = (string: string): string =>
 export const titleCase = (string: string): string => {
   const capitalizedWords = cleanStringArray(string).map(word => capitalizeFirstLetter(word));
 
-  return capitalizedWords.filter(str => str).join(' ');
+  return capitalizedWords.filter(Boolean).join(' ');
 };
 
 export const camelCase = (string: string): string => {
@@ -80,4 +80,4 @@ export const getSEO = ({ title, description, slug, canonical, imageUrl, ...props
 });
 
 export const joinStrings = (...strings: (string | number | boolean | undefined | null)[]) =>
-  strings.filter(string => string).join(' ');
+  strings.filter(Boolean).join(' ');

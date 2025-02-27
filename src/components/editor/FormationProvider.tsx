@@ -5,13 +5,16 @@ import type {
   ArtifactFormationData,
   Faction,
   MenuTabTypes,
+  Talents,
   TileData,
   UnitClass,
   UnitFormationData,
 } from '@/components/editor/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { ArenaPresets } from '@/components/editor/types';
+import { ArenaPresets, requiredUnits } from '@/components/editor/types';
+import { countUnits } from '@/components/editor/utils';
+import { compareStrings } from '@/utils/utils';
 
 interface FormationContextType {
   title: string;
@@ -58,6 +61,20 @@ interface FormationContextType {
   updateUnit: (tile: TileData) => void;
   menuTab: MenuTabTypes;
   setMenuTab: Dispatch<SetStateAction<MenuTabTypes>>;
+  activeFaction?: Talents;
+  isTalents: boolean;
+  setTalents: Dispatch<SetStateAction<boolean>>;
+  setArtifact: (position: number, artifact: string | boolean) => void;
+  getTileImage: (
+    unit: string,
+    state: number,
+    showTalents: false | Talents | undefined,
+    hideUnits?: boolean,
+    disableEnemy?: boolean,
+  ) => {
+    src: string;
+    path: 'unit' | 'base';
+  };
 }
 
 const FormationContext = createContext<FormationContextType | undefined>(undefined);
@@ -87,6 +104,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [searchFilter, setSearchFilter] = useState<string>('');
   const [isEditArena, setEditArena] = useState<boolean>(false);
   const [menuTab, setMenuTab] = useState<MenuTabTypes>('artifact');
+  const [activeFaction, setActiveFaction] = useState<Talents>();
+  const [isTalents, setTalents] = useState<boolean>(true);
 
   const updateArena = (tile: TileData) =>
     setTileData(prev =>
@@ -135,8 +154,50 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   };
 
+  const setArtifact = (position: number, artifact: string | boolean) => {
+    setCurrentArtifact(currentArtifact === position ? undefined : position);
+    if (currentArtifact === position) {
+      const key = position ? 'enemy' : 'player';
+      if (typeof artifact === 'string' && !!artifactData[key].length) {
+        setArtifactData(prev => {
+          const updated = { ...prev };
+          const currentArtifacts = updated[key] || [];
+
+          if (currentArtifacts.includes(artifact)) {
+            const filteredArtifacts = currentArtifacts.filter(a => a !== artifact);
+            delete updated[key];
+            updated[key] = filteredArtifacts;
+          }
+
+          return updated;
+        });
+      }
+    }
+  };
+
+  const getTileImage = (
+    unit: string,
+    state: number,
+    showTalents: false | Talents | undefined,
+    hideUnits?: boolean,
+    disableEnemy?: boolean,
+  ) => {
+    const path = unit ? ('unit' as const) : ('base' as const);
+
+    let src = 'Generic-Outline';
+    if (state === 1) {
+      const blank = showTalents ? `${activeFaction}-Hex` : 'Generic-Hex';
+      src = (!hideUnits && unit) || blank;
+    }
+    if (state === -1 && !disableEnemy) {
+      src = (!hideUnits && unit) || 'Enemy-Hex';
+    }
+
+    return { src, path };
+  };
+
   useEffect(() => {
-    if (preset === 'Custom') {
+    if (compareStrings(preset, 'Custom') === 0) {
       return;
     }
     setUnits({});
@@ -144,7 +205,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [preset]);
 
   useEffect(() => {
-    if (currentTile !== undefined && tileData[currentTile] === 0) {
+    if (isEnemy && currentTile !== undefined && tileData[currentTile] !== 1) {
       setCurrentTile(undefined);
     }
   }, [isEnemy, currentTile]);
@@ -169,6 +230,26 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       });
     }
   }, [tileData]);
+
+  useEffect(() => {
+    let currentFaction = undefined as Talents | undefined;
+    const count = {} as Record<Talents, number>;
+    countUnits(count, units, (faction?: Talents) => {
+      if (!activeFaction) {
+        currentFaction = faction;
+      }
+    });
+
+    if (!currentFaction) {
+      if (activeFaction && count[activeFaction] >= requiredUnits) {
+        currentFaction = activeFaction;
+      } else {
+        const nextFaction = Object.keys(count).find(faction => count[faction as unknown as Talents] >= requiredUnits);
+        currentFaction = nextFaction as Talents | undefined;
+      }
+    }
+    setActiveFaction(currentFaction ?? undefined);
+  }, [units]);
 
   return (
     <FormationContext.Provider
@@ -217,6 +298,11 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         updateUnit,
         menuTab,
         setMenuTab,
+        activeFaction,
+        isTalents,
+        setTalents,
+        setArtifact,
+        getTileImage,
       }}
     >
       {children}

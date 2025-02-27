@@ -10,7 +10,7 @@ import { useFormation } from '@/components/editor/FormationProvider';
 import HexImage from '@/components/editor/HexImage';
 import { Artifacts, currentSeason } from '@/components/editor/types';
 import Button from '@/components/inputs/button/Button';
-import { joinStrings } from '@/utils/utils';
+import { compareStrings, joinStrings } from '@/utils/utils';
 
 const ArtifactGrid: FC = () => {
   const [tab, setTab] = useState<ArtifactSource>(currentSeason);
@@ -22,6 +22,7 @@ const ArtifactGrid: FC = () => {
     artifacts.map(artifact => (
       <div key={artifact} className="relative">
         <Button
+          size="sm"
           className="w-full"
           selected={!disabled && artifactData[key].includes(artifact)}
           hierarchy={hierarchy}
@@ -57,7 +58,7 @@ const ArtifactGrid: FC = () => {
   return (
     <>
       {Object.entries(Artifacts)
-        .filter(([label]) => label === 'Pre-Season' || label === currentSeason)
+        .filter(([label]) => ['Pre-Season', currentSeason].some(check => compareStrings(label, check) === 0))
         .map(([label, artifacts], i) => (
           <div key={label} className="relative h-16 w-full block sm:hidden">
             <div
@@ -76,21 +77,25 @@ const ArtifactGrid: FC = () => {
         ))}
       <div className="container-primary hidden flex-col gap-2 items-center justify-center sm:flex ">
         <div className="w-full flex flex-col gap-2 sm:flex-row">
-          {(['Seasonal', 'Pre-Season'] as const).map(label => (
-            <Button
-              key={label}
-              className="w-full"
-              onClick={() => {
-                setTab(label === 'Seasonal' ? currentSeason : label);
-              }}
-              selected={tab === (label === 'Seasonal' ? currentSeason : label)}
-              hasActiveBorder
-            >
-              {label}
-            </Button>
-          ))}
+          {(['Seasonal', 'Pre-Season'] as const).map(label => {
+            const isSeasonal = compareStrings(label, 'Seasonal') === 0;
+
+            return (
+              <Button
+                key={label}
+                className="w-full"
+                onClick={() => {
+                  setTab(isSeasonal ? currentSeason : 'Pre-Season');
+                }}
+                selected={tab === (isSeasonal ? currentSeason : label)}
+                hasActiveBorder
+              >
+                {label}
+              </Button>
+            );
+          })}
         </div>
-        <div className="scroll-bar-left scroll-bar-auto max-h-92 overflow-y-auto">
+        <div className="scroll-bar-left scroll-bar-auto max-h-80 4xl:max-h-92 overflow-y-auto">
           <div className="w-52 flex flex-col gap-2">
             <div
               className={joinStrings(

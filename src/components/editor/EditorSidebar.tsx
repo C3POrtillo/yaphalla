@@ -106,7 +106,7 @@ const EditorSidebar: FC = () => {
     {
       label: 'Place',
       divs: tileControls.map(({ onClick, label, selected }) => (
-        <Button key={label} className="w-full" onClick={onClick} selected={selected} hasActiveBorder>
+        <Button key={label} size="sm" className="w-full" onClick={onClick} selected={selected} hasActiveBorder>
           <div className="flex flex-row gap-2 items-center">
             <HexImage {...getDrawImage(label)} size="2xs" disabledOverlay={selected} />
             <span>{label}</span>
@@ -117,7 +117,7 @@ const EditorSidebar: FC = () => {
     {
       label: '',
       divs: otherButtons.map(({ onClick, label, ...props }) => (
-        <Button key={label} className="w-full" onClick={onClick} {...props}>
+        <Button key={label} size="sm" className="w-full" onClick={onClick} {...props}>
           {label}
         </Button>
       )),
@@ -140,7 +140,7 @@ const EditorSidebar: FC = () => {
   ));
 
   return (
-    <div className="flex w-full flex-col-reverse sm:w-fit sm:flex-col items-center gap-2">
+    <div className="flex w-full flex-col-reverse sm:w-fit sm:flex-col items-center gap-2 self-center">
       <div className="flex w-full flex-col gap-2 items-center">
         {options[0]}
         <ArtifactGrid />

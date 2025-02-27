@@ -16,15 +16,13 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
   let buildPathString = '/';
   const paths = currentPath.split('/').slice(1);
   let slugIndex = 0;
-  const formattedPaths = paths
-    .filter(path => !!path)
-    .map(path => {
-      if (slug?.length && slugIndex < slug.length && path.match(/\[.*\]/)) {
-        return slug[slugIndex++];
-      }
+  const formattedPaths = paths.filter(Boolean).map(path => {
+    if (slug?.length && slugIndex < slug.length && path.match(/\[.*\]/)) {
+      return slug[slugIndex++];
+    }
 
-      return path;
-    });
+    return path;
+  });
 
   return (
     !!formattedPaths.length && (

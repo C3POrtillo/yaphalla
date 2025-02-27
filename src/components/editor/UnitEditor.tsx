@@ -31,11 +31,13 @@ const UnitEditor: FC = () => {
     setEditArena,
     setCurrentTile,
     setCurrentArtifact,
+    isTalents,
+    setTalents,
   } = useFormation();
 
   const arenaProps = {
     label: preset,
-    hideEmptyArtifact: true,
+    hideArtifacts: true,
     hideUnits: true,
     hideNumbers: isNumber,
     onClick: updateArena,
@@ -48,6 +50,7 @@ const UnitEditor: FC = () => {
     hideNumbers: isNumber,
     hideEmptyArtifact,
     disableEmpty: true,
+    hideTalents: isTalents,
     onClick: updateUnit,
   };
 
@@ -56,14 +59,14 @@ const UnitEditor: FC = () => {
   const getImage = async () => {
     setActive(true);
     setEditArena(false);
+    setCurrentTile(undefined);
+    setCurrentArtifact(undefined);
     const unitGrid = document.getElementById('unit-grid');
     if (!unitGrid) {
       return false;
     }
-    setCurrentTile(undefined);
-    setCurrentArtifact(undefined);
     const image = await htmlToImage.toPng(unitGrid, { pixelRatio: 1 });
-    
+
     return image;
   };
 
@@ -115,12 +118,18 @@ const UnitEditor: FC = () => {
   ];
 
   const saveButtonDivs = saveButtons.map(({ onClick, label, ...props }) => (
-    <Button key={label} className="w-full" onClick={onClick} {...props} hasActiveBorder>
+    <Button key={label} size="sm" className="w-full" onClick={onClick} {...props} hasActiveBorder>
       {label}
     </Button>
   ));
 
   const unitControls = [
+    {
+      name: 'talentToggle',
+      defaultChecked: !isTalents,
+      value: 'Talents',
+      onChange: setTalents,
+    },
     {
       name: 'emptyToggle',
       defaultChecked: !isEmpty,
@@ -153,15 +162,9 @@ const UnitEditor: FC = () => {
   const controlDivs = [
     {
       label: 'Enable:',
+      hideLabel: true,
       divs: unitControls.map(({ onChange, name, ...props }) => (
-        <Toggle
-          key={name}
-          className="grow"
-          variant="switch"
-          name={name}
-          onChange={e => onChange(!e.target.checked)}
-          {...props}
-        />
+        <Toggle key={name} variant="switch" name={name} onChange={e => onChange(!e.target.checked)} {...props} />
       )),
     },
   ];
@@ -173,10 +176,10 @@ const UnitEditor: FC = () => {
           <EditorSidebar />
           <TileGrid {...gridProps}>
             <div className="flex flex-col w-full gap-2">
-              {controlDivs.map(({ label, divs }) => (
+              {controlDivs.map(({ label, hideLabel, divs }) => (
                 <div key={label} className="w-full flex flex-row gap-2 items-center">
-                  <span>{label}</span>
-                  <div className="w-full flex flex-row gap-2">{divs}</div>
+                  {!hideLabel && <span>{label}</span>}
+                  <div className="w-full flex flex-row gap-1 flex-wrap">{divs}</div>
                 </div>
               ))}
             </div>

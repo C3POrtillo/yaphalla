@@ -60,6 +60,7 @@ const TileGrid: FC<TileGridProps> = ({
   const playerArtifact = !!artifactData.player.length && artifactData.player[0];
   const enemyArtifact = !!artifactData.enemy.length && artifactData.enemy[0];
   const isTopRight = getIsTopRight(tileData);
+  const showTalents = !hideTalents && activeFaction;
 
   const formattedTileData = () => {
     setFirstPlayerRow(undefined);
@@ -203,7 +204,7 @@ const TileGrid: FC<TileGridProps> = ({
 
             let src = 'Generic-Outline';
             if (state === 1) {
-              const blank = !hideTalents && activeFaction ? `${activeFaction}-Hex` : 'Generic-Hex';
+              const blank = showTalents ? `${activeFaction}-Hex` : 'Generic-Hex';
               src = (!hideUnits && unit) || blank;
             }
             if (state === -1 && !disableEnemy) {

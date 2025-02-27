@@ -46,7 +46,7 @@ const Toggle: FC<ToggleProps> = ({
     <label
       htmlFor={id}
       className={joinStrings(
-        'size-base flex flex-row items-center gap-2',
+        'size-sm !pr-2 flex flex-row items-center gap-2',
         className,
         !disabled && `bg-${hierarchy} input-${hierarchy}`,
       )}
@@ -61,7 +61,7 @@ const Toggle: FC<ToggleProps> = ({
         disabled={disabled}
         {...props}
       />
-      <div className="flex flex-row items-center justify-center gap-1 xl:gap-2">
+      <div className="flex flex-row items-center justify-center gap-1 xl:gap-1">
         {!isCheckbox && (
           <>
             {disableLabel && <span>{disableLabel}</span>}
@@ -83,7 +83,6 @@ const Toggle: FC<ToggleProps> = ({
             </div>
           </>
         )}
-
         <span>{activeLabel || value}</span>
       </div>
     </label>

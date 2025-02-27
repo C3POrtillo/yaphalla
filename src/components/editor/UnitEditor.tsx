@@ -118,7 +118,7 @@ const UnitEditor: FC = () => {
   ];
 
   const saveButtonDivs = saveButtons.map(({ onClick, label, ...props }) => (
-    <Button key={label} className="w-full" onClick={onClick} {...props} hasActiveBorder>
+    <Button key={label} size="sm" className="w-full" onClick={onClick} {...props} hasActiveBorder>
       {label}
     </Button>
   ));
@@ -179,7 +179,7 @@ const UnitEditor: FC = () => {
               {controlDivs.map(({ label, hideLabel, divs }) => (
                 <div key={label} className="w-full flex flex-row gap-2 items-center">
                   {!hideLabel && <span>{label}</span>}
-                  <div className="w-full flex flex-row gap-2 flex-wrap">{divs}</div>
+                  <div className="w-full flex flex-row gap-1 flex-wrap">{divs}</div>
                 </div>
               ))}
             </div>

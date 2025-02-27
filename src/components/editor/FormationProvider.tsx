@@ -88,6 +88,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isEditArena, setEditArena] = useState<boolean>(false);
   const [menuTab, setMenuTab] = useState<MenuTabTypes>('artifact');
 
+  console.log(tileData);
+
   const updateArena = (tile: TileData) =>
     setTileData(prev =>
       prev.map((prevTile, index) => {

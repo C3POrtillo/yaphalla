@@ -46,7 +46,7 @@ const Lightbearer = {
   Tank: ['Chippy', 'Lucca', 'Lucius', 'Temesia'],
   Support: ['Fay', 'Hugin', 'Rowan'],
   Marksman: ['Atalanta', 'Marilee'],
-  Mage: ['Cassadee', 'Hammie', 'Mirael'],
+  Mage: ['Cassadee', 'Hammie', 'Mirael', 'Cyran'],
   Rogue: ['Sinbad', 'Vala', 'Walker'],
   Warrior: ['Korin', 'Sonja', 'Valen'],
 } as ClassData;
@@ -188,8 +188,8 @@ export const ArenaPresets = {
     0, 1, 1, 1, 0, 0, 1, 1, 0,
   ],
   'Supreme Arena IV': [
-    -1, -1, 0, -1, -1, -1, -1, 0, 0, 0, -1, -1, -1, 1, 0, 0, -1, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 0, 0, -1, 1, 1, 1,
-    0, 0, 0, 1, 1, 1, 1, 0, 1, 1,
+    -1, -1, 0, -1, -1, -1, -1, 1, 0, -1, -1, -1, -1, 1, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, -1, 1, 1,
+    1, 1, 0, -1, 1, 1, 1, 1, 0, 1, 1,
   ],
   'Supreme Arena V': [
     0, -1, -1, -1, 0, 0, -1, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, -1, 0, -1, -1, 1, 1, 0, 0, 0, 0, 1, 1, 1,

@@ -22,7 +22,7 @@ const Button: FC<ButtonProps> = ({
 }) => (
   <button
     className={joinStrings(
-      `border-2 border-transparent size-${size} bg-${hierarchy} input-${hierarchy}`,
+      `border-1 border-transparent size-${size} bg-${hierarchy} input-${hierarchy}`,
       className,
       selected && 'active-link',
       selected && hasActiveBorder && 'active-border',

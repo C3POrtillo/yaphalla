@@ -64,6 +64,17 @@ interface FormationContextType {
   activeFaction?: Talents;
   isTalents: boolean;
   setTalents: Dispatch<SetStateAction<boolean>>;
+  setArtifact: (position: number, artifact: string | boolean) => void;
+  getTileImage: (
+    unit: string,
+    state: number,
+    showTalents: false | Talents | undefined,
+    hideUnits?: boolean,
+    disableEnemy?: boolean,
+  ) => {
+    src: string;
+    path: 'unit' | 'base';
+  };
 }
 
 const FormationContext = createContext<FormationContextType | undefined>(undefined);
@@ -141,6 +152,48 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     if (updated) {
       setUnits({ ...units });
     }
+  };
+
+  const setArtifact = (position: number, artifact: string | boolean) => {
+    setCurrentArtifact(currentArtifact === position ? undefined : position);
+    if (currentArtifact === position) {
+      const key = position ? 'enemy' : 'player';
+      if (typeof artifact === 'string' && !!artifactData[key].length) {
+        setArtifactData(prev => {
+          const updated = { ...prev };
+          const currentArtifacts = updated[key] || [];
+
+          if (currentArtifacts.includes(artifact)) {
+            const filteredArtifacts = currentArtifacts.filter(a => a !== artifact);
+            delete updated[key];
+            updated[key] = filteredArtifacts;
+          }
+
+          return updated;
+        });
+      }
+    }
+  };
+
+  const getTileImage = (
+    unit: string,
+    state: number,
+    showTalents: false | Talents | undefined,
+    hideUnits?: boolean,
+    disableEnemy?: boolean,
+  ) => {
+    const path = unit ? ('unit' as const) : ('base' as const);
+
+    let src = 'Generic-Outline';
+    if (state === 1) {
+      const blank = showTalents ? `${activeFaction}-Hex` : 'Generic-Hex';
+      src = (!hideUnits && unit) || blank;
+    }
+    if (state === -1 && !disableEnemy) {
+      src = (!hideUnits && unit) || 'Enemy-Hex';
+    }
+
+    return { src, path };
   };
 
   useEffect(() => {
@@ -248,6 +301,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         activeFaction,
         isTalents,
         setTalents,
+        setArtifact,
+        getTileImage,
       }}
     >
       {children}

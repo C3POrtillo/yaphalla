@@ -1,3 +1,5 @@
+import { compareStrings } from '@/utils/utils';
+
 export const UnitClass = ['Tank', 'Support', 'Marksman', 'Mage', 'Rogue', 'Warrior'] as const;
 export const Faction = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celestial', 'Hypogean'] as const;
 
@@ -108,7 +110,7 @@ export const Units = {
 
 export const UnitsByFaction = Object.entries(Units).reduce(
   (units, [faction, classData]) => {
-    const isCeleHypo = faction === 'Celestial' || faction === 'Hypogean';
+    const isCeleHypo = ['Celestial', 'Hypogean'].some(check => compareStrings(faction, check) === 0);
     const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);
 
     Object.values(classData).forEach(classUnits => {

@@ -306,7 +306,7 @@
     @apply pointer-events-none text-tertiary-300 disabled:text-tertiary-300;
   }
   .active-border {
-    @apply border-2 border-solid border-tertiary-300;
+    @apply border-1 border-solid border-tertiary-300;
   }
   .checkbox {
     @apply size-4 self-center;

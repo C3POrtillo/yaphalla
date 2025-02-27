@@ -1,7 +1,15 @@
 import type { Talents, Unit, UnitFormationData } from '@/components/editor/types';
 
-import { PairSet, UnitPairs, Units, UnitsByFaction, indexToPosition, requiredUnits } from '@/components/editor/types';
-import { cleanString, sortData } from '@/utils/utils';
+import {
+  PairSet,
+  TalentLocations,
+  UnitPairs,
+  Units,
+  UnitsByFaction,
+  indexToPosition,
+  requiredUnits,
+} from '@/components/editor/types';
+import { cleanString, compareStrings, sortData } from '@/utils/utils';
 
 export const validateSearch = (searchFilter: string, ...fields: string[]) => {
   const regex = new RegExp(cleanString(searchFilter), 'i');
@@ -62,13 +70,13 @@ export const getIsTopRight = (tileData: (-1 | 0 | 1)[]) =>
   [28, 38, 39, 43].some(i => tileData[i] !== 1) && [1, 5, 6, 16].some(i => tileData[i] === 1);
 
 export const getSizeClass = (size: 'md' | 'sm' | 'xs' | '2xs') => {
-  if (size === 'sm') {
+  if (compareStrings(size, 'sm') === 0) {
     return 'min-w-16';
   }
-  if (size === 'xs') {
+  if (compareStrings(size, 'xs') === 0) {
     return 'min-w-12';
   }
-  if (size === '2xs') {
+  if (compareStrings(size, '2xs') === 0) {
     return 'min-w-8';
   }
 
@@ -77,13 +85,13 @@ export const getSizeClass = (size: 'md' | 'sm' | 'xs' | '2xs') => {
 
 export const getDrawImage = (str: string) => {
   const label = str.toLowerCase();
-  const path = label === 'unit' ? ('unit' as const) : ('base' as const);
+  const path = compareStrings(label, 'unit') === 0 ? ('unit' as const) : ('base' as const);
   let src = 'Hammie';
 
-  if (label === 'player') {
+  if (compareStrings(label, 'player') === 0) {
     src = 'Generic-Hex';
   }
-  if (label === 'enemy') {
+  if (compareStrings(label, 'enemy') === 0) {
     src = 'Enemy-Hex';
   }
 
@@ -135,3 +143,6 @@ export const countUnits = (
     updateFactionCount(count, UnitsByFaction[pairs[0]], maxPairs, setCurrentFaction);
   });
 };
+
+export const getTalentTiles = (tiles: number[], faction: Talents) =>
+  new Set<number>(TalentLocations[faction] ? tiles.slice(-3, -1) : tiles.slice(0, 2));

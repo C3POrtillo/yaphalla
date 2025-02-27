@@ -37,7 +37,7 @@ const UnitEditor: FC = () => {
 
   const arenaProps = {
     label: preset,
-    hideEmptyArtifact: true,
+    hideArtifacts: true,
     hideUnits: true,
     hideNumbers: isNumber,
     onClick: updateArena,
@@ -59,12 +59,12 @@ const UnitEditor: FC = () => {
   const getImage = async () => {
     setActive(true);
     setEditArena(false);
+    setCurrentTile(undefined);
+    setCurrentArtifact(undefined);
     const unitGrid = document.getElementById('unit-grid');
     if (!unitGrid) {
       return false;
     }
-    setCurrentTile(undefined);
-    setCurrentArtifact(undefined);
     const image = await htmlToImage.toPng(unitGrid, { pixelRatio: 1 });
 
     return image;

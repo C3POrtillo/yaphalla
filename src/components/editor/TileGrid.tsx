@@ -183,7 +183,7 @@ const TileGrid: FC<TileGridProps> = ({
             ? relativeIndex < tiles.findIndex(a => a.state === 1)
             : relativeIndex > tiles.findLastIndex(a => a.state === 1);
           const showFirstHex =
-            tiles.every((a) => a.state === 0 || a.state === -1) &&
+            tiles.every(a => a.state === 0 || a.state === -1) &&
             (isTopRight ? relativeIndex === tiles.length - 1 : relativeIndex === 0);
           const omitHex =
             hideEnemy &&

@@ -1,5 +1,6 @@
 'use client';
 import * as htmlToImage from 'html-to-image';
+import { useState } from 'react';
 
 import type { FC } from 'react';
 
@@ -12,6 +13,7 @@ import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';
 
 const UnitEditor: FC = () => {
+  const [isActive, setActive] = useState(false);
   const {
     title,
     preset,
@@ -51,19 +53,31 @@ const UnitEditor: FC = () => {
 
   const gridProps = isEditArena ? arenaProps : unitProps;
 
+  const getImage = async () => {
+    setActive(true);
+    setEditArena(false);
+    const unitGrid = document.getElementById('unit-grid');
+    if (!unitGrid) {
+      return false;
+    }
+    setCurrentTile(undefined);
+    setCurrentArtifact(undefined);
+    const image = await htmlToImage.toPng(unitGrid, { pixelRatio: 1 });
+    
+    return image;
+  };
+
   const saveButtons = [
     {
       label: 'Copy to Clipboard',
+      selected: isActive,
       disabled: isEditArena,
       onClick: () => {
         const copy = async () => {
-          const unitGrid = document.getElementById('unit-grid');
-          if (!unitGrid) {
+          const image = await getImage();
+          if (!image) {
             return;
           }
-          setCurrentTile(undefined);
-          setCurrentArtifact(undefined);
-          const image = await htmlToImage.toPng(unitGrid, { pixelRatio: 1 });
 
           try {
             const base64Data = image.replace(/^data:image\/png;base64,/, '');
@@ -74,37 +88,34 @@ const UnitEditor: FC = () => {
           } catch (error) {
             console.error('Failed to copy image:', error);
           }
+          setActive(false);
         };
-        setEditArena(false);
         copy();
       },
     },
     {
       label: 'Export to PNG',
       disabled: isEditArena,
+      selected: isActive,
       onClick: () => {
         const exportToPNG = async () => {
-          const unitGrid = document.getElementById('unit-grid');
-          if (!unitGrid) {
+          const image = await getImage();
+          if (!image) {
             return;
           }
-          setCurrentTile(undefined);
-          setCurrentArtifact(undefined);
-
-          const image = await htmlToImage.toPng(unitGrid, { pixelRatio: 1 });
           const link = document.createElement('a');
           link.href = image;
           link.download = `${title || 'download'}.png`;
           link.click();
+          setActive(false);
         };
-        setEditArena(false);
         exportToPNG();
       },
     },
   ];
 
   const saveButtonDivs = saveButtons.map(({ onClick, label, ...props }) => (
-    <Button key={label} className="w-full" onClick={onClick} {...props}>
+    <Button key={label} className="w-full" onClick={onClick} {...props} hasActiveBorder>
       {label}
     </Button>
   ));

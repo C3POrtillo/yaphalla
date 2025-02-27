@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import type { HierarchyTypes } from '@/utils/types';
 import type { ChangeEvent, FC, InputHTMLAttributes } from 'react';
 
-import { joinStrings, kebabCase } from '@/utils/utils';
+import { compareStrings, joinStrings, kebabCase } from '@/utils/utils';
 
 interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
   variant?: 'checkbox' | 'switch';
@@ -28,7 +28,7 @@ const Toggle: FC<ToggleProps> = ({
 }) => {
   const [isChecked, setChecked] = useState(defaultChecked);
   const id = `${variant}-${kebabCase(value)}`;
-  const isCheckbox = variant === 'checkbox';
+  const isCheckbox = compareStrings(variant, 'checkbox') === 0;
 
   useEffect(() => {
     setChecked(defaultChecked);

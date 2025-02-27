@@ -14,6 +14,7 @@ import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { ArenaPresets, requiredUnits } from '@/components/editor/types';
 import { countUnits } from '@/components/editor/utils';
+import { compareStrings } from '@/utils/utils';
 
 interface FormationContextType {
   title: string;
@@ -143,7 +144,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   useEffect(() => {
-    if (preset === 'Custom') {
+    if (compareStrings(preset, 'Custom') === 0) {
       return;
     }
     setUnits({});
@@ -151,7 +152,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [preset]);
 
   useEffect(() => {
-    if (currentTile !== undefined && tileData[currentTile] === 0) {
+    if (isEnemy && currentTile !== undefined && tileData[currentTile] !== 1) {
       setCurrentTile(undefined);
     }
   }, [isEnemy, currentTile]);

@@ -4,6 +4,7 @@ export const Faction = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celesti
 export type Faction = (typeof Faction)[number];
 export type UnitClass = (typeof UnitClass)[number];
 export type ArtifactSource = 'Pre-Season' | `Season ${number}`;
+export type Talents = 'Lightbearer' | 'Wilder' | 'Mauler' | 'Graveborn' | 'Celestial-Hypogean';
 
 export const currentSeason = 'Season 3' as const;
 
@@ -105,6 +106,24 @@ export const Units = {
   Hypogean,
 } as FactionData;
 
+export const UnitsByFaction = Object.entries(Units).reduce(
+  (units, [faction, classData]) => {
+    const isCeleHypo = faction === 'Celestial' || faction === 'Hypogean';
+    const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);
+
+    Object.values(classData).forEach(classUnits => {
+      classUnits.forEach(unit => {
+        units[unit] ??= factionName;
+      });
+    });
+
+    units[`${faction} Wildcard`] ??= factionName;
+
+    return units;
+  },
+  { 'Celestial-Hypogean Wildcard': 'Celestial-Hypogean' } as Record<string, Talents>,
+);
+
 export type Formation = {
   id?: number;
   title: string;
@@ -205,3 +224,18 @@ export const indexToPosition = [
 export const HexPath = '/assets/images/hexes/';
 
 export type MenuTabTypes = 'preset' | 'artifact' | 'editor';
+
+export const requiredUnits = 3;
+export const UnitPairs = [
+  ['Phraesto', 'Phraesto Clone'],
+  ['Elijah', 'Lailah'],
+] as const;
+export const PairSet = new Set(UnitPairs.flatMap(pairs => pairs));
+
+export const TalentLocations = {
+  Lightbearer: false,
+  Wilder: false,
+  Mauler: true,
+  Graveborn: false,
+  'Celestial-Hypogean': false,
+} as const;

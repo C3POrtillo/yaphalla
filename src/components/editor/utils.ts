@@ -1,6 +1,6 @@
-import type { Unit } from '@/components/editor/types';
+import type { Talents, Unit, UnitFormationData } from '@/components/editor/types';
 
-import { Units, indexToPosition } from '@/components/editor/types';
+import { PairSet, UnitPairs, Units, UnitsByFaction, indexToPosition, requiredUnits } from '@/components/editor/types';
 import { cleanString, sortData } from '@/utils/utils';
 
 export const validateSearch = (searchFilter: string, ...fields: string[]) => {
@@ -88,4 +88,50 @@ export const getDrawImage = (str: string) => {
   }
 
   return { src, path };
+};
+
+const updateFactionCount = (
+  factionCount: Record<Talents, number>,
+  faction: Talents,
+  count: number,
+  setCurrentFaction: (string?: Talents) => void,
+) => {
+  factionCount[faction] ??= 0;
+  factionCount[faction] += count;
+
+  if (factionCount[faction] >= requiredUnits) {
+    setCurrentFaction(faction);
+  }
+};
+
+export const countUnits = (
+  count: Record<Talents, number>,
+  units: UnitFormationData,
+  setCurrentFaction: (faction?: Talents) => void,
+) => {
+  const unitCount = {} as Record<string, number>;
+
+  Object.entries(units).forEach(([_, { unit, type }]) => {
+    if (type !== 1) {
+      return;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (PairSet.has(unit as any)) {
+      unitCount[unit] ??= 0;
+      unitCount[unit]++;
+    } else {
+      updateFactionCount(count, UnitsByFaction[unit], 1, setCurrentFaction);
+    }
+  });
+
+  UnitPairs.forEach(pairs => {
+    const pairCounts = pairs.map(unit => unitCount[unit] || 0);
+    const maxPairs = Math.min(...pairCounts);
+    if (!maxPairs) {
+      return;
+    }
+
+    updateFactionCount(count, UnitsByFaction[pairs[0]], maxPairs, setCurrentFaction);
+  });
 };

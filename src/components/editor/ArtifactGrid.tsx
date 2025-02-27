@@ -22,6 +22,7 @@ const ArtifactGrid: FC = () => {
     artifacts.map(artifact => (
       <div key={artifact} className="relative">
         <Button
+          size="sm"
           className="w-full"
           selected={!disabled && artifactData[key].includes(artifact)}
           hierarchy={hierarchy}
@@ -90,7 +91,7 @@ const ArtifactGrid: FC = () => {
             </Button>
           ))}
         </div>
-        <div className="scroll-bar-left scroll-bar-auto max-h-92 overflow-y-auto">
+        <div className="scroll-bar-left scroll-bar-auto max-h-80 4xl:max-h-92 overflow-y-auto">
           <div className="w-52 flex flex-col gap-2">
             <div
               className={joinStrings(

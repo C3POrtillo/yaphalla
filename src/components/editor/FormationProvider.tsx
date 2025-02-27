@@ -5,13 +5,15 @@ import type {
   ArtifactFormationData,
   Faction,
   MenuTabTypes,
+  Talents,
   TileData,
   UnitClass,
   UnitFormationData,
 } from '@/components/editor/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { ArenaPresets } from '@/components/editor/types';
+import { ArenaPresets, requiredUnits } from '@/components/editor/types';
+import { countUnits } from '@/components/editor/utils';
 
 interface FormationContextType {
   title: string;
@@ -58,6 +60,9 @@ interface FormationContextType {
   updateUnit: (tile: TileData) => void;
   menuTab: MenuTabTypes;
   setMenuTab: Dispatch<SetStateAction<MenuTabTypes>>;
+  activeFaction?: Talents;
+  isTalents: boolean;
+  setTalents: Dispatch<SetStateAction<boolean>>;
 }
 
 const FormationContext = createContext<FormationContextType | undefined>(undefined);
@@ -87,6 +92,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [searchFilter, setSearchFilter] = useState<string>('');
   const [isEditArena, setEditArena] = useState<boolean>(false);
   const [menuTab, setMenuTab] = useState<MenuTabTypes>('artifact');
+  const [activeFaction, setActiveFaction] = useState<Talents>();
+  const [isTalents, setTalents] = useState<boolean>(true);
 
   const updateArena = (tile: TileData) =>
     setTileData(prev =>
@@ -170,6 +177,26 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     }
   }, [tileData]);
 
+  useEffect(() => {
+    let currentFaction = undefined as Talents | undefined;
+    const count = {} as Record<Talents, number>;
+    countUnits(count, units, (faction?: Talents) => {
+      if (!activeFaction) {
+        currentFaction = faction;
+      }
+    });
+
+    if (!currentFaction) {
+      if (activeFaction && count[activeFaction] >= requiredUnits) {
+        currentFaction = activeFaction;
+      } else {
+        const nextFaction = Object.keys(count).find(faction => count[faction as unknown as Talents] >= requiredUnits);
+        currentFaction = nextFaction as Talents | undefined;
+      }
+    }
+    setActiveFaction(currentFaction ?? undefined);
+  }, [units]);
+
   return (
     <FormationContext.Provider
       value={{
@@ -217,6 +244,9 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         updateUnit,
         menuTab,
         setMenuTab,
+        activeFaction,
+        isTalents,
+        setTalents,
       }}
     >
       {children}

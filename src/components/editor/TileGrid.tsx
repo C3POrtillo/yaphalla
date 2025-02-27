@@ -21,6 +21,7 @@ interface TileGridProps extends PropsWithChildren {
   hideUnits?: boolean;
   disableArtifacts?: boolean;
   hideEmptyArtifact?: boolean;
+  hideTalents?: boolean;
   onClick?: (tile: TileData) => void;
 }
 
@@ -35,6 +36,7 @@ const TileGrid: FC<TileGridProps> = ({
   disableArtifacts,
   hideUnits,
   hideEmptyArtifact,
+  hideTalents,
   onClick,
   children,
 }) => {
@@ -50,6 +52,7 @@ const TileGrid: FC<TileGridProps> = ({
     artifactData,
     setArtifactData,
     units,
+    activeFaction,
   } = useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
@@ -200,7 +203,8 @@ const TileGrid: FC<TileGridProps> = ({
 
             let src = 'Generic-Outline';
             if (state === 1) {
-              src = (!hideUnits && unit) || 'Generic-Hex';
+              const blank = !hideTalents && activeFaction ? `${activeFaction}-Hex` : 'Generic-Hex';
+              src = (!hideUnits && unit) || blank;
             }
             if (state === -1 && !disableEnemy) {
               src = (!hideUnits && unit) || 'Enemy-Hex';

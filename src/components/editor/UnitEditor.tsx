@@ -1,7 +1,8 @@
 'use client';
 import * as htmlToImage from 'html-to-image';
+import { useState } from 'react';
 
-import { useState, type FC } from 'react';
+import type { FC } from 'react';
 
 import ArenaPresetSelector from '@/components/editor/ArenaPresetSelector';
 import EditorSidebar from '@/components/editor/EditorSidebar';
@@ -62,6 +63,7 @@ const UnitEditor: FC = () => {
     setCurrentTile(undefined);
     setCurrentArtifact(undefined);
     const image = await htmlToImage.toPng(unitGrid, { pixelRatio: 1 });
+    
     return image;
   };
 

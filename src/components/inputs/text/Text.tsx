@@ -16,6 +16,7 @@ export interface TextProps extends InputHTMLAttributes<HTMLInputElement> {
   validate?: (string: string, options?: Options) => boolean;
   hideLabel?: boolean;
   labelClassName?: string;
+  debouceTime?: number;
 }
 
 const Text: FC<TextProps> = ({
@@ -31,6 +32,7 @@ const Text: FC<TextProps> = ({
   className,
   labelClassName,
   placeholder,
+  debouceTime = 250,
   ...props
 }) => {
   const [isValid, setValid] = useState(validate?.(value as string) ?? true);
@@ -40,9 +42,20 @@ const Text: FC<TextProps> = ({
     setLocalValue(value);
   }, [value]);
 
-  const debouncedSetState = useMemo(
-    () => setState && debounce((newValue: string) => setState(newValue), 10),
-    [setState],
+  const debouncedSetState = useMemo(() => {
+    if (!setState) {
+      return undefined;
+    }
+    const debouncedFn = debounce((newValue: string) => setState(newValue), debouceTime);
+
+    return debouncedFn;
+  }, [setState, debouceTime]);
+
+  useEffect(
+    () => () => {
+      debouncedSetState?.cancel();
+    },
+    [debouncedSetState],
   );
 
   const handleChange = useCallback(

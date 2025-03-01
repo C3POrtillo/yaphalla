@@ -187,7 +187,7 @@ const UnitEditor: FC = () => {
         </div>
         <div className="size-full flex flex-col gap-2 items-center sm:w-fit">
           <div className="container-primary w-full flex flex-col lg:flex-row gap-2 items-center">{saveButtonDivs}</div>
-          <div className="w-full flex flex-col-reverse sm:flex-row gap-2">
+          <div className="size-full flex flex-col-reverse sm:flex-row gap-2">
             <UnitGrid />
             <div className="w-full 2xl:hidden">
               <ArenaPresetSelector variant="sm" />

@@ -1,10 +1,12 @@
-import type { Talents, UnitFormationData } from '@/components/editor/types';
+import type { Talents, UnitDivData, UnitFormationData } from '@/components/editor/types';
 
 import {
   PairSet,
+  SortedUnits,
   TalentLocations,
   UnitPairs,
   UnitsByFaction,
+  Wildcards,
   indexToPosition,
   requiredUnits,
 } from '@/components/editor/types';
@@ -117,3 +119,34 @@ export const getTalentTiles = (tiles: number[], faction: Talents) =>
   new Set<number>(TalentLocations[faction] ? tiles.slice(-3, -1) : tiles.slice(0, 2));
 
 export const testRegex = (str: string, regExp?: RegExp) => regExp === undefined || regExp?.test(str);
+const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {
+  if (isXlScreen) {
+    return 8;
+  }
+  if (isMdScreen) {
+    return 8;
+  }
+
+  return 7;
+};
+
+export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant: 'unit' | 'class' = 'unit') => {
+  const data = compareStrings(variant, 'unit') === 0 ? SortedUnits : Wildcards;
+
+  const result: UnitDivData[] = [];
+  const length = getRowCount(mediaQueries);
+  let index = 0;
+  let rowParity = 1;
+
+  while (index < data.length) {
+    if (index >= data.length) {
+      break;
+    }
+    const tiles = data.slice(index, index + length);
+    result.push({ offset: rowParity > 0 ? '' : 'pl-8', tiles });
+    rowParity *= -1;
+    index += length;
+  }
+
+  return result;
+};

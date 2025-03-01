@@ -2,11 +2,13 @@ import { compareStrings } from '@/utils/utils';
 
 export const UnitClass = ['Tank', 'Support', 'Marksman', 'Mage', 'Rogue', 'Warrior'] as const;
 export const Faction = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celestial', 'Hypogean'] as const;
+const Talents = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celestial-Hypogean'] as const;
 
 export type Faction = (typeof Faction)[number];
 export type UnitClass = (typeof UnitClass)[number];
+export type Talents = (typeof Talents)[number];
+
 export type ArtifactSource = 'Pre-Season' | `Season ${number}`;
-export type Talents = 'Lightbearer' | 'Wilder' | 'Mauler' | 'Graveborn' | 'Celestial-Hypogean';
 
 export const currentSeason = 'Season 3' as const;
 
@@ -39,7 +41,7 @@ type UnitType = {
 export type UnitFormationData = Record<number, UnitType>;
 export type ArtifactFormationData = Record<'player' | 'enemy', string[]>;
 
-export type Unit = {
+type Unit = {
   unit: string;
   faction: string;
   classLabel: string;
@@ -99,7 +101,7 @@ const Hypogean = {
   Warrior: ['Harak'],
 } as ClassData;
 
-export const Units = {
+const Units = {
   Lightbearer,
   Wilder,
   Mauler,
@@ -108,46 +110,51 @@ export const Units = {
   Hypogean,
 } as FactionData;
 
-export const SortedUnits = (() => {
-  const formattedUnits = Object.entries(Units).flatMap(([faction, classData]) => [
-    {
+export const SortedUnits = Object.entries(Units).flatMap(([faction, classData]) =>
+  Object.entries(classData).flatMap(([classLabel, units]) =>
+    units.sort().map(unit => ({
+      unit,
+      faction,
+      classLabel,
+    })),
+  ),
+) as Unit[];
+
+export const Wildcards = (() => {
+  const wildCards = new Set([...Faction, ...Talents]);
+  const formattedUnits = UnitClass.map(classLabel => ({
+    unit: `${classLabel} Wildcard`,
+    faction: '',
+    classLabel,
+  })) as Unit[];
+
+  wildCards.forEach(faction => {
+    formattedUnits.push({
       unit: `${faction} Wildcard`,
       faction,
       classLabel: '',
-    },
-    ...Object.entries(classData).flatMap(([classLabel, units]) =>
-      units.sort().map(unit => ({
-        unit,
+    });
+    UnitClass.forEach(classLabel => {
+      formattedUnits.push({
+        unit: `${faction} ${classLabel}`,
         faction,
         classLabel,
-      })),
-    ),
-  ]);
-  formattedUnits.push({
-    unit: 'Celestial-Hypogean Wildcard',
-    faction: 'Celestial Hypogean',
-    classLabel: '',
-  });
-
-  return formattedUnits as Unit[];
-})();
-
-export const UnitsByFaction = Object.entries(Units).reduce(
-  (units, [faction, classData]) => {
-    const isCeleHypo = ['Celestial', 'Hypogean'].some(check => compareStrings(faction, check) === 0);
-    const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);
-
-    Object.values(classData).forEach(classUnits => {
-      classUnits.forEach(unit => {
-        units[unit] ??= factionName;
       });
     });
+  });
 
-    units[`${faction} Wildcard`] ??= factionName;
+  return formattedUnits;
+})();
+
+export const UnitsByFaction = [...SortedUnits, ...Wildcards].reduce(
+  (units, { unit, faction }) => {
+    const isCeleHypo = ['Celestial', 'Hypogean'].some(check => compareStrings(faction, check) === 0);
+    const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);
+    units[unit] ??= factionName;
 
     return units;
   },
-  { 'Celestial-Hypogean Wildcard': 'Celestial-Hypogean' } as Record<string, Talents>,
+  {} as Record<string, Talents>,
 );
 
 export type Formation = {

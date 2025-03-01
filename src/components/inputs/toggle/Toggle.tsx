@@ -47,6 +47,7 @@ const Toggle: FC<ToggleProps> = ({
       htmlFor={id}
       className={joinStrings(
         'size-sm !pr-2 flex flex-row items-center gap-2',
+        !!disableLabel && '!pl-2',
         className,
         !disabled && `bg-${hierarchy} input-${hierarchy}`,
       )}

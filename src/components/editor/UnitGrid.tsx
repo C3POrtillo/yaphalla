@@ -1,13 +1,15 @@
-import { type FC, useEffect, useState } from 'react';
+'use client'
+import { useMemo } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import type { UnitDivData } from '@/components/editor/types';
+import type { FC } from 'react';
 
 import FilterGroup from '@/components/editor/FilterGroup';
 import { useFormation } from '@/components/editor/FormationProvider';
-import HexImage from '@/components/editor/HexImage';
-import { Faction, UnitClass } from '@/components/editor/types';
-import { sortUnits, validateSearch } from '@/components/editor/utils';
+import TileButton from '@/components/editor/TileButton';
+import { Faction, SortedUnits, UnitClass } from '@/components/editor/types';
+import { testRegex, validateSearch } from '@/components/editor/utils';
 import Text from '@/components/inputs/text/Text';
 import { cleanString, joinStrings } from '@/utils/utils';
 
@@ -26,69 +28,65 @@ const UnitGrid: FC = () => {
     setUnits,
   } = useFormation();
   const isMdScreen = useMediaQuery({ query: '(min-width: 768px)' });
-  const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
-  const sortedUnits = sortUnits();
   const disabled = currentTile === undefined;
-
-  const getRowLength = () => (isMdScreen ? 8 : 7);
-  const formattedUnitData = () => {
+  const factionRegex = filterFaction && new RegExp(cleanString(filterFaction), 'i');
+  const classRegex = filterClass && new RegExp(cleanString(filterClass), 'i');
+  const searchRegex = !!searchFilter && new RegExp(cleanString(searchFilter), 'i');
+  const formattedUnits = useMemo(() => {
     const result: UnitDivData[] = [];
-    const length = getRowLength();
+    const length = isMdScreen ? 8 : 7;
     let index = 0;
     let rowParity = 1;
 
-    while (index < sortedUnits.length) {
-      if (index >= sortedUnits.length) {
+    while (index < SortedUnits.length) {
+      if (index >= SortedUnits.length) {
         break;
       }
-      const rowData = sortedUnits.slice(index, index + length);
-      result.push({ offset: rowParity > 0 ? '' : 'pl-8', tiles: rowData });
+      const tiles = SortedUnits.slice(index, index + length);
+      result.push({ offset: rowParity > 0 ? '' : 'pl-8', tiles});
       rowParity *= -1;
       index += length;
     }
 
     return result;
-  };
-
-  useEffect(() => {
-    setFormattedUnits(formattedUnitData());
   }, [isMdScreen]);
 
   const unitHexes = formattedUnits.map(({ offset, tiles }, i) => (
-    // eslint-disable-next-line react/no-array-index-key
     <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>
       {tiles.map(({ unit, faction, classLabel }) => {
-        const factionRegex = filterFaction && new RegExp(cleanString(filterFaction), 'i');
-        const classRegex = filterClass && new RegExp(cleanString(filterClass), 'i');
-        const matchesFaction = factionRegex?.test(faction) || filterFaction === undefined;
-        const matchesClass = classRegex?.test(classLabel) || filterClass === undefined;
-        const validSearch = validateSearch(searchFilter, faction, classLabel, unit);
+        const matchesFaction = testRegex(faction, factionRegex);
+        const matchesClass = testRegex(classLabel, classRegex);
+        const validSearch = validateSearch(searchRegex, faction, classLabel, unit);
         const sameUnit = !disabled && unit === units[currentTile]?.unit;
         const isValid =
           filterFaction === undefined && filterClass === undefined
             ? validSearch
-            : (matchesFaction && matchesClass) || (searchFilter && validSearch);
+            : (matchesFaction && matchesClass) || (!!searchRegex && validSearch);
 
         return (
-          <button
+          <TileButton
             key={unit}
-            className="cursor-pointer disabled:cursor-auto"
+            src={unit}
+            ariaLabel={unit}
+            path="unit"
+            size="sm"
+            disabled={disabled}
+            disabledOverlay={!isValid || sameUnit}
             onClick={() => {
               if (disabled) {
                 return;
               }
+              const updatedUnits = { ...units };
+
               if (sameUnit) {
-                delete units[currentTile];
+                delete updatedUnits[currentTile];
               } else {
-                units[currentTile] = { unit, type: tileData[currentTile] };
+                updatedUnits[currentTile] = { unit, type: tileData[currentTile] };
               }
-              setUnits({ ...units });
+              setUnits(updatedUnits);
               setCurrentTile(undefined);
             }}
-            disabled={disabled}
-          >
-            <HexImage src={unit} path="unit" size="sm" disabled={disabled} disabledOverlay={!isValid || sameUnit} />
-          </button>
+          />
         );
       })}
     </div>

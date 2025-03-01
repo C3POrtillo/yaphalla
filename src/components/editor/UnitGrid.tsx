@@ -42,8 +42,8 @@ const UnitGrid: FC = () => {
       if (index >= SortedUnits.length) {
         break;
       }
-      const rowData = SortedUnits.slice(index, index + length);
-      result.push({ offset: rowParity > 0 ? '' : 'pl-8', tiles: rowData });
+      const tiles = SortedUnits.slice(index, index + length);
+      result.push({ offset: rowParity > 0 ? '' : 'pl-8', tiles});
       rowParity *= -1;
       index += length;
     }
@@ -76,12 +76,14 @@ const UnitGrid: FC = () => {
               if (disabled) {
                 return;
               }
+              const updatedUnits = { ...units };
+
               if (sameUnit) {
-                delete units[currentTile];
+                delete updatedUnits[currentTile];
               } else {
-                units[currentTile] = { unit, type: tileData[currentTile] };
+                updatedUnits[currentTile] = { unit, type: tileData[currentTile] };
               }
-              setUnits({ ...units });
+              setUnits(updatedUnits);
               setCurrentTile(undefined);
             }}
           />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import type { TileData, TileDivData } from '@/components/editor/types';
 import type { FC, PropsWithChildren } from 'react';
@@ -45,7 +45,6 @@ const TileGrid: FC<TileGridProps> = ({
     useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
-  const [formattedTiles, setFormattedTiles] = useState<TileDivData[]>([]);
   const isTopRight = getIsTopRight(tileData);
   const showTalents = !hideTalents && activeFaction;
   const relativeTileLabel = getRelativeTileLabels(tileData);
@@ -70,7 +69,7 @@ const TileGrid: FC<TileGridProps> = ({
     return absolutePosition;
   };
 
-  const formattedTileData = () => {
+  const formattedTiles = useMemo(() => {
     setFirstPlayerRow(undefined);
     setLastPlayerRow(undefined);
 
@@ -107,10 +106,6 @@ const TileGrid: FC<TileGridProps> = ({
     setLastPlayerRow(lastRow);
 
     return result;
-  };
-
-  useEffect(() => {
-    setFormattedTiles(formattedTileData());
   }, [preset, isPreset, tileData]);
 
   const shouldOmitHex = (state: number, relativeIndex: number, tiles: TileData[]) => {
@@ -180,6 +175,7 @@ const TileGrid: FC<TileGridProps> = ({
             <TileButton
               key={index}
               src={src}
+              ariaLabel={unit ? unit : `Tile ${tileLabel}`}
               selected={!label && currentTile === index}
               label={tileLabel}
               hideLabel={(!hideUnits && (disableGrid || (!disableEnemy && !!unit))) || hideNumbers}

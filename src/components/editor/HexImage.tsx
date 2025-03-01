@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
 
 import type { FC } from 'react';
 
@@ -34,73 +33,47 @@ const HexImage: FC<HexImageProps> = ({
   isTalent,
   size = 'md',
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const hexRef = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (hexRef.current && !hexRef.current.contains(event.target as Node)) {
-      setIsHovered(false);
-    }
-  };
-
-  useEffect(() => {
-    if (disabled) {
-      setIsHovered(false);
-    }
-  }, [disabled]);
-
-  useEffect(() => {
-    if (isHovered) {
-      document.addEventListener('click', handleClickOutside);
-    } else {
-      document.removeEventListener('click', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [isHovered]);
-
-  const overlaySrcs = [
-    isEnemy && 'base/Enemy-Overlay',
-    isTalent && 'base/Talent-Selected',
-    !disabled && (selected || isHovered) && 'base/Select-Outline',
-  ].filter(Boolean) as string[];
-
-  const Asset: FC<{ imageSrc: string; zIndex?: string }> = ({ imageSrc, zIndex = 'z-0' }) => (
+  const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
+    imageSrc,
+    zIndex,
+    className,
+  }) => (
     <Image
       key={imageSrc}
+      className={joinStrings(className, zIndex)}
       src={`${HexPath}${imageSrc}.png`}
       alt=""
       fill
       sizes="256px"
       unoptimized
-      className={zIndex}
       priority
     />
   );
 
+  const assetSrcs = [
+    !hideImage && `${path}/${src}`,
+    isEnemy && 'base/Enemy-Overlay',
+    isTalent && 'base/Talent-Selected',
+    !disabled && selected && 'base/Select-Outline',
+  ].filter(Boolean) as string[];
+
   return (
     <div
-      ref={hexRef}
       className={joinStrings(
-        'hex-icon relative',
+        'hex-icon relative group',
         !disabled && !disabledOverlay && 'hex-overlay',
         disabledOverlay && 'disabled-overlay',
         getSizeClass(size),
       )}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {!hideLabel && label && (
         <div className="absolute inset-0 z-10 flex size-full rotate-[30deg] items-center justify-center text-center text-3xl">
           {label}
         </div>
       )}
-      {overlaySrcs.map((imageSrc, index) => (
-        <Asset key={imageSrc} imageSrc={imageSrc} zIndex={`z-${10 + index * 10}`} />
+      {assetSrcs.map((imageSrc, i) => (
+        <Asset key={imageSrc} imageSrc={imageSrc} zIndex={i ? `z-${i}` : undefined} />
       ))}
-      {!hideImage && <Asset imageSrc={`${path}/${src}`} />}
     </div>
   );
 };

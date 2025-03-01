@@ -1,5 +1,6 @@
+import { type FC, useMemo } from 'react';
+
 import type { TileDivData } from '@/components/editor/types';
-import type { FC } from 'react';
 
 import HexImage from '@/components/editor/HexImage';
 import Logo from '@/components/editor/Logo';
@@ -13,7 +14,7 @@ interface TilePreviewProps {
 const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
   const size = '2xs' as const;
 
-  const formattedTileData = () => {
+  const formattedTiles = useMemo(() => {
     const result: TileDivData[] = [];
     let index = 0;
 
@@ -32,9 +33,7 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
     }
 
     return result;
-  };
-
-  const formattedTiles = formattedTileData();
+  }, [tileData]);
 
   const tileDivs = formattedTiles.map(({ tiles, offset }, i) => {
     const isFirst = i === 0;

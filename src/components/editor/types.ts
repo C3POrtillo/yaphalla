@@ -108,6 +108,30 @@ export const Units = {
   Hypogean,
 } as FactionData;
 
+export const SortedUnits = (() => {
+  const formattedUnits = Object.entries(Units).flatMap(([faction, classData]) => [
+    {
+      unit: `${faction} Wildcard`,
+      faction,
+      classLabel: '',
+    },
+    ...Object.entries(classData).flatMap(([classLabel, units]) =>
+      units.sort().map(unit => ({
+        unit,
+        faction,
+        classLabel,
+      })),
+    ),
+  ]);
+  formattedUnits.push({
+    unit: 'Celestial-Hypogean Wildcard',
+    faction: 'Celestial Hypogean',
+    classLabel: '',
+  });
+
+  return formattedUnits as Unit[];
+})();
+
 export const UnitsByFaction = Object.entries(Units).reduce(
   (units, [faction, classData]) => {
     const isCeleHypo = ['Celestial', 'Hypogean'].some(check => compareStrings(faction, check) === 0);

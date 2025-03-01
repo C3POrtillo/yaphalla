@@ -1,48 +1,17 @@
-import type { Talents, Unit, UnitFormationData } from '@/components/editor/types';
+import type { Talents, UnitFormationData } from '@/components/editor/types';
 
 import {
   PairSet,
   TalentLocations,
   UnitPairs,
-  Units,
   UnitsByFaction,
   indexToPosition,
   requiredUnits,
 } from '@/components/editor/types';
-import { cleanString, compareStrings, sortData } from '@/utils/utils';
+import { compareStrings, sortData } from '@/utils/utils';
 
-export const validateSearch = (searchFilter: string, ...fields: string[]) => {
-  const regex = new RegExp(cleanString(searchFilter), 'i');
-
-  return !searchFilter || regex.test(fields.join(' '));
-};
-
-export const sortUnits = () => {
-  const formattedUnits = Object.entries(Units).flatMap(([faction, classData]) =>
-    [
-      {
-        unit: `${faction} Wildcard`,
-        faction,
-        classLabel: '',
-      },
-    ].concat(
-      Object.entries(classData).flatMap(([classLabel, units]) =>
-        units.sort().map(unit => ({
-          unit,
-          faction,
-          classLabel,
-        })),
-      ),
-    ),
-  );
-  formattedUnits.push({
-    unit: 'Celestial-Hypogean Wildcard',
-    faction: 'Celestial Hypogean',
-    classLabel: '',
-  });
-
-  return formattedUnits as Unit[];
-};
+export const validateSearch = (regExp: RegExp | undefined | false, ...fields: string[]) =>
+  !regExp || regExp.test(fields.join(' '));
 
 export const getRelativeTileLabels = (tiles: (-1 | 0 | 1)[]) => {
   const player = [] as number[];
@@ -146,3 +115,5 @@ export const countUnits = (
 
 export const getTalentTiles = (tiles: number[], faction: Talents) =>
   new Set<number>(TalentLocations[faction] ? tiles.slice(-3, -1) : tiles.slice(0, 2));
+
+export const testRegex = (str: string, regExp?: RegExp) => regExp === undefined || regExp?.test(str);

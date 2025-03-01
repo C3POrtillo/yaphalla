@@ -1,5 +1,5 @@
-'use client'
-import { useMemo } from 'react';
+'use client';
+import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import type { UnitDivData } from '@/components/editor/types';
@@ -8,10 +8,11 @@ import type { FC } from 'react';
 import FilterGroup from '@/components/editor/FilterGroup';
 import { useFormation } from '@/components/editor/FormationProvider';
 import TileButton from '@/components/editor/TileButton';
-import { Faction, SortedUnits, UnitClass } from '@/components/editor/types';
-import { testRegex, validateSearch } from '@/components/editor/utils';
+import { Faction, UnitClass } from '@/components/editor/types';
+import { getFormattedUnits, testRegex, validateSearch } from '@/components/editor/utils';
 import Text from '@/components/inputs/text/Text';
-import { cleanString, joinStrings } from '@/utils/utils';
+import Toggle from '@/components/inputs/toggle/Toggle';
+import { cleanString, compareStrings, joinStrings } from '@/utils/utils';
 
 const UnitGrid: FC = () => {
   const {
@@ -28,28 +29,17 @@ const UnitGrid: FC = () => {
     setUnits,
   } = useFormation();
   const isMdScreen = useMediaQuery({ query: '(min-width: 768px)' });
+  const isXlScreen = useMediaQuery({ query: '(min-width: 1280px)' });
+  const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
+  const [variant, setVariant] = useState<'unit' | 'class'>('unit');
   const disabled = currentTile === undefined;
   const factionRegex = filterFaction && new RegExp(cleanString(filterFaction), 'i');
   const classRegex = filterClass && new RegExp(cleanString(filterClass), 'i');
   const searchRegex = !!searchFilter && new RegExp(cleanString(searchFilter), 'i');
-  const formattedUnits = useMemo(() => {
-    const result: UnitDivData[] = [];
-    const length = isMdScreen ? 8 : 7;
-    let index = 0;
-    let rowParity = 1;
 
-    while (index < SortedUnits.length) {
-      if (index >= SortedUnits.length) {
-        break;
-      }
-      const tiles = SortedUnits.slice(index, index + length);
-      result.push({ offset: rowParity > 0 ? '' : 'pl-8', tiles});
-      rowParity *= -1;
-      index += length;
-    }
-
-    return result;
-  }, [isMdScreen]);
+  useEffect(() => {
+    setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant));
+  }, [isMdScreen, isXlScreen, variant]);
 
   const unitHexes = formattedUnits.map(({ offset, tiles }, i) => (
     <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>
@@ -99,7 +89,17 @@ const UnitGrid: FC = () => {
           <FilterGroup items={UnitClass} filter={filterClass} setFilter={setFilterClass} path="class" />
           <FilterGroup items={Faction} filter={filterFaction} setFilter={setFilterFaction} path="factions" />
         </div>
-        <Text label="Search" setState={setSearchFilter} placeholder="Name/Faction/Class" value={searchFilter} />
+        <Text label="Search" setState={setSearchFilter} placeholder="Name/Faction/Class" value={searchFilter}>
+          <Toggle
+            variant="switch"
+            disableLabel="Wildcards"
+            value="Units"
+            onChange={e => {
+              setVariant(e.target.checked ? 'unit' : 'class');
+            }}
+            defaultChecked={compareStrings(variant, 'unit') === 0}
+          />
+        </Text>
       </div>
       <div className="relative flex size-full flex-row justify-center">
         <div className="z-10 flex flex-col p-4 pt-8">{unitHexes}</div>

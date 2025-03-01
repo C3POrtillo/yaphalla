@@ -210,7 +210,7 @@ const TileGrid: FC<TileGridProps> = ({
         />
       )}
       {children}
-      <div className="inset rounded-lg bg-primary-900 size-full flex items-center justify-center m-auto">
+      <div className="inset p-2 rounded-lg bg-primary-900 size-full flex items-center justify-center m-auto">
         <div className="inset-black">
           <div id={id} className="relative flex flex-col">
             {tileDivs}

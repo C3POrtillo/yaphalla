@@ -33,6 +33,7 @@ const Text: FC<TextProps> = ({
   labelClassName,
   placeholder,
   debouceTime = 250,
+  children,
   ...props
 }) => {
   const [isValid, setValid] = useState(validate?.(value as string) ?? true);
@@ -72,12 +73,15 @@ const Text: FC<TextProps> = ({
 
   return (
     <div className="flex w-full flex-col gap-1">
-      {!labelHidden && (
-        <label className={joinStrings('flex', labelClassName)} htmlFor={id}>
-          {label}
-          {required && '*'}
-        </label>
-      )}
+      <div className="flex flex-row gap-1 items-center justify-between">
+        {!labelHidden && (
+          <label className={joinStrings('flex', labelClassName)} htmlFor={id}>
+            {label}
+            {required && '*'}
+          </label>
+        )}
+        {children}
+      </div>
       <input
         className={joinStrings(
           'inset-secondary flex w-full rounded-lg px-3 py-2 border-2',

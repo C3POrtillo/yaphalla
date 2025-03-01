@@ -17,7 +17,7 @@ const ArenaPresetSelector: FC<ArenaPresetSelectorProps> = ({ variant = 'base' })
   const displayClasses =
     compareStrings(variant, 'base') === 0
       ? 'xl:grid xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6'
-      : 'flex-col flex-wrap sm:flex xl:grid xl:grid-cols-2 ';
+      : 'flex-col flex-wrap sm:flex';
 
   return (
     <>
@@ -49,7 +49,7 @@ const ArenaPresetSelector: FC<ArenaPresetSelectorProps> = ({ variant = 'base' })
             <Button key={label} onClick={() => setPreset(label)} selected={label === preset} hasActiveBorder>
               <div className="flex flex-col gap-2">
                 <h2 className="text-lg lg:text-xl">{label}</h2>
-                <div className="hidden xl:block">
+                <div className="hidden 2xl:block">
                   <TilePreview tileData={data as (-1 | 0 | 1)[]} />
                 </div>
               </div>

@@ -1,12 +1,12 @@
 import type { Talents, UnitDivData, UnitFormationData } from '@/components/editor/types';
 
 import {
+  OtherUnits,
   PairSet,
   SortedUnits,
   TalentLocations,
   UnitPairs,
   UnitsByFaction,
-  Wildcards,
   indexToPosition,
   requiredUnits,
 } from '@/components/editor/types';
@@ -131,7 +131,7 @@ const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {
 };
 
 export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant: 'unit' | 'class' = 'unit') => {
-  const data = compareStrings(variant, 'unit') === 0 ? SortedUnits : Wildcards;
+  const data = compareStrings(variant, 'unit') === 0 ? SortedUnits : OtherUnits;
 
   const result: UnitDivData[] = [];
   const length = getRowCount(mediaQueries);

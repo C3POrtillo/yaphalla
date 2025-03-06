@@ -62,6 +62,7 @@ const UnitGrid: FC = () => {
             size="sm"
             disabled={disabled}
             disabledOverlay={!isValid || sameUnit}
+            hasHoverLabel
             onClick={() => {
               if (disabled) {
                 return;
@@ -92,7 +93,7 @@ const UnitGrid: FC = () => {
         <Text label="Search" setState={setSearchFilter} placeholder="Name/Faction/Class" value={searchFilter}>
           <Toggle
             variant="switch"
-            disableLabel="Wildcards"
+            disableLabel="Other"
             value="Units"
             onChange={e => {
               setVariant(e.target.checked ? 'unit' : 'class');

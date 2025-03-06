@@ -101,6 +101,15 @@ const Hypogean = {
   Warrior: ['Harak'],
 } as ClassData;
 
+const Other = {
+  Tank: ['Guywin'],
+  Support: [],
+  Marksman: ['Joey'],
+  Mage: [],
+  Rogue: [],
+  Warrior: ['Hogan', 'Midnight Hunter'],
+};
+
 const Units = {
   Lightbearer,
   Wilder,
@@ -120,7 +129,7 @@ export const SortedUnits = Object.entries(Units).flatMap(([faction, classData]) 
   ),
 ) as Unit[];
 
-export const Wildcards = (() => {
+export const OtherUnits = (() => {
   const wildCards = new Set([...Faction, ...Talents]);
   const formattedUnits = UnitClass.map(classLabel => ({
     unit: `${classLabel} Wildcard`,
@@ -143,10 +152,20 @@ export const Wildcards = (() => {
     });
   });
 
+  Object.entries(Other).forEach(([classLabel, units]) => {
+    units.sort().forEach(unit => {
+      formattedUnits.push({
+        unit,
+        faction: '',
+        classLabel,
+      });
+    });
+  });
+
   return formattedUnits;
 })();
 
-export const UnitsByFaction = [...SortedUnits, ...Wildcards].reduce(
+export const UnitsByFaction = [...SortedUnits, ...OtherUnits].reduce(
   (units, { unit, faction }) => {
     const isCeleHypo = ['Celestial', 'Hypogean'].some(check => compareStrings(faction, check) === 0);
     const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);

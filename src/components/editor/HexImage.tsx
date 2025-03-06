@@ -18,6 +18,7 @@ export interface HexImageProps {
   isEnemy?: boolean;
   isTalent?: boolean;
   size?: 'md' | 'sm' | 'xs' | '2xs';
+  hasHoverLabel?: boolean;
 }
 
 const HexImage: FC<HexImageProps> = ({
@@ -32,6 +33,7 @@ const HexImage: FC<HexImageProps> = ({
   isEnemy,
   isTalent,
   size = 'md',
+  hasHoverLabel,
 }) => {
   const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
     imageSrc,
@@ -60,7 +62,7 @@ const HexImage: FC<HexImageProps> = ({
   return (
     <div
       className={joinStrings(
-        'hex-icon relative group',
+        'hex-icon relative group flex flex-row justify-center',
         !disabled && !disabledOverlay && 'hex-overlay',
         disabledOverlay && 'disabled-overlay',
         getSizeClass(size),
@@ -74,6 +76,11 @@ const HexImage: FC<HexImageProps> = ({
       {assetSrcs.map((imageSrc, i) => (
         <Asset key={imageSrc} imageSrc={imageSrc} zIndex={i ? `z-${i}` : undefined} />
       ))}
+      {hasHoverLabel && (
+        <div className="container-primary !p-1 hidden absolute w-fit text-xs bottom-0 translate-y-2/3 z-10 group-hover:block ">
+          {src}
+        </div>
+      )}
     </div>
   );
 };

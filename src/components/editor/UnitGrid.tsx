@@ -62,6 +62,7 @@ const UnitGrid: FC = () => {
             size="sm"
             disabled={disabled}
             disabledOverlay={!isValid || sameUnit}
+            hasHoverLabel
             onClick={() => {
               if (disabled) {
                 return;

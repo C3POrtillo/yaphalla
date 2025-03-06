@@ -92,7 +92,7 @@ const UnitGrid: FC = () => {
         <Text label="Search" setState={setSearchFilter} placeholder="Name/Faction/Class" value={searchFilter}>
           <Toggle
             variant="switch"
-            disableLabel="Wildcards"
+            disableLabel="Other"
             value="Units"
             onChange={e => {
               setVariant(e.target.checked ? 'unit' : 'class');

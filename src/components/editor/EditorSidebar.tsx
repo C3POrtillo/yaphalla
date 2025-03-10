@@ -160,7 +160,6 @@ const EditorSidebar: FC = () => {
             onClick={() => {
               setDrawEnemy(false);
               setEditArena(false);
-              setHideEmptyArtifact(true);
               setNumber(true);
               setEnemy(true);
               setEmpty(true);

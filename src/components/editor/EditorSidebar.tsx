@@ -22,7 +22,6 @@ const EditorSidebar: FC = () => {
     setPreset,
     setUnits,
     isEditArena,
-    setHideEmptyArtifact,
     setNumber,
     setEnemy,
     setEmpty,

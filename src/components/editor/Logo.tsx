@@ -15,10 +15,11 @@ interface LogoProps {
 const Logo: FC<LogoProps> = ({ hideLogo, isCat, size = 'md' }) => {
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
+  const showLogo = !isDev || !hideLogo
 
   return (
     <div className={joinStrings('hex-icon relative', getSizeClass(size))}>
-      {isDev && !hideLogo && (
+      {showLogo && (
         <Image
           src={`/assets/images/hexes/unit/Yaphalla ${isCat ? 'Cat' : 'Dog'} Hex.png`}
           alt="Yaphalla Logo"

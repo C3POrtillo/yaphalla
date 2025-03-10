@@ -30,6 +30,7 @@ const UnitGrid: FC = () => {
     setUnits,
   } = useFormation();
   const searchParams = useSearchParams();
+  const isDev = isDevMode(searchParams);
   const isMdScreen = useMediaQuery({ query: '(min-width: 768px)' });
   const isXlScreen = useMediaQuery({ query: '(min-width: 1280px)' });
   const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
@@ -40,9 +41,8 @@ const UnitGrid: FC = () => {
   const searchRegex = !!searchFilter && new RegExp(cleanString(searchFilter), 'i');
 
   useEffect(() => {
-    const isDev = isDevMode(searchParams);
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant, isDev));
-  }, [isMdScreen, isXlScreen, variant, searchParams]);
+  }, [isMdScreen, isXlScreen, variant, isDev]);
 
   const unitHexes = formattedUnits.map(({ offset, tiles }, i) => (
     <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>

@@ -6,10 +6,9 @@ import type { FC } from 'react';
 import ArtifactGrid from '@/components/editor/ArtifactGrid';
 import { useFormation } from '@/components/editor/FormationProvider';
 import HexImage from '@/components/editor/HexImage';
-import { ArenaPresets, ArtifactSet } from '@/components/editor/types';
+import { ArenaPresets, ArtifactSet, DoubleArtifacts } from '@/components/editor/types';
 import { getDrawImage, isDevMode } from '@/components/editor/utils';
 import Button from '@/components/inputs/button/Button';
-import { compareStrings } from '@/utils/utils';
 
 const EditorSidebar: FC = () => {
   const {
@@ -20,7 +19,6 @@ const EditorSidebar: FC = () => {
     setEditArena,
     setMenuTab,
     setTileData,
-    preset,
     setPreset,
     setUnits,
     isEditArena,
@@ -31,7 +29,6 @@ const EditorSidebar: FC = () => {
   } = useFormation();
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
-  const isDoubleArtifacts = compareStrings(preset, 'Double Artifacts') === 0
 
   const tileControls = [
     {
@@ -159,7 +156,7 @@ const EditorSidebar: FC = () => {
         <div className="container-primary w-full flex flex-col gap-2 items-center">
           <Button
             size="sm"
-            className="w-full"
+            className="relative w-full group flex items-center justify-center"
             onClick={() => {
               setDrawEnemy(false);
               setEditArena(false);
@@ -168,12 +165,18 @@ const EditorSidebar: FC = () => {
               setEnemy(true);
               setEmpty(true);
               setPreset('Double Artifacts');
+              setUnits({
+                39: { unit: 'Yaphalla Cat Hex', type: 100 },
+              });
+              setTileData(DoubleArtifacts as unknown as number[]);
             }}
             hierarchy="warning"
-            selected={isDoubleArtifacts}
             hasActiveBorder
           >
             Double Artifact Preset
+            <div className="container-primary !p-1 hidden absolute w-fit text-xs top-full z-10 group-hover:block ">
+              Warning: Cannot readd Artifact Tiles
+            </div>
           </Button>
         </div>
       )}

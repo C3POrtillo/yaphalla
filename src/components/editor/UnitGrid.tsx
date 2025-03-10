@@ -9,7 +9,7 @@ import type { FC } from 'react';
 import FilterGroup from '@/components/editor/FilterGroup';
 import { useFormation } from '@/components/editor/FormationProvider';
 import TileButton from '@/components/editor/TileButton';
-import { Faction, UnitClass } from '@/components/editor/types';
+import { ArtifactSet, Faction, UnitClass } from '@/components/editor/types';
 import { getFormattedUnits, testRegex, validateSearch } from '@/components/editor/utils';
 import Text from '@/components/inputs/text/Text';
 import Toggle from '@/components/inputs/toggle/Toggle';
@@ -42,11 +42,12 @@ const UnitGrid: FC = () => {
   useEffect(() => {
     const isDev = compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev') === 0;
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant, isDev));
-  }, [isMdScreen, isXlScreen, variant]);
+  }, [isMdScreen, isXlScreen, variant, searchParams]);
 
   const unitHexes = formattedUnits.map(({ offset, tiles }, i) => (
     <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>
       {tiles.map(({ unit, faction, classLabel }) => {
+        const path = ArtifactSet.has(unit) ? 'artifact' : 'unit';
         const matchesFaction = testRegex(faction, factionRegex);
         const matchesClass = testRegex(classLabel, classRegex);
         const validSearch = validateSearch(searchRegex, faction, classLabel, unit);
@@ -61,7 +62,7 @@ const UnitGrid: FC = () => {
             key={unit}
             src={unit}
             ariaLabel={unit}
-            path="unit"
+            path={path}
             size="sm"
             disabled={disabled}
             disabledOverlay={!isValid || sameUnit}

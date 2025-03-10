@@ -1,6 +1,6 @@
 'use client';
 import * as htmlToImage from 'html-to-image';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 
 import type { FC } from 'react';
 
@@ -189,7 +189,9 @@ const UnitEditor: FC = () => {
         <div className="size-full flex flex-col gap-2 items-center sm:w-fit">
           <div className="container-primary w-full flex flex-col lg:flex-row gap-2 items-center">{saveButtonDivs}</div>
           <div className="size-full flex flex-col-reverse sm:flex-row gap-2">
-            <UnitGrid />
+            <Suspense fallback={<div>Loading...</div>}>
+              <UnitGrid />
+            </Suspense>
             <div className="w-full 2xl:hidden">
               <ArenaPresetSelector variant="sm" />
             </div>

@@ -170,7 +170,7 @@ const TileGrid: FC<TileGridProps> = ({
           const tileLabel = getTileLabel(state, index);
           const { disableGrid, disableEnemy, disabled } = getDisabledProps(state);
           const { src, path } = getTileImage(unit, state, showTalents, hideUnits, hideEnemy);
-          const pathOrArtifact = ArtifactSet.has(src) ? 'artifact' : path
+          const pathOrArtifact = ArtifactSet.has(src) ? 'artifact' : path;
 
           return (
             <TileButton

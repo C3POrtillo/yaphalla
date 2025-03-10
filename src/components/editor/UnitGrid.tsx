@@ -35,7 +35,7 @@ const UnitGrid: FC = () => {
   const isXlScreen = useMediaQuery({ query: '(min-width: 1280px)' });
   const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
   const [variant, setVariant] = useState<'unit' | 'class'>('unit');
-  const disabled = currentTile === undefined;
+  const disabled = currentTile === undefined || tileData[currentTile] === 2;
   const factionRegex = filterFaction && new RegExp(cleanString(filterFaction), 'i');
   const classRegex = filterClass && new RegExp(cleanString(filterClass), 'i');
   const searchRegex = !!searchFilter && new RegExp(cleanString(searchFilter), 'i');
@@ -56,6 +56,7 @@ const UnitGrid: FC = () => {
           filterFaction === undefined && filterClass === undefined
             ? validSearch
             : (matchesFaction && matchesClass) || (!!searchRegex && validSearch);
+        const disable = disabled || tileData[currentTile] === 2;
 
         return (
           <TileButton
@@ -64,21 +65,21 @@ const UnitGrid: FC = () => {
             ariaLabel={unit}
             path={path}
             size="sm"
-            disabled={disabled}
-            disabledOverlay={!isValid || sameUnit}
+            disabled={disable}
+            disabledOverlay={!isValid || sameUnit || disable}
             hasHoverLabel
             onClick={() => {
               if (disabled) {
                 return;
               }
-              const updatedUnits = { ...units };
+              const copy = { ...units };
 
               if (sameUnit) {
-                delete updatedUnits[currentTile];
+                delete copy[currentTile];
               } else {
-                updatedUnits[currentTile] = { unit, type: tileData[currentTile] };
+                copy[currentTile] = { unit, type: tileData[currentTile] };
               }
-              setUnits(updatedUnits);
+              setUnits(copy);
               setCurrentTile(undefined);
             }}
           />

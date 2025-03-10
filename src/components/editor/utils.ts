@@ -17,7 +17,7 @@ import { compareStrings, sortData } from '@/utils/utils';
 export const validateSearch = (regExp: RegExp | undefined | false, ...fields: string[]) =>
   !regExp || regExp.test(fields.join(' '));
 
-export const getRelativeTileLabels = (tiles: (-1 | 0 | 1)[]) => {
+export const getRelativeTileLabels = (tiles: number[]) => {
   const player = [] as number[];
   const enemy = [] as number[];
 
@@ -39,7 +39,7 @@ export const getRelativeTileLabels = (tiles: (-1 | 0 | 1)[]) => {
   };
 };
 
-export const getIsTopRight = (tileData: (-1 | 0 | 1)[]) =>
+export const getIsTopRight = (tileData: number[]) =>
   [28, 38, 39, 43].some(i => tileData[i] !== 1) && [1, 5, 6, 16].some(i => tileData[i] === 1);
 
 export const getSizeClass = (size: 'md' | 'sm' | 'xs' | '2xs') => {
@@ -93,7 +93,7 @@ export const countUnits = (
   const unitCount = {} as Record<string, number>;
 
   Object.entries(units).forEach(([_, { unit, type }]) => {
-    if (type !== 1) {
+    if (type !== 1 || !UnitsByFaction[unit] || !!UnitsByFaction[unit].length) {
       return;
     }
 

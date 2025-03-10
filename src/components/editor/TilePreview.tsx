@@ -10,7 +10,7 @@ import { getSizeClass } from '@/components/editor/utils';
 import { joinStrings } from '@/utils/utils';
 
 interface TilePreviewProps {
-  tileData: (-1 | 0 | 1)[];
+  tileData: number[];
 }
 
 const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {

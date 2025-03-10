@@ -50,7 +50,7 @@ const ArenaPresetSelector: FC<ArenaPresetSelectorProps> = ({ variant = 'base' })
               <div className="flex flex-col gap-2">
                 <h2 className="text-lg lg:text-xl">{label}</h2>
                 <div className="hidden 2xl:block">
-                  <TilePreview tileData={data as (-1 | 0 | 1)[]} />
+                  <TilePreview tileData={data as number[]} />
                 </div>
               </div>
             </Button>

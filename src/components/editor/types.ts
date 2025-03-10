@@ -185,15 +185,13 @@ export const DevUnits = (() => {
   return formattedUnits;
 })();
 
-export const UnitsByFaction = [...SortedUnits, ...OtherUnits].reduce(
-  (units, { unit, faction }) => {
+export const UnitsByFaction = Object.fromEntries(
+  [...SortedUnits, ...OtherUnits].map(({ unit, faction }) => {
     const isCeleHypo = ['Celestial', 'Hypogean'].some(check => compareStrings(faction, check) === 0);
     const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);
-    units[unit] ??= factionName;
 
-    return units;
-  },
-  {} as Record<string, Talents>,
+    return [unit, factionName];
+  })
 );
 
 export type Formation = {

@@ -93,7 +93,7 @@ export const countUnits = (
   const unitCount = {} as Record<string, number>;
 
   Object.entries(units).forEach(([_, { unit, type }]) => {
-    if (type !== 1 || !UnitsByFaction[unit] || !!UnitsByFaction[unit].length) {
+    if (type !== 1 || !UnitsByFaction[unit] || !UnitsByFaction[unit].length) {
       return;
     }
 

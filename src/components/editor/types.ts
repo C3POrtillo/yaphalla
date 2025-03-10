@@ -325,4 +325,4 @@ export const TalentLocations = {
 
 export const LogoRegExp = new RegExp('Cat|Dog');
 
-export const UnitState = new Set([1, 2, 100]);
+export const AlwaysShowStates = new Set([1, 2, 100]);

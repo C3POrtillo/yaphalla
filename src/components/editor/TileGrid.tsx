@@ -6,7 +6,7 @@ import type { FC, PropsWithChildren } from 'react';
 import ArtifactButton from '@/components/editor/ArtifactButton';
 import { useFormation } from '@/components/editor/FormationProvider';
 import TileButton from '@/components/editor/TileButton';
-import { ArtifactSet, TileLayout, indexToPosition } from '@/components/editor/types';
+import { AlwaysShowStates, TileLayout, indexToPosition } from '@/components/editor/types';
 import { getIsTopRight, getRelativeTileLabels, getTalentTiles } from '@/components/editor/utils';
 import Text from '@/components/inputs/text/Text';
 import { joinStrings } from '@/utils/utils';
@@ -55,7 +55,7 @@ const TileGrid: FC<TileGridProps> = ({
     hideEmptyArtifact,
   });
 
-  const getTileLabel = (state: -1 | 0 | 1, index: number) => {
+  const getTileLabel = (state: number, index: number) => {
     const absolutePosition = indexToPosition[index];
     if (hideEmpty) {
       if (state === 0) {
@@ -132,8 +132,8 @@ const TileGrid: FC<TileGridProps> = ({
     return hideEmpty && hideEnemy && (beforeFirst || afterLast);
   };
 
-  const getDisabledProps = (state: -1 | 0 | 1) => {
-    const disableGrid = (state === 0 && hideEmpty) || (hideEmpty && hideEnemy && state !== 1);
+  const getDisabledProps = (state: number) => {
+    const disableGrid = (state === 0 && hideEmpty) || (hideEmpty && hideEnemy && !AlwaysShowStates.has(state));
     const disableEnemy = state === -1 && hideEnemy;
     const disabled = disableGrid || disableEnemy || (state === 0 && disableEmpty);
 
@@ -170,7 +170,6 @@ const TileGrid: FC<TileGridProps> = ({
           const tileLabel = getTileLabel(state, index);
           const { disableGrid, disableEnemy, disabled } = getDisabledProps(state);
           const { src, path } = getTileImage(unit, state, showTalents, hideUnits, hideEnemy);
-          const pathOrArtifact = ArtifactSet.has(src) ? 'artifact' : path;
 
           return (
             <TileButton
@@ -185,8 +184,8 @@ const TileGrid: FC<TileGridProps> = ({
               isTalent={
                 showTalents && getTalentTiles(relativeTileLabel.player, activeFaction).has(indexToPosition[index])
               }
-              disabled={disabled}
-              path={hideUnits || disableEnemy ? 'base' : pathOrArtifact}
+              disabled={disabled || state === 100}
+              path={hideUnits || disableEnemy ? 'base' : path}
               onClick={() => onClick && onClick(tile)}
             />
           );

@@ -140,7 +140,14 @@ export const getFormattedUnits = (
   const data = isUnit ? SortedUnits : OtherUnits;
 
   if (!isUnit && isDev) {
-    data.concat(...DebugArtifacts);
+    ['Dog', 'Cat'].forEach(unit => {
+      data.push({
+        unit: `Yaphalla ${unit} Hex`,
+        faction: '',
+        classLabel: '',
+      });
+    });
+    data.push(...DebugArtifacts);
   }
 
   const result: UnitDivData[] = [];

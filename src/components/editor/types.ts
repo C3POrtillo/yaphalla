@@ -162,14 +162,6 @@ export const OtherUnits = (() => {
     });
   });
 
-  ['Dog', 'Cat'].forEach(unit => {
-    formattedUnits.push({
-      unit: `Yaphalla ${unit} Hex`,
-      faction: '',
-      classLabel: '',
-    });
-  });
-
   return formattedUnits;
 })();
 
@@ -310,3 +302,5 @@ export const TalentLocations = {
   Graveborn: false,
   'Celestial-Hypogean': false,
 } as const;
+
+export const LogoRegExp = new RegExp('Cat|Dog');

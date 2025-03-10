@@ -72,14 +72,15 @@ const UnitGrid: FC = () => {
               if (disabled) {
                 return;
               }
-              const copy = { ...units };
-
-              if (sameUnit) {
-                delete copy[currentTile];
-              } else {
-                copy[currentTile] = { unit, type: tileData[currentTile] };
-              }
-              setUnits(copy);
+              setUnits(prev => {
+                const copy = { ...prev };
+                if (sameUnit) {
+                  delete copy[currentTile];
+                } else {
+                  copy[currentTile] = { unit, type: tileData[currentTile] };
+                }
+                return copy;
+              });
               setCurrentTile(undefined);
             }}
           />

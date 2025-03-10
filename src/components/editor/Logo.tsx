@@ -1,8 +1,9 @@
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 
 import type { FC } from 'react';
 
-import { getSizeClass } from '@/components/editor/utils';
+import { getSizeClass, isDevMode } from '@/components/editor/utils';
 import { joinStrings } from '@/utils/utils';
 
 interface LogoProps {
@@ -11,18 +12,23 @@ interface LogoProps {
   size?: 'md' | 'sm' | 'xs' | '2xs';
 }
 
-const Logo: FC<LogoProps> = ({ hideLogo, isCat, size = 'md' }) => (
-  <div className={joinStrings('hex-icon relative', getSizeClass(size))}>
-    {!hideLogo && (
-      <Image
-        src={`/assets/images/hexes/unit/Yaphalla ${isCat ? 'Cat' : 'Dog'} Hex.png`}
-        alt="Yaphalla Logo"
-        fill
-        sizes="256px"
-        unoptimized
-        priority
-      />
-    )}
-  </div>
-);
+const Logo: FC<LogoProps> = ({ hideLogo, isCat, size = 'md' }) => {
+  const searchParams = useSearchParams();
+  const isDev = isDevMode(searchParams);
+
+  return (
+    <div className={joinStrings('hex-icon relative', getSizeClass(size))}>
+      {isDev && !hideLogo && (
+        <Image
+          src={`/assets/images/hexes/unit/Yaphalla ${isCat ? 'Cat' : 'Dog'} Hex.png`}
+          alt="Yaphalla Logo"
+          fill
+          sizes="256px"
+          unoptimized
+          priority
+        />
+      )}
+    </div>
+  );
+};
 export default Logo;

@@ -189,7 +189,7 @@ const UnitEditor: FC = () => {
         <div className="size-full flex flex-col gap-2 items-center sm:w-fit">
           <div className="container-primary w-full flex flex-col lg:flex-row gap-2 items-center">{saveButtonDivs}</div>
           <div className="size-full flex flex-col-reverse sm:flex-row gap-2">
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div className='container-primary w-full sm:w-min flex flex-col gap-2 p-2'>Loading...</div>}>
               <UnitGrid />
             </Suspense>
             <div className="w-full 2xl:hidden">

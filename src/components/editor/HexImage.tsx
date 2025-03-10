@@ -2,9 +2,9 @@ import Image from 'next/image';
 
 import type { FC } from 'react';
 
-import { HexPath } from '@/components/editor/types';
-import { getSizeClass } from '@/components/editor/utils';
-import { joinStrings } from '@/utils/utils';
+import { HexPath, LogoRegExp } from '@/components/editor/types';
+import { getSizeClass, testRegex } from '@/components/editor/utils';
+import { compareStrings, joinStrings } from '@/utils/utils';
 
 export interface HexImageProps {
   src: string;
@@ -54,7 +54,7 @@ const HexImage: FC<HexImageProps> = ({
 
   const assetSrcs = [
     !hideImage && `${path}/${src}`,
-    isEnemy && 'base/Enemy-Overlay',
+    isEnemy && compareStrings(path, 'unit') === 0 && !testRegex(src, LogoRegExp) && 'base/Enemy-Overlay',
     isTalent && 'base/Talent-Selected',
     !disabled && selected && 'base/Select-Outline',
   ].filter(Boolean) as string[];

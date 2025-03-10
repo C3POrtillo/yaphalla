@@ -30,6 +30,8 @@ export const Artifacts = {
   ],
 } as Record<ArtifactSource, string[]>;
 
+export const ArtifactSet = new Set(Object.values(Artifacts).flatMap(artifacts => artifacts.map(artifact => artifact)));
+
 type ClassData = Record<UnitClass, string[]>;
 type FactionData = Record<Faction, ClassData>;
 
@@ -41,7 +43,7 @@ type UnitType = {
 export type UnitFormationData = Record<number, UnitType>;
 export type ArtifactFormationData = Record<'player' | 'enemy', string[]>;
 
-type Unit = {
+export type Unit = {
   unit: string;
   faction: string;
   classLabel: string;
@@ -159,6 +161,24 @@ export const OtherUnits = (() => {
         faction: '',
         classLabel,
       });
+    });
+  });
+
+  return formattedUnits;
+})();
+
+export const DevUnits = (() => {
+  const formattedUnits = ['Dog', 'Cat'].map(unit => ({
+    unit: `Yaphalla ${unit} Hex`,
+    faction: '',
+    classLabel: '',
+  })) as Unit[];
+
+  ArtifactSet.forEach(artifact => {
+    formattedUnits.push({
+      unit: artifact,
+      faction: '',
+      classLabel: '',
     });
   });
 
@@ -291,3 +311,5 @@ export const TalentLocations = {
   Graveborn: false,
   'Celestial-Hypogean': false,
 } as const;
+
+export const LogoRegExp = new RegExp('Cat|Dog');

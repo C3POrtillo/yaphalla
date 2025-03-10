@@ -15,7 +15,7 @@ interface LogoProps {
 const Logo: FC<LogoProps> = ({ hideLogo, isCat, size = 'md' }) => {
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
-  const showLogo = !isDev || !hideLogo
+  const showLogo = !isDev || !hideLogo;
 
   return (
     <div className={joinStrings('hex-icon relative', getSizeClass(size))}>

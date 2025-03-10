@@ -16,7 +16,7 @@ const Footer: FC = () => (
       <i className="fab fa-discord" /> <span>{discordNames.map(name => name)}</span>
     </div>
     <p className="text-sm md:text-base">
-      Yaphalla is not endorsed or affiliated with Lilith Games, or any of its subsidaries/affiliates
+      Yaphalla is not endorsed or affiliated with Lilith Games, any of its subsidaries/affiliates, or other communities
     </p>
   </footer>
 );

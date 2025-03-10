@@ -68,7 +68,7 @@ const Wilder = {
 } as ClassData;
 
 const Mauler = {
-  Tank: ['Antandra', 'Lumont'],
+  Tank: ['Antandra', 'Gerda', 'Lumont'],
   Support: ['Koko', 'Mikola', 'Smokey & Meerky'],
   Marksman: ['Odie', 'Rhys'],
   Mage: ['Alsa', 'Satrana'],
@@ -291,6 +291,10 @@ export const ArenaPresets = {
   'Supreme Arena V': [
     0, -1, -1, -1, 0, 0, -1, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, -1, 0, -1, -1, 1, 1, 0, 0, 0, 0, 1, 1, 1,
     1, 0, 0, 1, 1, 1, 1, 0, 1, 1,
+  ],
+  'Supreme Arena VI': [
+    0, -1, -1, 0, 0, -1, -1, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 1, 1, 0, 0, -1, 1, 1, 1, 1,
+    0, -1, 1, 1, 1, 0, 0, 1, 1,
   ],
 } as const;
 

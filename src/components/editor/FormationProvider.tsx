@@ -12,7 +12,7 @@ import type {
 } from '@/components/editor/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { ArenaPresets, requiredUnits } from '@/components/editor/types';
+import { AlwaysShowStates, ArenaPresets, ArtifactSet, DoubleTiles, requiredUnits } from '@/components/editor/types';
 import { countUnits } from '@/components/editor/utils';
 import { compareStrings } from '@/utils/utils';
 
@@ -25,8 +25,8 @@ interface FormationContextType {
   setUnits: Dispatch<SetStateAction<UnitFormationData>>;
   artifactData: ArtifactFormationData;
   setArtifactData: Dispatch<SetStateAction<ArtifactFormationData>>;
-  tileData: (-1 | 0 | 1)[];
-  setTileData: Dispatch<SetStateAction<(-1 | 0 | 1)[]>>;
+  tileData: number[];
+  setTileData: Dispatch<SetStateAction<number[]>>;
   tags: string[];
   setTags: Dispatch<SetStateAction<string[]>>;
   additionalNotes: string;
@@ -73,7 +73,7 @@ interface FormationContextType {
     disableEnemy?: boolean,
   ) => {
     src: string;
-    path: 'unit' | 'base';
+    path: 'unit' | 'base' | 'artifact';
   };
 }
 
@@ -87,7 +87,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     player: [],
     enemy: [],
   });
-  const [tileData, setTileData] = useState<(0 | 1 | -1)[]>([...ArenaPresets['Arena I']]);
+  const [tileData, setTileData] = useState<number[]>([...ArenaPresets['Arena I']]);
   const [tags, setTags] = useState<string[]>([]);
   const [additionalNotes, setAdditionalNotes] = useState<string>('');
   const [preset, setPreset] = useState<string>('Arena I');
@@ -185,7 +185,6 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     },
     [currentArtifact, artifactData],
   );
-
   const getTileImage = useCallback(
     (
       unit: string,
@@ -197,7 +196,13 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       const path = unit ? ('unit' as const) : ('base' as const);
       let src = 'Generic-Outline';
 
-      if (state === 1) {
+      if ((!hideUnits && ArtifactSet.has(unit)) || (!unit && state === 2)) {
+        return {
+          src: (!hideUnits && unit) || 'Artifact-Hex',
+          path: 'artifact' as const,
+        };
+      }
+      if (AlwaysShowStates.has(state)) {
         const blank = showTalents ? `${activeFaction}-Hex` : 'Generic-Hex';
         src = (!hideUnits && unit) || blank;
       }
@@ -214,12 +219,20 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     if (compareStrings(preset, 'Custom') === 0) {
       return;
     }
+    if (compareStrings(preset, 'Double Tiles') === 0) {
+      setUnits({
+        39: { unit: 'Yaphalla Cat Hex', type: 100 },
+      });
+      setTileData(DoubleTiles as unknown as number[]);
+
+      return;
+    }
     setUnits({});
-    setTileData(ArenaPresets[preset as keyof typeof ArenaPresets] as (0 | 1 | -1)[]);
+    setTileData(ArenaPresets[preset as keyof typeof ArenaPresets] as number[]);
   }, [preset]);
 
   useEffect(() => {
-    if (isEnemy && currentTile !== undefined && tileData[currentTile] !== 1) {
+    if (isEnemy && currentTile !== undefined && tileData[currentTile] !== 1 && tileData[currentTile] !== 2) {
       setCurrentTile(undefined);
     }
   }, [isEnemy, currentTile]);

@@ -40,25 +40,23 @@ const ArtifactGrid: FC = () => {
               if (!artifactDisabled) {
                 setArtifactData(prev => ({
                   ...prev,
-                  [key]: prev[key]?.includes(artifact) 
-                    ? prev[key].filter(a => a !== artifact) 
-                    : [artifact],
+                  [key]: prev[key]?.includes(artifact) ? prev[key].filter(a => a !== artifact) : [artifact],
                 }));
               }
 
               if (currentTile && tileData[currentTile] === 2) {
                 setUnits(prev => {
                   const copy = { ...prev };
-            
+
                   if (compareStrings(artifact, prev[currentTile]?.unit) === 0) {
                     delete copy[currentTile];
                   } else {
                     copy[currentTile] = { unit: artifact, type: tileData[currentTile] };
                   }
-            
+
                   return copy;
                 });
-            
+
                 setCurrentTile(undefined);
               }
             }}

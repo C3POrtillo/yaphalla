@@ -175,11 +175,7 @@ const UnitEditor: FC = () => {
       <div className="w-full flex flex-col items-center justify-center gap-2 p-2 2xl:flex-row">
         <div className="size-full flex flex-col gap-2 items-start justify-center sm:flex-row sm:w-fit">
           <Suspense
-            fallback={
-              <div className="container-primary w-full flex flex-col grow gap-2 p-2 sm:w-min">
-                Loading...
-              </div>
-            }
+            fallback={<div className="container-primary w-full flex flex-col grow gap-2 p-2 sm:w-min">Loading...</div>}
           >
             <EditorSidebar />
           </Suspense>
@@ -200,7 +196,9 @@ const UnitEditor: FC = () => {
           </div>
           <div className="size-full grow flex flex-col-reverse sm:flex-row gap-2">
             <Suspense
-              fallback={<div className="container-primary w-full flex flex-col grow gap-2 p-2 sm:w-min">Loading...</div>}
+              fallback={
+                <div className="container-primary w-full flex flex-col grow gap-2 p-2 sm:w-min">Loading...</div>
+              }
             >
               <UnitGrid />
             </Suspense>

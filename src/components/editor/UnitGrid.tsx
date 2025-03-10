@@ -79,7 +79,7 @@ const UnitGrid: FC = () => {
                 } else {
                   copy[currentTile] = { unit, type: tileData[currentTile] };
                 }
-                
+
                 return copy;
               });
               setCurrentTile(undefined);

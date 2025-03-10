@@ -1,5 +1,5 @@
 'use-client';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 import type {
   ArtifactFormationData,
@@ -107,7 +107,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [activeFaction, setActiveFaction] = useState<Talents>();
   const [isTalents, setTalents] = useState<boolean>(true);
 
-  const updateArena = (tile: TileData) =>
+  const updateArena = useCallback((tile: TileData) =>
     setTileData(prev =>
       prev.map((prevTile, index) => {
         if (tile.index === index) {
@@ -115,10 +115,11 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
           const tileType = drawEnemy ? -1 : 1;
 
           if (prevTile === tileType) {
-            if (units[index]) {
-              delete units[index];
-              setUnits({ ...units });
-            }
+            setUnits(prevUnits => {
+              const copy = { ...prevUnits };
+              delete copy[index];
+              return copy;
+            });
             setCurrentTile(undefined);
 
             return 0;
@@ -129,32 +130,34 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
 
         return prevTile;
       }),
-    );
-  const updateUnit = ({ index }: TileData) => {
-    let updated = false;
+    ), [drawEnemy, units]);
 
-    if (currentTile === index && units[currentTile]) {
-      delete units[currentTile];
-      updated = true;
-    } else if (currentTile !== undefined && units[currentTile]) {
-      if (units[index]) {
-        [units[index], units[currentTile]] = [units[currentTile], units[index]];
+  const updateUnit = useCallback(({ index }: TileData) => {
+    setUnits(prevUnits => {
+      const copy = { ...prevUnits };
+      let updated = false;
+  
+      if (currentTile === index && copy[currentTile]) {
+        delete copy[currentTile];
+        updated = true;
+      } else if (currentTile !== undefined && copy[currentTile]) {
+        if (copy[index]) {
+          [copy[index], copy[currentTile]] = [copy[currentTile], copy[index]];
+        } else {
+          copy[index] = copy[currentTile];
+          delete copy[currentTile];
+        }
+        updated = true;
+        setCurrentTile(undefined);
       } else {
-        units[index] = units[currentTile];
-        delete units[currentTile];
+        setCurrentTile(currentTile !== index ? index : undefined);
       }
-      updated = true;
-      setCurrentTile(undefined);
-    } else {
-      setCurrentTile(currentTile !== index ? index : undefined);
-    }
+  
+      return updated ? copy : prevUnits;
+    });
+  }, [currentTile]);
 
-    if (updated) {
-      setUnits({ ...units });
-    }
-  };
-
-  const setArtifact = (position: number, artifact: string | boolean) => {
+  const setArtifact = useCallback((position: number, artifact: string | boolean) => {
     setCurrentArtifact(currentArtifact === position ? undefined : position);
     if (currentArtifact === position) {
       const key = position ? 'enemy' : 'player';
@@ -173,9 +176,9 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         });
       }
     }
-  };
+  }, [currentArtifact, artifactData]);
 
-  const getTileImage = (
+  const getTileImage = useCallback((
     unit: string,
     state: number,
     showTalents: false | Talents | undefined,
@@ -194,7 +197,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     }
 
     return { src, path };
-  };
+  }, [activeFaction]);
 
   useEffect(() => {
     if (compareStrings(preset, 'Custom') === 0) {

@@ -1,6 +1,6 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import type { UnitDivData } from '@/components/editor/types';
@@ -10,7 +10,7 @@ import FilterGroup from '@/components/editor/FilterGroup';
 import { useFormation } from '@/components/editor/FormationProvider';
 import TileButton from '@/components/editor/TileButton';
 import { ArtifactSet, Faction, UnitClass } from '@/components/editor/types';
-import { getFormattedUnits, testRegex, validateSearch } from '@/components/editor/utils';
+import { getFormattedUnits, isDevMode, testRegex, validateSearch } from '@/components/editor/utils';
 import Text from '@/components/inputs/text/Text';
 import Toggle from '@/components/inputs/toggle/Toggle';
 import { cleanString, compareStrings, joinStrings } from '@/utils/utils';
@@ -30,19 +30,19 @@ const UnitGrid: FC = () => {
     setUnits,
   } = useFormation();
   const searchParams = useSearchParams();
+  const isDev = isDevMode(searchParams);
   const isMdScreen = useMediaQuery({ query: '(min-width: 768px)' });
   const isXlScreen = useMediaQuery({ query: '(min-width: 1280px)' });
   const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
   const [variant, setVariant] = useState<'unit' | 'class'>('unit');
-  const disabled = currentTile === undefined;
-  const factionRegex = filterFaction && new RegExp(cleanString(filterFaction), 'i');
-  const classRegex = filterClass && new RegExp(cleanString(filterClass), 'i');
-  const searchRegex = !!searchFilter && new RegExp(cleanString(searchFilter), 'i');
+  const disabled = currentTile === undefined || tileData[currentTile] === 2;
+  const factionRegex = useMemo(() => filterFaction && new RegExp(cleanString(filterFaction), 'i'), [filterFaction]);
+  const classRegex = useMemo(() => filterClass && new RegExp(cleanString(filterClass), 'i'), [filterClass]);
+  const searchRegex = useMemo(() => !!searchFilter && new RegExp(cleanString(searchFilter), 'i'), [searchFilter]);
 
   useEffect(() => {
-    const isDev = compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev') === 0;
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant, isDev));
-  }, [isMdScreen, isXlScreen, variant, searchParams]);
+  }, [isMdScreen, isXlScreen, variant, isDev]);
 
   const unitHexes = formattedUnits.map(({ offset, tiles }, i) => (
     <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>
@@ -56,6 +56,7 @@ const UnitGrid: FC = () => {
           filterFaction === undefined && filterClass === undefined
             ? validSearch
             : (matchesFaction && matchesClass) || (!!searchRegex && validSearch);
+        const disable = disabled || tileData[currentTile] === 2;
 
         return (
           <TileButton
@@ -64,21 +65,23 @@ const UnitGrid: FC = () => {
             ariaLabel={unit}
             path={path}
             size="sm"
-            disabled={disabled}
-            disabledOverlay={!isValid || sameUnit}
+            disabled={disable}
+            disabledOverlay={!isValid || sameUnit || disable}
             hasHoverLabel
             onClick={() => {
               if (disabled) {
                 return;
               }
-              const updatedUnits = { ...units };
-
-              if (sameUnit) {
-                delete updatedUnits[currentTile];
-              } else {
-                updatedUnits[currentTile] = { unit, type: tileData[currentTile] };
-              }
-              setUnits(updatedUnits);
+              setUnits(prev => {
+                const copy = { ...prev };
+                if (sameUnit) {
+                  delete copy[currentTile];
+                } else {
+                  copy[currentTile] = { unit, type: tileData[currentTile] };
+                }
+                
+                return copy;
+              });
               setCurrentTile(undefined);
             }}
           />
@@ -88,7 +91,7 @@ const UnitGrid: FC = () => {
   ));
 
   return (
-    <div className="container-primary w-full sm:w-min flex flex-col gap-2 p-2">
+    <div className="container-primary w-full flex flex-col gap-2 p-2 sm:w-min">
       <div className="flex w-full flex-row gap-2 items-end">
         <div className="inset-secondary flex flex-col gap-2 p-2">
           <FilterGroup items={UnitClass} filter={filterClass} setFilter={setFilterClass} path="class" />

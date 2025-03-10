@@ -1,14 +1,16 @@
-import { type FC, useMemo } from 'react';
+import { Suspense, useMemo } from 'react';
 
 import type { TileDivData } from '@/components/editor/types';
+import type { FC } from 'react';
 
 import HexImage from '@/components/editor/HexImage';
 import Logo from '@/components/editor/Logo';
 import { TileLayout } from '@/components/editor/types';
+import { getSizeClass } from '@/components/editor/utils';
 import { joinStrings } from '@/utils/utils';
 
 interface TilePreviewProps {
-  tileData: (-1 | 0 | 1)[];
+  tileData: number[];
 }
 
 const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
@@ -44,7 +46,9 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
         {isLast && (
           <>
             <HexImage src="Artifact-Hex" hideLabel path="artifact" disabled hideImage size={size} />
-            <Logo size={size} />
+            <Suspense fallback={<div className={joinStrings('hex-icon relative', getSizeClass(size))} />}>
+              <Logo size={size} />
+            </Suspense>
           </>
         )}
         {tiles.map((tile, j) => {
@@ -67,7 +71,9 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
         })}
         {isFirst && (
           <>
-            <Logo isCat size={size} />
+            <Suspense fallback={<div className={joinStrings('hex-icon relative', getSizeClass(size))} />}>
+              <Logo isCat size={size} />
+            </Suspense>
             <HexImage src="Artifact-Hex" hideLabel path="artifact" disabled hideImage size={size} />
           </>
         )}

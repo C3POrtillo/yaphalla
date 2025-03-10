@@ -1,4 +1,5 @@
 import type { Talents, UnitDivData, UnitFormationData } from '@/components/editor/types';
+import type { ReadonlyURLSearchParams } from 'next/navigation';
 
 import {
   DevUnits,
@@ -16,7 +17,7 @@ import { compareStrings, sortData } from '@/utils/utils';
 export const validateSearch = (regExp: RegExp | undefined | false, ...fields: string[]) =>
   !regExp || regExp.test(fields.join(' '));
 
-export const getRelativeTileLabels = (tiles: (-1 | 0 | 1)[]) => {
+export const getRelativeTileLabels = (tiles: number[]) => {
   const player = [] as number[];
   const enemy = [] as number[];
 
@@ -38,7 +39,7 @@ export const getRelativeTileLabels = (tiles: (-1 | 0 | 1)[]) => {
   };
 };
 
-export const getIsTopRight = (tileData: (-1 | 0 | 1)[]) =>
+export const getIsTopRight = (tileData: number[]) =>
   [28, 38, 39, 43].some(i => tileData[i] !== 1) && [1, 5, 6, 16].some(i => tileData[i] === 1);
 
 export const getSizeClass = (size: 'md' | 'sm' | 'xs' | '2xs') => {
@@ -92,7 +93,7 @@ export const countUnits = (
   const unitCount = {} as Record<string, number>;
 
   Object.entries(units).forEach(([_, { unit, type }]) => {
-    if (type !== 1) {
+    if (type !== 1 || !UnitsByFaction[unit] || !UnitsByFaction[unit].length) {
       return;
     }
 
@@ -137,11 +138,13 @@ export const getFormattedUnits = (
   isDev?: boolean,
 ) => {
   const isUnit = compareStrings(variant, 'unit') === 0;
-  let data = isUnit ? SortedUnits : OtherUnits;
+  const data = (() => {
+    if (isDev && !isUnit) {
+      return [...OtherUnits, ...DevUnits];
+    }
 
-  if (!isUnit && isDev) {
-    data = data.concat(DevUnits);
-  }
+    return isUnit ? SortedUnits : OtherUnits;
+  })();
 
   const result: UnitDivData[] = [];
   const length = getRowCount(mediaQueries);
@@ -160,3 +163,6 @@ export const getFormattedUnits = (
 
   return result;
 };
+
+export const isDevMode = (searchParams: ReadonlyURLSearchParams) =>
+  compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev') === 0;

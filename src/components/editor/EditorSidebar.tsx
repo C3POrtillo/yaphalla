@@ -1,11 +1,13 @@
 'use-client';
+import { useSearchParams } from 'next/navigation';
+
 import type { FC } from 'react';
 
 import ArtifactGrid from '@/components/editor/ArtifactGrid';
 import { useFormation } from '@/components/editor/FormationProvider';
 import HexImage from '@/components/editor/HexImage';
-import { ArenaPresets } from '@/components/editor/types';
-import { getDrawImage } from '@/components/editor/utils';
+import { ArenaPresets, ArtifactSet, DoubleArtifacts } from '@/components/editor/types';
+import { getDrawImage, isDevMode } from '@/components/editor/utils';
 import Button from '@/components/inputs/button/Button';
 
 const EditorSidebar: FC = () => {
@@ -20,7 +22,12 @@ const EditorSidebar: FC = () => {
     setPreset,
     setUnits,
     isEditArena,
+    setNumber,
+    setEnemy,
+    setEmpty,
   } = useFormation();
+  const searchParams = useSearchParams();
+  const isDev = isDevMode(searchParams);
 
   const tileControls = [
     {
@@ -58,7 +65,7 @@ const EditorSidebar: FC = () => {
       label: 'Invert Tiles',
       hierarchy: 'primary',
       onClick: () => {
-        setTileData(prev => prev.map(prevTile => -prevTile) as (-1 | 0 | 1)[]);
+        setTileData(prev => prev.map(prevTile => -prevTile) as number[]);
       },
     },
     {
@@ -66,16 +73,19 @@ const EditorSidebar: FC = () => {
       hierarchy: 'warning',
       onClick: () => {
         setEditArena(false);
-        setUnits({});
+        setUnits(prevUnits =>
+          Object.fromEntries(Object.entries(prevUnits).filter(([_, data]) => ArtifactSet.has(data.unit))),
+        );
       },
     },
     {
-      label: 'Clear Tiles',
+      label: 'Clear All',
       hierarchy: 'warning',
       onClick: () => {
+        setDrawEnemy(false);
         setEditArena(true);
         setPreset('Custom');
-        setTileData(ArenaPresets['Custom'] as (-1 | 0 | 1)[]);
+        setTileData(ArenaPresets['Custom'] as number[]);
         setUnits({});
       },
     },
@@ -141,6 +151,33 @@ const EditorSidebar: FC = () => {
 
   return (
     <div className="flex w-full flex-col-reverse sm:w-fit sm:flex-col items-center gap-2 self-center">
+      {isDev && (
+        <div className="container-primary w-full flex flex-col gap-2 items-center">
+          <Button
+            size="sm"
+            className="relative w-full group flex items-center justify-center"
+            onClick={() => {
+              setDrawEnemy(false);
+              setEditArena(false);
+              setNumber(true);
+              setEnemy(true);
+              setEmpty(true);
+              setPreset('Double Artifacts');
+              setUnits({
+                39: { unit: 'Yaphalla Cat Hex', type: 100 },
+              });
+              setTileData(DoubleArtifacts as unknown as number[]);
+            }}
+            hierarchy="warning"
+            hasActiveBorder
+          >
+            Double Artifact Preset
+            <div className="container-primary !p-1 hidden absolute w-fit text-xs top-full z-10 group-hover:block ">
+              Warning: Cannot readd Artifact Tiles
+            </div>
+          </Button>
+        </div>
+      )}
       <div className="flex w-full flex-col gap-2 items-center">
         {options[0]}
         <ArtifactGrid />

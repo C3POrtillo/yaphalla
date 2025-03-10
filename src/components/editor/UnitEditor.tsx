@@ -174,7 +174,15 @@ const UnitEditor: FC = () => {
     <div className="flex w-full flex-col items-center justify-center gap-2">
       <div className="w-full flex flex-col items-center justify-center gap-2 p-2 2xl:flex-row">
         <div className="size-full flex flex-col gap-2 items-start justify-center sm:flex-row sm:w-fit">
-          <EditorSidebar />
+          <Suspense
+            fallback={
+              <div className="container-primary w-full flex flex-col grow gap-2 p-2 sm:w-min">
+                Loading...
+              </div>
+            }
+          >
+            <EditorSidebar />
+          </Suspense>
           <TileGrid {...gridProps}>
             <div className="flex flex-col w-full gap-2">
               {controlDivs.map(({ label, hideLabel, divs }) => (
@@ -187,10 +195,12 @@ const UnitEditor: FC = () => {
           </TileGrid>
         </div>
         <div className="size-full flex flex-col gap-2 items-center sm:w-fit">
-          <div className="container-primary w-full flex flex-col lg:flex-row gap-2 items-center">{saveButtonDivs}</div>
-          <div className="size-full flex flex-col-reverse sm:flex-row gap-2">
+          <div className="container-primary w-full flex flex-col grow gap-2 items-center lg:flex-row">
+            {saveButtonDivs}
+          </div>
+          <div className="size-full grow flex flex-col-reverse sm:flex-row gap-2">
             <Suspense
-              fallback={<div className="container-primary w-full sm:w-min flex flex-col gap-2 p-2">Loading...</div>}
+              fallback={<div className="container-primary w-full flex flex-col grow gap-2 p-2 sm:w-min">Loading...</div>}
             >
               <UnitGrid />
             </Suspense>

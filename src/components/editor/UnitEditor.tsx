@@ -187,8 +187,10 @@ const UnitEditor: FC = () => {
           </TileGrid>
         </div>
         <div className="size-full flex flex-col gap-2 items-center sm:w-fit">
-          <div className="container-primary w-full flex flex-col lg:flex-row gap-2 items-center">{saveButtonDivs}</div>
-          <div className="size-full flex flex-col-reverse sm:flex-row gap-2">
+          <div className="container-primary w-full grow flex flex-col lg:flex-row gap-2 items-center">
+            {saveButtonDivs}
+          </div>
+          <div className="size-full grow flex flex-col-reverse sm:flex-row gap-2">
             <Suspense
               fallback={<div className="container-primary w-full sm:w-min flex flex-col gap-2 p-2">Loading...</div>}
             >

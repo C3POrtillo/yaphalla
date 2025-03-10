@@ -30,6 +30,8 @@ export const Artifacts = {
   ],
 } as Record<ArtifactSource, string[]>;
 
+export const ArtifactSet = new Set(Object.values(Artifacts).flatMap(artifacts => artifacts.map(artifact => artifact)));
+
 type ClassData = Record<UnitClass, string[]>;
 type FactionData = Record<Faction, ClassData>;
 
@@ -165,6 +167,24 @@ export const OtherUnits = (() => {
   return formattedUnits;
 })();
 
+export const DevUnits = (() => {
+  const formattedUnits = ['Dog', 'Cat'].map(unit => ({
+    unit: `Yaphalla ${unit} Hex`,
+    faction: '',
+    classLabel: '',
+  })) as Unit[];
+
+  ArtifactSet.forEach(artifact => {
+    formattedUnits.push({
+      unit: artifact,
+      faction: '',
+      classLabel: '',
+    });
+  });
+
+  return formattedUnits;
+})();
+
 export const UnitsByFaction = [...SortedUnits, ...OtherUnits].reduce(
   (units, { unit, faction }) => {
     const isCeleHypo = ['Celestial', 'Hypogean'].some(check => compareStrings(faction, check) === 0);
@@ -175,17 +195,6 @@ export const UnitsByFaction = [...SortedUnits, ...OtherUnits].reduce(
   },
   {} as Record<string, Talents>,
 );
-
-export const { ArtifactSet, DebugArtifacts } = (() => {
-  const artifactSet = new Set(Object.values(Artifacts).flatMap(artifacts => artifacts.map(artifact => artifact)));
-  const debugArtifacts = [...artifactSet].map(artifact => ({
-    unit: artifact,
-    faction: '',
-    classLabel: '',
-  })) as Unit[];
-
-  return { ArtifactSet: artifactSet, DebugArtifacts: debugArtifacts };
-})();
 
 export type Formation = {
   id?: number;

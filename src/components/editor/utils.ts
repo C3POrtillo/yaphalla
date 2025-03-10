@@ -1,7 +1,7 @@
 import type { Talents, UnitDivData, UnitFormationData } from '@/components/editor/types';
 
 import {
-  DebugArtifacts,
+  DevUnits,
   OtherUnits,
   PairSet,
   SortedUnits,
@@ -137,17 +137,10 @@ export const getFormattedUnits = (
   isDev?: boolean,
 ) => {
   const isUnit = compareStrings(variant, 'unit') === 0;
-  const data = isUnit ? SortedUnits : OtherUnits;
+  let data = isUnit ? SortedUnits : OtherUnits;
 
   if (!isUnit && isDev) {
-    ['Dog', 'Cat'].forEach(unit => {
-      data.push({
-        unit: `Yaphalla ${unit} Hex`,
-        faction: '',
-        classLabel: '',
-      });
-    });
-    data.push(...DebugArtifacts);
+    data = data.concat(DevUnits);
   }
 
   const result: UnitDivData[] = [];

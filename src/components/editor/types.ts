@@ -191,7 +191,7 @@ export const UnitsByFaction = Object.fromEntries(
     const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);
 
     return [unit, factionName];
-  })
+  }),
 );
 
 export type Formation = {

@@ -1,7 +1,6 @@
 import type { Talents, UnitDivData, UnitFormationData } from '@/components/editor/types';
 import type { ReadonlyURLSearchParams } from 'next/navigation';
 
-
 import {
   DevUnits,
   OtherUnits,

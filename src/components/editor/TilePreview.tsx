@@ -1,14 +1,14 @@
 import { Suspense, useMemo } from 'react';
 
-import type { FC } from 'react';
 
 import type { TileDivData } from '@/components/editor/types';
+import type { FC } from 'react';
 
 import HexImage from '@/components/editor/HexImage';
 import Logo from '@/components/editor/Logo';
 import { TileLayout } from '@/components/editor/types';
+import { getSizeClass } from '@/components/editor/utils';
 import { joinStrings } from '@/utils/utils';
-import { getSizeClass } from './utils';
 
 interface TilePreviewProps {
   tileData: (-1 | 0 | 1)[];

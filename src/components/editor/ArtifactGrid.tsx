@@ -30,7 +30,9 @@ const ArtifactGrid: FC = () => {
             setArtifactData(prev => {
               const updated = { ...prev };
               const currentArtifacts = updated[key] || [];
-              updated[key] = currentArtifacts.includes(artifact) ? currentArtifacts.filter(a => a !== artifact) : [artifact]
+              updated[key] = currentArtifacts.includes(artifact)
+                ? currentArtifacts.filter(a => a !== artifact)
+                : [artifact];
 
               return updated;
             });

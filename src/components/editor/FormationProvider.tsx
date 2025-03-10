@@ -12,7 +12,7 @@ import type {
 } from '@/components/editor/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { AlwaysShowStates, ArenaPresets, ArtifactSet, DoubleTiles, requiredUnits } from '@/components/editor/types';
+import { AlwaysShowStates, ArenaPresets, ArtifactSet, DoubleArtifacts, requiredUnits } from '@/components/editor/types';
 import { countUnits } from '@/components/editor/utils';
 import { compareStrings } from '@/utils/utils';
 
@@ -219,11 +219,11 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     if (compareStrings(preset, 'Custom') === 0) {
       return;
     }
-    if (compareStrings(preset, 'Double Tiles') === 0) {
+    if (compareStrings(preset, 'Double Artifacts') === 0) {
       setUnits({
         39: { unit: 'Yaphalla Cat Hex', type: 100 },
       });
-      setTileData(DoubleTiles as unknown as number[]);
+      setTileData(DoubleArtifacts as unknown as number[]);
 
       return;
     }

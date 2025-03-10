@@ -294,7 +294,7 @@ export const ArenaPresets = {
   ],
 } as const;
 
-export const DoubleTiles = [
+export const DoubleArtifacts = [
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 2, 1, 1, 1, 1, 0, 2,
   100, 1, 1, 0, 0, 0,
 ] as const;

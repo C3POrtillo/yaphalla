@@ -9,6 +9,7 @@ import HexImage from '@/components/editor/HexImage';
 import { ArenaPresets, ArtifactSet } from '@/components/editor/types';
 import { getDrawImage, isDevMode } from '@/components/editor/utils';
 import Button from '@/components/inputs/button/Button';
+import { compareStrings } from '@/utils/utils';
 
 const EditorSidebar: FC = () => {
   const {
@@ -19,6 +20,7 @@ const EditorSidebar: FC = () => {
     setEditArena,
     setMenuTab,
     setTileData,
+    preset,
     setPreset,
     setUnits,
     isEditArena,
@@ -29,6 +31,7 @@ const EditorSidebar: FC = () => {
   } = useFormation();
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
+  const isDoubleArtifacts = compareStrings(preset, 'Double Artifacts') === 0
 
   const tileControls = [
     {
@@ -164,9 +167,11 @@ const EditorSidebar: FC = () => {
               setNumber(true);
               setEnemy(true);
               setEmpty(true);
-              setPreset('Double Tiles');
+              setPreset('Double Artifacts');
             }}
             hierarchy="warning"
+            selected={isDoubleArtifacts}
+            hasActiveBorder
           >
             Double Artifact Preset
           </Button>

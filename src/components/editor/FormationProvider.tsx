@@ -130,7 +130,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
 
         return prevTile;
       }),
-    ), [drawEnemy, units]);
+    ), [drawEnemy]);
 
   const updateUnit = useCallback(({ index }: TileData) => {
     setUnits(prevUnits => {
@@ -167,9 +167,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
           const currentArtifacts = updated[key] || [];
 
           if (currentArtifacts.includes(artifact)) {
-            const filteredArtifacts = currentArtifacts.filter(a => a !== artifact);
-            delete updated[key];
-            updated[key] = filteredArtifacts;
+            updated[key] = currentArtifacts.filter(a => a !== artifact);
           }
 
           return updated;
@@ -186,8 +184,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     disableEnemy?: boolean,
   ) => {
     const path = unit ? ('unit' as const) : ('base' as const);
-
     let src = 'Generic-Outline';
+
     if (state === 1) {
       const blank = showTalents ? `${activeFaction}-Hex` : 'Generic-Hex';
       src = (!hideUnits && unit) || blank;
@@ -222,14 +220,14 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     if (Object.keys(units).length) {
       setUnits(prev => {
-        const updated = { ...prev };
-        Object.keys(updated).forEach(index => {
+        const copy = { ...prev };
+        Object.keys(copy).forEach(index => {
           const key = Number(index);
-          const { unit } = updated[key];
-          updated[key] = { unit, type: tileData[key] };
+          const { unit } = copy[key];
+          copy[key] = { unit, type: tileData[key] };
         });
 
-        return updated;
+        return copy;
       });
     }
   }, [tileData]);

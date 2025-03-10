@@ -75,6 +75,7 @@ const EditorSidebar: FC = () => {
       label: 'Clear All',
       hierarchy: 'warning',
       onClick: () => {
+        setDrawEnemy(false);
         setEditArena(true);
         setPreset('Custom');
         setTileData(ArenaPresets['Custom'] as (-1 | 0 | 1)[]);

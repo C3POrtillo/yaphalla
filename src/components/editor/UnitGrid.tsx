@@ -10,7 +10,7 @@ import FilterGroup from '@/components/editor/FilterGroup';
 import { useFormation } from '@/components/editor/FormationProvider';
 import TileButton from '@/components/editor/TileButton';
 import { ArtifactSet, Faction, UnitClass } from '@/components/editor/types';
-import { getFormattedUnits, testRegex, validateSearch } from '@/components/editor/utils';
+import { getFormattedUnits, isDevMode, testRegex, validateSearch } from '@/components/editor/utils';
 import Text from '@/components/inputs/text/Text';
 import Toggle from '@/components/inputs/toggle/Toggle';
 import { cleanString, compareStrings, joinStrings } from '@/utils/utils';
@@ -40,7 +40,7 @@ const UnitGrid: FC = () => {
   const searchRegex = !!searchFilter && new RegExp(cleanString(searchFilter), 'i');
 
   useEffect(() => {
-    const isDev = compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev') === 0;
+    const isDev = isDevMode(searchParams);
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant, isDev));
   }, [isMdScreen, isXlScreen, variant, searchParams]);
 

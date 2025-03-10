@@ -12,6 +12,7 @@ import {
   requiredUnits,
 } from '@/components/editor/types';
 import { compareStrings, sortData } from '@/utils/utils';
+import { ReadonlyURLSearchParams } from 'next/navigation';
 
 export const validateSearch = (regExp: RegExp | undefined | false, ...fields: string[]) =>
   !regExp || regExp.test(fields.join(' '));
@@ -160,3 +161,6 @@ export const getFormattedUnits = (
 
   return result;
 };
+
+export const isDevMode = (searchParams: ReadonlyURLSearchParams) =>
+  compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev') === 0;

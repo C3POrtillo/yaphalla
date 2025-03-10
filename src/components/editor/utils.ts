@@ -1,4 +1,6 @@
 import type { Talents, UnitDivData, UnitFormationData } from '@/components/editor/types';
+import type { ReadonlyURLSearchParams } from 'next/navigation';
+
 
 import {
   DevUnits,
@@ -12,7 +14,6 @@ import {
   requiredUnits,
 } from '@/components/editor/types';
 import { compareStrings, sortData } from '@/utils/utils';
-import { ReadonlyURLSearchParams } from 'next/navigation';
 
 export const validateSearch = (regExp: RegExp | undefined | false, ...fields: string[]) =>
   !regExp || regExp.test(fields.join(' '));

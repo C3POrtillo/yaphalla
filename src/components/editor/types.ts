@@ -162,6 +162,14 @@ export const OtherUnits = (() => {
     });
   });
 
+  ['Dog', 'Cat'].forEach( (unit) => {
+    formattedUnits.push({
+      unit: `Yaphalla ${unit} Hex`,
+      faction: '',
+      classLabel: '',
+    })
+  });
+
   return formattedUnits;
 })();
 

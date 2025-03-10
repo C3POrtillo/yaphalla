@@ -138,11 +138,13 @@ export const getFormattedUnits = (
   isDev?: boolean,
 ) => {
   const isUnit = compareStrings(variant, 'unit') === 0;
-  let data = isUnit ? SortedUnits : OtherUnits;
+  const data = (() => {
+    if (isDev && !isUnit) {
+      return [...OtherUnits, ...DevUnits];
+    }
 
-  if (!isUnit && isDev) {
-    data = data.concat(DevUnits);
-  }
+    return isUnit ? SortedUnits : OtherUnits;
+  })();
 
   const result: UnitDivData[] = [];
   const length = getRowCount(mediaQueries);

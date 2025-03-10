@@ -1,6 +1,6 @@
 'use client';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import type { UnitDivData } from '@/components/editor/types';
@@ -36,9 +36,9 @@ const UnitGrid: FC = () => {
   const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
   const [variant, setVariant] = useState<'unit' | 'class'>('unit');
   const disabled = currentTile === undefined || tileData[currentTile] === 2;
-  const factionRegex = filterFaction && new RegExp(cleanString(filterFaction), 'i');
-  const classRegex = filterClass && new RegExp(cleanString(filterClass), 'i');
-  const searchRegex = !!searchFilter && new RegExp(cleanString(searchFilter), 'i');
+  const factionRegex = useMemo(() => filterFaction && new RegExp(cleanString(filterFaction), 'i'), [filterFaction]);
+  const classRegex = useMemo(() => filterClass && new RegExp(cleanString(filterClass), 'i'), [filterClass]);
+  const searchRegex = useMemo(() => !!searchFilter && new RegExp(cleanString(searchFilter), 'i'), [searchFilter]);
 
   useEffect(() => {
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant, isDev));
@@ -79,6 +79,7 @@ const UnitGrid: FC = () => {
                 } else {
                   copy[currentTile] = { unit, type: tileData[currentTile] };
                 }
+                
                 return copy;
               });
               setCurrentTile(undefined);

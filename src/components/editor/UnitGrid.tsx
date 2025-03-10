@@ -91,7 +91,7 @@ const UnitGrid: FC = () => {
   ));
 
   return (
-    <div className="container-primary w-full sm:w-min flex flex-col gap-2 p-2">
+    <div className="container-primary w-full flex flex-col gap-2 p-2 sm:w-min">
       <div className="flex w-full flex-row gap-2 items-end">
         <div className="inset-secondary flex flex-col gap-2 p-2">
           <FilterGroup items={UnitClass} filter={filterClass} setFilter={setFilterClass} path="class" />

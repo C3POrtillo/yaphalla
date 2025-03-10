@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import ArtifactGrid from '@/components/editor/ArtifactGrid';
 import { useFormation } from '@/components/editor/FormationProvider';
 import HexImage from '@/components/editor/HexImage';
-import { ArenaPresets } from '@/components/editor/types';
+import { ArenaPresets, ArtifactSet } from '@/components/editor/types';
 import { getDrawImage } from '@/components/editor/utils';
 import Button from '@/components/inputs/button/Button';
 
@@ -66,11 +66,13 @@ const EditorSidebar: FC = () => {
       hierarchy: 'warning',
       onClick: () => {
         setEditArena(false);
-        setUnits({});
+        setUnits(prevUnits =>
+          Object.fromEntries(Object.entries(prevUnits).filter(([_, data]) => ArtifactSet.has(data.unit))),
+        );
       },
     },
     {
-      label: 'Clear Tiles',
+      label: 'Clear All',
       hierarchy: 'warning',
       onClick: () => {
         setEditArena(true);

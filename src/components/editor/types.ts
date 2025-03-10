@@ -41,7 +41,7 @@ type UnitType = {
 export type UnitFormationData = Record<number, UnitType>;
 export type ArtifactFormationData = Record<'player' | 'enemy', string[]>;
 
-type Unit = {
+export type Unit = {
   unit: string;
   faction: string;
   classLabel: string;
@@ -162,12 +162,12 @@ export const OtherUnits = (() => {
     });
   });
 
-  ['Dog', 'Cat'].forEach( (unit) => {
+  ['Dog', 'Cat'].forEach(unit => {
     formattedUnits.push({
       unit: `Yaphalla ${unit} Hex`,
       faction: '',
       classLabel: '',
-    })
+    });
   });
 
   return formattedUnits;
@@ -183,6 +183,17 @@ export const UnitsByFaction = [...SortedUnits, ...OtherUnits].reduce(
   },
   {} as Record<string, Talents>,
 );
+
+export const { ArtifactSet, DebugArtifacts } = (() => {
+  const artifactSet = new Set(Object.values(Artifacts).flatMap(artifacts => artifacts.map(artifact => artifact)));
+  const debugArtifacts = [...artifactSet].map(artifact => ({
+    unit: artifact,
+    faction: '',
+    classLabel: '',
+  })) as Unit[];
+
+  return { ArtifactSet: artifactSet, DebugArtifacts: debugArtifacts };
+})();
 
 export type Formation = {
   id?: number;

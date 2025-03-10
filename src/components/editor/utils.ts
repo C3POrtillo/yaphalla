@@ -1,6 +1,7 @@
 import type { Talents, UnitDivData, UnitFormationData } from '@/components/editor/types';
 
 import {
+  DebugArtifacts,
   OtherUnits,
   PairSet,
   SortedUnits,
@@ -130,8 +131,17 @@ const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {
   return 7;
 };
 
-export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant: 'unit' | 'class' = 'unit') => {
-  const data = compareStrings(variant, 'unit') === 0 ? SortedUnits : OtherUnits;
+export const getFormattedUnits = (
+  mediaQueries: Record<string, boolean>,
+  variant: 'unit' | 'class' = 'unit',
+  isDev?: boolean,
+) => {
+  const isUnit = compareStrings(variant, 'unit') === 0;
+  const data = isUnit ? SortedUnits : OtherUnits;
+
+  if (!isUnit && isDev) {
+    data.concat(...DebugArtifacts);
+  }
 
   const result: UnitDivData[] = [];
   const length = getRowCount(mediaQueries);

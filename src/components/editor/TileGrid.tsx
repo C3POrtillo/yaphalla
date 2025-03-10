@@ -6,7 +6,7 @@ import type { FC, PropsWithChildren } from 'react';
 import ArtifactButton from '@/components/editor/ArtifactButton';
 import { useFormation } from '@/components/editor/FormationProvider';
 import TileButton from '@/components/editor/TileButton';
-import { TileLayout, indexToPosition } from '@/components/editor/types';
+import { ArtifactSet, TileLayout, indexToPosition } from '@/components/editor/types';
 import { getIsTopRight, getRelativeTileLabels, getTalentTiles } from '@/components/editor/utils';
 import Text from '@/components/inputs/text/Text';
 import { joinStrings } from '@/utils/utils';
@@ -170,6 +170,7 @@ const TileGrid: FC<TileGridProps> = ({
           const tileLabel = getTileLabel(state, index);
           const { disableGrid, disableEnemy, disabled } = getDisabledProps(state);
           const { src, path } = getTileImage(unit, state, showTalents, hideUnits, hideEnemy);
+          const pathOrArtifact = ArtifactSet.has(src) ? 'artifact' : path
 
           return (
             <TileButton
@@ -185,7 +186,7 @@ const TileGrid: FC<TileGridProps> = ({
                 showTalents && getTalentTiles(relativeTileLabel.player, activeFaction).has(indexToPosition[index])
               }
               disabled={disabled}
-              path={hideUnits || disableEnemy ? 'base' : path}
+              path={hideUnits || disableEnemy ? 'base' : pathOrArtifact}
               onClick={() => onClick && onClick(tile)}
             />
           );

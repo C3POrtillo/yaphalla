@@ -39,6 +39,7 @@ const UnitEditor: FC = () => {
     label: preset,
     hideArtifacts: true,
     hideUnits: true,
+    hideTalents: true,
     hideNumbers: isNumber,
     onClick: updateArena,
   };

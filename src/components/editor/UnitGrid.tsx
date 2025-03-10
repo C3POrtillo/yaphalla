@@ -1,4 +1,5 @@
 'use client';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
@@ -28,6 +29,7 @@ const UnitGrid: FC = () => {
     units,
     setUnits,
   } = useFormation();
+  const searchParams = useSearchParams();
   const isMdScreen = useMediaQuery({ query: '(min-width: 768px)' });
   const isXlScreen = useMediaQuery({ query: '(min-width: 1280px)' });
   const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
@@ -38,7 +40,8 @@ const UnitGrid: FC = () => {
   const searchRegex = !!searchFilter && new RegExp(cleanString(searchFilter), 'i');
 
   useEffect(() => {
-    setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant));
+    const isDev = compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev') === 0;
+    setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant, isDev));
   }, [isMdScreen, isXlScreen, variant]);
 
   const unitHexes = formattedUnits.map(({ offset, tiles }, i) => (

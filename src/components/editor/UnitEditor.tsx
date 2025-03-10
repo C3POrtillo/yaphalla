@@ -174,7 +174,15 @@ const UnitEditor: FC = () => {
     <div className="flex w-full flex-col items-center justify-center gap-2">
       <div className="w-full flex flex-col items-center justify-center gap-2 p-2 2xl:flex-row">
         <div className="size-full flex flex-col gap-2 items-start justify-center sm:flex-row sm:w-fit">
-          <EditorSidebar />
+          <Suspense
+            fallback={
+              <div className="flex w-full flex-col-reverse sm:w-fit sm:flex-col items-center gap-2 self-center">
+                Loading...
+              </div>
+            }
+          >
+            <EditorSidebar />
+          </Suspense>
           <TileGrid {...gridProps}>
             <div className="flex flex-col w-full gap-2">
               {controlDivs.map(({ label, hideLabel, divs }) => (

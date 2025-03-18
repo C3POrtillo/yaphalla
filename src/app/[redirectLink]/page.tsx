@@ -5,16 +5,19 @@ import type { Metadata } from 'next';
 
 import Container from '@/components/container/Container';
 import { redirects } from '@/utils/paths';
+import { metadata } from '@/app/layout';
 
 interface IndexProps {
   params: Promise<{
     redirectLink: string;
+    href: string;
   }>;
 }
 
 export const generateStaticParams = () =>
-  Object.values(redirects).map(item => ({
-    redirectLink: item.redirect.slice(1),
+  Object.values(redirects).map(({ href, redirect: redirectLink }) => ({
+    redirectLink: redirectLink.slice(1),
+    href,
   }));
 
 const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
@@ -41,27 +44,21 @@ const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
   } catch (error) {
     console.error('Metadata fetch error:', error);
 
-    return {};
+    return metadata;
   }
 });
 
 export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata> => {
-  const { redirectLink } = await params;
-  const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
+  const { href } = await params;
 
-  if (!target) {
-    return {};
-  }
-
-  return fetchMetadata(target.href);
+  return fetchMetadata(href);
 };
 
 const Index: FC<IndexProps> = async ({ params }) => {
-  const { redirectLink } = await params;
-  const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
+  const { href } = await params;
 
-  if (target?.href) {
-    redirect(target.href);
+  if (href) {
+    redirect(href);
   }
 
   return (

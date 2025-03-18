@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://www.yaphalla.com/assets/images/yaphalla-dog.png',
-        width: 512,
-        height: 512,
+        width: 128,
+        height: 128,
         alt: 'Yaphalla',
       },
     ],

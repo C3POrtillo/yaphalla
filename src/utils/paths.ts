@@ -40,6 +40,24 @@ export const paths = {
   },
 } as const;
 
+export const redirects = {
+  'Battle Drills': {
+    redirect: '/battle-drills',
+    label: 'Battle Drills',
+    href: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTQNE-x_s_LcUjX4XccM95MKVKA6E1Zv9Php70w6zIn6R6pvwiZGwgv-1X_ptQlyuSl-FS-bc9E8_aR/pubhtml',
+  },
+  'Primal Lord': {
+    redirect: '/primal-lord',
+    label: 'Primal Lord',
+    href: 'https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vQBMOON-RjaiHolLR5QqZbvkJzbEeRkouNWkWOjzCDvmqCYPkcou0QPSm0Rmdt59xmD9RgVyeVQf5Zy/pubhtml',
+  },
+  'Paragon Form': {
+    redirect: '/paragon-form',
+    label: 'Paragon Form',
+    href: 'https://forms.gle/RdCe8D3TC3BjRUtv8',
+  },
+};
+
 const previews = {
   Previews: {
     href: '/preview',

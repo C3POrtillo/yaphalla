@@ -11,14 +11,12 @@ import { redirects } from '@/utils/paths';
 interface IndexProps {
   params: Promise<{
     redirectLink: string;
-    href: string;
   }>;
 }
 
 export const generateStaticParams = () =>
-  Object.values(redirects).map(({ href, redirect: redirectLink }) => ({
+  Object.values(redirects).map(({ redirect: redirectLink }) => ({
     redirectLink: redirectLink.slice(1),
-    href,
   }));
 
 const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
@@ -50,16 +48,22 @@ const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
 });
 
 export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata> => {
-  const { href } = await params;
+  const { redirectLink } = await params;
+  const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
 
-  return fetchMetadata(href);
+  if (!target) {
+    return {};
+  }
+
+  return fetchMetadata(target.href);
 };
 
 const Index: FC<IndexProps> = async ({ params }) => {
-  const { href } = await params;
+  const { redirectLink } = await params;
+  const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
 
-  if (href) {
-    redirect(href);
+  if (target?.href) {
+    redirect(target.href);
   }
 
   return (

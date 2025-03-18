@@ -1,11 +1,12 @@
 import { redirect } from 'next/navigation';
-import { type FC, cache } from 'react';
+import { cache } from 'react';
 
 import type { Metadata } from 'next';
+import type { FC } from 'react';
 
+import { metadata } from '@/app/layout';
 import Container from '@/components/container/Container';
 import { redirects } from '@/utils/paths';
-import { metadata } from '@/app/layout';
 
 interface IndexProps {
   params: Promise<{

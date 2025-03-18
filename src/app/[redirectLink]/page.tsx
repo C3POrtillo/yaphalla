@@ -7,8 +7,15 @@ import Container from '@/components/container/Container';
 import { redirects } from '@/utils/paths';
 
 interface IndexProps {
-  params: { redirectLink: string };
+  params: Promise<{
+    redirectLink: string;
+  }>;
 }
+
+export const generateStaticParams = () =>
+  Object.values(redirects).map(item => ({
+    redirectLink: item.redirect.slice(1),
+  }));
 
 const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
   try {
@@ -40,7 +47,6 @@ const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
 
 export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata> => {
   const { redirectLink } = await params;
-
   const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
 
   if (!target) {
@@ -50,14 +56,8 @@ export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata
   return fetchMetadata(target.href);
 };
 
-export const generateStaticParams = () =>
-  Object.values(redirects).map((item) => ({
-    redirectLink: item.redirect.slice(1),
-  }));
-
 const Index: FC<IndexProps> = async ({ params }) => {
   const { redirectLink } = await params;
-
   const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
 
   if (target?.href) {

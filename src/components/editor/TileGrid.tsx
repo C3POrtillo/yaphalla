@@ -184,7 +184,7 @@ const TileGrid: FC<TileGridProps> = ({
               isTalent={
                 showTalents && getTalentTiles(relativeTileLabel.player, activeFaction).has(indexToPosition[index])
               }
-              disabled={disabled || state === 100}
+              disabled={disabled || (!hideUnits && state === 100)}
               path={state !== 2 && (hideUnits || disableEnemy) ? 'base' : path}
               onClick={() => onClick && onClick(tile)}
             />

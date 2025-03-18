@@ -106,7 +106,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [menuTab, setMenuTab] = useState<MenuTabTypes>('artifact');
   const [activeFaction, setActiveFaction] = useState<Talents>();
   const [isTalents, setTalents] = useState<boolean>(true);
-
+  console.log(tileData);
   const updateArena = useCallback(
     (tile: TileData) =>
       setTileData(prev =>
@@ -200,6 +200,12 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         return {
           src: (!hideUnits && unit) || 'Artifact-Hex',
           path: 'artifact' as const,
+        };
+      }
+      if (unit && state === 100 && hideUnits) {
+        return {
+          src: 'Enemy-Outline',
+          path: 'base' as const,
         };
       }
       if (AlwaysShowStates.has(state)) {

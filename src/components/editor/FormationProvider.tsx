@@ -202,6 +202,12 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
           path: 'artifact' as const,
         };
       }
+      if(unit && state === 100 && hideUnits) {
+        return {
+          src: 'Enemy-Outline',
+          path: 'base' as const,
+        };
+      }
       if (AlwaysShowStates.has(state)) {
         const blank = showTalents ? `${activeFaction}-Hex` : 'Generic-Hex';
         src = (!hideUnits && unit) || blank;

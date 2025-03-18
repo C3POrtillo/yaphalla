@@ -129,6 +129,7 @@ const UnitEditor: FC = () => {
       name: 'talentToggle',
       defaultChecked: !isTalents,
       value: 'Talents',
+      disabled: isEditArena,
       onChange: setTalents,
     },
     {

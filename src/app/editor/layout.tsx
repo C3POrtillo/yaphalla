@@ -1,4 +1,5 @@
-import type { Metadata, Viewport } from 'next';
+import { createMetadata } from '@/utils/utils';
+import type { Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
 export const viewport: Viewport = {
@@ -6,10 +7,10 @@ export const viewport: Viewport = {
   initialScale: 0.69,
 };
 
-export const metadata: Metadata = {
-  title: 'YapBuilder',
-  description: 'Custom Formation Editor or Builder for AFK Journey by Lilith Games!',
-};
+const title = 'YapBuilder'
+const description = 'Custom Formation Editor or Builder for AFK Journey by Lilith Games!'
+
+export const metadata = createMetadata(title, description)
 
 const Layout: FC<PropsWithChildren> = ({ children }) => <>{children}</>;
 

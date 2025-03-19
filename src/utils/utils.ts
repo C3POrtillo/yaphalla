@@ -1,4 +1,5 @@
 import { domain } from '@/utils/paths';
+import { Metadata } from 'next';
 
 const wordSeparators = /[-_\\.+\s]+/g;
 const notAlphaNumericOrSpace = /[^ a-zA-Z0-9]+/g;
@@ -81,3 +82,30 @@ export const getSEO = ({ title, description, slug, canonical, imageUrl, ...props
 
 export const joinStrings = (...strings: (string | number | boolean | undefined | null)[]) =>
   strings.filter(Boolean).join(' ');
+
+
+export const createMetadata = (title: string, description: string): Metadata => ({
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    url: 'https://yaphalla.com',
+    siteName: title,
+    images: [
+      {
+        url: 'https://www.yaphalla.com/assets/images/yaphalla-dog.png',
+        width: 128,
+        height: 128,
+        alt: title,
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title,
+    description,
+    images: ['https://www.yaphalla.com/assets/images/yaphalla-dog.png'],
+  },
+})

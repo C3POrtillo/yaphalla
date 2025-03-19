@@ -1,3 +1,4 @@
+import { redirect } from 'next/navigation';
 import { cache } from 'react';
 
 import type { Metadata } from 'next';
@@ -5,6 +6,7 @@ import type { FC } from 'react';
 
 import { metadata } from '@/app/layout';
 import Container from '@/components/container/Container';
+import Link from '@/components/link/Link';
 import { redirects } from '@/utils/paths';
 import { compareStrings } from '@/utils/utils';
 
@@ -71,9 +73,15 @@ const Index: FC<IndexProps> = async ({ params }) => {
   const { redirectLink } = await params;
   const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
 
+  if (target?.href) {
+    redirect(target.href);
+  }
+
   return (
     <Container className="m-0 flex w-full max-w-4/5 flex-col">
-      <p className="flex flex-row flex-wrap w-full">301 Permanent Redirect: ${target?.href}</p>
+      <p className="flex flex-row flex-wrap w-full">
+        301 Permanent Redirect: <Link href={target?.href} label="Click Here" />
+      </p>
     </Container>
   );
 };

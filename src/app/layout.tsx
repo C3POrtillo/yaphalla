@@ -2,7 +2,7 @@ import { Lato } from 'next/font/google';
 import Script from 'next/script';
 import '@/styles/globals.css';
 
-import type { Metadata, Viewport } from 'next';
+import type { Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
 import Footer from '@/components/footer/Footer';

@@ -1,5 +1,6 @@
+import type { Metadata } from 'next';
+
 import { domain } from '@/utils/paths';
-import { Metadata } from 'next';
 
 const wordSeparators = /[-_\\.+\s]+/g;
 const notAlphaNumericOrSpace = /[^ a-zA-Z0-9]+/g;
@@ -83,7 +84,6 @@ export const getSEO = ({ title, description, slug, canonical, imageUrl, ...props
 export const joinStrings = (...strings: (string | number | boolean | undefined | null)[]) =>
   strings.filter(Boolean).join(' ');
 
-
 export const createMetadata = (title: string, description: string): Metadata => ({
   title,
   description,
@@ -108,4 +108,4 @@ export const createMetadata = (title: string, description: string): Metadata => 
     description,
     images: ['https://www.yaphalla.com/assets/images/yaphalla-dog.png'],
   },
-})
+});

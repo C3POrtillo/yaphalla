@@ -21,8 +21,8 @@ export const viewport: Viewport = {
   height: 'device-height',
 };
 
-const title = 'Yaphalla'
-const description = 'Providing players with the best tools and content for AFK Journey by Lilith Games!'
+const title = 'Yaphalla';
+const description = 'Providing players with the best tools and content for AFK Journey by Lilith Games!';
 
 export const metadata: Metadata = {
   title,

@@ -6,7 +6,9 @@ import type { FC } from 'react';
 
 import { metadata } from '@/app/layout';
 import Container from '@/components/container/Container';
+import Link from '@/components/link/Link';
 import { redirects } from '@/utils/paths';
+import { compareStrings } from '@/utils/utils';
 
 interface IndexProps {
   params: Promise<{
@@ -54,8 +56,17 @@ export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata
   if (!target) {
     return metadata;
   }
+  const redirectData = fetchMetadata(target.href);
+  if (compareStrings(target?.label || '', 'Discord') === 0) {
+    const { title } = await redirectData;
 
-  return fetchMetadata(target.href);
+    return {
+      title,
+      description: metadata.description,
+    };
+  }
+
+  return redirectData;
 };
 
 const Index: FC<IndexProps> = async ({ params }) => {
@@ -68,7 +79,9 @@ const Index: FC<IndexProps> = async ({ params }) => {
 
   return (
     <Container className="m-0 flex w-full max-w-4/5 flex-col">
-      <p className="flex flex-row flex-wrap w-full">Redirecting...</p>
+      <p className="flex flex-row flex-wrap w-full">
+        301 Permanent Redirect: <Link href={target?.href} label="Click Here" />
+      </p>
     </Container>
   );
 };

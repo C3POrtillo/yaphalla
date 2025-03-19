@@ -52,7 +52,7 @@ export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata
   const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
 
   if (!target) {
-    return {};
+    return metadata;
   }
 
   return fetchMetadata(target.href);

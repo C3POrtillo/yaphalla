@@ -29,14 +29,14 @@ export const metadata: Metadata = {
     description: 'Providing players with the best tools and content for AFK Journey by Lilith Games!',
     url: 'https://yaphalla.com',
     siteName: 'Yaphalla',
-    images: [
-      {
-        url: 'https://www.yaphalla.com/assets/images/yaphalla-dog.png',
-        width: 128,
-        height: 128,
-        alt: 'Yaphalla',
-      },
-    ],
+    // images: [
+    //   {
+    //     url: 'https://www.yaphalla.com/assets/images/yaphalla-dog.png',
+    //     width: 128,
+    //     height: 128,
+    //     alt: 'Yaphalla',
+    //   },
+    // ],
     type: 'website',
   },
   twitter: {

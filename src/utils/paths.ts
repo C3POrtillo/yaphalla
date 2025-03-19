@@ -56,6 +56,11 @@ export const redirects = {
     label: 'Paragon Form',
     href: 'https://forms.gle/RdCe8D3TC3BjRUtv8',
   },
+  'Discord': {
+    redirect: '/discord',
+    label: 'Discord',
+    href: 'https://discord.gg/yaphalla',
+  }
 };
 
 const previews = {

@@ -42,7 +42,7 @@ const fetchMetadata = cache(
       if (isDiscord) {
         const { members, online } = await fetchDiscordStats();
         const title = targetTitle;
-        const description = `${online} Online\n⚫ ${members} Members`;
+        const description = `🟢 ${online} Online\n⚫ ${members} Members`;
 
         return {
           title,

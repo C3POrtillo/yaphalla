@@ -84,14 +84,14 @@ export const getSEO = ({ title, description, slug, canonical, imageUrl, ...props
 export const joinStrings = (...strings: (string | number | boolean | undefined | null)[]) =>
   strings.filter(Boolean).join(' ');
 
-export const createMetadata = (title: string, description: string): Metadata => ({
+export const createMetadata = (title: string, description: string, siteName = 'Yaphalla'): Metadata => ({
   title,
   description,
   openGraph: {
     title,
     description,
     url: 'https://yaphalla.com',
-    siteName: title,
+    siteName,
     images: [
       {
         url: 'https://www.yaphalla.com/assets/images/yaphalla-dog.png',
@@ -106,6 +106,7 @@ export const createMetadata = (title: string, description: string): Metadata => 
     card: 'summary',
     title,
     description,
+    site: siteName,
     images: ['https://www.yaphalla.com/assets/images/yaphalla-dog.png'],
   },
 });

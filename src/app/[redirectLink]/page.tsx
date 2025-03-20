@@ -26,24 +26,59 @@ const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
   try {
     const response = await fetch(url, { method: 'GET' });
     const text = await response.text();
-    const { title, description } = metadata;
 
-    const titleMatch = text.match(/<title>(.*?)<\/title>/i);
-    const descriptionMatch = text.match(/<meta name="description" content="(.*?)"/i);
-    const ogTitleMatch = text.match(/<meta property="og:title" content="(.*?)"/i);
-    const ogDescMatch = text.match(/<meta property="og:description" content="(.*?)"/i);
+    const getDiscordDescription = async () => {
+      if (compareStrings(url, redirects.Discord.href) === 0) {
+        const { approximate_member_count: members, approximate_presence_count: online }: Record<string, number> =
+          await (await fetch(discordInviteAPI, { method: 'GET' })).json();
+
+        return `${metadata.description}\n🟢 ${online} Online ⚫ ${members} Members`;
+      }
+
+      return metadata.description;
+    };
+
+    const textMatch = (regExp: RegExp, ogRegExp: RegExp, metadataFallback: typeof metadata.title, fallback: string) => {
+      const match = text.match(regExp);
+      const ogMatch = text.match(ogRegExp);
+
+      return (match?.[1] || ogMatch?.[1] || metadataFallback || fallback) as string;
+    };
+
+    const title = textMatch(
+      /<title>(.*?)<\/title>/i,
+      /<meta property="og:title" content="(.*?)"/i,
+      metadata.title,
+      '301 Permanent Redirect',
+    );
+    const description = textMatch(
+      /<meta name="description" content="(.*?)"/i,
+      /<meta property="og:description" content="(.*?)"/i,
+      await getDiscordDescription(),
+      `Location: ${url}`,
+    );
     const ogImageMatch = text.match(/<meta property="og:image" content="(.*?)"/i);
 
-    return {
-      title: ogTitleMatch?.[1] || titleMatch?.[1] || title || 'Redirecting...',
-      description: ogDescMatch?.[1] || descriptionMatch?.[1] || description || '',
+    const ogImages = ogImageMatch ? [{ url: ogImageMatch[1] }] : metadata.openGraph?.images;
+    const twitterImages = ogImageMatch ? [ogImageMatch[1]] : metadata.twitter?.images;
+
+    const data = {
+      title,
+      description,
       openGraph: {
-        title: ogTitleMatch?.[1] || titleMatch?.[1] || title || 'Redirecting...',
-        description: ogDescMatch?.[1] || descriptionMatch?.[1] || description || '',
+        title,
+        description,
         url,
-        images: ogImageMatch ? [{ url: ogImageMatch[1] }] : undefined,
+        images: ogImages,
+      },
+      twitter: {
+        title,
+        description,
+        images: twitterImages,
       },
     };
+
+    return data;
   } catch (error) {
     console.error('Metadata fetch error:', error);
 
@@ -58,23 +93,7 @@ export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata
   if (!target) {
     return metadata;
   }
-  const redirectData = fetchMetadata(target.href);
-  if (compareStrings(target?.label || '', 'Discord') === 0) {
-    const { title, openGraph } = await redirectData;
-    const { approximate_member_count: members, approximate_presence_count: online }: Record<string, number> = await (
-      await fetch(discordInviteAPI, { method: 'GET' })
-    ).json();
-    const description = `${metadata.description}\n🟢 ${online} Online ⚫ ${members} Members`;
-    
-    return {
-      title,
-      description,
-      openGraph: {
-        ...openGraph,
-        description,
-      },
-    };
-  }
+  const redirectData = await fetchMetadata(target.href);
 
   return redirectData;
 };

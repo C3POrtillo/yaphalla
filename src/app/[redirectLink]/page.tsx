@@ -1,10 +1,11 @@
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { cache } from 'react';
 
 import type { Metadata } from 'next';
 import type { FC } from 'react';
 
 import { metadata } from '@/app/layout';
+import Redirect from '@/components/redirect/Redirect';
 import { redirects } from '@/utils/paths';
 import { discordInviteAPI } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
@@ -94,10 +95,11 @@ const Index: FC<IndexProps> = async ({ params }) => {
   const { redirectLink } = await params;
   const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
 
-  if (target?.href) {
-    redirect(target.href);
+  if (!target) {
+    notFound();
   }
 
-  notFound();
+  return <Redirect href={target.href} />;
 };
+
 export default Index;

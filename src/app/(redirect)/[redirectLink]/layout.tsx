@@ -16,14 +16,22 @@ interface ParamProps {
   }>;
 }
 
-const { approximate_member_count: members, approximate_presence_count: online }: Record<string, number> = cache(
-  await (await fetch(discordInviteAPI, { method: 'GET' })).json(),
-);
+const fetchDiscordStats = cache(async (): Promise<{ members: number; online: number }> => {
+  const response = await fetch(discordInviteAPI, { method: 'GET' });
+  const data = await response.json();
+
+  return {
+    members: data.approximate_member_count,
+    online: data.approximate_presence_count,
+  };
+});
+
 
 const fetchMetadata = cache(async (url: string, label: string): Promise<Metadata> => {
   try {
     const isDiscord = compareStrings(label, redirects['/discord'].label) === 0;
     if (isDiscord) {
+      const { members, online } = await fetchDiscordStats();
       const title = 'Join the Yaphalla Discord!';
       const description = `${metadata.description}\n🟢 ${online} Online ⚫ ${members} Members`;
 
@@ -37,6 +45,7 @@ const fetchMetadata = cache(async (url: string, label: string): Promise<Metadata
           images: metadata?.openGraph?.images,
         },
         twitter: {
+          card: 'summary',
           title,
           description,
           images: metadata?.twitter?.images,
@@ -79,6 +88,7 @@ const fetchMetadata = cache(async (url: string, label: string): Promise<Metadata
         images: ogImages,
       },
       twitter: {
+        card: 'summary',
         title,
         description,
         images: twitterImages,

@@ -7,7 +7,7 @@ import { metadata } from '@/app/(main)/layout';
 import Root from '@/components/root/Root';
 import { redirects } from '@/utils/paths';
 import { discordInviteAPI } from '@/utils/types';
-import { compareStrings, createMetadata } from '@/utils/utils';
+import { compareStrings } from '@/utils/utils';
 
 interface ParamProps {
   params: Promise<{
@@ -15,8 +15,34 @@ interface ParamProps {
   }>;
 }
 
-const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
+const { approximate_member_count: members, approximate_presence_count: online }: Record<string, number> = cache(
+  await (await fetch(discordInviteAPI, { method: 'GET' })).json(),
+);
+
+const fetchMetadata = cache(async (url: string, label: string): Promise<Metadata> => {
   try {
+    const isDiscord = compareStrings(label, redirects['/discord'].label) === 0;
+    if (isDiscord) {
+      const title = 'Join the Yaphalla Discord!';
+      const description = `${metadata.description}\n🟢 ${online} Online ⚫ ${members} Members`;
+
+      return {
+        title,
+        description,
+        openGraph: {
+          title,
+          description,
+          url,
+          images: metadata?.openGraph?.images,
+        },
+        twitter: {
+          title,
+          description,
+          images: metadata?.twitter?.images,
+        },
+      };
+    }
+
     const response = await fetch(url, { method: 'GET' });
     const text = await response.text();
 
@@ -66,30 +92,18 @@ const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
 
 export const generateMetadata = async ({ params }: ParamProps): Promise<Metadata> => {
   const { redirectLink } = await params;
-  const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
+  const target = redirects[`/${redirectLink}` as keyof typeof redirects];
 
   if (!target) {
     return metadata;
   }
 
-  const isDiscord = compareStrings(target.label, redirects.Discord.label) === 0;
-  if (isDiscord) {
-    const { approximate_member_count: members, approximate_presence_count: online }: Record<string, number> = await (
-      await fetch(discordInviteAPI, { method: 'GET' })
-    ).json();
-
-    return createMetadata(
-      'Join the Yaphalla Discord Server!',
-      `${metadata.description}\n🟢 ${online} Online ⚫ ${members} Members`,
-    );
-  }
-
-  return fetchMetadata(target.href);
+  return fetchMetadata(target.href, target.label);
 };
 
 const Layout: FC<ParamProps & PropsWithChildren> = async ({ params, children }) => {
   const { redirectLink } = await params;
-  const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
+  const target = redirects[`/${redirectLink}` as keyof typeof redirects];
   const head = target && <meta httpEquiv="refresh" content={`0; url=${target.href}`} />;
 
   return <Root head={head}>{children}</Root>;

@@ -1,8 +1,8 @@
-import { notFound, permanentRedirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 import type { FC } from 'react';
 
-// import Redirect from '@/components/redirect/Redirect';
+import Redirect from '@/components/redirect/Redirect';
 import { redirects } from '@/utils/paths';
 
 interface ParamProps {
@@ -18,13 +18,13 @@ export const generateStaticParams = () =>
 
 const Index: FC<ParamProps> = async ({ params }) => {
   const { redirectLink } = await params;
-  const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
+  const target = redirects[`/${redirectLink}` as keyof typeof redirects];
 
   if (!target) {
     notFound();
   }
-  permanentRedirect(target.href)
-  // return <Redirect href={target.href} />;
+  
+  return <Redirect href={target.href} />;
 };
 
 export default Index;

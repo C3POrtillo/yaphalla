@@ -36,6 +36,7 @@ const fetchMetadata = cache(
     site,
     keywords,
     noIndex,
+    image,
   }: RedirectType): Promise<Metadata> => {
     try {
       const isDiscord = compareStrings(label, redirects['/discord'].label) === 0;
@@ -62,14 +63,23 @@ const fetchMetadata = cache(
           description,
           url,
           siteName,
-          images: og,
+          images: image
+            ? [
+              {
+                url: image,
+                width: 128,
+                height: 128,
+                alt: title,
+              },
+            ]
+            : og,
         },
         twitter: {
           card: 'summary',
           title,
           description,
           site: siteName,
-          images: twitter,
+          images: image ? [image] : twitter,
         },
       });
 

@@ -14,6 +14,7 @@ export type RedirectType = {
   site?: string;
   keywords?: string[];
   noIndex?: boolean;
+  image?: string;
 };
 
 export const socials = {
@@ -102,6 +103,7 @@ export const redirects = {
     title: 'Join Fight Club!',
     site: 'Discord',
     keywords: ['Fight Club Discord'],
+    image: 'https://www.yaphalla.com/assets/images/fight-club.png',
   } as RedirectType,
   '/trolley': {
     redirect: '/trolley',
@@ -110,6 +112,7 @@ export const redirects = {
     title: "Join Dolly's Trolley!",
     site: 'Discord',
     noIndex: true,
+    image: 'https://www.yaphalla.com/assets/images/trolley.png',
   } as RedirectType,
 } as const;
 

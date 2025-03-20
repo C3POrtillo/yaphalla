@@ -84,17 +84,24 @@ export const getSEO = ({ title, description, slug, canonical, imageUrl, ...props
 export const joinStrings = (...strings: (string | number | boolean | undefined | null)[]) =>
   strings.filter(Boolean).join(' ');
 
+const imageURL = 'https://www.yaphalla.com/assets/images/yaphalla-dog.png';
+
 export const createMetadata = (title: string, description: string, siteName = 'Yaphalla'): Metadata => ({
   title,
   description,
   keywords: ['Yaphalla', 'AFKJ', 'AFKJourney', 'AFK Journey', 'AFKJ Guides', 'AFKJourney Guides', 'AFK Journey Guides'],
+  icons: {
+    icon: imageURL,
+    shortcut: imageURL,
+    apple: imageURL,
+  },
   openGraph: {
     title,
     description,
     siteName,
     images: [
       {
-        url: 'https://www.yaphalla.com/assets/images/yaphalla-dog.png',
+        url: imageURL,
         width: 128,
         height: 128,
         alt: title,
@@ -107,6 +114,6 @@ export const createMetadata = (title: string, description: string, siteName = 'Y
     title,
     description,
     site: siteName,
-    images: ['https://www.yaphalla.com/assets/images/yaphalla-dog.png'],
+    images: [imageURL],
   },
 });

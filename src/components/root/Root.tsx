@@ -1,35 +1,25 @@
-import { Lato } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
 import '@/styles/globals.css';
 
-import type { Viewport } from 'next';
-import type { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren, ReactNode } from 'react';
 
 import Footer from '@/components/footer/Footer';
 import Breadcrumbs from '@/components/header/Breadcrumbs';
 import Header from '@/components/header/Header';
-import { createMetadata, joinStrings } from '@/utils/utils';
+import { font } from '@/utils/types';
+import { joinStrings } from '@/utils/utils';
 
-const font = Lato({
-  subsets: ['latin', 'latin-ext'],
-  variable: '--font-lato',
-  weight: '400',
-});
+interface RootProps extends PropsWithChildren {
+  head?: ReactNode;
+}
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  height: 'device-height',
-};
-
-const title = 'Yaphalla';
-const description = 'Providing players with the best tools and content for AFK Journey by Lilith Games!';
-
-export const metadata = createMetadata(title, description);
-
-const RootLayout: FC<PropsWithChildren> = ({ children }) => (
+const Root: FC<RootProps> = ({ head, children }) => (
   <html lang="en">
+    {/* eslint-disable-next-line @next/next/no-head-element */}
     <head>
       <Script src="https://kit.fontawesome.com/8a3bf2a858.js" crossOrigin="anonymous" />
+      {head}
     </head>
     <body className="h-[100vh] snap-y">
       <div className="flex min-w-full max-w-full min-h-full">
@@ -44,10 +34,11 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => (
           {children}
           <Footer />
           <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_auto] -z-10 opacity-20"></div>
+          <Analytics />
         </main>
       </div>
     </body>
   </html>
 );
 
-export default RootLayout;
+export default Root;

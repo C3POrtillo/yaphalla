@@ -15,7 +15,9 @@ const sitemap = (): MetadataRoute.Sitemap => {
     .filter(({ href }) => !!href && compareStrings(href, '/') !== 0)
     .map(({ href }) => createEntry(href));
 
-  const redirectData = Object.values(redirects).map(({ redirect }) => createEntry(redirect));
+  const redirectData = Object.values(redirects)
+    .filter(({ noIndex }) => !noIndex)
+    .map(({ redirect }) => createEntry(redirect));
 
   return [
     {

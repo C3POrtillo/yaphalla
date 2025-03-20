@@ -8,8 +8,7 @@ import { metadata } from '@/app/(main)/layout';
 import Redirect from '@/components/redirect/Redirect';
 import Root from '@/components/root/Root';
 import { redirects } from '@/utils/paths';
-import { discordInviteAPI } from '@/utils/types';
-import { compareStrings } from '@/utils/utils';
+import { compareStrings, discordInviteAPI } from '@/utils/utils';
 
 interface ParamProps {
   params: Promise<{
@@ -17,9 +16,8 @@ interface ParamProps {
   }>;
 }
 
-const fetchDiscordStats = cache(async (): Promise<{ members: number; online: number }> => {
-  const response = await fetch(discordInviteAPI, { method: 'GET' });
-  const data = await response.json();
+const fetchDiscordStats = cache(async (invite = 'yaphalla'): Promise<{ members: number; online: number }> => {
+  const data = await (await fetch(discordInviteAPI(invite), { method: 'GET' })).json();
 
   return {
     members: data.approximate_member_count,
@@ -37,37 +35,53 @@ const fetchMetadata = cache(
     description: targetDescription,
     site,
     keywords,
+    noIndex,
   }: RedirectType): Promise<Metadata> => {
     try {
       const isDiscord = compareStrings(label, redirects['/discord'].label) === 0;
-      if (isDiscord) {
-        const { members, online } = await fetchDiscordStats();
-        const title = targetTitle;
-        const description = `🟢 ${online} Online\n⚫ ${members} Members`;
-
-        return {
+      const fallbackOgImages = metadata.openGraph?.images;
+      const fallbackTwitterImages = metadata.twitter?.images;
+      const createMetadata = (
+        title: string | undefined,
+        description: string | undefined,
+        siteName: string | undefined,
+        og: typeof fallbackOgImages,
+        twitter: typeof fallbackTwitterImages,
+      ) => ({
+        title,
+        description,
+        keywords,
+        robots: noIndex
+          ? {
+            index: false,
+            follow: false,
+          }
+          : undefined,
+        openGraph: {
           title,
           description,
-          keywords,
-          openGraph: {
-            title,
-            description,
-            url,
-            siteName: site,
-            images: metadata?.openGraph?.images,
-          },
-          twitter: {
-            card: 'summary',
-            title,
-            description,
-            site,
-            images: metadata?.twitter?.images,
-          },
-        };
+          url,
+          siteName,
+          images: og,
+        },
+        twitter: {
+          card: 'summary',
+          title,
+          description,
+          site: siteName,
+          images: twitter,
+        },
+      });
+
+      if (isDiscord) {
+        const invite = url.split('/').slice(-1)[0];
+        const { members, online } = await fetchDiscordStats(invite);
+        const description = `🟢 ${online} Online\n⚫ ${members} Members`;
+
+        return createMetadata(targetTitle, description, site, fallbackOgImages, fallbackTwitterImages);
       }
 
       const text = await (await fetch(url, { method: 'GET' })).text();
-
       const textMatch = (fallback: string | null | undefined, ...regExp: string[]) => {
         const matchPattern = (pattern: string) => text.match(new RegExp(pattern, 'is'))?.[1];
         const match = regExp.map(matchPattern).find(Boolean);
@@ -76,36 +90,15 @@ const fetchMetadata = cache(
       };
 
       const title = targetTitle || textMatch(null, '<title>(.*?)</title>', createMetaString('property="og:title"'));
-
       const description =
         targetDescription ||
         textMatch(metadata.description, ...['name="description"', 'property="og:description"'].map(createMetaString));
-
       const ogSite = site || textMatch('Yaphalla', createMetaString('property="og:site_name"'));
       const ogImageMatch = text.match(new RegExp('<meta property="og:image" content="(.*?)"', 'is'));
+      const ogImages = ogImageMatch ? [{ url: ogImageMatch[1] }] : fallbackOgImages;
+      const twitterImages = ogImageMatch ? [ogImageMatch[1]] : fallbackTwitterImages;
 
-      const ogImages = ogImageMatch ? [{ url: ogImageMatch[1] }] : metadata.openGraph?.images;
-      const twitterImages = ogImageMatch ? [ogImageMatch[1]] : metadata.twitter?.images;
-
-      return {
-        title,
-        description,
-        keywords,
-        openGraph: {
-          title,
-          description,
-          url,
-          siteName: ogSite,
-          images: ogImages,
-        },
-        twitter: {
-          card: 'summary',
-          title,
-          description,
-          site: ogSite,
-          images: twitterImages,
-        },
-      };
+      return createMetadata(title, description, ogSite, ogImages, twitterImages);
     } catch (error) {
       console.error('Metadata fetch error:', error);
 

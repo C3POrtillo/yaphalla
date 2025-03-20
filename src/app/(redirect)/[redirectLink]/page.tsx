@@ -23,7 +23,7 @@ const Index: FC<ParamProps> = async ({ params }) => {
   if (!target) {
     notFound();
   }
-  
+
   return <Redirect href={target.href} />;
 };
 

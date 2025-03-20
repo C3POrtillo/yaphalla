@@ -800,6 +800,11 @@
   dependencies:
     "@use-gesture/core" "10.3.1"
 
+"@vercel/analytics@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-1.5.0.tgz#073f93694897414b21a8495e2619bbf64447dcaa"
+  integrity sha512-MYsBzfPki4gthY5HnYN7jgInhAZ7Ac1cYDoRWFomwGHWEX7odTEzbtg9kf/QSo7XEsEAqlQugA6gJ2WS2DEa3g==
+
 "@vercel/postgres@^0.10.0":
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/@vercel/postgres/-/postgres-0.10.0.tgz#0c983f9dda6f6874d783b9605372d96c8a0334fe"

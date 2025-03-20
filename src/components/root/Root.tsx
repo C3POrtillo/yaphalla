@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import Script from 'next/script';
 import '@/styles/globals.css';
 
@@ -33,6 +34,7 @@ const Root: FC<RootProps> = ({ head, children }) => (
           {children}
           <Footer />
           <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_auto] -z-10 opacity-20"></div>
+          <Analytics />
         </main>
       </div>
     </body>

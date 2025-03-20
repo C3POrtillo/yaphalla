@@ -36,6 +36,7 @@ const fetchMetadata = cache(
     title: targetTitle,
     description: targetDescription,
     site,
+    keywords,
   }: RedirectType): Promise<Metadata> => {
     try {
       const isDiscord = compareStrings(label, redirects['/discord'].label) === 0;
@@ -47,6 +48,7 @@ const fetchMetadata = cache(
         return {
           title,
           description,
+          keywords,
           openGraph: {
             title,
             description,
@@ -88,6 +90,7 @@ const fetchMetadata = cache(
       return {
         title,
         description,
+        keywords,
         openGraph: {
           title,
           description,

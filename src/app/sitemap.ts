@@ -24,7 +24,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
       priority: 1,
     },
     ...pathData,
-    ...redirectData
+    ...redirectData,
   ];
 };
 

@@ -87,6 +87,7 @@ export const joinStrings = (...strings: (string | number | boolean | undefined |
 export const createMetadata = (title: string, description: string, siteName = 'Yaphalla'): Metadata => ({
   title,
   description,
+  keywords: ['Yaphalla', 'AFKJ', 'AFKJourney', 'AFK Journey', 'AFKJ Guides', 'AFKJourney Guides', 'AFK Journey Guides'],
   openGraph: {
     title,
     description,

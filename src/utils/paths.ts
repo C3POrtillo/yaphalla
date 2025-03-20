@@ -54,7 +54,7 @@ export const redirects = {
   'Paragon Form': {
     redirect: '/paragon-form',
     label: 'Paragon Form',
-    href: 'https://forms.gle/RdCe8D3TC3BjRUtv8',
+    href: 'https://forms.gle/rbNMk8a3dc46mfof6',
   },
   Discord: {
     redirect: '/discord',

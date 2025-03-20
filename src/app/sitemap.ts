@@ -1,18 +1,21 @@
 import type { MetadataRoute } from 'next';
 
-import { domain, navigation } from '@/utils/paths';
+import { domain, navigation, redirects } from '@/utils/paths';
 import { compareStrings } from '@/utils/utils';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const url = `https://${domain}`;
+const url = `https://${domain}`;
+const createEntry = (path?: string) => ({
+  url: `${url}${path}`,
+  lastModified: new Date(),
+  priority: 1,
+});
 
+const sitemap = (): MetadataRoute.Sitemap => {
   const pathData = Object.values(navigation)
     .filter(({ href }) => !!href && compareStrings(href, '/') !== 0)
-    .map(({ href }) => ({
-      url: `${url}${href}`,
-      lastModified: new Date(),
-      priority: 1,
-    }));
+    .map(({ href }) => createEntry(href));
+
+  const redirectData = Object.values(redirects).map(({ redirect }) => createEntry(redirect));
 
   return [
     {
@@ -21,5 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     ...pathData,
+    ...redirectData
   ];
-}
+};
+
+export default sitemap;

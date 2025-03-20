@@ -1,39 +1,25 @@
-import { notFound } from 'next/navigation';
 import { cache } from 'react';
 
 import type { Metadata } from 'next';
-import type { FC } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
-import { metadata } from '@/app/layout';
-import Redirect from '@/components/redirect/Redirect';
+import { metadata } from '@/app/(main)/layout';
+import Root from '@/components/root/Root';
 import { redirects } from '@/utils/paths';
 import { discordInviteAPI } from '@/utils/types';
-import { compareStrings } from '@/utils/utils';
+import { compareStrings, createMetadata } from '@/utils/utils';
 
-interface IndexProps {
+interface ParamProps {
   params: Promise<{
     redirectLink: string;
   }>;
 }
 
-export const generateStaticParams = () =>
-  Object.values(redirects).map(({ redirect: redirectLink }) => ({
-    redirectLink: redirectLink.slice(1),
-  }));
-
-const fetchMetadata = cache(async (url: string, label: string): Promise<Metadata> => {
+const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
   try {
     const response = await fetch(url, { method: 'GET' });
     const text = await response.text();
 
-    const isDiscord = compareStrings(label, redirects.Discord.label) === 0;
-    const getDiscordDescription = async () => {
-      const { approximate_member_count: members, approximate_presence_count: online }: Record<string, number> = await (
-        await fetch(discordInviteAPI, { method: 'GET' })
-      ).json();
-
-      return `${metadata.description}\n🟢 ${online} Online ⚫ ${members} Members`;
-    };
     const textMatch = (regExp: RegExp, ogRegExp: RegExp, fallback: typeof metadata.title) => {
       const match = text.match(regExp);
       const ogMatch = text.match(ogRegExp);
@@ -46,13 +32,11 @@ const fetchMetadata = cache(async (url: string, label: string): Promise<Metadata
       /<meta property="og:title" content="(.*?)"/i,
       '301 Permanent Redirect',
     );
-    const description = isDiscord
-      ? await getDiscordDescription()
-      : textMatch(
-        /<meta name="description" content="(.*?)"/i,
-        /<meta property="og:description" content="(.*?)"/i,
-        compareStrings(title, '301 Permanent Redirect') === 0 ? `Location ${url}` : metadata.description,
-      );
+    const description = textMatch(
+      /<meta name="description" content="(.*?)"/i,
+      /<meta property="og:description" content="(.*?)"/i,
+      compareStrings(title, '301 Permanent Redirect') === 0 ? `Location ${url}` : metadata.description,
+    );
     const ogImageMatch = text.match(/<meta property="og:image" content="(.*?)"/i);
 
     const ogImages = ogImageMatch ? [{ url: ogImageMatch[1] }] : metadata.openGraph?.images;
@@ -80,7 +64,7 @@ const fetchMetadata = cache(async (url: string, label: string): Promise<Metadata
   }
 });
 
-export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: ParamProps): Promise<Metadata> => {
   const { redirectLink } = await params;
   const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
 
@@ -88,18 +72,27 @@ export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata
     return metadata;
   }
 
-  return fetchMetadata(target.href, target.label);
-};
+  const isDiscord = compareStrings(target.label, redirects.Discord.label) === 0;
+  if (isDiscord) {
+    const { approximate_member_count: members, approximate_presence_count: online }: Record<string, number> = await (
+      await fetch(discordInviteAPI, { method: 'GET' })
+    ).json();
 
-const Index: FC<IndexProps> = async ({ params }) => {
-  const { redirectLink } = await params;
-  const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
-
-  if (!target) {
-    notFound();
+    return createMetadata(
+      'Join the Yaphalla Discord Server!',
+      `${metadata.description}\n🟢 ${online} Online ⚫ ${members} Members`,
+    );
   }
 
-  return <Redirect href={target.href} />;
+  return fetchMetadata(target.href);
 };
 
-export default Index;
+const Layout: FC<ParamProps & PropsWithChildren> = async ({ params, children }) => {
+  const { redirectLink } = await params;
+  const target = Object.values(redirects).find(item => item.redirect === `/${redirectLink}`);
+  const head = target && <meta httpEquiv="refresh" content={`0; url=${target.href}`} />;
+
+  return <Root head={head}>{children}</Root>;
+};
+
+export default Layout;

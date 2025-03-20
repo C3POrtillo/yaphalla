@@ -128,8 +128,8 @@ const Layout: FC<ParamProps & PropsWithChildren> = async ({ params, children }) 
   const head = target?.href && <meta httpEquiv="refresh" content={`0; url=${target.href}`} />;
 
   return (
-    <Root head={head}>
-      {target?.href && <Redirect href={target.href} />}
+    <Root head={head} hideBreadcrumbs={!!target?.href}>
+      {target?.href && <Redirect href={target.href} hidden />}
       {children}
     </Root>
   );

@@ -12,9 +12,10 @@ import { joinStrings } from '@/utils/utils';
 
 interface RootProps extends PropsWithChildren {
   head?: ReactNode;
+  hideBreadcrumbs?: boolean;
 }
 
-const Root: FC<RootProps> = ({ head, children }) => (
+const Root: FC<RootProps> = ({ head, children, hideBreadcrumbs }) => (
   <html lang="en">
     {/* eslint-disable-next-line @next/next/no-head-element */}
     <head>
@@ -30,7 +31,7 @@ const Root: FC<RootProps> = ({ head, children }) => (
           )}
         >
           <Header />
-          <Breadcrumbs />
+          {!hideBreadcrumbs && <Breadcrumbs />}
           {children}
           <Footer />
           <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_auto] -z-10 opacity-20"></div>

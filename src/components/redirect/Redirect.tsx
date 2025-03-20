@@ -9,14 +9,19 @@ import Link from '@/components/link/Link';
 
 interface RedirectProps {
   href?: string;
+  hidden?: boolean;
 }
 
-const Redirect: FC<RedirectProps> = ({ href }) => {
+const Redirect: FC<RedirectProps> = ({ href, hidden }) => {
   useEffect(() => {
     if (href) {
       permanentRedirect(href);
     }
   }, [href]);
+
+  if (hidden) {
+    return null;
+  }
 
   return (
     <Container className="mt-0 mb-18 flex grow size-full max-w-full flex-col items-center justify-center self-center align-middle">

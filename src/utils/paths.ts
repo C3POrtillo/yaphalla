@@ -5,6 +5,15 @@ export type PathType = {
   options?: PathType[];
 };
 
+export type RedirectType = {
+  redirect: string;
+  label: string;
+  href: string;
+  title?: string;
+  description?: string;
+  site?: string;
+};
+
 export const socials = {
   Discord: {
     site: 'discord',
@@ -45,23 +54,29 @@ export const redirects = {
     redirect: '/battle-drills',
     label: 'Battle Drills',
     href: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTQNE-x_s_LcUjX4XccM95MKVKA6E1Zv9Php70w6zIn6R6pvwiZGwgv-1X_ptQlyuSl-FS-bc9E8_aR/pubhtml',
-  },
+    title: 'Global Battle Drills Leaderboards - Chains of Eternity',
+    description: 'Global Battle Drill Leaderboards for AFK Journey',
+  } as RedirectType,
   '/primal-lord': {
     redirect: '/primal-lord',
     label: 'Primal Lord',
     href: 'https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vQBMOON-RjaiHolLR5QqZbvkJzbEeRkouNWkWOjzCDvmqCYPkcou0QPSm0Rmdt59xmD9RgVyeVQf5Zy/pubhtml',
-  },
+    title: 'Global Primal Lord Leaderboards',
+    description: 'Global Primal Lord Leaderboards for AFK Journey',
+  } as RedirectType,
   '/paragon-form': {
     redirect: '/paragon-form',
     label: 'Paragon Form',
-    href: 'https://forms.gle/rbNMk8a3dc46mfof6',
-  },
+    href: 'https://docs.google.com/forms/d/e/1FAIpQLSdMldCIpkntrp3LOXbHyDWgnV6nKb5zz5ovEAU_m3YH36MSMg/viewform',
+  } as RedirectType,
   '/discord': {
     redirect: '/discord',
     label: 'Discord',
     href: 'https://discord.com/invite/yaphalla',
-  },
-};
+    title: 'Join the Yaphalla Discord!',
+    site: 'Discord',
+  } as RedirectType,
+} as const;
 
 const previews = {
   Previews: {

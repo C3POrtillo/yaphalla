@@ -1,5 +1,6 @@
 import { cache } from 'react';
 
+import type { RedirectType } from '@/utils/paths';
 import type { Metadata } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
@@ -26,14 +27,63 @@ const fetchDiscordStats = cache(async (): Promise<{ members: number; online: num
   };
 });
 
+const createMetaString = (prop: string) => `<meta ${prop} content="(.*?)"`;
 
-const fetchMetadata = cache(async (url: string, label: string): Promise<Metadata> => {
-  try {
-    const isDiscord = compareStrings(label, redirects['/discord'].label) === 0;
-    if (isDiscord) {
-      const { members, online } = await fetchDiscordStats();
-      const title = 'Join the Yaphalla Discord!';
-      const description = `${metadata.description}\n🟢 ${online} Online ⚫ ${members} Members`;
+const fetchMetadata = cache(
+  async ({
+    href: url,
+    label,
+    title: targetTitle,
+    description: targetDescription,
+    site,
+  }: RedirectType): Promise<Metadata> => {
+    try {
+      const isDiscord = compareStrings(label, redirects['/discord'].label) === 0;
+      if (isDiscord) {
+        const { members, online } = await fetchDiscordStats();
+        const title = targetTitle;
+        const description = `${metadata.description}\n🟢 ${online} Online\n⚫ ${members} Members`;
+
+        return {
+          title,
+          description,
+          openGraph: {
+            title,
+            description,
+            url,
+            siteName: site,
+            images: metadata?.openGraph?.images,
+          },
+          twitter: {
+            card: 'summary',
+            title,
+            description,
+            site,
+            images: metadata?.twitter?.images,
+          },
+        };
+      }
+
+      const text = await (await fetch(url, { method: 'GET' })).text();
+
+      const textMatch = (fallback: string | null | undefined, ...regExp: string[]) => {
+        const matchPattern = (pattern: string) => text.match(new RegExp(pattern, 'is'))?.[1];
+        const match = regExp.map(matchPattern).find(Boolean);
+
+        return (match || fallback || '308 Permanent Redirect') as string;
+      };
+
+      const title = targetTitle || textMatch(null, '<title>(.*?)</title>', createMetaString('property="og:title"'));
+
+      const description =
+        targetDescription ||
+        textMatch(metadata.description, ...['name="description"', 'property="og:description"'].map(createMetaString));
+
+      const ogSite = site || textMatch('Yaphalla', createMetaString('property="og:site_name"'));
+      const ogImageMatch = text.match(new RegExp('<meta property="og:image" content="(.*?)"', 'is'));
+
+      const ogImages = ogImageMatch ? [{ url: ogImageMatch[1] }] : metadata.openGraph?.images;
+      const twitterImages = ogImageMatch ? [ogImageMatch[1]] : metadata.twitter?.images;
 
       return {
         title,
@@ -42,64 +92,24 @@ const fetchMetadata = cache(async (url: string, label: string): Promise<Metadata
           title,
           description,
           url,
-          images: metadata?.openGraph?.images,
+          siteName: ogSite,
+          images: ogImages,
         },
         twitter: {
           card: 'summary',
           title,
           description,
-          images: metadata?.twitter?.images,
+          site: ogSite,
+          images: twitterImages,
         },
       };
+    } catch (error) {
+      console.error('Metadata fetch error:', error);
+
+      return metadata;
     }
-
-    const response = await fetch(url, { method: 'GET' });
-    const text = await response.text();
-
-    const textMatch = (regExp: RegExp, ogRegExp: RegExp, fallback: typeof metadata.title) => {
-      const match = text.match(regExp);
-      const ogMatch = text.match(ogRegExp);
-
-      return (match?.[1] || ogMatch?.[1] || fallback) as string;
-    };
-
-    const title = textMatch(
-      /<title>(.*?)<\/title>/i,
-      /<meta property="og:title" content="(.*?)"/i,
-      '301 Permanent Redirect',
-    );
-    const description = textMatch(
-      /<meta name="description" content="(.*?)"/i,
-      /<meta property="og:description" content="(.*?)"/i,
-      compareStrings(title, '301 Permanent Redirect') === 0 ? `Location ${url}` : metadata.description,
-    );
-    const ogImageMatch = text.match(/<meta property="og:image" content="(.*?)"/i);
-
-    const ogImages = ogImageMatch ? [{ url: ogImageMatch[1] }] : metadata.openGraph?.images;
-    const twitterImages = ogImageMatch ? [ogImageMatch[1]] : metadata.twitter?.images;
-
-    return {
-      title,
-      description,
-      openGraph: {
-        title,
-        description,
-        url,
-        images: ogImages,
-      },
-      twitter: {
-        card: 'summary',
-        title,
-        description,
-        images: twitterImages,
-      },
-    };
-  } catch (error) {
-    console.error('Metadata fetch error:', error);
-
-    return metadata;
-  }
-});
+  },
+);
 
 export const generateMetadata = async ({ params }: ParamProps): Promise<Metadata> => {
   const { redirectLink } = await params;
@@ -109,7 +119,7 @@ export const generateMetadata = async ({ params }: ParamProps): Promise<Metadata
     return metadata;
   }
 
-  return fetchMetadata(target.href, target.label);
+  return fetchMetadata(target);
 };
 
 const Layout: FC<ParamProps & PropsWithChildren> = async ({ params, children }) => {

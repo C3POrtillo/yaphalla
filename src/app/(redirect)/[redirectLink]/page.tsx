@@ -1,8 +1,8 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 
 import type { FC } from 'react';
 
-import Redirect from '@/components/redirect/Redirect';
+// import Redirect from '@/components/redirect/Redirect';
 import { redirects } from '@/utils/paths';
 
 interface ParamProps {
@@ -23,8 +23,8 @@ const Index: FC<ParamProps> = async ({ params }) => {
   if (!target) {
     notFound();
   }
-
-  return <Redirect href={target.href} />;
+  permanentRedirect(target.href)
+  // return <Redirect href={target.href} />;
 };
 
 export default Index;

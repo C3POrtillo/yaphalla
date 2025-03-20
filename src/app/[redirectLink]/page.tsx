@@ -8,8 +8,8 @@ import { metadata } from '@/app/layout';
 import Container from '@/components/container/Container';
 import Link from '@/components/link/Link';
 import { redirects } from '@/utils/paths';
-import { compareStrings } from '@/utils/utils';
 import { discordInviteAPI } from '@/utils/types';
+import { compareStrings } from '@/utils/utils';
 
 interface IndexProps {
   params: Promise<{
@@ -26,7 +26,7 @@ const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
   try {
     const response = await fetch(url, { method: 'GET' });
     const text = await response.text();
-    const { title, description } = metadata
+    const { title, description } = metadata;
 
     const titleMatch = text.match(/<title>(.*?)<\/title>/i);
     const descriptionMatch = text.match(/<meta name="description" content="(.*?)"/i);
@@ -61,15 +61,18 @@ export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata
   const redirectData = fetchMetadata(target.href);
   if (compareStrings(target?.label || '', 'Discord') === 0) {
     const { title, openGraph } = await redirectData;
-    const { approximate_member_count: members, approximate_presence_count: online }: Record<string, number> = await (await fetch(discordInviteAPI, { method: 'GET' })).json()
-    const description = `${metadata.description}\n🟢 ${online} Online ⚫ ${members} Members`
+    const { approximate_member_count: members, approximate_presence_count: online }: Record<string, number> = await (
+      await fetch(discordInviteAPI, { method: 'GET' })
+    ).json();
+    const description = `${metadata.description}\n🟢 ${online} Online ⚫ ${members} Members`;
+    
     return {
       title,
       description,
       openGraph: {
         ...openGraph,
         description,
-      }
+      },
     };
   }
 

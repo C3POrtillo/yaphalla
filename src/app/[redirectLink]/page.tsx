@@ -8,6 +8,7 @@ import { metadata } from '@/app/layout';
 import Container from '@/components/container/Container';
 import Link from '@/components/link/Link';
 import { redirects } from '@/utils/paths';
+import { discordInviteAPI } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 
 interface IndexProps {
@@ -25,6 +26,7 @@ const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
   try {
     const response = await fetch(url, { method: 'GET' });
     const text = await response.text();
+    const { title, description } = metadata;
 
     const titleMatch = text.match(/<title>(.*?)<\/title>/i);
     const descriptionMatch = text.match(/<meta name="description" content="(.*?)"/i);
@@ -33,11 +35,11 @@ const fetchMetadata = cache(async (url: string): Promise<Metadata> => {
     const ogImageMatch = text.match(/<meta property="og:image" content="(.*?)"/i);
 
     return {
-      title: ogTitleMatch?.[1] || titleMatch?.[1] || 'Redirecting...',
-      description: ogDescMatch?.[1] || descriptionMatch?.[1] || '',
+      title: ogTitleMatch?.[1] || titleMatch?.[1] || title || 'Redirecting...',
+      description: ogDescMatch?.[1] || descriptionMatch?.[1] || description || '',
       openGraph: {
-        title: ogTitleMatch?.[1] || titleMatch?.[1] || 'Redirecting...',
-        description: ogDescMatch?.[1] || descriptionMatch?.[1] || '',
+        title: ogTitleMatch?.[1] || titleMatch?.[1] || title || 'Redirecting...',
+        description: ogDescMatch?.[1] || descriptionMatch?.[1] || description || '',
         url,
         images: ogImageMatch ? [{ url: ogImageMatch[1] }] : undefined,
       },
@@ -58,11 +60,19 @@ export const generateMetadata = async ({ params }: IndexProps): Promise<Metadata
   }
   const redirectData = fetchMetadata(target.href);
   if (compareStrings(target?.label || '', 'Discord') === 0) {
-    const { title } = await redirectData;
-
+    const { title, openGraph } = await redirectData;
+    const { approximate_member_count: members, approximate_presence_count: online }: Record<string, number> = await (
+      await fetch(discordInviteAPI, { method: 'GET' })
+    ).json();
+    const description = `${metadata.description}\n🟢 ${online} Online ⚫ ${members} Members`;
+    
     return {
       title,
-      description: metadata.description,
+      description,
+      openGraph: {
+        ...openGraph,
+        description,
+      },
     };
   }
 

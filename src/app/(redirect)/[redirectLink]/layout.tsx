@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
 import { metadata } from '@/app/(main)/layout';
+import Redirect from '@/components/redirect/Redirect';
 import Root from '@/components/root/Root';
 import { redirects } from '@/utils/paths';
 import { discordInviteAPI } from '@/utils/types';
@@ -94,7 +95,7 @@ export const generateMetadata = async ({ params }: ParamProps): Promise<Metadata
   const { redirectLink } = await params;
   const target = redirects[`/${redirectLink}` as keyof typeof redirects];
 
-  if (!target) {
+  if (!target?.href) {
     return metadata;
   }
 
@@ -104,9 +105,14 @@ export const generateMetadata = async ({ params }: ParamProps): Promise<Metadata
 const Layout: FC<ParamProps & PropsWithChildren> = async ({ params, children }) => {
   const { redirectLink } = await params;
   const target = redirects[`/${redirectLink}` as keyof typeof redirects];
-  const head = target && <meta httpEquiv="refresh" content={`0; url=${target.href}`} />;
+  const head = target?.href && <meta httpEquiv="refresh" content={`0; url=${target.href}`} />;
 
-  return <Root head={head}>{children}</Root>;
+  return (
+    <Root head={head}>
+      {target?.href && <Redirect href={target.href} />}
+      {children}
+    </Root>
+  );
 };
 
 export default Layout;

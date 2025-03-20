@@ -8,12 +8,14 @@ import Container from '@/components/container/Container';
 import Link from '@/components/link/Link';
 
 interface RedirectProps {
-  href: string;
+  href?: string;
 }
 
 const Redirect: FC<RedirectProps> = ({ href }) => {
   useEffect(() => {
-    permanentRedirect(href);
+    if (href) {
+      permanentRedirect(href);
+    }
   }, [href]);
 
   return (
@@ -22,7 +24,7 @@ const Redirect: FC<RedirectProps> = ({ href }) => {
         <h1>
           <span className="text-yellow-400">308</span> | <span className="text-yellow-400">Permanent Redirect</span>
         </h1>
-        <Link href={href} label={href} className="size-base input-secondary" />
+        <Link href={href || '/'} label={href || 'Return Home'} className="size-base input-secondary" />
       </div>
     </Container>
   );

@@ -90,7 +90,6 @@ export const createMetadata = (title: string, description: string, siteName = 'Y
   openGraph: {
     title,
     description,
-    url: 'https://yaphalla.com',
     siteName,
     images: [
       {

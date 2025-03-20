@@ -1,5 +1,5 @@
 'use client';
-import { redirect } from 'next/navigation';
+import { permanentRedirect } from 'next/navigation';
 import { useEffect } from 'react';
 
 import type { FC } from 'react';
@@ -13,7 +13,7 @@ interface RedirectProps {
 
 const Redirect: FC<RedirectProps> = ({ href }) => {
   useEffect(() => {
-    redirect(href);
+    permanentRedirect(href);
   }, [href]);
 
   return (

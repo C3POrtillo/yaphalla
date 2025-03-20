@@ -117,3 +117,5 @@ export const createMetadata = (title: string, description: string, siteName = 'Y
     images: [imageURL],
   },
 });
+
+export const discordInviteAPI = (invite = 'yaphalla') => `https://discord.com/api/invites/${invite}?with_counts=true`;

@@ -13,6 +13,7 @@ export type RedirectType = {
   description?: string;
   site?: string;
   keywords?: string[];
+  noIndex?: boolean;
 };
 
 export const socials = {
@@ -93,6 +94,22 @@ export const redirects = {
     title: 'Join the Yaphalla Discord!',
     site: 'Discord',
     keywords: ['Yaphalla Discord'],
+  } as RedirectType,
+  '/fight-club': {
+    redirect: '/fight-club',
+    label: 'Discord',
+    href: 'https://discord.com/invite/z22yE5eFHK',
+    title: 'Join the Fight Club Discord!',
+    site: 'Discord',
+    keywords: ['Fight Club Discord'],
+  } as RedirectType,
+  '/trolley': {
+    redirect: '/trolley',
+    label: 'Discord',
+    href: 'https://discord.com/invite/bFBxBC3kxU',
+    title: 'Join the Fight Club Discord!',
+    site: 'Discord',
+    noIndex: true,
   } as RedirectType,
 } as const;
 

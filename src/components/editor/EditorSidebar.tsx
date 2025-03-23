@@ -17,7 +17,8 @@ const EditorSidebar: FC = () => {
     setCurrentArtifact,
     setDrawEnemy,
     setEditArena,
-    setMenuTab,
+    subMenu,
+    setSubMenu,
     setTileData,
     setPreset,
     setUnits,
@@ -25,6 +26,8 @@ const EditorSidebar: FC = () => {
     setNumber,
     setEnemy,
     setEmpty,
+    hideLogo,
+    setHideLogo,
   } = useFormation();
   const [tab, setTab] = useState(0);
   const searchParams = useSearchParams();
@@ -56,7 +59,6 @@ const EditorSidebar: FC = () => {
       selected: !isEditArena,
       onClick: () => {
         setEditArena(false);
-        setMenuTab('artifact');
       },
     },
   ];
@@ -92,26 +94,26 @@ const EditorSidebar: FC = () => {
     },
   ] as const;
 
-  // const tabButtons = [
-  //   {
-  //     label: 'Arena Maps',
-  //     hierarchy: 'primary',
-  //     selected: menuTab === 'preset',
-  //     onClick: () => {
-  //       setEditArena(true);
-  //       setMenuTab('preset');
-  //     },
-  //   },
-  //   {
-  //     label: 'Artifacts',
-  //     hierarchy: 'primary',
-  //     selected: menuTab === 'artifact',
-  //     onClick: () => {
-  //       setEditArena(false);
-  //       setMenuTab('artifact');
-  //     },
-  //   },
-  // ] as const;
+  const tabButtons = [
+    {
+      label: 'Arena Maps',
+      hierarchy: 'primary',
+      selected: subMenu === 0,
+      onClick: () => {
+        setEditArena(true);
+        setSubMenu(0);
+      },
+    },
+    {
+      label: 'Custom Tiles',
+      hierarchy: 'primary',
+      selected: subMenu === 1,
+      onClick: () => {
+        setEditArena(false);
+        setSubMenu(1);
+      },
+    },
+  ] as const;
 
   const controlDivs = [
     {
@@ -144,30 +146,50 @@ const EditorSidebar: FC = () => {
   ] as const;
 
   const advancedOptions = [
-    <Button
-      key="double artifacts"
-      size="sm"
-      className="relative w-full group flex items-center justify-center"
-      onClick={() => {
-        setDrawEnemy(false);
-        setEditArena(false);
-        setNumber(true);
-        setEnemy(true);
-        setEmpty(true);
-        setPreset('Double Artifacts');
-        setUnits({
-          39: { unit: 'Yaphalla Cat Hex', type: 100 },
-        });
-        setTileData(DoubleArtifacts as unknown as number[]);
+    <Toggle
+      className="w-full justify-around gap-2"
+      key="Hide Logo"
+      variant="switch"
+      value="Hide Logo"
+      onChange={e => {
+        setHideLogo(e.target.checked);
       }}
-      hierarchy="warning"
-      hasActiveBorder
-    >
-      Double Artifact Preset
-      <div className="container-primary !p-1 hidden absolute w-fit text-xs top-full z-10 group-hover:block ">
-        Warning: Cannot readd Artifact Tiles
-      </div>
-    </Button>,
+      defaultChecked={hideLogo}
+    />,
+    <div key="Double Artifacts" className="container-primary w-full flex flex-col gap-2 items-center">
+      <Button
+        size="sm"
+        className="relative w-full group flex items-center justify-center"
+        onClick={() => {
+          setDrawEnemy(false);
+          setEditArena(false);
+          setNumber(true);
+          setEnemy(true);
+          setEmpty(true);
+          setPreset('Double Artifacts');
+          setUnits({
+            39: { unit: 'Yaphalla Cat Hex', type: 100 },
+          });
+          setTileData(DoubleArtifacts as unknown as number[]);
+        }}
+        hierarchy="warning"
+        hasActiveBorder
+      >
+        Double Artifact Preset
+        <div className="container-primary !p-1 hidden absolute w-fit text-xs top-full z-10 group-hover:block ">
+          Warning: Cannot readd Artifact Tiles
+        </div>
+      </Button>
+    </div>,
+    <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
+      {<h2 className="w-full text-center text-base lg:text-lg border-b-2">Menu Tab</h2>}
+
+      {tabButtons.map(({ onClick, label, ...props }) => (
+        <Button key={label} className="w-full" onClick={onClick} {...props}>
+          {label}
+        </Button>
+      ))}
+    </div>,
   ];
 
   const options = controlDivs.map(({ label, divs }) => (
@@ -178,7 +200,7 @@ const EditorSidebar: FC = () => {
   ));
 
   return (
-    <div className="flex w-full flex-col-reverse sm:w-fit sm:flex-col items-center gap-2 self-center">
+    <div className="flex size-full flex-col-reverse items-center justify-between gap-2 self-start sm:w-fit sm:flex-col 2xl:w-64">
       {isDev && (
         <Toggle
           variant="switch"
@@ -189,7 +211,7 @@ const EditorSidebar: FC = () => {
           defaultChecked={tab === 1}
         />
       )}
-      {tab === 1 && <div className="container-primary w-full flex flex-col gap-2 items-center">{advancedOptions}</div>}
+      {tab === 1 && <div className="w-full flex flex-col gap-2 items-center grow">{advancedOptions}</div>}
       {(!isDev || tab === 0) && (
         <div className="flex w-full flex-col gap-2 items-center">
           {options[0]}

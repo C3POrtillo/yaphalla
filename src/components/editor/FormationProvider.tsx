@@ -4,7 +4,6 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 import type {
   ArtifactFormationData,
   Faction,
-  MenuTabTypes,
   Talents,
   TileData,
   UnitClass,
@@ -37,6 +36,8 @@ interface FormationContextType {
   setCurrentTile: Dispatch<SetStateAction<number | undefined>>;
   hideEmptyArtifact: boolean;
   setHideEmptyArtifact: Dispatch<SetStateAction<boolean>>;
+  hideLogo: boolean;
+  setHideLogo: Dispatch<SetStateAction<boolean>>;
   drawEnemy: boolean;
   setDrawEnemy: Dispatch<SetStateAction<boolean>>;
   isEnemy: boolean;
@@ -57,10 +58,10 @@ interface FormationContextType {
   setSearchFilter: Dispatch<SetStateAction<string>>;
   isEditArena: boolean;
   setEditArena: Dispatch<SetStateAction<boolean>>;
+  subMenu: number;
+  setSubMenu: Dispatch<SetStateAction<number>>;
   updateArena: (tile: TileData) => void;
   updateUnit: (tile: TileData) => void;
-  menuTab: MenuTabTypes;
-  setMenuTab: Dispatch<SetStateAction<MenuTabTypes>>;
   activeFaction?: Talents;
   isTalents: boolean;
   setTalents: Dispatch<SetStateAction<boolean>>;
@@ -103,9 +104,10 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [filterClass, setFilterClass] = useState<UnitClass>();
   const [searchFilter, setSearchFilter] = useState<string>('');
   const [isEditArena, setEditArena] = useState<boolean>(false);
-  const [menuTab, setMenuTab] = useState<MenuTabTypes>('artifact');
   const [activeFaction, setActiveFaction] = useState<Talents>();
   const [isTalents, setTalents] = useState<boolean>(true);
+  const [hideLogo, setHideLogo] = useState<boolean>(false);
+  const [subMenu, setSubMenu] = useState(0);
 
   const updateArena = useCallback(
     (tile: TileData) =>
@@ -302,6 +304,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setDrawEnemy,
         hideEmptyArtifact,
         setHideEmptyArtifact,
+        hideLogo,
+        setHideLogo,
         isEnemy,
         setEnemy,
         isEmpty,
@@ -320,10 +324,10 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setSearchFilter,
         isEditArena,
         setEditArena,
+        subMenu,
+        setSubMenu,
         updateArena,
         updateUnit,
-        menuTab,
-        setMenuTab,
         activeFaction,
         isTalents,
         setTalents,

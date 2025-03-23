@@ -26,13 +26,13 @@ const ArtifactButton: FC<ArtifactButtonProps> = ({
   isReverse,
   isCat,
 }) => {
-  const { currentArtifact, setArtifact, artifactData } = useFormation();
+  const { currentArtifact, setArtifact, artifactData, hideLogo } = useFormation();
   const key = index === 0 ? 'player' : 'enemy';
   const artifact = !!artifactData[key].length && artifactData[key][0];
   const isArtifactDisabled = () => hideArtifacts || disableArtifacts || (hideEmptyArtifact && !artifact);
   const logo = (
     <Suspense fallback={<div className="hex-icon relative" />}>
-      <Logo isCat={isCat} hideLogo={isArtifactDisabled()} />
+      <Logo isCat={isCat} hideLogo={hideLogo} />
     </Suspense>
   );
 

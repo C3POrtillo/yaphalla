@@ -131,8 +131,9 @@ export const SortedUnits = Object.entries(Units).flatMap(([faction, classData]) 
   ),
 ) as Unit[];
 
+const wildCards = new Set([...Faction, ...Talents]);
+
 export const OtherUnits = (() => {
-  const wildCards = new Set([...Faction, ...Talents]);
   const formattedUnits = UnitClass.map(classLabel => ({
     unit: `${classLabel} Wildcard`,
     faction: '',
@@ -317,8 +318,6 @@ export const indexToPosition = [
 
 export const HexPath = '/assets/images/hexes/';
 
-export type MenuTabTypes = 'preset' | 'artifact' | 'editor';
-
 export const requiredUnits = 3;
 export const UnitPairs = [
   ['Phraesto', 'Phraesto Clone'],
@@ -337,3 +336,47 @@ export const TalentLocations = {
 export const LogoRegExp = new RegExp('Cat|Dog');
 
 export const AlwaysShowStates = new Set([1, 2, 100]);
+
+const HexSuffix = ['Hex', 'Outline', 'Icon'] as const;
+type HexSuffix = (typeof HexSuffix)[number];
+const GenericHexes = ['Generic', 'Enemy'] as const;
+type GenericHexes = (typeof GenericHexes)[number];
+export type BaseHexes =
+  | `${GenericHexes}-${Exclude<HexSuffix, 'Icon'>}`
+  | `${Faction | Talents}-${HexSuffix}`
+  | `${ArtifactSource}-Outline`;
+
+const generateHexName = (
+  prefixArray: readonly (GenericHexes | Faction | Talents | ArtifactSource)[],
+  suffixArray: readonly HexSuffix[],
+) => {
+  const suffixMap = {} as Record<HexSuffix, BaseHexes[]>;
+  suffixArray.forEach(suffix => {
+    suffixMap[suffix] = prefixArray.map(prefix => `${prefix}-${suffix}` as BaseHexes);
+  });
+
+  return suffixMap;
+};
+
+export const BaseHexData = (() => {
+  const [hex, outline] = HexSuffix;
+
+  const genericBase = generateHexName(GenericHexes, [hex, outline]);
+  const factionBase = generateHexName([...wildCards], HexSuffix);
+  const artifactBase = generateHexName(['Pre-Season', 'Season 3'] as const, [outline]);
+
+  return Object.fromEntries(
+    [hex, outline].map(key => [
+      key === hex ? 'base' : 'outline',
+      [
+        ...genericBase[key],
+        ...factionBase[key],
+        ...(artifactBase[key] ? artifactBase[key] : []),
+        ...(key === hex ? factionBase.Icon : []),
+      ],
+    ]),
+  );
+})() as {
+  base: BaseHexes[];
+  outline: BaseHexes[];
+};

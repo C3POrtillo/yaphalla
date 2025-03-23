@@ -3,6 +3,7 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 
 import type {
   ArtifactFormationData,
+  BaseHexes,
   Faction,
   Talents,
   TileData,
@@ -60,6 +61,10 @@ interface FormationContextType {
   setEditArena: Dispatch<SetStateAction<boolean>>;
   subMenu: number;
   setSubMenu: Dispatch<SetStateAction<number>>;
+  baseHex: BaseHexes | undefined;
+  setBaseHex: Dispatch<SetStateAction<BaseHexes | undefined>>;
+  outline: BaseHexes | undefined;
+  setOutline: Dispatch<SetStateAction<BaseHexes | undefined>>;
   updateArena: (tile: TileData) => void;
   updateUnit: (tile: TileData) => void;
   activeFaction?: Talents;
@@ -108,6 +113,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isTalents, setTalents] = useState<boolean>(true);
   const [hideLogo, setHideLogo] = useState<boolean>(false);
   const [subMenu, setSubMenu] = useState(0);
+  const [baseHex, setBaseHex] = useState<BaseHexes | undefined>('Generic-Hex');
+  const [outline, setOutline] = useState<BaseHexes>();
 
   const updateArena = useCallback(
     (tile: TileData) =>
@@ -211,8 +218,10 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         };
       }
       if (AlwaysShowStates.has(state)) {
-        const blank = showTalents ? `${activeFaction}-Hex` : 'Generic-Hex';
-        src = (!hideUnits && unit) || blank;
+        const fallback = baseHex || outline || 'Generic-Hex';
+        const blank = showTalents ? `${activeFaction}-Hex` : fallback;
+        const isNotCustom = baseHex ? compareStrings(baseHex, 'Generic-Hex') === 0 : baseHex !== undefined;
+        src = (!hideUnits && unit) || (isNotCustom ? blank : fallback);
       }
       if (state === -1 && !disableEnemy) {
         src = (!hideUnits && unit) || 'Enemy-Hex';
@@ -220,7 +229,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
 
       return { src, path };
     },
-    [activeFaction],
+    [activeFaction, baseHex],
   );
 
   useEffect(() => {
@@ -333,6 +342,10 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setTalents,
         setArtifact,
         getTileImage,
+        baseHex,
+        setBaseHex,
+        outline,
+        setOutline,
       }}
     >
       {children}

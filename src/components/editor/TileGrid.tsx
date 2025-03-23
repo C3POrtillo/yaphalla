@@ -41,7 +41,7 @@ const TileGrid: FC<TileGridProps> = ({
   onClick,
   children,
 }) => {
-  const { preset, isPreset, tileData, title, setTitle, currentTile, units, activeFaction, getTileImage } =
+  const { preset, isPreset, tileData, title, setTitle, currentTile, units, activeFaction, getTileImage, outline } =
     useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
@@ -186,6 +186,7 @@ const TileGrid: FC<TileGridProps> = ({
               }
               disabled={disabled || (!hideUnits && state === 100)}
               path={state !== 2 && (hideUnits || disableEnemy) ? 'base' : path}
+              forceOutline={path !== 'artifact' && state !== 0 && !src.startsWith('Yaphalla') && outline}
               onClick={() => onClick && onClick(tile)}
             />
           );

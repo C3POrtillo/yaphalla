@@ -28,6 +28,8 @@ const EditorSidebar: FC = () => {
     setEmpty,
     hideLogo,
     setHideLogo,
+    baseHex,
+    outline,
   } = useFormation();
   const [tab, setTab] = useState(0);
   const searchParams = useSearchParams();
@@ -96,7 +98,7 @@ const EditorSidebar: FC = () => {
 
   const tabButtons = [
     {
-      label: 'Arena Maps',
+      label: 'Arena Presets',
       hierarchy: 'primary',
       selected: subMenu === 0,
       onClick: () => {
@@ -121,7 +123,12 @@ const EditorSidebar: FC = () => {
       divs: tileControls.map(({ onClick, label, selected }) => (
         <Button key={label} size="sm" className="w-full" onClick={onClick} selected={selected} hasActiveBorder>
           <div className="flex flex-row gap-2 items-center">
-            <HexImage {...getDrawImage(label)} size="2xs" disabledOverlay={selected} />
+            <HexImage
+              {...getDrawImage(label, baseHex || outline)}
+              size="2xs"
+              disabledOverlay={selected}
+              forceOutline={outline}
+            />
             <span>{label}</span>
           </div>
         </Button>
@@ -146,16 +153,6 @@ const EditorSidebar: FC = () => {
   ] as const;
 
   const advancedOptions = [
-    <Toggle
-      className="w-full justify-around gap-2"
-      key="Hide Logo"
-      variant="switch"
-      value="Hide Logo"
-      onChange={e => {
-        setHideLogo(e.target.checked);
-      }}
-      defaultChecked={hideLogo}
-    />,
     <div key="Double Artifacts" className="container-primary w-full flex flex-col gap-2 items-center">
       <Button
         size="sm"
@@ -182,8 +179,7 @@ const EditorSidebar: FC = () => {
       </Button>
     </div>,
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
-      {<h2 className="w-full text-center text-base lg:text-lg border-b-2">Menu Tab</h2>}
-
+      {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Menu Tab</h2>}
       {tabButtons.map(({ onClick, label, ...props }) => (
         <Button key={label} className="w-full" onClick={onClick} {...props}>
           {label}
@@ -194,7 +190,7 @@ const EditorSidebar: FC = () => {
 
   const options = controlDivs.map(({ label, divs }) => (
     <div key={label} className="container-primary w-full flex flex-col gap-2 items-center">
-      {!!label && <h2 className="w-full text-center text-base lg:text-lg border-b-2">{label}</h2>}
+      {!!label && <h2 className="w-full text-center text-base border-b-2 lg:text-lg">{label}</h2>}
       <div className="w-full flex flex-col gap-2">{divs}</div>
     </div>
   ));
@@ -202,14 +198,28 @@ const EditorSidebar: FC = () => {
   return (
     <div className="flex size-full flex-col-reverse items-center justify-between gap-2 self-start sm:w-fit sm:flex-col 2xl:w-64">
       {isDev && (
-        <Toggle
-          variant="switch"
-          value="Advanced Options"
-          onChange={e => {
-            setTab(e.target.checked ? 1 : 0);
-          }}
-          defaultChecked={tab === 1}
-        />
+        <div className="container-primary w-full flex flex-col gap-2 items-center">
+          <Toggle
+            className="w-full !pl-2"
+            variant="switch"
+            value="Advanced Options"
+            onChange={e => {
+              setTab(e.target.checked ? 1 : 0);
+            }}
+            defaultChecked={tab === 1}
+          />
+          {tab === 1 && (
+            <Toggle
+              className="w-full !pl-2"
+              variant="switch"
+              value="Hide Logo"
+              onChange={e => {
+                setHideLogo(e.target.checked);
+              }}
+              defaultChecked={hideLogo}
+            />
+          )}
+        </div>
       )}
       {tab === 1 && <div className="w-full flex flex-col gap-2 items-center grow">{advancedOptions}</div>}
       {(!isDev || tab === 0) && (

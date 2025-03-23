@@ -2,7 +2,6 @@
 import { useSearchParams } from 'next/navigation';
 import { type FC, useState } from 'react';
 
-import Toggle from 'components/inputs/toggle/Toggle';
 
 import ArtifactGrid from '@/components/editor/ArtifactGrid';
 import { useFormation } from '@/components/editor/FormationProvider';
@@ -10,6 +9,7 @@ import HexImage from '@/components/editor/HexImage';
 import { ArenaPresets, ArtifactSet, DoubleArtifacts } from '@/components/editor/types';
 import { getDrawImage, isDevMode } from '@/components/editor/utils';
 import Button from '@/components/inputs/button/Button';
+import Toggle from '@/components/inputs/toggle/Toggle';
 
 const EditorSidebar: FC = () => {
   const {

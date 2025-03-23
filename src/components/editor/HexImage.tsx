@@ -1,5 +1,6 @@
 import Image from 'next/image';
 
+import type { BaseHexes } from '@/components/editor/types';
 import type { FC } from 'react';
 
 import { HexPath, LogoRegExp } from '@/components/editor/types';
@@ -17,6 +18,7 @@ export interface HexImageProps {
   disabledOverlay?: boolean;
   isEnemy?: boolean;
   isTalent?: boolean;
+  forceOutline?: BaseHexes | false;
   size?: 'md' | 'sm' | 'xs' | '2xs';
   hasHoverLabel?: boolean;
 }
@@ -34,6 +36,7 @@ const HexImage: FC<HexImageProps> = ({
   isTalent,
   size = 'md',
   hasHoverLabel,
+  forceOutline,
 }) => {
   const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
     imageSrc,
@@ -55,6 +58,7 @@ const HexImage: FC<HexImageProps> = ({
   const assetSrcs = [
     !hideImage && `${path}/${src}`,
     isEnemy && compareStrings(path, 'unit') === 0 && !testRegex(src, LogoRegExp) && 'base/Enemy-Overlay',
+    !hideImage && !isEnemy && forceOutline && `base/${forceOutline}`,
     isTalent && 'base/Talent-Selected',
     !disabled && selected && 'base/Select-Outline',
   ].filter(Boolean) as string[];
@@ -73,8 +77,8 @@ const HexImage: FC<HexImageProps> = ({
           {label}
         </div>
       )}
-      {assetSrcs.map((imageSrc, i) => (
-        <Asset key={imageSrc} imageSrc={imageSrc} zIndex={i ? `z-${i}` : undefined} />
+      {assetSrcs.map((imageSrc, layer) => (
+        <Asset key={`${imageSrc}-${layer}`} imageSrc={imageSrc} zIndex={layer ? `z-${layer}` : undefined} />
       ))}
       {hasHoverLabel && (
         <div className="container-primary !p-1 hidden absolute w-fit text-xs bottom-0 translate-y-2/3 z-10 group-hover:block ">

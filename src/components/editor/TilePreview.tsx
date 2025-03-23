@@ -3,6 +3,7 @@ import { Suspense, useMemo } from 'react';
 import type { TileDivData } from '@/components/editor/types';
 import type { FC } from 'react';
 
+import { useFormation } from '@/components/editor/FormationProvider';
 import HexImage from '@/components/editor/HexImage';
 import Logo from '@/components/editor/Logo';
 import { TileLayout } from '@/components/editor/types';
@@ -14,6 +15,7 @@ interface TilePreviewProps {
 }
 
 const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
+  const { baseHex, outline } = useFormation();
   const size = '2xs' as const;
 
   const formattedTiles = useMemo(() => {
@@ -56,7 +58,7 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
           const getImage = () => {
             let src = 'Generic-Outline';
             if (state === 1) {
-              src = 'Generic-Hex';
+              src = baseHex || outline || 'Generic-Hex';
             }
             if (state === -1) {
               src = 'Enemy-Hex';
@@ -67,7 +69,7 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
 
           const src = getImage();
 
-          return <HexImage key={j} src={src} path="base" size={size} disabled />;
+          return <HexImage key={j} src={src} path="base" size={size} disabled forceOutline={state !== 0 && outline} />;
         })}
         {isFirst && (
           <>

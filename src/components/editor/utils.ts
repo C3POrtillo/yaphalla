@@ -1,4 +1,4 @@
-import type { Talents, UnitDivData, UnitFormationData } from '@/components/editor/types';
+import type { BaseHexes, Talents, UnitDivData, UnitFormationData } from '@/components/editor/types';
 import type { ReadonlyURLSearchParams } from 'next/navigation';
 
 import {
@@ -56,13 +56,13 @@ export const getSizeClass = (size: 'md' | 'sm' | 'xs' | '2xs') => {
   return 'min-w-20';
 };
 
-export const getDrawImage = (str: string) => {
+export const getDrawImage = (str: string, baseHex: BaseHexes = 'Generic-Hex') => {
   const label = str.toLowerCase();
   const path = compareStrings(label, 'unit') === 0 ? ('unit' as const) : ('base' as const);
   let src = 'Hammie';
 
   if (compareStrings(label, 'player') === 0) {
-    src = 'Generic-Hex';
+    src = baseHex;
   }
   if (compareStrings(label, 'enemy') === 0) {
     src = 'Enemy-Hex';

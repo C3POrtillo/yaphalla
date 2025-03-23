@@ -3,8 +3,11 @@ import type { FC } from 'react';
 import LogoLink from '@/components/link/Logo';
 import Socials from '@/components/socials/Socials';
 import { discordNames } from '@/utils/types';
+import Container from '../container/Container';
 
 const Footer: FC = () => (
+  <>
+  <Container className='grow'/>
   <footer className="footer">
     <div className="flex flex-col xs:flex-row justify-around gap-2 xs:gap-16 items-center">
       <LogoLink />
@@ -19,6 +22,7 @@ const Footer: FC = () => (
       Yaphalla is not endorsed or affiliated with Lilith Games, any of its subsidaries/affiliates, or other communities
     </p>
   </footer>
+  </>
 );
 
 export default Footer;

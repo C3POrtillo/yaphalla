@@ -2,7 +2,6 @@
 import { useSearchParams } from 'next/navigation';
 import { type FC, useState } from 'react';
 
-
 import ArtifactGrid from '@/components/editor/ArtifactGrid';
 import { useFormation } from '@/components/editor/FormationProvider';
 import HexImage from '@/components/editor/HexImage';

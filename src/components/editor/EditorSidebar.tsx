@@ -1,7 +1,8 @@
 'use-client';
 import { useSearchParams } from 'next/navigation';
+import { type FC, useState } from 'react';
 
-import type { FC } from 'react';
+import Toggle from 'components/inputs/toggle/Toggle';
 
 import ArtifactGrid from '@/components/editor/ArtifactGrid';
 import { useFormation } from '@/components/editor/FormationProvider';
@@ -26,6 +27,7 @@ const EditorSidebar: FC = () => {
     setEnemy,
     setEmpty,
   } = useFormation();
+  const [tab, setTab] = useState(0);
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
 
@@ -142,6 +144,33 @@ const EditorSidebar: FC = () => {
     // },
   ] as const;
 
+  const advancedOptions = [
+    <Button
+      key="double artifacts"
+      size="sm"
+      className="relative w-full group flex items-center justify-center"
+      onClick={() => {
+        setDrawEnemy(false);
+        setEditArena(false);
+        setNumber(true);
+        setEnemy(true);
+        setEmpty(true);
+        setPreset('Double Artifacts');
+        setUnits({
+          39: { unit: 'Yaphalla Cat Hex', type: 100 },
+        });
+        setTileData(DoubleArtifacts as unknown as number[]);
+      }}
+      hierarchy="warning"
+      hasActiveBorder
+    >
+      Double Artifact Preset
+      <div className="container-primary !p-1 hidden absolute w-fit text-xs top-full z-10 group-hover:block ">
+        Warning: Cannot readd Artifact Tiles
+      </div>
+    </Button>,
+  ];
+
   const options = controlDivs.map(({ label, divs }) => (
     <div key={label} className="container-primary w-full flex flex-col gap-2 items-center">
       {!!label && <h2 className="w-full text-center text-base lg:text-lg border-b-2">{label}</h2>}
@@ -152,36 +181,22 @@ const EditorSidebar: FC = () => {
   return (
     <div className="flex w-full flex-col-reverse sm:w-fit sm:flex-col items-center gap-2 self-center">
       {isDev && (
-        <div className="container-primary w-full flex flex-col gap-2 items-center">
-          <Button
-            size="sm"
-            className="relative w-full group flex items-center justify-center"
-            onClick={() => {
-              setDrawEnemy(false);
-              setEditArena(false);
-              setNumber(true);
-              setEnemy(true);
-              setEmpty(true);
-              setPreset('Double Artifacts');
-              setUnits({
-                39: { unit: 'Yaphalla Cat Hex', type: 100 },
-              });
-              setTileData(DoubleArtifacts as unknown as number[]);
-            }}
-            hierarchy="warning"
-            hasActiveBorder
-          >
-            Double Artifact Preset
-            <div className="container-primary !p-1 hidden absolute w-fit text-xs top-full z-10 group-hover:block ">
-              Warning: Cannot readd Artifact Tiles
-            </div>
-          </Button>
+        <Toggle
+          variant="switch"
+          value="Advanced Options"
+          onChange={e => {
+            setTab(e.target.checked ? 1 : 0);
+          }}
+          defaultChecked={tab === 1}
+        />
+      )}
+      {tab === 1 && <div className="container-primary w-full flex flex-col gap-2 items-center">{advancedOptions}</div>}
+      {(!isDev || tab === 0) && (
+        <div className="flex w-full flex-col gap-2 items-center">
+          {options[0]}
+          <ArtifactGrid />
         </div>
       )}
-      <div className="flex w-full flex-col gap-2 items-center">
-        {options[0]}
-        <ArtifactGrid />
-      </div>
       {options.slice(1)}
     </div>
   );

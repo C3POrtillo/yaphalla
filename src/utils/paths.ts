@@ -118,7 +118,7 @@ export const redirects = {
     redirect: '/vn',
     label: 'Discord',
     href: 'https://discord.com/invite/afkjvietnam',
-    title: "Join the Vietnam Community for AFKJ!",
+    title: 'Join the Vietnam Community for AFKJ!',
     site: 'Discord',
     image: 'https://www.yaphalla.com/assets/images/vn-logo.png',
   } as RedirectType,

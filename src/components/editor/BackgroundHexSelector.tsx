@@ -81,7 +81,7 @@ const BackgroundHexSelector: FC = () => {
 
   return (
     <div className="flex flex-row gap-2 justify-center items-start text-center">
-      {containers.map(({ title, options }, i) => (
+      {containers.map(({ title, options }) => (
         <div key={title} className="container-primary flex flex-col gap-2 items-center h-full">
           <Header title={title} />
           <div className="inset-secondary flex flex-col flex-wrap items-center gap-2 grow justify-center">

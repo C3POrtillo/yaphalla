@@ -186,7 +186,7 @@ const TileGrid: FC<TileGridProps> = ({
               }
               disabled={disabled || (!hideUnits && state === 100)}
               path={state !== 2 && (hideUnits || disableEnemy) ? 'base' : path}
-              forceOutline={path !== 'artifact' && state !== 0 && !src.startsWith('Yaphalla') && outline}
+              forceOutline={state === 1 && !unit && outline}
               onClick={() => onClick && onClick(tile)}
             />
           );

@@ -9,6 +9,7 @@ import { ArenaPresets, ArtifactSet, DoubleArtifacts } from '@/components/editor/
 import { getDrawImage, isDevMode } from '@/components/editor/utils';
 import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';
+import { compareStrings } from '@/utils/utils';
 
 const EditorSidebar: FC = () => {
   const {
@@ -107,7 +108,7 @@ const EditorSidebar: FC = () => {
       },
     },
     {
-      label: 'Custom Tiles',
+      label: 'Customize Player',
       hierarchy: 'primary',
       selected: subMenu === 1,
       onClick: () => {
@@ -127,7 +128,7 @@ const EditorSidebar: FC = () => {
               {...getDrawImage(label, baseHex || outline)}
               size="2xs"
               disabledOverlay={selected}
-              forceOutline={outline}
+              forceOutline={compareStrings(label, 'Player') === 0 && outline}
             />
             <span>{label}</span>
           </div>
@@ -181,7 +182,7 @@ const EditorSidebar: FC = () => {
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
       {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Menu Tab</h2>}
       {tabButtons.map(({ onClick, label, ...props }) => (
-        <Button key={label} className="w-full" onClick={onClick} {...props}>
+        <Button key={label} className="w-full" onClick={onClick} {...props} hasActiveBorder>
           {label}
         </Button>
       ))}

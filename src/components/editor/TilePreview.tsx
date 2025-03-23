@@ -69,7 +69,7 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
 
           const src = getImage();
 
-          return <HexImage key={j} src={src} path="base" size={size} disabled forceOutline={state !== 0 && outline} />;
+          return <HexImage key={j} src={src} path="base" size={size} disabled forceOutline={state === 1 && outline} />;
         })}
         {isFirst && (
           <>

@@ -42,7 +42,7 @@ const BackgroundHexSelector: FC = () => {
           const isPrevOdd = i > 0 ? groupedHexes[i - 1].length % 2 !== 0 : false;
 
           const shouldOverlap = isOdd !== isPrevOdd;
-          
+
           return (
             <div key={i} className={joinStrings('flex gap-1', shouldOverlap && '-mt-6')}>
               {group}
@@ -55,11 +55,11 @@ const BackgroundHexSelector: FC = () => {
 
   const containers = [
     {
-      title: 'Player Background',
+      title: 'Background',
       options: base,
     },
     {
-      title: 'Global Outline',
+      title: 'Outline',
       options: outline,
     },
   ] as const;
@@ -71,9 +71,9 @@ const BackgroundHexSelector: FC = () => {
         <i className="fa fa-question-circle-o" />
         <div className="container-primary !p-1 !text-white whitespace-pre text-left font-medium hidden absolute w-fit text-base bottom-0 translate-y-full left-1/2 -translate-x-1/2 z-10 group-hover:block">
           <span className="text-lg underline">{'How to have transparent tiles\n'}</span>
-          1. Deselect <span className="text-tertiary-600">{containers[0].title}</span>
+          1. Select <span className="text-tertiary-600">{containers[1].title}</span>
           {'\n'}
-          2. Select <span className="text-tertiary-600">{containers[1].title}</span>
+          2. Deselect <span className="text-tertiary-600">{containers[0].title}</span>
         </div>
       </span>
     </h2>

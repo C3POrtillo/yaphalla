@@ -229,7 +229,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
 
       return { src, path };
     },
-    [activeFaction, baseHex],
+    [activeFaction, baseHex, outline],
   );
 
   useEffect(() => {

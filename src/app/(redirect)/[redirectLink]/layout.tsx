@@ -7,7 +7,7 @@ import type { FC, PropsWithChildren } from 'react';
 import { metadata } from '@/app/(main)/layout';
 import Redirect from '@/components/redirect/Redirect';
 import Root from '@/components/root/Root';
-import { redirects } from '@/utils/paths';
+import { domain, redirects } from '@/utils/paths';
 import { compareStrings, discordInviteAPI } from '@/utils/utils';
 
 interface ParamProps {
@@ -90,8 +90,8 @@ const fetchMetadata = cache(
 
         return createMetadata(targetTitle, description, site, fallbackOgImages, fallbackTwitterImages);
       }
-
-      const text = await (await fetch(url, { method: 'GET' })).text();
+      const fetchUrl = compareStrings(label, 'Root') === 0 ? `https://${domain}${url}` : url;
+      const text = await (await fetch(fetchUrl, { method: 'GET' })).text();
       const textMatch = (fallback: string | null | undefined, ...regExp: string[]) => {
         const matchPattern = (pattern: string) => text.match(new RegExp(pattern, 'is'))?.[1];
         const match = regExp.map(matchPattern).find(Boolean);

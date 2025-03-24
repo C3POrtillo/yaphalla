@@ -122,6 +122,11 @@ export const redirects = {
     site: 'Discord',
     image: 'https://www.yaphalla.com/assets/images/vn-logo.png',
   } as RedirectType,
+  '/advanced': {
+    redirect: '/editor?mode=dev',
+    label: 'Root',
+    href: '/editor?mode=dev',
+  } as RedirectType,
 } as const;
 
 const previews = {

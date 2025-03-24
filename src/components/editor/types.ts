@@ -63,12 +63,12 @@ const Wilder = {
   Support: ['Damian', 'Hewynn', 'Lorsan'],
   Marksman: ['Bryon', 'Lyca'],
   Mage: ['Arden', 'Parisa', 'Tasi'],
-  Rogue: ['Eironn', 'Lenya', 'Lily May'],
+  Rogue: ['Eironn', 'Faramor', 'Lenya', 'Lily May'],
   Warrior: ['Florabelle', 'Kafra'],
 } as ClassData;
 
 const Mauler = {
-  Tank: ['Antandra', 'Lumont'],
+  Tank: ['Antandra', 'Gerda', 'Lumont'],
   Support: ['Koko', 'Mikola', 'Smokey & Meerky'],
   Marksman: ['Odie', 'Rhys'],
   Mage: ['Alsa', 'Satrana'],
@@ -90,7 +90,7 @@ const Celestial = {
   Support: ['Elijah', 'Lailah'],
   Marksman: ['Dionel'],
   Mage: ['Talene'],
-  Rogue: [],
+  Rogue: ['Athalia'],
   Warrior: ['Scarlita'],
 } as ClassData;
 

@@ -2,7 +2,7 @@
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
-import UnitEditor from '@/components/editor/EditorMain';
+import EditorMain from '@/components/editor/EditorMain';
 import { useFormation } from '@/components/editor/FormationProvider';
 import SelectArenaPreset from '@/components/editor/SelectArenaPreset';
 import SelectBackgroundHex from '@/components/editor/SelectBackgroundHex';
@@ -13,7 +13,7 @@ const FormationEditor: FC = () => {
   return (
     <>
       <Container>
-        <UnitEditor />
+        <EditorMain />
       </Container>
       <Container className="hidden 2xl:flex">
         {subMenu === 0 && <SelectArenaPreset />}

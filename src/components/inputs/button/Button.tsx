@@ -10,6 +10,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   hierarchy?: HierarchyTypes;
   hasActiveBorder?: boolean;
   tooltip?: ReactNode;
+  solidTooltip?: boolean;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -21,20 +22,23 @@ const Button: FC<ButtonProps> = ({
   hierarchy = 'primary',
   hasActiveBorder,
   tooltip,
+  solidTooltip,
   ...props
 }) => (
   <button
     className={joinStrings(
+      !!tooltip && 'group relative',
       `border-1 border-transparent size-${size} bg-${hierarchy} input-${hierarchy}`,
       className,
       selected && 'active-link',
       selected && hasActiveBorder && 'active-border',
+      !!tooltip && selected && 'disabled:pointer-events-auto'
     )}
     disabled={selected || disabled}
     {...props}
   >
     {children}
-    {tooltip && <Tooltip className="top-full">{tooltip}</Tooltip>}
+    {tooltip && <Tooltip className={joinStrings('top-full', solidTooltip && '!bg-primary-950')}>{tooltip}</Tooltip>}
   </button>
 );
 

@@ -162,6 +162,15 @@ export const redirects = {
     })(),
     image: 'https://www.yaphalla.com/assets/images/afkj-logo.png',
   } as RedirectType,
+  '/auto-player': {
+    redirect: '/auto-player',
+    label: 'Github',
+    href: 'https://adbautoplayer.github.io/AdbAutoPlayer/',
+    title: 'AdbAutoPlayer',
+    description: 'Automate tasks (bot) in mobile games like AFK Journey using ADB',
+    site: 'GitHub',
+    image: 'https://raw.githubusercontent.com/AdbAutoPlayer/AdbAutoPlayer/refs/heads/main/cmd/wails/build/appicon.png',
+  } as RedirectType,
 } as const;
 
 const previews = {

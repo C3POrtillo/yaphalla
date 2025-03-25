@@ -11,7 +11,7 @@ import SelectArenaPreset from '@/components/editor/SelectArenaPreset';
 import SelectUnit from '@/components/editor/SelectUnit';
 import ExportImage from '@/components/export-image/ExportImage';
 
-const UnitEditor: FC = () => {
+const EditorMain: FC = () => {
   const [isActive, setActive] = useState(false);
   const {
     title,
@@ -46,6 +46,7 @@ const UnitEditor: FC = () => {
     hideEmptyArtifact,
     disableEmpty: true,
     hideTalents: isTalents,
+    disableObstacles: true,
     onClick: updateUnit,
   };
 
@@ -96,4 +97,4 @@ const UnitEditor: FC = () => {
   );
 };
 
-export default UnitEditor;
+export default EditorMain;

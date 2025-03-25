@@ -2,22 +2,22 @@
 import { useSearchParams } from 'next/navigation';
 import { type FC, useState } from 'react';
 
+import EditorClearButtons from '@/components/editor/EditorClearButtons';
 import { useFormation } from '@/components/editor/FormationProvider';
 import ArtifactGrid from '@/components/editor/SelectArtifact';
-import { ArenaPresets, DoubleArtifacts } from '@/components/editor/types';
+import { DoubleArtifacts } from '@/components/editor/types';
 import { getDrawImage } from '@/components/editor/utils';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';
-import { ArtifactSet } from '@/utils/types';
 import { compareStrings, isDevMode } from '@/utils/utils';
 
 const EditorSidebar: FC = () => {
   const {
-    drawEnemy,
+    drawType,
     setCurrentTile,
     setCurrentArtifact,
-    setDrawEnemy,
+    setDrawType,
     setEditArena,
     subMenu,
     setSubMenu,
@@ -36,28 +36,52 @@ const EditorSidebar: FC = () => {
   const [tab, setTab] = useState(0);
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
+  const isDevAdvanced = isDev && tab === 1;
 
-  const tileControls = [
+  const spanPlayer = <span className="text-neutral-300">Player</span>
+  const spanEnemy = <span className="text-hex-enemy-400">Enemy</span>
+  const spanBreakable = <span className="text-yellow-700">Breakable</span>
+  const spanUnbreakable = <span className="text-zinc-400">Unbreakable</span>
+  const spanArtifact = <span className="text-primary-400">Artifact</span>
+  const spanLogo = <span className="text-tertiary-400">Logo</span>
+
+  const tabProps = [
     {
-      label: 'Player',
-      selected: isEditArena && !drawEnemy,
-      onClick: () => {
-        setDrawEnemy(false);
-        setEditArena(true);
-        setCurrentTile(undefined);
-        setCurrentArtifact(undefined);
-      },
+      label: 'Main',
+      tooltip: (
+        <p className="text-sm">
+          Place {spanPlayer}, {spanEnemy}{', '}
+          {spanBreakable}{',\n and '}{spanUnbreakable} tiles
+          {'.\nSelect '}{spanArtifact}.
+        </p>
+      ),
     },
     {
-      label: 'Enemy',
-      selected: isEditArena && drawEnemy,
-      onClick: () => {
-        setDrawEnemy(true);
-        setEditArena(true);
-        setCurrentTile(undefined);
-        setCurrentArtifact(undefined);
-      },
+      label: isDev ? 'Advanced': 'Other',
+      tooltip: (
+        <p className="text-sm">
+          Contains <span className="text-red-500">Clear</span> Buttons and other options.
+        </p>
+      ),
     },
+  ] as const;
+
+  const getPlaceProps = (label: string, type: number) => ({
+    label,
+    selected: isEditArena && drawType === type,
+    onClick: () => {
+      setDrawType(type);
+      setEditArena(true);
+      setCurrentTile(undefined);
+      setCurrentArtifact(undefined);
+    },
+  });
+
+  const placeProps = [
+    getPlaceProps('Player', 1),
+    getPlaceProps('Enemy', -1),
+    getPlaceProps('Breakable', -2),
+    getPlaceProps('Unbreakable', -3),
     {
       label: 'Unit',
       selected: !isEditArena,
@@ -67,38 +91,7 @@ const EditorSidebar: FC = () => {
     },
   ] as const;
 
-  const otherButtons = [
-    {
-      label: 'Invert Tiles',
-      hierarchy: 'primary',
-      onClick: () => {
-        setTileData(prev => prev.map(prevTile => -prevTile) as number[]);
-      },
-    },
-    {
-      label: 'Clear Units',
-      hierarchy: 'warning',
-      onClick: () => {
-        setEditArena(false);
-        setUnits(prevUnits =>
-          Object.fromEntries(Object.entries(prevUnits).filter(([_, data]) => ArtifactSet.has(data.unit))),
-        );
-      },
-    },
-    {
-      label: 'Clear All',
-      hierarchy: 'warning',
-      onClick: () => {
-        setDrawEnemy(false);
-        setEditArena(true);
-        setPreset('Custom');
-        setTileData(ArenaPresets['Custom'] as number[]);
-        setUnits({});
-      },
-    },
-  ] as const;
-
-  const tabButtons = [
+  const subMenuProps = [
     {
       label: 'Arena Presets',
       hierarchy: 'primary',
@@ -122,7 +115,7 @@ const EditorSidebar: FC = () => {
   const controlDivs = [
     {
       label: 'Place',
-      divs: tileControls.map(({ onClick, label, selected }) => (
+      divs: placeProps.map(({ onClick, label, selected }) => (
         <Button key={label} size="sm" className="w-full" onClick={onClick} selected={selected} hasActiveBorder>
           <div className="flex flex-row gap-2 items-center">
             <HexImage
@@ -136,23 +129,15 @@ const EditorSidebar: FC = () => {
         </Button>
       )),
     },
-    {
-      label: '',
-      divs: otherButtons.map(({ onClick, label, ...props }) => (
-        <Button key={label} size="sm" className="w-full" onClick={onClick} {...props}>
-          {label}
-        </Button>
-      )),
-    },
   ] as const;
 
   const advancedOptions = [
     <div key="Double Artifacts" className="container-primary w-full flex flex-col gap-2 items-center">
       <Button
         size="sm"
-        className="relative w-full group flex items-center justify-center"
+        className="w-full flex items-center justify-center"
         onClick={() => {
-          setDrawEnemy(false);
+          setDrawType(1);
           setEditArena(false);
           setNumber(true);
           setEnemy(true);
@@ -167,20 +152,20 @@ const EditorSidebar: FC = () => {
         hasActiveBorder
         tooltip={
           <p className="text-sm">
-            {'Warning: Strictly for Arena 1. Do not use for PVP.\n'}
-            <span className="text-primary-400">Extra Artifact</span> and <span className="text-tertiary-400">Logo</span>
-            {' tiles cannot be readded but\ncan be removed in '}
-            <span className="text-neutral-400">Player</span>/<span className="text-hex-enemy-400">Enemy</span> Place
-            mode.
+            <span className="text-red-500">Warning:</span>{' Strictly for Arena 1. Do not use for PVP.\n'}
+            Extra {spanArtifact}{' and '}{spanLogo}
+            {' tiles cannot be readded but\ncan be replaced with a '}
+            {spanPlayer}, {spanEnemy}, {spanBreakable}{',\n'}{spanUnbreakable} tile
           </p>
         }
+        solidTooltip
       >
         Double Artifact Arena 1
       </Button>
     </div>,
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
       {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Menu Tab</h2>}
-      {tabButtons.map(({ onClick, label, ...props }) => (
+      {subMenuProps.map(({ onClick, label, ...props }) => (
         <Button key={label} className="w-full" onClick={onClick} {...props} hasActiveBorder>
           {label}
         </Button>
@@ -196,39 +181,46 @@ const EditorSidebar: FC = () => {
   ));
 
   return (
-    <div className="flex size-full flex-col-reverse items-center justify-between gap-2 self-start sm:w-fit sm:flex-col 2xl:w-64">
-      {isDev && (
-        <div className="container-primary w-full flex flex-col gap-2 items-center">
+    <div className="flex size-full flex-col-reverse items-center justify-start gap-2 self-start sm:w-fit sm:flex-col 2xl:w-64">
+      <div className="container-primary w-full flex flex-col gap-2 items-center">
+        <div className="w-full flex flex-row gap-2">
+          {tabProps.map(({ label, tooltip }, i) => (
+            <Button
+              key={label}
+              className="w-full flex items-center justify-center"
+              size="sm"
+              selected={tab === i}
+              hasActiveBorder
+              tooltip={tooltip}
+              solidTooltip
+              onClick={() => setTab(i)}
+            >
+              {label}
+            </Button>
+          ))}
+        </div>
+        {isDevAdvanced && (
           <Toggle
             className="w-full !pl-2"
             variant="switch"
-            value="Advanced Options"
+            value="Hide Logo"
             onChange={e => {
-              setTab(e.target.checked ? 1 : 0);
+              setHideLogo(e.target.checked);
             }}
-            defaultChecked={tab === 1}
+            defaultChecked={hideLogo}
           />
-          {tab === 1 && (
-            <Toggle
-              className="w-full !pl-2"
-              variant="switch"
-              value="Hide Logo"
-              onChange={e => {
-                setHideLogo(e.target.checked);
-              }}
-              defaultChecked={hideLogo}
-            />
-          )}
-        </div>
-      )}
-      {tab === 1 && <div className="w-full flex flex-col gap-2 items-center grow">{advancedOptions}</div>}
-      {(!isDev || tab === 0) && (
-        <div className="flex w-full flex-col gap-2 items-center">
-          {options[0]}
-          <ArtifactGrid />
-        </div>
-      )}
-      {options.slice(1)}
+        )}
+      </div>
+      <div className="flex w-full flex-col gap-2 items-center">
+        {tab === 0 && (
+          <>
+            {options[0]}
+            <ArtifactGrid />
+          </>
+        )}
+        {tab === 1 && <EditorClearButtons />}
+        {isDevAdvanced && <div className="w-full flex flex-col gap-2 items-center">{advancedOptions}</div>}
+      </div>
     </div>
   );
 };

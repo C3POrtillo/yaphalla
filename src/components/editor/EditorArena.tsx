@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import ButtonArtifact from '@/components/editor/ButtonArtifact';
 import EditorToggles from '@/components/editor/EditorToggles';
 import { useFormation } from '@/components/editor/FormationProvider';
-import { AlwaysShowStates, TileIndexToPosition } from '@/components/editor/types';
+import { AlwaysShowStates, ObstacleStates, TileIndexToPosition } from '@/components/editor/types';
 import { getIsTopRight, getRelativeTileLabels, getTalentTiles, processTileData } from '@/components/editor/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import Text from '@/components/inputs/text/Text';
@@ -24,6 +24,7 @@ interface EditorArena {
   disableArtifacts?: boolean;
   hideEmptyArtifact?: boolean;
   hideTalents?: boolean;
+  disableObstacles?: boolean;
   onClick?: (tile: TileData) => void;
 }
 
@@ -39,6 +40,7 @@ const EditorArena: FC<EditorArena> = ({
   hideUnits,
   hideEmptyArtifact,
   hideTalents,
+  disableObstacles,
   onClick,
 }) => {
   const {
@@ -91,15 +93,12 @@ const EditorArena: FC<EditorArena> = ({
       : relativeIndex > tiles.findLastIndex(a => a.state === 1);
 
     const showFirstHex =
-      tiles.every(a => a.state === 0 || a.state === -1) &&
+      tiles.every(a => a.state === 0 || a.state === -1 || ObstacleStates.has(state)) &&
       (isTopRight ? relativeIndex === tiles.length - 1 : relativeIndex === 0);
 
-    return (
-      hideEnemy &&
-      hideEmpty &&
-      ((state !== 1 && tiles.some(a => a.state === 1) && omitDirection) || tiles.every(a => a.state !== 1)) &&
-      !showFirstHex
-    );
+    const omit = (state !== 1 && tiles.some(a => a.state === 1) && omitDirection) || tiles.every(a => a.state !== 1);
+
+    return hideEnemy && hideEmpty && omit && !showFirstHex;
   };
 
   const shouldHideRow = (i: number) => {
@@ -112,7 +111,8 @@ const EditorArena: FC<EditorArena> = ({
   const getDisabledProps = (state: number) => {
     const disableGrid = (state === 0 && hideEmpty) || (hideEmpty && hideEnemy && !AlwaysShowStates.has(state));
     const disableEnemy = state === -1 && hideEnemy;
-    const disabled = disableGrid || disableEnemy || (state === 0 && disableEmpty);
+    const disableObstacle = disableObstacles && ObstacleStates.has(state);
+    const disabled = disableObstacle || disableGrid || disableEnemy || (state === 0 && disableEmpty);
 
     return { disableGrid, disableEnemy, disabled };
   };
@@ -138,7 +138,6 @@ const EditorArena: FC<EditorArena> = ({
         {tiles.map((tile, relativeIndex) => {
           const { state, index } = tile;
           const omitHex = shouldOmitHex(state, relativeIndex, tiles);
-
           if (omitHex) {
             return null;
           }

@@ -33,12 +33,18 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
         {tiles.map((tile, j) => {
           const { state } = tile;
           const getImage = () => {
-            let src = 'Generic-Outline';
+            let src = 'Grid-Outline';
             if (state === 1) {
-              src = baseHex || outline || 'Generic-Hex';
+              src = baseHex || outline || 'Generic-Outline';
             }
             if (state === -1) {
-              src = 'Enemy-Hex';
+              src = 'Enemy-Outline';
+            }
+            if (state === -2) {
+              src = 'Breakable-Hex';
+            }
+            if (state === -3) {
+              src = 'Unbreakable-Hex';
             }
 
             return src;

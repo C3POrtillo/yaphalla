@@ -27,8 +27,8 @@ interface FormationContextType {
   setHideEmptyArtifact: Dispatch<SetStateAction<boolean>>;
   hideLogo: boolean;
   setHideLogo: Dispatch<SetStateAction<boolean>>;
-  drawEnemy: boolean;
-  setDrawEnemy: Dispatch<SetStateAction<boolean>>;
+  drawType: number;
+  setDrawType: Dispatch<SetStateAction<number>>;
   isEnemy: boolean;
   setEnemy: Dispatch<SetStateAction<boolean>>;
   isEmpty: boolean;
@@ -77,7 +77,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [tileData, setTileData] = useState<number[]>([...ArenaPresets['Arena I']]);
   const [preset, setPreset] = useState<string>('Arena I');
   const [currentTile, setCurrentTile] = useState<number>();
-  const [drawEnemy, setDrawEnemy] = useState<boolean>(false);
+  const [drawType, setDrawType] = useState<number>(0);
   const [hideEmptyArtifact, setHideEmptyArtifact] = useState<boolean>(false);
   const [isEnemy, setEnemy] = useState<boolean>(false);
   const [isEmpty, setEmpty] = useState<boolean>(true);
@@ -89,8 +89,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isTalents, setTalents] = useState<boolean>(true);
   const [hideLogo, setHideLogo] = useState<boolean>(false);
   const [subMenu, setSubMenu] = useState(0);
-  const [baseHex, setBaseHex] = useState<BaseHexes | undefined>('Generic-Hex');
-  const [outline, setOutline] = useState<BaseHexes>();
+  const [baseHex, setBaseHex] = useState<BaseHexes | undefined>();
+  const [outline, setOutline] = useState<BaseHexes | undefined>('Generic-Outline');
 
   const updateArena = useCallback(
     (tile: TileData) =>
@@ -98,9 +98,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         prev.map((prevTile, index) => {
           if (tile.index === index) {
             setPreset('Custom');
-            const tileType = drawEnemy ? -1 : 1;
 
-            if (prevTile === tileType) {
+            if (prevTile === drawType) {
               setUnits(prevUnits => {
                 const copy = { ...prevUnits };
                 delete copy[index];
@@ -112,13 +111,13 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
               return 0;
             }
 
-            return tileType;
+            return drawType;
           }
 
           return prevTile;
         }),
       ),
-    [drawEnemy],
+    [drawType],
   );
 
   const updateUnit = useCallback(
@@ -179,7 +178,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       disableEnemy?: boolean,
     ) => {
       const path = unit ? ('unit' as const) : ('base' as const);
-      let src = 'Generic-Outline';
+      let src = 'Grid-Outline';
 
       if ((!hideUnits && ArtifactSet.has(unit)) || (!unit && state === 2)) {
         return {
@@ -194,13 +193,19 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         };
       }
       if (AlwaysShowStates.has(state)) {
-        const fallback = baseHex || outline || 'Generic-Hex';
+        const fallback = baseHex || outline || 'Generic-Outline';
         const blank = showTalents ? `${activeFaction}-Hex` : fallback;
-        const isNotCustom = baseHex ? compareStrings(baseHex, 'Generic-Hex') === 0 : baseHex !== undefined;
+        const isNotCustom = baseHex ? compareStrings(baseHex, 'Generic-Outline') === 0 : baseHex !== undefined;
         src = (!hideUnits && unit) || (isNotCustom ? blank : fallback);
       }
       if (state === -1 && !disableEnemy) {
-        src = (!hideUnits && unit) || 'Enemy-Hex';
+        src = (!hideUnits && unit) || 'Enemy-Outline';
+      }
+      if (state === -2) {
+        src = 'Breakable-Hex';
+      }
+      if (state === -3) {
+        src = 'Unbreakable-Hex';
       }
 
       return { src, path };
@@ -281,8 +286,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setPreset,
         currentTile,
         setCurrentTile,
-        drawEnemy,
-        setDrawEnemy,
+        drawType,
+        setDrawType,
         hideEmptyArtifact,
         setHideEmptyArtifact,
         hideLogo,

@@ -30,19 +30,24 @@ export const getRelativeTileLabels = (tiles: number[]) => {
 export const getIsTopRight = (tileData: number[]) =>
   [28, 38, 39, 43].some(i => tileData[i] !== 1) && [1, 5, 6, 16].some(i => tileData[i] === 1);
 
-export const getDrawImage = (str: string, baseHex: BaseHexes = 'Generic-Hex') => {
+export const getDrawImage = (str: string, baseHex: BaseHexes = 'Generic-Outline') => {
   const label = str.toLowerCase();
-  const path = compareStrings(label, 'unit') === 0 ? ('unit' as const) : ('base' as const);
-  let src = 'Hammie';
+  const isUnit = compareStrings(label, 'unit') === 0;
+  const path = isUnit ? ('unit' as const) : ('base' as const);
+  const isPlayer = compareStrings(label, 'player') === 0;
+  const isEnemy = compareStrings(label, 'enemy') === 0;
 
-  if (compareStrings(label, 'player') === 0) {
-    src = baseHex;
+  if (isPlayer) {
+    return { src: baseHex, path };
   }
-  if (compareStrings(label, 'enemy') === 0) {
-    src = 'Enemy-Hex';
+  if (isEnemy) {
+    return { src: `${str}-Outline`, path };
+  }
+  if (!isUnit) {
+    return { src: `${str}-Hex`, path };
   }
 
-  return { src, path };
+  return { src: 'Hammie', path };
 };
 
 const updateFactionCount = (

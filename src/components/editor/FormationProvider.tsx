@@ -13,7 +13,7 @@ import type {
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { countUnits } from '@/components/editor/utils';
-import { AlwaysShowStates, ArenaPresets, ArtifactSet, requiredUnits } from '@/utils/types';
+import { AlwaysShowStates, ArenaPresets, ArtifactSet, TalenRequiredUnits } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 
 interface FormationContextType {
@@ -278,10 +278,12 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     });
 
     if (!currentFaction) {
-      if (activeFaction && count[activeFaction] >= requiredUnits) {
+      if (activeFaction && count[activeFaction] >= TalenRequiredUnits) {
         currentFaction = activeFaction;
       } else {
-        const nextFaction = Object.keys(count).find(faction => count[faction as unknown as Talents] >= requiredUnits);
+        const nextFaction = Object.keys(count).find(
+          faction => count[faction as unknown as Talents] >= TalenRequiredUnits,
+        );
         currentFaction = nextFaction as Talents | undefined;
       }
     }

@@ -1,17 +1,22 @@
-import type { BaseHexes, Talents, UnitFormationData } from '@/utils/types';
+import type { BaseHexes, Talents, TileDivData, UnitFormationData } from '@/utils/types';
 
-import { PairSet, TalentLocations, UnitPairs, UnitsByFaction, indexToPosition, requiredUnits } from '@/utils/types';
+import {
+  PairSet,
+  TalenRequiredUnits,
+  TalentLocations,
+  TileIndexToPosition,
+  TileLayout,
+  UnitPairs,
+  UnitsByFaction,
+} from '@/utils/types';
 import { compareStrings, sortData } from '@/utils/utils';
-
-export const validateSearch = (regExp: RegExp | undefined | false, ...fields: string[]) =>
-  !regExp || regExp.test(fields.join(' '));
 
 export const getRelativeTileLabels = (tiles: number[]) => {
   const player = [] as number[];
   const enemy = [] as number[];
 
   tiles.forEach((state, index) => {
-    const position = indexToPosition[index];
+    const position = TileIndexToPosition[index];
 
     if (state === 1) {
       player.push(position);
@@ -30,20 +35,6 @@ export const getRelativeTileLabels = (tiles: number[]) => {
 
 export const getIsTopRight = (tileData: number[]) =>
   [28, 38, 39, 43].some(i => tileData[i] !== 1) && [1, 5, 6, 16].some(i => tileData[i] === 1);
-
-export const getSizeClass = (size: 'md' | 'sm' | 'xs' | '2xs') => {
-  if (compareStrings(size, 'sm') === 0) {
-    return 'min-w-16';
-  }
-  if (compareStrings(size, 'xs') === 0) {
-    return 'min-w-12';
-  }
-  if (compareStrings(size, '2xs') === 0) {
-    return 'min-w-8';
-  }
-
-  return 'min-w-20';
-};
 
 export const getDrawImage = (str: string, baseHex: BaseHexes = 'Generic-Hex') => {
   const label = str.toLowerCase();
@@ -69,7 +60,7 @@ const updateFactionCount = (
   factionCount[faction] ??= 0;
   factionCount[faction] += count;
 
-  if (factionCount[faction] >= requiredUnits) {
+  if (factionCount[faction] >= TalenRequiredUnits) {
     setCurrentFaction(faction);
   }
 };
@@ -108,3 +99,48 @@ export const countUnits = (
 
 export const getTalentTiles = (tiles: number[], faction: Talents) =>
   new Set<number>(TalentLocations[faction] ? tiles.slice(-3, -1) : tiles.slice(0, 2));
+
+export const processTileData = (
+  tileData: number[],
+  isPreview = false,
+  setFirstPlayerRow?: React.Dispatch<React.SetStateAction<number | undefined>>,
+  setLastPlayerRow?: React.Dispatch<React.SetStateAction<number | undefined>>,
+): TileDivData[] => {
+  let firstRow: number | undefined = undefined;
+  let lastRow: number | undefined = undefined;
+  let rowIndex = 0;
+
+  const result: TileDivData[] = [];
+  let index = 0;
+
+  while (index < tileData.length) {
+    for (const { length, offset, reverse, preview } of TileLayout) {
+      if (index >= tileData.length) {
+        break;
+      }
+
+      const tileSlice = tileData.slice(index, index + length);
+      const hasPlayer = tileSlice.includes(1);
+      const tiles = tileSlice.map((tile, i) => ({ state: tile, index: index + i }));
+
+      result.push({ offset: isPreview ? preview : offset, tiles, reverse });
+
+      if (hasPlayer) {
+        if (firstRow === undefined) {
+          firstRow = rowIndex;
+        }
+        lastRow = rowIndex;
+      }
+
+      index += length;
+      rowIndex++;
+    }
+  }
+
+  if (setFirstPlayerRow && setLastPlayerRow) {
+    setFirstPlayerRow(firstRow);
+    setLastPlayerRow(lastRow);
+  }
+
+  return result;
+};

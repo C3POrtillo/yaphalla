@@ -3,7 +3,6 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
-
 import type { UnitDivData } from '@/utils/types';
 import type { FC } from 'react';
 

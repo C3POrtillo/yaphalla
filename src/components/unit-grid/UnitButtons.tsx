@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { useMemo } from 'react';
 
+import type { UnitDivData } from '@/components/unit-grid/types';
 import type { Faction, UnitClass } from '@/utils/types';
-import type { UnitDivData } from 'components/unit-grid/types';
 import type { FC } from 'react';
 
 import TileButton from '@/components/hex-tiles/TileButton';

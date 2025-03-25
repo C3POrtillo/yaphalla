@@ -3,7 +3,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
-import type { UnitDivData } from 'components/unit-grid/types';
+import type { UnitDivData } from '@/components/unit-grid/types';
 import type { FC } from 'react';
 
 import { useFormation } from '@/components/editor/FormationProvider';

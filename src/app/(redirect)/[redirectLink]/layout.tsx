@@ -140,11 +140,13 @@ export const generateMetadata = async ({ params }: ParamProps): Promise<Metadata
 const Layout: FC<ParamProps & PropsWithChildren> = async ({ params, children }) => {
   const { redirectLink } = await params;
   const target = redirects[`/${redirectLink}` as keyof typeof redirects];
-  const head = target?.href && <meta httpEquiv="refresh" content={`0; url=${target.href}`} />;
+  const head = target?.href && target.href !== target.redirect && (
+    <meta httpEquiv="refresh" content={`0; url=${target.href}`} />
+  );
 
   return (
     <Root head={head} hideBreadcrumbs={!!target?.href}>
-      {target?.href && <Redirect href={target.href} hidden />}
+      {target?.href && <Redirect href={target.href} parent={target.redirect} hidden />}
       {children}
     </Root>
   );

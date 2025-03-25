@@ -134,6 +134,33 @@ export const redirects = {
     title: 'YapBuilder (Advanced)',
     noIndex: true,
   } as RedirectType,
+  '/official': {
+    redirect: '/official',
+    label: 'Discord',
+    href: 'https://discord.com/invite/afkjourney',
+    site: 'Discord',
+    themeColor: '#a6dcd0',
+    keywords: (() => {
+      const prefixes = ['Official', ''];
+      const phrases = ['AFKJ', 'AFKJourney', 'AFK Journey'];
+      const suffixes = ['Official Discord', 'Discord'];
+
+      const result: string[] = [];
+
+      for (const prefix of prefixes) {
+        for (const phrase of phrases) {
+          for (const suffix of suffixes) {
+            if (prefix === 'Official' && suffix === 'Official Discord') {
+              continue;
+            }
+            result.push(`${prefix} ${phrase} ${suffix}`.trim());
+          }
+        }
+      }
+
+      return result;
+    })(),
+  } as RedirectType,
 } as const;
 
 const previews = {

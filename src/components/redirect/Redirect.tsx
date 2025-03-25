@@ -6,15 +6,17 @@ import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
 import Link from '@/components/link/Link';
+import { compareStrings } from '@/utils/utils';
 
 interface RedirectProps {
+  parent?: string;
   href?: string;
   hidden?: boolean;
 }
 
-const Redirect: FC<RedirectProps> = ({ href, hidden }) => {
+const Redirect: FC<RedirectProps> = ({ parent, href, hidden }) => {
   useEffect(() => {
-    if (href) {
+    if (href && compareStrings(parent || '', href) !== 0) {
       permanentRedirect(href);
     }
   }, [href]);

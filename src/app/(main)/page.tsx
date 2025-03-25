@@ -60,7 +60,7 @@ const Index: FC = () => (
             <Link
               key={label}
               href={href}
-              className="w-full bg-secondary input-secondary size-base gap-2 text-lg md:text-xl justify-center"
+              className="w-full bg-primary input-primary size-base gap-2 text-lg md:text-xl justify-center"
             >
               <i className={`fab fa-${site} fa-lg`} />
               {label}

@@ -10,3 +10,5 @@ export const discordNames = ['camil.o'];
 
 export type HierarchyTypes = 'primary' | 'secondary' | 'tertiary' | 'warning';
 export type InputSizeTypes = 'sm' | 'base';
+
+export const themeColor = '#1a387b';

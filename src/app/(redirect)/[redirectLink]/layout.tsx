@@ -121,10 +121,10 @@ const fetchMetadata = cache(
 
 export const generateViewport = async ({ params }: ParamProps): Promise<Viewport> => {
   const { redirectLink } = await params;
-  const { themeColor } = redirects[`/${redirectLink}` as keyof typeof redirects];
+  const target = redirects[`/${redirectLink}` as keyof typeof redirects];
 
   return {
-    themeColor: themeColor || viewport.themeColor,
+    themeColor: target.themeColor || viewport.themeColor,
   };
 };
 

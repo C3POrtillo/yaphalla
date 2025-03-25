@@ -85,13 +85,7 @@ const UnitEditor: FC = () => {
             }}
           />
           <div className="size-full grow flex flex-col-reverse sm:flex-row gap-2">
-            <Suspense
-              fallback={
-                <div className="container-primary w-full flex flex-col grow gap-2 p-2 sm:w-min">Loading...</div>
-              }
-            >
-              <SelectUnit />
-            </Suspense>
+            <SelectUnit />
             <div className="w-full 2xl:hidden">
               <SelectArenaPreset variant="sm" />
             </div>

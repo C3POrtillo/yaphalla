@@ -10,7 +10,7 @@ type Options = {
   [key: string]: string[] | boolean | string;
 };
 
-export interface TextProps extends InputHTMLAttributes<HTMLInputElement> {
+interface TextProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   setState?: Dispatch<SetStateAction<string>>;
   validate?: (string: string, options?: Options) => boolean;

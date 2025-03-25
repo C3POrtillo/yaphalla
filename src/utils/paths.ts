@@ -37,7 +37,7 @@ export const supportEmail = {
   label: 'Contact Support',
 } as const;
 
-export const paths = {
+const paths = {
   Home: {
     href: '/',
     label: 'Home',

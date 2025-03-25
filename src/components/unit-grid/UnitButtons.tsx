@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 
 import type { UnitDivData } from '@/components/unit-grid/types';
 import type { Faction, UnitClass } from '@/utils/types';
+import type { UnitGridProps } from 'components/unit-grid/UnitGrid';
 import type { FC } from 'react';
 
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
@@ -9,14 +10,11 @@ import UnitTooltip from '@/components/unit-grid/UnitTooltip';
 import { ArtifactSet } from '@/utils/types';
 import { cleanString, compareStrings, joinStrings, testRegex } from '@/utils/utils';
 
-export interface UnitButtonProps {
+interface UnitButtonProps extends UnitGridProps {
   formattedUnits: UnitDivData[];
   filterFaction: Faction | undefined;
   filterClass: UnitClass | undefined;
   filterSearch: string;
-  currentUnit: string | false | undefined;
-  disabled?: boolean;
-  onClick: (unit: string, sameUnit: boolean) => void;
 }
 
 const UnitButtons: FC<UnitButtonProps> = ({

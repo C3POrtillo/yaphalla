@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import type { ReadonlyURLSearchParams } from 'next/navigation';
 
-import { domain } from '@/utils/paths';
-
 const wordSeparators = /[-_\\.+\s]+/g;
 const notAlphaNumericOrSpace = /[^ a-zA-Z0-9]+/g;
 const notAlphaNumericSpaceOrDash = /[^ a-zA-Z0-9-]/g;
@@ -66,21 +64,6 @@ export const sortData = (a: string | number, b: string | number, isReversed?: bo
 export const delimitNumber = (number: number) => Number(number.toFixed(0)).toLocaleString('en', { useGrouping: true });
 
 export const roundToHundreth = (number: number) => number.toFixed(2);
-
-export const compareRates = (a: string, b: string) => parseFloat(a) - parseFloat(b);
-
-export const getSEO = ({ title, description, slug, canonical, imageUrl, ...props }: Record<string, string>) => ({
-  title,
-  description,
-  canonical: canonical ? `https://${domain}${canonical}` : null,
-  ...props,
-  openGraph: {
-    url: `https://${domain}/${slug || ''}`,
-    title,
-    description,
-    images: [{ url: imageUrl || `https://${domain}/assets/images/Yaphalla Dog Hex.png` }],
-  },
-});
 
 export const joinStrings = (...strings: (string | number | boolean | undefined | null)[]) =>
   strings.filter(Boolean).join(' ');

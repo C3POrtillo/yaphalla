@@ -1,19 +1,5 @@
 export const TalentRequiredUnits = 3;
 
-export type Formation = {
-  id?: number;
-  title: string;
-  author: string;
-  playerUnits: string[];
-  playerPosition: number[];
-  enemyUnits: string[];
-  enemyPosition: string[];
-  artifactData: string[];
-  tileData: boolean[];
-  tags: string[];
-  additionalNotes: string;
-};
-
 type UnitType = {
   unit: string;
   type: number;

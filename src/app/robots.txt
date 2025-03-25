@@ -1,5 +1,7 @@
 User-Agent: *
 Allow: /
-Disallow: /trolley, /advanced
+Disallow: /trolley
+Disallow: /advanced
+Disallow: /preview/*
 
 Sitemap: https://yaphalla.com/sitemap.xml

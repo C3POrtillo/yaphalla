@@ -160,6 +160,7 @@ export const redirects = {
 
       return result;
     })(),
+    image: 'https://www.yaphalla.com/assets/images/afkj-logo.png'
   } as RedirectType,
 } as const;
 

@@ -53,18 +53,18 @@ const paths = {
   },
 } as const;
 
-const appName = ['AFKJ', 'AFKJourney', 'AFK Journey']
+const appName = ['AFKJ', 'AFKJourney', 'AFK Journey'];
 
 const createLeaderboardKeywords = (string: string) => {
   const keywords = [];
   const prefix = ['', 'Yaphalla', 'Global'];
   const mid = ['', 'Leaderboard', 'Leaderboards'];
-  const suffix = ['', ...appName.map(name => `For ${name}`)]
+  const suffix = ['', ...appName.map(name => `For ${name}`)];
   for (const a of prefix) {
     for (const b of mid) {
       for (const c of suffix) {
-      keywords.push(`${a} ${string} ${b} ${c}`.trim());
-    }
+        keywords.push(`${a} ${string} ${b} ${c}`.trim());
+      }
     }
   }
 

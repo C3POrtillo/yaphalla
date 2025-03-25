@@ -37,7 +37,6 @@ const fetchMetadata = cache(
     keywords,
     noIndex,
     image,
-    themeColor,
   }: RedirectType): Promise<Metadata> => {
     try {
       const isDiscord = compareStrings(label, redirects['/discord'].label) === 0;
@@ -53,7 +52,6 @@ const fetchMetadata = cache(
         title,
         description,
         keywords,
-        themeColor: themeColor || viewport.themeColor,
         robots: noIndex
           ? {
             index: false,
@@ -124,7 +122,7 @@ export const generateViewport = async ({ params }: ParamProps): Promise<Viewport
   const target = redirects[`/${redirectLink}` as keyof typeof redirects];
 
   return {
-    themeColor: target.themeColor || viewport.themeColor,
+    themeColor: target?.themeColor ? target.themeColor : viewport.themeColor,
   };
 };
 

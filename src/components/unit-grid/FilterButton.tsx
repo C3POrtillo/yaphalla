@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import type { Faction, UnitClass } from '@/components/editor/types';
+import type { Faction, UnitClass } from '@/utils/types';
 import type { FC } from 'react';
 
 interface FilterButtonProps {

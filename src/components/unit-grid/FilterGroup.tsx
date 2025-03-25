@@ -1,7 +1,7 @@
-import type { Faction, UnitClass } from '@/components/editor/types';
+import type { Faction, UnitClass } from '@/utils/types';
 import type { Dispatch, FC, SetStateAction } from 'react';
 
-import FilterButton from '@/components/editor/FilterButton';
+import FilterButton from '@/components/unit-grid/FilterButton';
 
 interface FilterGroupProps {
   items: readonly UnitClass[] | readonly Faction[];

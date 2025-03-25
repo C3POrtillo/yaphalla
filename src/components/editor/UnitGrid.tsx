@@ -1,20 +1,17 @@
 'use client';
-import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
-import type { UnitDivData } from '@/components/editor/types';
+
+import type { UnitDivData } from '@/utils/types';
 import type { FC } from 'react';
 
-import FilterGroup from '@/components/editor/FilterGroup';
 import { useFormation } from '@/components/editor/FormationProvider';
-import TileButton from '@/components/editor/TileButton';
-import { ArtifactSet, Faction, UnitClass } from '@/components/editor/types';
-import { getFormattedUnits, isDevMode, testRegex, validateSearch } from '@/components/editor/utils';
-import Text from '@/components/inputs/text/Text';
-import Toggle from '@/components/inputs/toggle/Toggle';
-import { cleanString, compareStrings, joinStrings } from '@/utils/utils';
+import UnitButtons from '@/components/unit-grid/UnitButtons';
+import UnitGridContainer from '@/components/unit-grid/UnitGridContainer';
+import { getFormattedUnits } from '@/components/unit-grid/utils';
+import { isDevMode } from '@/utils/utils';
 
 const UnitGrid: FC = () => {
   const {
@@ -37,108 +34,51 @@ const UnitGrid: FC = () => {
   const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
   const [variant, setVariant] = useState<'unit' | 'class'>('unit');
   const disabled = currentTile === undefined || tileData[currentTile] === 2;
-  const factionRegex = useMemo(() => filterFaction && new RegExp(cleanString(filterFaction), 'i'), [filterFaction]);
-  const classRegex = useMemo(() => filterClass && new RegExp(cleanString(filterClass), 'i'), [filterClass]);
-  const searchRegex = useMemo(() => !!searchFilter && new RegExp(cleanString(searchFilter), 'i'), [searchFilter]);
+  const currentUnit = !disabled && units[currentTile]?.unit;
 
   useEffect(() => {
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant, isDev));
   }, [isMdScreen, isXlScreen, variant, isDev]);
 
-  const unitHexes = formattedUnits.map(({ offset, tiles }, i) => (
-    <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>
-      {tiles.map(({ unit, faction, classLabel }) => {
-        const path = ArtifactSet.has(unit) ? 'artifact' : 'unit';
-        const matchesFaction = testRegex(faction, factionRegex);
-        const matchesClass = testRegex(classLabel, classRegex);
-        const validSearch = validateSearch(searchRegex, faction, classLabel, unit);
-        const sameUnit = !disabled && unit === units[currentTile]?.unit;
-        const isValid =
-          filterFaction === undefined && filterClass === undefined
-            ? validSearch
-            : (matchesFaction && matchesClass) || (!!searchRegex && validSearch);
-        const disable = disabled || tileData[currentTile] === 2;
+  const unitHexes = (
+    <UnitButtons
+      formattedUnits={formattedUnits}
+      filterFaction={filterFaction}
+      filterClass={filterClass}
+      searchFilter={searchFilter}
+      currentUnit={currentUnit}
+      onClick={(unit: string, sameUnit: boolean) => {
+        if (disabled) {
+          return;
+        }
+        setUnits(prev => {
+          const copy = { ...prev };
+          if (sameUnit) {
+            delete copy[currentTile];
+          } else {
+            copy[currentTile] = { unit, type: tileData[currentTile] };
+          }
 
-        return (
-          <TileButton
-            key={unit}
-            src={unit}
-            ariaLabel={unit}
-            path={path}
-            size="sm"
-            disabled={disable}
-            disabledOverlay={!isValid || sameUnit || disable}
-            tooltip={
-              <div className="flex flex-row gap-1 items-center">
-                <div className="relative size-5 min-w-5">
-                  <Image
-                    src={`/assets/images/factions/${faction.toLocaleLowerCase()}.png`}
-                    alt={faction}
-                    fill
-                    sizes="64px"
-                    unoptimized
-                    priority
-                  />
-                </div>
-                <p className="text-xs w-max max-w-16">{unit}</p>
-                <div className="relative size-5 min-w-5">
-                  <Image
-                    src={`/assets/images/class/${classLabel.toLocaleLowerCase()}.png`}
-                    alt={classLabel}
-                    fill
-                    sizes="64px"
-                    unoptimized
-                    priority
-                  />
-                </div>
-              </div>
-            }
-            onClick={() => {
-              if (disabled) {
-                return;
-              }
-              setUnits(prev => {
-                const copy = { ...prev };
-                if (sameUnit) {
-                  delete copy[currentTile];
-                } else {
-                  copy[currentTile] = { unit, type: tileData[currentTile] };
-                }
-
-                return copy;
-              });
-              setCurrentTile(undefined);
-            }}
-          />
-        );
-      })}
-    </div>
-  ));
+          return copy;
+        });
+        setCurrentTile(undefined);
+      }}
+    />
+  );
 
   return (
-    <div className="container-primary w-full flex flex-col gap-2 p-2 sm:w-min">
-      <div className="flex w-full flex-row gap-2 items-end">
-        <div className="inset-secondary flex flex-col gap-2 p-2">
-          <FilterGroup items={UnitClass} filter={filterClass} setFilter={setFilterClass} path="class" />
-          <FilterGroup items={Faction} filter={filterFaction} setFilter={setFilterFaction} path="factions" />
-        </div>
-        <Text label="Search" setState={setSearchFilter} placeholder="Name/Faction/Class" value={searchFilter}>
-          <Toggle
-            variant="switch"
-            disableLabel="Other"
-            value="Units"
-            onChange={e => {
-              setVariant(e.target.checked ? 'unit' : 'class');
-            }}
-            defaultChecked={compareStrings(variant, 'unit') === 0}
-          />
-        </Text>
-      </div>
-      <div className="relative flex size-full flex-row justify-center">
-        <div className="z-10 flex flex-col p-4 pt-8">{unitHexes}</div>
-        <div className={joinStrings('inset-secondary absolute top-0 size-full', disabled && 'z-10 opacity-40')} />
-      </div>
-    </div>
+    <UnitGridContainer
+      filterClass={filterClass}
+      setFilterClass={setFilterClass}
+      filterFaction={filterFaction}
+      setFilterFaction={setFilterFaction}
+      searchFilter={searchFilter}
+      setSearchFilter={setSearchFilter}
+      variant={variant}
+      setVariant={setVariant}
+      unitHexes={unitHexes}
+      disabled={disabled}
+    />
   );
 };
 

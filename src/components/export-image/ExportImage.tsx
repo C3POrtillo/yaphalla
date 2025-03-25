@@ -11,7 +11,7 @@ interface ExportImageProps extends ButtonProps {
 }
 
 const ExportImage: FC<ExportImageProps> = ({ fileName, getImage, onClick: callback }) => {
-  const handleClick = async (action: (image: string, fileName: string) => Promise<void>) => {
+  const handleClick = async (action: (image: string, file: string) => Promise<void>) => {
     const image = await getImage();
     if (!image) {
       return;

@@ -1,19 +1,13 @@
 'use-client';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
-import type {
-  ArtifactFormationData,
-  BaseHexes,
-  Faction,
-  Talents,
-  TileData,
-  UnitClass,
-  UnitFormationData,
-} from '@/utils/types';
+import type { ArtifactFormationData, TileData, UnitFormationData } from '@/components/editor/types';
+import type { BaseHexes, Faction, Talents, UnitClass } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
+import { AlwaysShowStates, ArenaPresets, TalentRequiredUnits } from '@/components/editor/types';
 import { countUnits } from '@/components/editor/utils';
-import { AlwaysShowStates, ArenaPresets, ArtifactSet, TalenRequiredUnits } from '@/utils/types';
+import { ArtifactSet } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 
 interface FormationContextType {
@@ -278,11 +272,11 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     });
 
     if (!currentFaction) {
-      if (activeFaction && count[activeFaction] >= TalenRequiredUnits) {
+      if (activeFaction && count[activeFaction] >= TalentRequiredUnits) {
         currentFaction = activeFaction;
       } else {
         const nextFaction = Object.keys(count).find(
-          faction => count[faction as unknown as Talents] >= TalenRequiredUnits,
+          faction => count[faction as unknown as Talents] >= TalentRequiredUnits,
         );
         currentFaction = nextFaction as Talents | undefined;
       }

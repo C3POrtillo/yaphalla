@@ -1,14 +1,14 @@
 import { useMemo, useState } from 'react';
 
-import type { TileData } from '@/utils/types';
+import type { TileData } from '@/components/editor/types';
 import type { FC, PropsWithChildren } from 'react';
 
 import ArtifactButton from '@/components/editor/ArtifactButton';
 import { useFormation } from '@/components/editor/FormationProvider';
+import { AlwaysShowStates, TileIndexToPosition } from '@/components/editor/types';
 import { getIsTopRight, getRelativeTileLabels, getTalentTiles, processTileData } from '@/components/editor/utils';
 import TileButton from '@/components/hex-tiles/TileButton';
 import Text from '@/components/inputs/text/Text';
-import { AlwaysShowStates, TileIndexToPosition } from '@/utils/types';
 import { joinStrings } from '@/utils/utils';
 
 interface TileGridProps extends PropsWithChildren {

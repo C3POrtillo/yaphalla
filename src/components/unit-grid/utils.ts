@@ -1,4 +1,4 @@
-import type { UnitDivData } from '@/utils/types';
+import type { UnitDivData } from 'components/unit-grid/types';
 
 import { DevUnits, OtherUnits, SortedUnits } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';

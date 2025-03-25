@@ -1,14 +1,8 @@
-import type { BaseHexes, Talents, TileDivData, UnitFormationData } from '@/utils/types';
+import type { TileDivData, UnitFormationData } from '@/components/editor/types';
+import type { BaseHexes, Talents } from '@/utils/types';
 
-import {
-  PairSet,
-  TalenRequiredUnits,
-  TalentLocations,
-  TileIndexToPosition,
-  TileLayout,
-  UnitPairs,
-  UnitsByFaction,
-} from '@/utils/types';
+import { TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/editor/types';
+import { PairSet, TalentLocations, UnitPairs, UnitsByFaction } from '@/utils/types';
 import { compareStrings, sortData } from '@/utils/utils';
 
 export const getRelativeTileLabels = (tiles: number[]) => {
@@ -60,7 +54,7 @@ const updateFactionCount = (
   factionCount[faction] ??= 0;
   factionCount[faction] += count;
 
-  if (factionCount[faction] >= TalenRequiredUnits) {
+  if (factionCount[faction] >= TalentRequiredUnits) {
     setCurrentFaction(faction);
   }
 };

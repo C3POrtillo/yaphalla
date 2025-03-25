@@ -4,11 +4,12 @@ import { type FC, useState } from 'react';
 
 import ArtifactGrid from '@/components/editor/ArtifactGrid';
 import { useFormation } from '@/components/editor/FormationProvider';
+import { ArenaPresets, DoubleArtifacts } from '@/components/editor/types';
 import { getDrawImage } from '@/components/editor/utils';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';
-import { ArenaPresets, ArtifactSet, DoubleArtifacts } from '@/utils/types';
+import { ArtifactSet } from '@/utils/types';
 import { compareStrings, isDevMode } from '@/utils/utils';
 
 const EditorSidebar: FC = () => {

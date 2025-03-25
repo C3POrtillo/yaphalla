@@ -4,11 +4,13 @@ import type { Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
 import Root from '@/components/root/Root';
+import { themeColor } from '@/utils/siteTypes';
 import { createMetadata } from '@/utils/utils';
 
 export const viewport: Viewport = {
   width: 'device-width',
   height: 'device-height',
+  themeColor,
 };
 
 const title = 'Yaphalla';

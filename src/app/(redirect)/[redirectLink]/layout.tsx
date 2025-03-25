@@ -1,10 +1,10 @@
 import { cache } from 'react';
 
 import type { RedirectType } from '@/utils/paths';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
-import { metadata } from '@/app/(main)/layout';
+import { metadata, viewport } from '@/app/(main)/layout';
 import Redirect from '@/components/redirect/Redirect';
 import Root from '@/components/root/Root';
 import { domain, redirects } from '@/utils/paths';
@@ -116,6 +116,15 @@ const fetchMetadata = cache(
     }
   },
 );
+
+export const generateViewport = async ({ params }: ParamProps): Promise<Viewport> => {
+  const { redirectLink } = await params;
+  const target = redirects[`/${redirectLink}` as keyof typeof redirects];
+
+  return {
+    themeColor: target?.themeColor ? target.themeColor : viewport.themeColor,
+  };
+};
 
 export const generateMetadata = async ({ params }: ParamProps): Promise<Metadata> => {
   const { redirectLink } = await params;

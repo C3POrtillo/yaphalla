@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import Container from '@/components/container/Container';
 import LogoLink from '@/components/link/Logo';
 import Socials from '@/components/socials/Socials';
-import { discordNames } from '@/utils/types';
+import { discordNames } from '@/utils/siteTypes';
 
 const Footer: FC = () => (
   <>

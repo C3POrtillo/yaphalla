@@ -1,36 +1,24 @@
 'use-client';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
-import type {
-  ArtifactFormationData,
-  BaseHexes,
-  Faction,
-  Talents,
-  TileData,
-  UnitClass,
-  UnitFormationData,
-} from '@/components/editor/types';
+import type { ArtifactFormationData, TileData, UnitFormationData } from '@/components/editor/types';
+import type { BaseHexes, Talents } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { AlwaysShowStates, ArenaPresets, ArtifactSet, requiredUnits } from '@/components/editor/types';
+import { AlwaysShowStates, ArenaPresets, TalentRequiredUnits } from '@/components/editor/types';
 import { countUnits } from '@/components/editor/utils';
+import { ArtifactSet } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 
 interface FormationContextType {
   title: string;
   setTitle: Dispatch<SetStateAction<string>>;
-  author: string;
-  setAuthor: Dispatch<SetStateAction<string>>;
   units: UnitFormationData;
   setUnits: Dispatch<SetStateAction<UnitFormationData>>;
   artifactData: ArtifactFormationData;
   setArtifactData: Dispatch<SetStateAction<ArtifactFormationData>>;
   tileData: number[];
   setTileData: Dispatch<SetStateAction<number[]>>;
-  tags: string[];
-  setTags: Dispatch<SetStateAction<string[]>>;
-  additionalNotes: string;
-  setAdditionalNotes: Dispatch<SetStateAction<string>>;
   preset: string;
   setPreset: Dispatch<SetStateAction<string>>;
   currentTile: number | undefined;
@@ -51,12 +39,6 @@ interface FormationContextType {
   setIsPreset: Dispatch<SetStateAction<boolean>>;
   currentArtifact: number | undefined;
   setCurrentArtifact: Dispatch<SetStateAction<number | undefined>>;
-  filterFaction: Faction | undefined;
-  setFilterFaction: Dispatch<SetStateAction<Faction | undefined>>;
-  filterClass: UnitClass | undefined;
-  setFilterClass: Dispatch<SetStateAction<UnitClass | undefined>>;
-  searchFilter: string;
-  setSearchFilter: Dispatch<SetStateAction<string>>;
   isEditArena: boolean;
   setEditArena: Dispatch<SetStateAction<boolean>>;
   subMenu: number;
@@ -87,15 +69,12 @@ const FormationContext = createContext<FormationContextType | undefined>(undefin
 
 export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [title, setTitle] = useState<string>('');
-  const [author, setAuthor] = useState<string>('');
   const [units, setUnits] = useState<UnitFormationData>({});
   const [artifactData, setArtifactData] = useState<ArtifactFormationData>({
     player: [],
     enemy: [],
   });
   const [tileData, setTileData] = useState<number[]>([...ArenaPresets['Arena I']]);
-  const [tags, setTags] = useState<string[]>([]);
-  const [additionalNotes, setAdditionalNotes] = useState<string>('');
   const [preset, setPreset] = useState<string>('Arena I');
   const [currentTile, setCurrentTile] = useState<number>();
   const [drawEnemy, setDrawEnemy] = useState<boolean>(false);
@@ -105,9 +84,6 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isNumber, setNumber] = useState<boolean>(false);
   const [isPreset, setIsPreset] = useState<boolean>(false);
   const [currentArtifact, setCurrentArtifact] = useState<number>();
-  const [filterFaction, setFilterFaction] = useState<Faction>();
-  const [filterClass, setFilterClass] = useState<UnitClass>();
-  const [searchFilter, setSearchFilter] = useState<string>('');
   const [isEditArena, setEditArena] = useState<boolean>(false);
   const [activeFaction, setActiveFaction] = useState<Talents>();
   const [isTalents, setTalents] = useState<boolean>(true);
@@ -278,10 +254,12 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     });
 
     if (!currentFaction) {
-      if (activeFaction && count[activeFaction] >= requiredUnits) {
+      if (activeFaction && count[activeFaction] >= TalentRequiredUnits) {
         currentFaction = activeFaction;
       } else {
-        const nextFaction = Object.keys(count).find(faction => count[faction as unknown as Talents] >= requiredUnits);
+        const nextFaction = Object.keys(count).find(
+          faction => count[faction as unknown as Talents] >= TalentRequiredUnits,
+        );
         currentFaction = nextFaction as Talents | undefined;
       }
     }
@@ -293,18 +271,12 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       value={{
         title,
         setTitle,
-        author,
-        setAuthor,
         units,
         setUnits,
         artifactData,
         setArtifactData,
         tileData,
         setTileData,
-        tags,
-        setTags,
-        additionalNotes,
-        setAdditionalNotes,
         preset,
         setPreset,
         currentTile,
@@ -325,12 +297,6 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setIsPreset,
         currentArtifact,
         setCurrentArtifact,
-        filterFaction,
-        setFilterFaction,
-        filterClass,
-        setFilterClass,
-        searchFilter,
-        setSearchFilter,
         isEditArena,
         setEditArena,
         subMenu,

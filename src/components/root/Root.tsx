@@ -7,7 +7,7 @@ import type { FC, PropsWithChildren, ReactNode } from 'react';
 import Footer from '@/components/footer/Footer';
 import Breadcrumbs from '@/components/header/Breadcrumbs';
 import Header from '@/components/header/Header';
-import { font } from '@/utils/types';
+import { font } from '@/utils/siteTypes';
 import { joinStrings } from '@/utils/utils';
 
 interface RootProps extends PropsWithChildren {

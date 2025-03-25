@@ -1,11 +1,11 @@
 'use client';
-import { type FC, Suspense } from 'react';
+import { type FC } from 'react';
 
 import { useFormation } from '@/components/editor/FormationProvider';
-import HexImage from '@/components/editor/HexImage';
-import Logo from '@/components/editor/Logo';
+import HexImage from '@/components/hex-tiles/HexImage';
+import Logo from '@/components/hex-tiles/Logo';
 
-interface ArtifactButtonProps {
+interface ButtonArtifactProps {
   index: number;
   label: string;
   hideNumbers?: boolean;
@@ -16,7 +16,7 @@ interface ArtifactButtonProps {
   isCat?: boolean;
 }
 
-const ArtifactButton: FC<ArtifactButtonProps> = ({
+const ButtonArtifact: FC<ButtonArtifactProps> = ({
   index,
   label,
   hideNumbers,
@@ -30,20 +30,12 @@ const ArtifactButton: FC<ArtifactButtonProps> = ({
   const key = index === 0 ? 'player' : 'enemy';
   const artifact = !!artifactData[key].length && artifactData[key][0];
   const isArtifactDisabled = () => hideArtifacts || disableArtifacts || (hideEmptyArtifact && !artifact);
-  const logo = (
-    <Suspense fallback={<div className="hex-icon relative" />}>
-      <Logo isCat={isCat} hideLogo={hideLogo} />
-    </Suspense>
-  );
+  const logo = <Logo isCat={isCat} hideLogo={hideLogo} />;
 
   return (
     <>
       {isReverse && logo}
-      <button
-        className="cursor-pointer disabled:cursor-auto"
-        onClick={() => setArtifact(index, artifact)}
-        disabled={isArtifactDisabled()}
-      >
+      <button className="cursor-pointer disabled:cursor-auto" onClick={() => setArtifact(index, artifact)}>
         <HexImage
           src={artifact || 'Artifact-Hex'}
           selected={currentArtifact === index && !hideArtifacts}
@@ -59,4 +51,4 @@ const ArtifactButton: FC<ArtifactButtonProps> = ({
   );
 };
 
-export default ArtifactButton;
+export default ButtonArtifact;

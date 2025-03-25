@@ -1,13 +1,11 @@
-import { Suspense, useMemo } from 'react';
+import { useMemo } from 'react';
 
-import type { TileDivData } from '@/components/editor/types';
 import type { FC } from 'react';
 
 import { useFormation } from '@/components/editor/FormationProvider';
-import HexImage from '@/components/editor/HexImage';
-import Logo from '@/components/editor/Logo';
-import { TileLayout } from '@/components/editor/types';
-import { getSizeClass } from '@/components/editor/utils';
+import { processTileData } from '@/components/editor/utils';
+import HexImage from '@/components/hex-tiles/HexImage';
+import Logo from '@/components/hex-tiles/Logo';
 import { joinStrings } from '@/utils/utils';
 
 interface TilePreviewProps {
@@ -18,39 +16,18 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
   const { baseHex, outline } = useFormation();
   const size = '2xs' as const;
 
-  const formattedTiles = useMemo(() => {
-    const result: TileDivData[] = [];
-    let index = 0;
+  const formattedTiles = useMemo(() => processTileData(tileData, true), [tileData]);
 
-    while (index < tileData.length) {
-      for (const { length, preview } of TileLayout) {
-        if (index >= tileData.length) {
-          break;
-        }
-
-        const tileSlice = tileData.slice(index, index + length);
-        const rowData = tileSlice.map((tile, i) => ({ state: tile, index: index + i }));
-        result.push({ offset: preview, tiles: rowData });
-
-        index += length;
-      }
-    }
-
-    return result;
-  }, [tileData]);
-
-  const tileDivs = formattedTiles.map(({ tiles, offset }, i) => {
-    const isFirst = i === 0;
-    const isLast = i === formattedTiles.length - 1;
+  const tileDivs = formattedTiles.map(({ tiles, offset }, row) => {
+    const isFirst = row === 0;
+    const isLast = row === formattedTiles.length - 1;
 
     return (
-      <div key={i} className={joinStrings('flex flex-row', i && '-mt-2', offset)}>
+      <div key={row} className={joinStrings('flex flex-row', row && '-mt-2', offset)}>
         {isLast && (
           <>
             <HexImage src="Artifact-Hex" hideLabel path="artifact" disabled hideImage size={size} />
-            <Suspense fallback={<div className={joinStrings('hex-icon relative', getSizeClass(size))} />}>
-              <Logo size={size} />
-            </Suspense>
+            <Logo size={size} />
           </>
         )}
         {tiles.map((tile, j) => {
@@ -73,9 +50,7 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
         })}
         {isFirst && (
           <>
-            <Suspense fallback={<div className={joinStrings('hex-icon relative', getSizeClass(size))} />}>
-              <Logo isCat size={size} />
-            </Suspense>
+            <Logo isCat size={size} />
             <HexImage src="Artifact-Hex" hideLabel path="artifact" disabled hideImage size={size} />
           </>
         )}

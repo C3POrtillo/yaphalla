@@ -2,16 +2,16 @@ import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
 import { useFormation } from '@/components/editor/FormationProvider';
-import TilePreview from '@/components/editor/TilePreview';
+import PreviewArena from '@/components/editor/PreviewArena';
 import { ArenaPresets } from '@/components/editor/types';
 import Button from '@/components/inputs/button/Button';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
-interface ArenaPresetSelectorProps {
+interface SelectArenaPresetProps {
   variant?: 'sm' | 'base';
 }
 
-const ArenaPresetSelector: FC<ArenaPresetSelectorProps> = ({ variant = 'base' }) => {
+const SelectArenaPreset: FC<SelectArenaPresetProps> = ({ variant = 'base' }) => {
   const { preset, setPreset } = useFormation();
   const isPreset = preset !== undefined && preset !== 'Custom';
   const displayClasses =
@@ -50,7 +50,7 @@ const ArenaPresetSelector: FC<ArenaPresetSelectorProps> = ({ variant = 'base' })
               <div className="flex flex-col gap-2">
                 <h2 className="text-lg lg:text-xl">{label}</h2>
                 <div className="hidden 2xl:block">
-                  <TilePreview tileData={data as number[]} />
+                  <PreviewArena tileData={data as number[]} />
                 </div>
               </div>
             </Button>
@@ -60,4 +60,4 @@ const ArenaPresetSelector: FC<ArenaPresetSelectorProps> = ({ variant = 'base' })
   );
 };
 
-export default ArenaPresetSelector;
+export default SelectArenaPreset;

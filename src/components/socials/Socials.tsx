@@ -9,7 +9,7 @@ const Socials: FC = () => (
       <Link
         key={site}
         href={href}
-        className="flex h-10 size-sm input-secondary justify-center items-center"
+        className="flex h-10 size-sm input-tertiary justify-center items-center"
         aria-label={`Yaphalla's ${site}`}
       >
         <i className={`fab fa-${site} fa-2xl`} />

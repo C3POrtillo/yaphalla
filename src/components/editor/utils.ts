@@ -1,28 +1,16 @@
-import type { BaseHexes, Talents, UnitDivData, UnitFormationData } from '@/components/editor/types';
-import type { ReadonlyURLSearchParams } from 'next/navigation';
+import type { TileDivData, UnitFormationData } from '@/components/editor/types';
+import type { BaseHexes, Talents } from '@/utils/types';
 
-import {
-  DevUnits,
-  OtherUnits,
-  PairSet,
-  SortedUnits,
-  TalentLocations,
-  UnitPairs,
-  UnitsByFaction,
-  indexToPosition,
-  requiredUnits,
-} from '@/components/editor/types';
+import { TalentLocations, TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/editor/types';
+import { PairSet, UnitPairs, UnitsByFaction } from '@/utils/types';
 import { compareStrings, sortData } from '@/utils/utils';
-
-export const validateSearch = (regExp: RegExp | undefined | false, ...fields: string[]) =>
-  !regExp || regExp.test(fields.join(' '));
 
 export const getRelativeTileLabels = (tiles: number[]) => {
   const player = [] as number[];
   const enemy = [] as number[];
 
   tiles.forEach((state, index) => {
-    const position = indexToPosition[index];
+    const position = TileIndexToPosition[index];
 
     if (state === 1) {
       player.push(position);
@@ -41,20 +29,6 @@ export const getRelativeTileLabels = (tiles: number[]) => {
 
 export const getIsTopRight = (tileData: number[]) =>
   [28, 38, 39, 43].some(i => tileData[i] !== 1) && [1, 5, 6, 16].some(i => tileData[i] === 1);
-
-export const getSizeClass = (size: 'md' | 'sm' | 'xs' | '2xs') => {
-  if (compareStrings(size, 'sm') === 0) {
-    return 'min-w-16';
-  }
-  if (compareStrings(size, 'xs') === 0) {
-    return 'min-w-12';
-  }
-  if (compareStrings(size, '2xs') === 0) {
-    return 'min-w-8';
-  }
-
-  return 'min-w-20';
-};
 
 export const getDrawImage = (str: string, baseHex: BaseHexes = 'Generic-Hex') => {
   const label = str.toLowerCase();
@@ -80,7 +54,7 @@ const updateFactionCount = (
   factionCount[faction] ??= 0;
   factionCount[faction] += count;
 
-  if (factionCount[faction] >= requiredUnits) {
+  if (factionCount[faction] >= TalentRequiredUnits) {
     setCurrentFaction(faction);
   }
 };
@@ -120,49 +94,47 @@ export const countUnits = (
 export const getTalentTiles = (tiles: number[], faction: Talents) =>
   new Set<number>(TalentLocations[faction] ? tiles.slice(-3, -1) : tiles.slice(0, 2));
 
-export const testRegex = (str: string, regExp?: RegExp) => regExp === undefined || regExp?.test(str);
-const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {
-  if (isXlScreen) {
-    return 8;
-  }
-  if (isMdScreen) {
-    return 8;
-  }
+export const processTileData = (
+  tileData: number[],
+  isPreview = false,
+  setFirstPlayerRow?: React.Dispatch<React.SetStateAction<number | undefined>>,
+  setLastPlayerRow?: React.Dispatch<React.SetStateAction<number | undefined>>,
+): TileDivData[] => {
+  let firstRow: number | undefined = undefined;
+  let lastRow: number | undefined = undefined;
+  let rowIndex = 0;
 
-  return 7;
-};
-
-export const getFormattedUnits = (
-  mediaQueries: Record<string, boolean>,
-  variant: 'unit' | 'class' = 'unit',
-  isDev?: boolean,
-) => {
-  const isUnit = compareStrings(variant, 'unit') === 0;
-  const data = (() => {
-    if (isDev && !isUnit) {
-      return [...OtherUnits, ...DevUnits];
-    }
-
-    return isUnit ? SortedUnits : OtherUnits;
-  })();
-
-  const result: UnitDivData[] = [];
-  const length = getRowCount(mediaQueries);
+  const result: TileDivData[] = [];
   let index = 0;
-  let rowParity = 1;
 
-  while (index < data.length) {
-    if (index >= data.length) {
-      break;
+  while (index < tileData.length) {
+    for (const { length, offset, reverse, preview } of TileLayout) {
+      if (index >= tileData.length) {
+        break;
+      }
+
+      const tileSlice = tileData.slice(index, index + length);
+      const hasPlayer = tileSlice.includes(1);
+      const tiles = tileSlice.map((tile, i) => ({ state: tile, index: index + i }));
+
+      result.push({ offset: isPreview ? preview : offset, tiles, reverse });
+
+      if (hasPlayer) {
+        if (firstRow === undefined) {
+          firstRow = rowIndex;
+        }
+        lastRow = rowIndex;
+      }
+
+      index += length;
+      rowIndex++;
     }
-    const tiles = data.slice(index, index + length);
-    result.push({ offset: rowParity > 0 ? '' : 'pl-8', tiles });
-    rowParity *= -1;
-    index += length;
+  }
+
+  if (setFirstPlayerRow && setLastPlayerRow) {
+    setFirstPlayerRow(firstRow);
+    setLastPlayerRow(lastRow);
   }
 
   return result;
 };
-
-export const isDevMode = (searchParams: ReadonlyURLSearchParams) =>
-  compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev') === 0;

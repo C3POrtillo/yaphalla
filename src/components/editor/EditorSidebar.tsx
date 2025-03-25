@@ -2,14 +2,15 @@
 import { useSearchParams } from 'next/navigation';
 import { type FC, useState } from 'react';
 
-import ArtifactGrid from '@/components/editor/ArtifactGrid';
 import { useFormation } from '@/components/editor/FormationProvider';
-import HexImage from '@/components/editor/HexImage';
-import { ArenaPresets, ArtifactSet, DoubleArtifacts } from '@/components/editor/types';
-import { getDrawImage, isDevMode } from '@/components/editor/utils';
+import ArtifactGrid from '@/components/editor/SelectArtifact';
+import { ArenaPresets, DoubleArtifacts } from '@/components/editor/types';
+import { getDrawImage } from '@/components/editor/utils';
+import HexImage from '@/components/hex-tiles/HexImage';
 import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';
-import { compareStrings } from '@/utils/utils';
+import { ArtifactSet } from '@/utils/types';
+import { compareStrings, isDevMode } from '@/utils/utils';
 
 const EditorSidebar: FC = () => {
   const {
@@ -64,7 +65,7 @@ const EditorSidebar: FC = () => {
         setEditArena(false);
       },
     },
-  ];
+  ] as const;
 
   const otherButtons = [
     {
@@ -143,14 +144,6 @@ const EditorSidebar: FC = () => {
         </Button>
       )),
     },
-    // {
-    //   label: 'Select',
-    //   divs: tabButtons.map(({ onClick, label, ...props }) => (
-    //     <Button key={label} className="w-full" onClick={onClick} {...props}>
-    //       {label}
-    //     </Button>
-    //   )),
-    // },
   ] as const;
 
   const advancedOptions = [

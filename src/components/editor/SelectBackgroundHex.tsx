@@ -1,12 +1,12 @@
 import type { FC, ReactNode } from 'react';
 
 import { useFormation } from '@/components/editor/FormationProvider';
-import TileButton from '@/components/editor/TileButton';
-import { BaseHexData } from '@/components/editor/types';
+import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import Tooltip from '@/components/tooltip/Tooltip';
+import { BaseHexData } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
-const BackgroundHexSelector: FC = () => {
+const SelectBackgroundHex: FC = () => {
   const { baseHex, setBaseHex, outline: selectedOutline, setOutline } = useFormation();
 
   const { base, outline } = Object.fromEntries(
@@ -20,7 +20,7 @@ const BackgroundHexSelector: FC = () => {
         }
         const disabled = [baseHex, selectedOutline].some(check => compareStrings(check || '', hex) === 0);
         groupedHexes[groupIndex].push(
-          <TileButton
+          <ButtonTile
             key={hex}
             path="base"
             src={hex}
@@ -94,4 +94,4 @@ const BackgroundHexSelector: FC = () => {
   );
 };
 
-export default BackgroundHexSelector;
+export default SelectBackgroundHex;

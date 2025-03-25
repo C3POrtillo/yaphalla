@@ -1,18 +1,18 @@
 'use client';
 import { useState } from 'react';
 
-import type { ArtifactSource } from '@/components/editor/types';
-import type { HierarchyTypes } from '@/utils/types';
+import type { HierarchyTypes } from '@/utils/siteTypes';
+import type { ArtifactSource } from '@/utils/types';
 import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
 import { useFormation } from '@/components/editor/FormationProvider';
-import HexImage from '@/components/editor/HexImage';
-import { Artifacts, currentSeason } from '@/components/editor/types';
+import HexImage from '@/components/hex-tiles/HexImage';
 import Button from '@/components/inputs/button/Button';
+import { Artifacts, currentSeason } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
-const ArtifactGrid: FC = () => {
+const SelectArtifact: FC = () => {
   const [tab, setTab] = useState<ArtifactSource>(currentSeason);
   const { currentArtifact, artifactData, setArtifactData, currentTile, tileData, units, setUnits, setCurrentTile } =
     useFormation();
@@ -129,4 +129,4 @@ const ArtifactGrid: FC = () => {
   );
 };
 
-export default ArtifactGrid;
+export default SelectArtifact;

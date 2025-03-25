@@ -53,13 +53,18 @@ const paths = {
   },
 } as const;
 
+const appName = ['AFKJ', 'AFKJourney', 'AFK Journey']
+
 const createLeaderboardKeywords = (string: string) => {
   const keywords = [];
-  const prefix = ['', 'Yaphalla'];
-  const suffix = ['', 'Leaderboard', 'Leaderboards'];
+  const prefix = ['', 'Yaphalla', 'Global'];
+  const mid = ['', 'Leaderboard', 'Leaderboards'];
+  const suffix = ['', ...appName.map(name => `For ${name}`)]
   for (const a of prefix) {
-    for (const b of suffix) {
-      keywords.push(`${a} ${string} ${b}`.trim());
+    for (const b of mid) {
+      for (const c of suffix) {
+      keywords.push(`${a} ${string} ${b} ${c}`.trim());
+    }
     }
   }
 
@@ -72,7 +77,9 @@ export const redirects = {
     label: 'Battle Drills',
     href: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTQNE-x_s_LcUjX4XccM95MKVKA6E1Zv9Php70w6zIn6R6pvwiZGwgv-1X_ptQlyuSl-FS-bc9E8_aR/pubhtml',
     title: 'Global Battle Drills Leaderboards - Chains of Eternity',
-    description: 'Global Battle Drills Leaderboards for AFK Journey',
+    description: 'You thought your guild was good? Check again! Submit your district at discord.gg/yaphalla!',
+    site: 'Google Sheets',
+    themeColor: '#6b3982',
     keywords: createLeaderboardKeywords('Battle Drills'),
   } as RedirectType,
   '/primal-lord': {
@@ -80,15 +87,20 @@ export const redirects = {
     label: 'Primal Lord',
     href: 'https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vQBMOON-RjaiHolLR5QqZbvkJzbEeRkouNWkWOjzCDvmqCYPkcou0QPSm0Rmdt59xmD9RgVyeVQf5Zy/pubhtml',
     title: 'Global Primal Lord Leaderboards',
-    description: 'Global Primal Lord Leaderboards for AFK Journey',
+    description: 'Top 20? More like bottom 99%! Submit your district at discord.gg/yaphalla!',
+    site: 'Google Sheets',
     keywords: createLeaderboardKeywords('Primal Lord'),
+    themeColor: '#ebb614',
     image: 'https://www.yaphalla.com/assets/images/graphics/primal-lord.png',
   } as RedirectType,
   '/paragon-form': {
     redirect: '/paragon-form',
     label: 'Paragon Form',
     href: 'https://docs.google.com/forms/d/e/1FAIpQLSdMldCIpkntrp3LOXbHyDWgnV6nKb5zz5ovEAU_m3YH36MSMg/viewform',
+    description: 'Click the link to vote on our next update for our Paragon Priority guide!',
+    site: 'Google Form',
     keywords: ['Paragon Priority Form', 'Yaphalla Paragon Priority Form', 'Paragon Form', 'Yaphalla Paragon Form'],
+    themeColor: '#ae3fcd',
     image: 'https://www.yaphalla.com/assets/images/graphics/paragon-priority.png',
   } as RedirectType,
   '/discord': {
@@ -126,6 +138,25 @@ export const redirects = {
     title: 'Join the Vietnam Community for AFKJ!',
     site: 'Discord',
     themeColor: '#da251d',
+    keywords: (() => {
+      const prefixes = ['Official', ''];
+      const suffixes = ['Official Vietnam Discord', 'Vietnam Discord'];
+
+      const result: string[] = [];
+
+      for (const prefix of prefixes) {
+        for (const name of appName) {
+          for (const suffix of suffixes) {
+            if (prefix === 'Official' && suffix === 'Official Vietnam  Discord') {
+              continue;
+            }
+            result.push(`${prefix} ${name} ${suffix}`.trim());
+          }
+        }
+      }
+
+      return result;
+    })(),
     image: 'https://www.yaphalla.com/assets/images/vn-logo.png',
   } as RedirectType,
   '/advanced': {
@@ -143,18 +174,17 @@ export const redirects = {
     themeColor: '#a6dcd0',
     keywords: (() => {
       const prefixes = ['Official', ''];
-      const phrases = ['AFKJ', 'AFKJourney', 'AFK Journey'];
       const suffixes = ['Official Discord', 'Discord'];
 
       const result: string[] = [];
 
       for (const prefix of prefixes) {
-        for (const phrase of phrases) {
+        for (const name of appName) {
           for (const suffix of suffixes) {
             if (prefix === 'Official' && suffix === 'Official Discord') {
               continue;
             }
-            result.push(`${prefix} ${phrase} ${suffix}`.trim());
+            result.push(`${prefix} ${name} ${suffix}`.trim());
           }
         }
       }
@@ -170,6 +200,7 @@ export const redirects = {
     title: 'AdbAutoPlayer',
     description: 'Automate tasks (bot) in mobile games like AFK Journey using ADB',
     site: 'GitHub',
+    themeColor: '#9fbfe5',
     image: 'https://raw.githubusercontent.com/AdbAutoPlayer/AdbAutoPlayer/refs/heads/main/cmd/wails/build/appicon.png',
   } as RedirectType,
 } as const;

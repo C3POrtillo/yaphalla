@@ -9,7 +9,7 @@ export const viewport: Viewport = {
 };
 
 const title = 'YapBuilder';
-const description = 'Custom Formation Editor or Builder for AFK Journey by Lilith Games!';
+const description = 'Build your custom formations for AFK Journey now!';
 
 const { keywords, ...baseMetadata } = createMetadata(title, description);
 

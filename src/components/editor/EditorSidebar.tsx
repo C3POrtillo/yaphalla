@@ -4,8 +4,8 @@ import { type FC, useState } from 'react';
 
 import ArtifactGrid from '@/components/editor/ArtifactGrid';
 import { useFormation } from '@/components/editor/FormationProvider';
-import HexImage from '@/components/editor/HexImage';
 import { getDrawImage } from '@/components/editor/utils';
+import HexImage from '@/components/hex-tiles/HexImage';
 import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';
 import { ArenaPresets, ArtifactSet, DoubleArtifacts } from '@/utils/types';

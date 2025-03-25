@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
 import { useFormation } from '@/components/editor/FormationProvider';
-import TileButton from '@/components/editor/TileButton';
+import TileButton from '@/components/hex-tiles/TileButton';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { BaseHexData } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';

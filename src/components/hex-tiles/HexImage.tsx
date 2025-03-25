@@ -3,7 +3,7 @@ import Image from 'next/image';
 import type { BaseHexes } from '@/utils/types';
 import type { FC, ReactNode } from 'react';
 
-import { getSizeClass } from '@/components/editor/utils';
+import { getSizeClass } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { HexPath, LogoRegExp } from '@/utils/types';
 import { compareStrings, joinStrings, testRegex } from '@/utils/utils';

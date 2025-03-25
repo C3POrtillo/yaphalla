@@ -7,7 +7,7 @@ import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
 import { useFormation } from '@/components/editor/FormationProvider';
-import HexImage from '@/components/editor/HexImage';
+import HexImage from '@/components/hex-tiles/HexImage';
 import Button from '@/components/inputs/button/Button';
 import { Artifacts, currentSeason } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';

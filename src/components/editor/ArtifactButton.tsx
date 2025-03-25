@@ -1,9 +1,9 @@
 'use client';
-import { type FC, Suspense } from 'react';
+import { type FC } from 'react';
 
 import { useFormation } from '@/components/editor/FormationProvider';
-import HexImage from '@/components/editor/HexImage';
-import Logo from '@/components/editor/Logo';
+import HexImage from '@/components/hex-tiles/HexImage';
+import Logo from '@/components/hex-tiles/Logo';
 
 interface ArtifactButtonProps {
   index: number;
@@ -30,11 +30,7 @@ const ArtifactButton: FC<ArtifactButtonProps> = ({
   const key = index === 0 ? 'player' : 'enemy';
   const artifact = !!artifactData[key].length && artifactData[key][0];
   const isArtifactDisabled = () => hideArtifacts || disableArtifacts || (hideEmptyArtifact && !artifact);
-  const logo = (
-    <Suspense fallback={<div className="hex-icon relative" />}>
-      <Logo isCat={isCat} hideLogo={hideLogo} />
-    </Suspense>
-  );
+  const logo = <Logo isCat={isCat} hideLogo={hideLogo} />;
 
   return (
     <>

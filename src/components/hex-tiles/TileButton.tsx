@@ -1,9 +1,9 @@
 'use client';
 
-import type { HexImageProps } from '@/components/editor/HexImage';
+import type { HexImageProps } from '@/components/hex-tiles/HexImage';
 import type { FC } from 'react';
 
-import HexImage from '@/components/editor/HexImage';
+import HexImage from '@/components/hex-tiles/HexImage';
 
 interface TileButtonProps extends HexImageProps {
   onClick: () => void;

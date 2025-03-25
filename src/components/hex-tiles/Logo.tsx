@@ -1,10 +1,9 @@
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
 
 import type { FC } from 'react';
 
 import { getSizeClass } from '@/components/hex-tiles/utils';
-import { isDevMode, joinStrings } from '@/utils/utils';
+import { joinStrings } from '@/utils/utils';
 
 interface LogoProps {
   hideLogo?: boolean;
@@ -12,24 +11,18 @@ interface LogoProps {
   size?: 'md' | 'sm' | 'xs' | '2xs';
 }
 
-const Logo: FC<LogoProps> = ({ hideLogo, isCat, size = 'md' }) => {
-  const searchParams = useSearchParams();
-  const isDev = isDevMode(searchParams);
-  const showLogo = !isDev || !hideLogo;
-
-  return (
-    <div className={joinStrings('hex-icon relative', getSizeClass(size))}>
-      {showLogo && (
-        <Image
-          src={`/assets/images/hexes/unit/Yaphalla ${isCat ? 'Cat' : 'Dog'} Hex.png`}
-          alt="Yaphalla Logo"
-          fill
-          sizes="256px"
-          unoptimized
-          priority
-        />
-      )}
-    </div>
-  );
-};
+const Logo: FC<LogoProps> = ({ hideLogo, isCat, size = 'md' }) => (
+  <div className={joinStrings('hex-icon relative', getSizeClass(size))}>
+    {!hideLogo && (
+      <Image
+        src={`/assets/images/hexes/unit/Yaphalla ${isCat ? 'Cat' : 'Dog'} Hex.png`}
+        alt="Yaphalla Logo"
+        fill
+        sizes="256px"
+        unoptimized
+        priority
+      />
+    )}
+  </div>
+);
 export default Logo;

@@ -2,7 +2,7 @@
 import { type FC } from 'react';
 
 import { useFormation } from '@/components/editor/FormationProvider';
-import ButtonTile from '@/components/hex-tiles/ButtonTile';
+import HexImage from '@/components/hex-tiles/HexImage';
 import Logo from '@/components/hex-tiles/Logo';
 
 interface ButtonArtifactProps {
@@ -35,16 +35,17 @@ const ButtonArtifact: FC<ButtonArtifactProps> = ({
   return (
     <>
       {isReverse && logo}
-      <ButtonTile
-        src={artifact || 'Artifact-Hex'}
-        selected={currentArtifact === index && !hideArtifacts}
-        label={artifact ? undefined : label}
-        hideLabel={hideNumbers || isArtifactDisabled()}
-        path="artifact"
-        disabled={isArtifactDisabled()}
-        hideImage={isArtifactDisabled()}
-        onClick={() => setArtifact(index, artifact)}
-      />
+      <button className="cursor-pointer disabled:cursor-auto" onClick={() => setArtifact(index, artifact)}>
+        <HexImage
+          src={artifact || 'Artifact-Hex'}
+          selected={currentArtifact === index && !hideArtifacts}
+          label={artifact ? undefined : label}
+          hideLabel={hideNumbers || isArtifactDisabled()}
+          path="artifact"
+          disabled={isArtifactDisabled()}
+          hideImage={isArtifactDisabled()}
+        />
+      </button>
       {!isReverse && logo}
     </>
   );

@@ -53,7 +53,7 @@ const fetchMetadata = cache(
         title,
         description,
         keywords,
-        themeColor: themeColor || metadata.themeColor,
+        themeColor: themeColor || viewport.themeColor,
         robots: noIndex
           ? {
             index: false,

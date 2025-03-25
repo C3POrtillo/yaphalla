@@ -15,6 +15,7 @@ export type RedirectType = {
   keywords?: string[];
   noIndex?: boolean;
   image?: string;
+  themeColor?: string;
 };
 
 export const socials = {
@@ -81,6 +82,7 @@ export const redirects = {
     title: 'Global Primal Lord Leaderboards',
     description: 'Global Primal Lord Leaderboards for AFK Journey',
     keywords: createLeaderboardKeywords('Primal Lord'),
+    image: 'https://www.yaphalla.com/assets/images/leaderboards/primal-lord.png',
   } as RedirectType,
   '/paragon-form': {
     redirect: '/paragon-form',
@@ -103,6 +105,7 @@ export const redirects = {
     title: 'Join Fight Club!',
     site: 'Discord',
     keywords: ['Fight Club Discord'],
+    themeColor: '#f9db89',
     image: 'https://www.yaphalla.com/assets/images/fight-club.png',
   } as RedirectType,
   '/trolley': {
@@ -112,6 +115,7 @@ export const redirects = {
     title: "Join Dolly's Trolley!",
     site: 'Discord',
     noIndex: true,
+    themeColor: '#fed2a8',
     image: 'https://www.yaphalla.com/assets/images/trolley.png',
   } as RedirectType,
   '/vn': {
@@ -120,6 +124,7 @@ export const redirects = {
     href: 'https://discord.com/invite/afkjvietnam',
     title: 'Join the Vietnam Community for AFKJ!',
     site: 'Discord',
+    themeColor: '#da251d',
     image: 'https://www.yaphalla.com/assets/images/vn-logo.png',
   } as RedirectType,
   '/advanced': {

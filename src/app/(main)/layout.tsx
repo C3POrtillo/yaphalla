@@ -9,6 +9,7 @@ import { createMetadata } from '@/utils/utils';
 export const viewport: Viewport = {
   width: 'device-width',
   height: 'device-height',
+  themeColor: '#1A387B',
 };
 
 const title = 'Yaphalla';

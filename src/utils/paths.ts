@@ -128,7 +128,7 @@ export const redirects = {
     image: 'https://www.yaphalla.com/assets/images/vn-logo.png',
   } as RedirectType,
   '/advanced': {
-    redirect: '/editor?mode=dev',
+    redirect: '/advanced',
     label: 'Root',
     href: '/editor?mode=dev',
     title: 'YapBuilder (Advanced)',
@@ -160,7 +160,7 @@ export const redirects = {
 
       return result;
     })(),
-    image: 'https://www.yaphalla.com/assets/images/afkj-logo.png'
+    image: 'https://www.yaphalla.com/assets/images/afkj-logo.png',
   } as RedirectType,
 } as const;
 

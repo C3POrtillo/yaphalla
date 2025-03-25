@@ -194,7 +194,7 @@ export const LogoRegExp = new RegExp('Cat|Dog');
 
 const HexSuffix = ['Hex', 'Outline', 'Icon'] as const;
 type HexSuffix = (typeof HexSuffix)[number];
-const GenericHexes = ['Generic', 'Enemy'] as const;
+const GenericHexes = ['Generic', 'Enemy', 'Breakable', 'Unbreakable'] as const;
 type GenericHexes = (typeof GenericHexes)[number];
 export type BaseHexes =
   | `${GenericHexes}-${Exclude<HexSuffix, 'Icon'>}`

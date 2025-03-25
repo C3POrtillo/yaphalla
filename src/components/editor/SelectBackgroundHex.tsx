@@ -13,7 +13,7 @@ const SelectBackgroundHex: FC = () => {
     Object.entries(BaseHexData).map(([key, hexes]) => {
       const groupedHexes: ReactNode[][] = [];
       hexes.forEach((hex, i) => {
-        const groupIndex = i < 2 ? 0 : Math.floor((i - 2) / 7) + 1;
+        const groupIndex = i < 4 ? 0 : Math.floor((i - 4) / 7) + 1;
 
         if (!groupedHexes[groupIndex]) {
           groupedHexes[groupIndex] = [];

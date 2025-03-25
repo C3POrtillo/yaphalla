@@ -4,8 +4,7 @@ import { useMemo } from 'react';
 import type { Faction, UnitClass, UnitDivData } from '@/utils/types';
 import type { FC } from 'react';
 
-import TileButton from '@/components/editor/TileButton';
-import { validateSearch } from '@/components/editor/utils';
+import TileButton from '@/components/hex-tiles/TileButton';
 import { ArtifactSet } from '@/utils/types';
 import { cleanString, compareStrings, joinStrings, testRegex } from '@/utils/utils';
 
@@ -38,7 +37,7 @@ const UnitButtons: FC<UnitButtonProps> = ({
         const path = ArtifactSet.has(unit) ? 'artifact' : 'unit';
         const matchesFaction = testRegex(faction, factionRegex);
         const matchesClass = testRegex(classLabel, classRegex);
-        const validSearch = validateSearch(searchRegex, faction, classLabel, unit);
+        const validSearch = testRegex([faction, classLabel, unit].join(' '), searchRegex);
         const sameUnit = !!currentUnit && compareStrings(currentUnit, unit) === 0;
         const isValid =
           filterFaction === undefined && filterClass === undefined

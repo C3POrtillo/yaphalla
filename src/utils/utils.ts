@@ -121,7 +121,8 @@ export const createMetadata = (title: string, description: string, siteName = 'Y
 
 export const discordInviteAPI = (invite = 'yaphalla') => `https://discord.com/api/invites/${invite}?with_counts=true`;
 
-export const testRegex = (str: string, regExp?: RegExp) => regExp === undefined || regExp?.test(str);
+export const testRegex = (str: string, regExp?: RegExp | false) =>
+  regExp === undefined || regExp === false || regExp?.test(str);
 
 export const isDevMode = (searchParams: ReadonlyURLSearchParams) =>
   compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev') === 0;

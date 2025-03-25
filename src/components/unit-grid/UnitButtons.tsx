@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
 
+import type { UnitGridProps } from '@/components/unit-grid/UnitGrid';
 import type { UnitDivData } from '@/components/unit-grid/types';
 import type { Faction, UnitClass } from '@/utils/types';
-import type { UnitGridProps } from 'components/unit-grid/UnitGrid';
 import type { FC } from 'react';
 
 import ButtonTile from '@/components/hex-tiles/ButtonTile';

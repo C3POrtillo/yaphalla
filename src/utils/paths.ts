@@ -82,13 +82,14 @@ export const redirects = {
     title: 'Global Primal Lord Leaderboards',
     description: 'Global Primal Lord Leaderboards for AFK Journey',
     keywords: createLeaderboardKeywords('Primal Lord'),
-    image: 'https://www.yaphalla.com/assets/images/leaderboards/primal-lord.png',
+    image: 'https://www.yaphalla.com/assets/images/graphics/primal-lord.png',
   } as RedirectType,
   '/paragon-form': {
     redirect: '/paragon-form',
     label: 'Paragon Form',
     href: 'https://docs.google.com/forms/d/e/1FAIpQLSdMldCIpkntrp3LOXbHyDWgnV6nKb5zz5ovEAU_m3YH36MSMg/viewform',
     keywords: ['Paragon Priority Form', 'Yaphalla Paragon Priority Form', 'Paragon Form', 'Yaphalla Paragon Form'],
+    image: 'https://www.yaphalla.com/assets/images/graphics/paragon-priority.png',
   } as RedirectType,
   '/discord': {
     redirect: '/discord',

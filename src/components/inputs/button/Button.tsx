@@ -32,7 +32,7 @@ const Button: FC<ButtonProps> = ({
       className,
       selected && 'active-link',
       selected && hasActiveBorder && 'active-border',
-      !!tooltip && selected && 'disabled:pointer-events-auto'
+      !!tooltip && selected && 'disabled:pointer-events-auto',
     )}
     disabled={selected || disabled}
     {...props}

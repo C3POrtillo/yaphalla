@@ -38,26 +38,30 @@ const EditorSidebar: FC = () => {
   const isDev = isDevMode(searchParams);
   const isDevAdvanced = isDev && tab === 1;
 
-  const spanPlayer = <span className="text-neutral-300">Player</span>
-  const spanEnemy = <span className="text-hex-enemy-400">Enemy</span>
-  const spanBreakable = <span className="text-yellow-700">Breakable</span>
-  const spanUnbreakable = <span className="text-zinc-400">Unbreakable</span>
-  const spanArtifact = <span className="text-primary-400">Artifact</span>
-  const spanLogo = <span className="text-tertiary-400">Logo</span>
+  const spanPlayer = <span className="text-neutral-300">Player</span>;
+  const spanEnemy = <span className="text-hex-enemy-400">Enemy</span>;
+  const spanBreakable = <span className="text-yellow-700">Breakable</span>;
+  const spanUnbreakable = <span className="text-zinc-400">Unbreakable</span>;
+  const spanArtifact = <span className="text-primary-400">Artifact</span>;
+  const spanLogo = <span className="text-tertiary-400">Logo</span>;
 
   const tabProps = [
     {
       label: 'Main',
       tooltip: (
         <p className="text-sm">
-          Place {spanPlayer}, {spanEnemy}{', '}
-          {spanBreakable}{',\n and '}{spanUnbreakable} tiles
-          {'.\nSelect '}{spanArtifact}.
+          Place {spanPlayer}, {spanEnemy}
+          {', '}
+          {spanBreakable}
+          {',\n and '}
+          {spanUnbreakable} tiles
+          {'.\nSelect '}
+          {spanArtifact}.
         </p>
       ),
     },
     {
-      label: isDev ? 'Advanced': 'Other',
+      label: isDev ? 'Advanced' : 'Other',
       tooltip: (
         <p className="text-sm">
           Contains <span className="text-red-500">Clear</span> Buttons and other options.
@@ -152,10 +156,15 @@ const EditorSidebar: FC = () => {
         hasActiveBorder
         tooltip={
           <p className="text-sm">
-            <span className="text-red-500">Warning:</span>{' Strictly for Arena 1. Do not use for PVP.\n'}
-            Extra {spanArtifact}{' and '}{spanLogo}
+            <span className="text-red-500">Warning:</span>
+            {' Strictly for Arena 1. Do not use for PVP.\n'}
+            Extra {spanArtifact}
+            {' and '}
+            {spanLogo}
             {' tiles cannot be readded but\ncan be replaced with a '}
-            {spanPlayer}, {spanEnemy}, {spanBreakable}{',\n'}{spanUnbreakable} tile
+            {spanPlayer}, {spanEnemy}, {spanBreakable}
+            {',\n'}
+            {spanUnbreakable} tile
           </p>
         }
         solidTooltip

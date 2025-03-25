@@ -41,8 +41,19 @@ const TileGrid: FC<TileGridProps> = ({
   onClick,
   children,
 }) => {
-  const { preset, isPreset, tileData, title, setTitle, currentTile, units, activeFaction, getTileImage, outline } =
-    useFormation();
+  const {
+    preset,
+    isPreset,
+    tileData,
+    title,
+    setTitle,
+    currentTile,
+    units,
+    activeFaction,
+    getTileImage,
+    outline,
+    hideLogo,
+  } = useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
   const isTopRight = getIsTopRight(tileData);
@@ -179,7 +190,7 @@ const TileGrid: FC<TileGridProps> = ({
               selected={!label && currentTile === index}
               label={tileLabel}
               hideLabel={(!hideUnits && (disableGrid || (!disableEnemy && !!unit))) || hideNumbers}
-              hideImage={disableGrid}
+              hideImage={disableGrid || (state === 100 && hideLogo)}
               isEnemy={!!unit && state === -1 && !hideEnemy}
               isTalent={
                 showTalents && getTalentTiles(relativeTileLabel.player, activeFaction).has(indexToPosition[index])

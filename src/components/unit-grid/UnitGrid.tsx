@@ -1,43 +1,42 @@
-import type { Dispatch, FC, ReactNode, SetStateAction } from 'react';
+import type { UnitButtonProps } from '@/components/unit-grid/UnitButtons';
+import type { Dispatch, FC, SetStateAction } from 'react';
 
 import Text from '@/components/inputs/text/Text';
 import Toggle from '@/components/inputs/toggle/Toggle';
-import FilterGroup from '@/components/unit-grid/FilterGroup';
+import UnitButtons from '@/components/unit-grid/UnitButtons';
+import UnitFilter from '@/components/unit-grid/UnitFilters';
 import { Faction, UnitClass } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
-interface UnitGridProps {
-  filterFaction: Faction | undefined;
+interface UnitGridProps extends UnitButtonProps {
   setFilterFaction: Dispatch<SetStateAction<Faction | undefined>>;
-  filterClass: UnitClass | undefined;
   setFilterClass: Dispatch<SetStateAction<UnitClass | undefined>>;
-  searchFilter: string;
-  setSearchFilter: Dispatch<SetStateAction<string>>;
+  setFilterSearch: Dispatch<SetStateAction<string>>;
   variant: 'unit' | 'class';
   setVariant: Dispatch<SetStateAction<'unit' | 'class'>>;
-  unitHexes: ReactNode;
-  disabled?: boolean;
 }
 
-const UnitGridContainer: FC<UnitGridProps> = ({
+const UnitGrid: FC<UnitGridProps> = ({
   filterFaction,
   setFilterFaction,
   filterClass,
   setFilterClass,
-  searchFilter,
-  setSearchFilter,
+  filterSearch,
+  setFilterSearch,
   variant,
   setVariant,
-  unitHexes,
+  formattedUnits,
+  currentUnit,
   disabled,
+  onClick,
 }) => (
   <div className="container-primary w-full flex flex-col gap-2 p-2 sm:w-min">
     <div className="flex w-full flex-row gap-2 items-end">
       <div className="inset-secondary flex flex-col gap-2 p-2">
-        <FilterGroup items={UnitClass} filter={filterClass} setFilter={setFilterClass} path="class" />
-        <FilterGroup items={Faction} filter={filterFaction} setFilter={setFilterFaction} path="factions" />
+        <UnitFilter items={UnitClass} filter={filterClass} setFilter={setFilterClass} path="class" />
+        <UnitFilter items={Faction} filter={filterFaction} setFilter={setFilterFaction} path="factions" />
       </div>
-      <Text label="Search" setState={setSearchFilter} placeholder="Name/Faction/Class" value={searchFilter}>
+      <Text label="Search" setState={setFilterSearch} placeholder="Name/Faction/Class" value={filterSearch}>
         <Toggle
           variant="switch"
           disableLabel="Other"
@@ -50,10 +49,19 @@ const UnitGridContainer: FC<UnitGridProps> = ({
       </Text>
     </div>
     <div className="relative flex size-full flex-row justify-center">
-      <div className="z-10 flex flex-col p-4 pt-8">{unitHexes}</div>
+      <div className="z-10 flex flex-col p-4 pt-8">
+        <UnitButtons
+          formattedUnits={formattedUnits}
+          filterFaction={filterFaction}
+          filterClass={filterClass}
+          filterSearch={filterSearch}
+          currentUnit={currentUnit}
+          onClick={onClick}
+        />
+      </div>
       <div className={joinStrings('inset-secondary absolute top-0 size-full', disabled && 'z-10 opacity-40')} />
     </div>
   </div>
 );
 
-export default UnitGridContainer;
+export default UnitGrid;

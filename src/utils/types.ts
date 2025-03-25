@@ -11,8 +11,8 @@ type ClassData = Record<UnitClass, string[]>;
 type FactionData = Record<Faction, ClassData>;
 export type Unit = {
   unit: string;
-  faction: string;
-  classLabel: string;
+  faction: Faction | Talents | '';
+  unitClass: UnitClass | '';
 };
 
 export type ArtifactSource = 'Pre-Season' | `Season ${number}`;
@@ -97,7 +97,7 @@ const Other = {
   Mage: [],
   Rogue: [],
   Warrior: ['Hogan', 'Midnight Hunter'],
-};
+} as ClassData;
 
 const Units = {
   Lightbearer,
@@ -109,11 +109,11 @@ const Units = {
 } as FactionData;
 
 export const SortedUnits = Object.entries(Units).flatMap(([faction, classData]) =>
-  Object.entries(classData).flatMap(([classLabel, units]) =>
+  Object.entries(classData).flatMap(([unitClass, units]) =>
     units.sort().map(unit => ({
       unit,
       faction,
-      classLabel,
+      unitClass,
     })),
   ),
 ) as Unit[];
@@ -121,33 +121,33 @@ export const SortedUnits = Object.entries(Units).flatMap(([faction, classData]) 
 const wildCards = new Set([...Faction, ...Talents]);
 
 export const OtherUnits = (() => {
-  const formattedUnits = UnitClass.map(classLabel => ({
-    unit: `${classLabel} Wildcard`,
+  const formattedUnits = UnitClass.map(unitClass => ({
+    unit: `${unitClass} Wildcard`,
     faction: '',
-    classLabel,
+    unitClass,
   })) as Unit[];
 
   wildCards.forEach(faction => {
     formattedUnits.push({
       unit: `${faction} Wildcard`,
       faction,
-      classLabel: '',
+      unitClass: '',
     });
-    UnitClass.forEach(classLabel => {
+    UnitClass.forEach(unitClass => {
       formattedUnits.push({
-        unit: `${faction} ${classLabel}`,
+        unit: `${faction} ${unitClass}`,
         faction,
-        classLabel,
+        unitClass,
       });
     });
   });
 
-  Object.entries(Other).forEach(([classLabel, units]) => {
+  Object.entries(Other).forEach(([unitClass, units]) => {
     units.sort().forEach(unit => {
       formattedUnits.push({
         unit,
         faction: '',
-        classLabel,
+        unitClass: unitClass as UnitClass,
       });
     });
   });
@@ -159,14 +159,14 @@ export const DevUnits = (() => {
   const formattedUnits = ['Dog', 'Cat'].map(unit => ({
     unit: `Yaphalla ${unit} Hex`,
     faction: '',
-    classLabel: '',
+    unitClass: '',
   })) as Unit[];
 
   ArtifactSet.forEach(artifact => {
     formattedUnits.push({
       unit: artifact,
       faction: '',
-      classLabel: '',
+      unitClass: '',
     });
   });
 

@@ -172,11 +172,17 @@ const EditorSidebar: FC = () => {
         }}
         hierarchy="warning"
         hasActiveBorder
+        tooltip={
+          <p className="text-sm">
+            {'Warning: Strictly for Arena 1. Do not use for PVP.\n'}
+            <span className="text-primary-400">Extra Artifact</span> and <span className="text-tertiary-400">Logo</span>
+            {' tiles cannot be readded but\ncan be removed in '}
+            <span className="text-neutral-400">Player</span>/<span className="text-hex-enemy-400">Enemy</span> Place
+            mode.
+          </p>
+        }
       >
-        Double Artifact Preset
-        <div className="container-primary !p-1 hidden absolute w-fit text-xs top-full z-10 group-hover:block ">
-          Warning: Cannot readd Artifact Tiles
-        </div>
+        Double Artifact Arena 1
       </Button>
     </div>,
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">

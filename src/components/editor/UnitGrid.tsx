@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -67,7 +68,31 @@ const UnitGrid: FC = () => {
             size="sm"
             disabled={disable}
             disabledOverlay={!isValid || sameUnit || disable}
-            hasHoverLabel
+            tooltip={
+              <div className="flex flex-row gap-1 items-center">
+                <div className="relative size-5 min-w-5">
+                  <Image
+                    src={`/assets/images/factions/${faction.toLocaleLowerCase()}.png`}
+                    alt={faction}
+                    fill
+                    sizes="64px"
+                    unoptimized
+                    priority
+                  />
+                </div>
+                <p className="text-xs w-max max-w-16">{unit}</p>
+                <div className="relative size-5 min-w-5">
+                  <Image
+                    src={`/assets/images/class/${classLabel.toLocaleLowerCase()}.png`}
+                    alt={classLabel}
+                    fill
+                    sizes="64px"
+                    unoptimized
+                    priority
+                  />
+                </div>
+              </div>
+            }
             onClick={() => {
               if (disabled) {
                 return;

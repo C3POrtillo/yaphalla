@@ -1,10 +1,11 @@
 import Image from 'next/image';
 
 import type { BaseHexes } from '@/components/editor/types';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { HexPath, LogoRegExp } from '@/components/editor/types';
 import { getSizeClass, testRegex } from '@/components/editor/utils';
+import Tooltip from '@/components/tooltip/Tooltip';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
 export interface HexImageProps {
@@ -20,7 +21,7 @@ export interface HexImageProps {
   isTalent?: boolean;
   forceOutline?: BaseHexes | false;
   size?: 'md' | 'sm' | 'xs' | '2xs';
-  hasHoverLabel?: boolean;
+  tooltip?: ReactNode;
 }
 
 const HexImage: FC<HexImageProps> = ({
@@ -35,7 +36,7 @@ const HexImage: FC<HexImageProps> = ({
   isEnemy,
   isTalent,
   size = 'md',
-  hasHoverLabel,
+  tooltip,
   forceOutline,
 }) => {
   const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
@@ -80,10 +81,10 @@ const HexImage: FC<HexImageProps> = ({
       {assetSrcs.map((imageSrc, layer) => (
         <Asset key={`${imageSrc}-${layer}`} imageSrc={imageSrc} zIndex={layer ? `z-${layer}` : undefined} />
       ))}
-      {hasHoverLabel && (
-        <div className="container-primary !p-1 hidden absolute w-fit text-xs bottom-0 translate-y-2/3 z-10 group-hover:block ">
-          {src}
-        </div>
+      {tooltip && (
+        <Tooltip className="text-xs bottom-0 translate-y-2/3" preWrapText={false}>
+          {tooltip}
+        </Tooltip>
       )}
     </div>
   );

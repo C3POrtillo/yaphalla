@@ -1,6 +1,7 @@
 import type { HierarchyTypes, InputSizeTypes } from '@/utils/types';
-import type { ButtonHTMLAttributes, FC } from 'react';
+import type { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 
+import Tooltip from '@/components/tooltip/Tooltip';
 import { joinStrings } from '@/utils/utils';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -8,6 +9,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: InputSizeTypes;
   hierarchy?: HierarchyTypes;
   hasActiveBorder?: boolean;
+  tooltip?: ReactNode;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -18,6 +20,7 @@ const Button: FC<ButtonProps> = ({
   size = 'base',
   hierarchy = 'primary',
   hasActiveBorder,
+  tooltip,
   ...props
 }) => (
   <button
@@ -31,6 +34,7 @@ const Button: FC<ButtonProps> = ({
     {...props}
   >
     {children}
+    {tooltip && <Tooltip className="top-full">{tooltip}</Tooltip>}
   </button>
 );
 

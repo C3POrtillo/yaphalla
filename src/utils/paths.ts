@@ -111,6 +111,15 @@ export const redirects = {
     site: 'Discord',
     keywords: ['Yaphalla Discord'],
   } as RedirectType,
+  '/emotes': {
+    redirect: '/emotes',
+    label: 'Discord',
+    href: 'https://discord.com/invite/qUdyM7nTYC',
+    title: 'Join our emoji Discord - Yaphalla Yapmojis!',
+    site: 'Discord',
+    keywords: ['Yaphalla Discord', 'Emotes', 'Emoji'],
+    image: 'https://www.yaphalla.com/assets/images/logos/yaphalla-cat-pink.png',
+  } as RedirectType,
   '/fight-club': {
     redirect: '/fight-club',
     label: 'Discord',
@@ -119,7 +128,7 @@ export const redirects = {
     site: 'Discord',
     keywords: ['Fight Club Discord'],
     themeColor: '#f9db89',
-    image: 'https://www.yaphalla.com/assets/images/fight-club.png',
+    image: 'https://www.yaphalla.com/assets/images/logos/fight-club.png',
   } as RedirectType,
   '/trolley': {
     redirect: '/trolley',
@@ -129,7 +138,7 @@ export const redirects = {
     site: 'Discord',
     noIndex: true,
     themeColor: '#fed2a8',
-    image: 'https://www.yaphalla.com/assets/images/trolley.png',
+    image: 'https://www.yaphalla.com/assets/images/logos/trolley.png',
   } as RedirectType,
   '/vn': {
     redirect: '/vn',
@@ -157,7 +166,7 @@ export const redirects = {
 
       return result;
     })(),
-    image: 'https://www.yaphalla.com/assets/images/vn-logo.png',
+    image: 'https://www.yaphalla.com/assets/images/logos/vn-logo.png',
   } as RedirectType,
   '/advanced': {
     redirect: '/advanced',
@@ -191,7 +200,7 @@ export const redirects = {
 
       return result;
     })(),
-    image: 'https://www.yaphalla.com/assets/images/afkj-logo.png',
+    image: 'https://www.yaphalla.com/assets/images/logos/afkj-logo.png',
   } as RedirectType,
   '/auto-player': {
     redirect: '/auto-player',

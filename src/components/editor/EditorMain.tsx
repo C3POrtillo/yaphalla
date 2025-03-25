@@ -4,10 +4,10 @@ import { Suspense, useState } from 'react';
 
 import type { FC } from 'react';
 
-import ArenaPresetSelector from '@/components/editor/ArenaPresetSelector';
+import EditorArena from '@/components/editor/EditorArena';
 import EditorSidebar from '@/components/editor/EditorSidebar';
 import { useFormation } from '@/components/editor/FormationProvider';
-import TileGrid from '@/components/editor/TileGrid';
+import SelectArenaPreset from '@/components/editor/SelectArenaPreset';
 import UnitGrid from '@/components/editor/UnitGrid';
 import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';
@@ -180,7 +180,7 @@ const UnitEditor: FC = () => {
           >
             <EditorSidebar />
           </Suspense>
-          <TileGrid {...gridProps}>
+          <EditorArena {...gridProps}>
             <div className="flex flex-col w-full gap-2">
               {controlDivs.map(({ label, hideLabel, divs }) => (
                 <div key={label} className="w-full flex flex-row gap-2 items-center">
@@ -189,7 +189,7 @@ const UnitEditor: FC = () => {
                 </div>
               ))}
             </div>
-          </TileGrid>
+          </EditorArena>
         </div>
         <div className="size-full flex flex-col gap-2 items-center sm:w-fit">
           <div className="container-primary w-full flex flex-col grow gap-2 items-center lg:flex-row">
@@ -204,7 +204,7 @@ const UnitEditor: FC = () => {
               <UnitGrid />
             </Suspense>
             <div className="w-full 2xl:hidden">
-              <ArenaPresetSelector variant="sm" />
+              <SelectArenaPreset variant="sm" />
             </div>
           </div>
         </div>

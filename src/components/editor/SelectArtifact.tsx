@@ -12,7 +12,7 @@ import Button from '@/components/inputs/button/Button';
 import { Artifacts, currentSeason } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
-const ArtifactGrid: FC = () => {
+const SelectArtifact: FC = () => {
   const [tab, setTab] = useState<ArtifactSource>(currentSeason);
   const { currentArtifact, artifactData, setArtifactData, currentTile, tileData, units, setUnits, setCurrentTile } =
     useFormation();
@@ -129,4 +129,4 @@ const ArtifactGrid: FC = () => {
   );
 };
 
-export default ArtifactGrid;
+export default SelectArtifact;

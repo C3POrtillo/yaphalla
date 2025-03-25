@@ -3,11 +3,11 @@ import { useMemo, useState } from 'react';
 import type { TileData } from '@/components/editor/types';
 import type { FC, PropsWithChildren } from 'react';
 
-import ArtifactButton from '@/components/editor/ArtifactButton';
+import ButtonArtifact from '@/components/editor/ButtonArtifact';
 import { useFormation } from '@/components/editor/FormationProvider';
 import { AlwaysShowStates, TileIndexToPosition } from '@/components/editor/types';
 import { getIsTopRight, getRelativeTileLabels, getTalentTiles, processTileData } from '@/components/editor/utils';
-import TileButton from '@/components/hex-tiles/TileButton';
+import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import Text from '@/components/inputs/text/Text';
 import { joinStrings } from '@/utils/utils';
 
@@ -134,7 +134,7 @@ const TileGrid: FC<TileGridProps> = ({
           hideEnemy && hideEmpty && isTopRight ? reverse : offset,
         )}
       >
-        {isLast && <ArtifactButton index={0} label="A1" {...getArtifactProps()} />}
+        {isLast && <ButtonArtifact index={0} label="A1" {...getArtifactProps()} />}
         {tiles.map((tile, relativeIndex) => {
           const { state, index } = tile;
           const omitHex = shouldOmitHex(state, relativeIndex, tiles);
@@ -149,7 +149,7 @@ const TileGrid: FC<TileGridProps> = ({
           const { src, path } = getTileImage(unit, state, showTalents, hideUnits, hideEnemy);
 
           return (
-            <TileButton
+            <ButtonTile
               key={index}
               src={src}
               ariaLabel={unit ? unit : `Tile ${tileLabel}`}
@@ -168,7 +168,7 @@ const TileGrid: FC<TileGridProps> = ({
             />
           );
         })}
-        {isFirst && <ArtifactButton index={1} label="A2" {...getArtifactProps()} isReverse isCat />}
+        {isFirst && <ButtonArtifact index={1} label="A2" {...getArtifactProps()} isReverse isCat />}
       </div>
     );
   });

@@ -5,7 +5,7 @@ import type { UnitDivData } from '@/components/unit-grid/types';
 import type { Faction, UnitClass } from '@/utils/types';
 import type { FC } from 'react';
 
-import TileButton from '@/components/hex-tiles/TileButton';
+import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import { ArtifactSet } from '@/utils/types';
 import { cleanString, compareStrings, joinStrings, testRegex } from '@/utils/utils';
 
@@ -46,7 +46,7 @@ const UnitButtons: FC<UnitButtonProps> = ({
             : (matchesFaction && matchesClass) || (!!searchRegex && validSearch);
 
         return (
-          <TileButton
+          <ButtonTile
             key={unit}
             src={unit}
             ariaLabel={unit}

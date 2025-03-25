@@ -2,10 +2,10 @@
 import { type FC } from 'react';
 
 import { useFormation } from '@/components/editor/FormationProvider';
-import HexImage from '@/components/hex-tiles/HexImage';
+import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import Logo from '@/components/hex-tiles/Logo';
 
-interface ArtifactButtonProps {
+interface ButtonArtifactProps {
   index: number;
   label: string;
   hideNumbers?: boolean;
@@ -16,7 +16,7 @@ interface ArtifactButtonProps {
   isCat?: boolean;
 }
 
-const ArtifactButton: FC<ArtifactButtonProps> = ({
+const ButtonArtifact: FC<ButtonArtifactProps> = ({
   index,
   label,
   hideNumbers,
@@ -35,24 +35,19 @@ const ArtifactButton: FC<ArtifactButtonProps> = ({
   return (
     <>
       {isReverse && logo}
-      <button
-        className="cursor-pointer disabled:cursor-auto"
-        onClick={() => setArtifact(index, artifact)}
+      <ButtonTile
+        src={artifact || 'Artifact-Hex'}
+        selected={currentArtifact === index && !hideArtifacts}
+        label={artifact ? undefined : label}
+        hideLabel={hideNumbers || isArtifactDisabled()}
+        path="artifact"
         disabled={isArtifactDisabled()}
-      >
-        <HexImage
-          src={artifact || 'Artifact-Hex'}
-          selected={currentArtifact === index && !hideArtifacts}
-          label={artifact ? undefined : label}
-          hideLabel={hideNumbers || isArtifactDisabled()}
-          path="artifact"
-          disabled={isArtifactDisabled()}
-          hideImage={isArtifactDisabled()}
-        />
-      </button>
+        hideImage={isArtifactDisabled()}
+        onClick={() => setArtifact(index, artifact)}
+      />
       {!isReverse && logo}
     </>
   );
 };
 
-export default ArtifactButton;
+export default ButtonArtifact;

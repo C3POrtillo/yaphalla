@@ -110,3 +110,11 @@ export const TileIndexToPosition = [
 ] as const;
 
 export const AlwaysShowStates = new Set([1, 2, 100]);
+
+export const TalentLocations = {
+  Lightbearer: false,
+  Wilder: false,
+  Mauler: true,
+  Graveborn: false,
+  'Celestial-Hypogean': false,
+} as const;

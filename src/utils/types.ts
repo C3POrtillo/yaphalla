@@ -1,4 +1,4 @@
-import { compareStrings } from '@/utils/utils';
+import { compareStrings, sortData } from '@/utils/utils';
 
 export const UnitClass = ['Tank', 'Support', 'Marksman', 'Mage', 'Rogue', 'Warrior'] as const;
 export const Faction = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celestial', 'Hypogean'] as const;
@@ -110,7 +110,7 @@ const Units = {
 
 export const SortedUnits = Object.entries(Units).flatMap(([faction, classData]) =>
   Object.entries(classData).flatMap(([unitClass, units]) =>
-    units.sort().map(unit => ({
+    units.sort(sortData).map(unit => ({
       unit,
       faction,
       unitClass,
@@ -143,7 +143,7 @@ export const OtherUnits = (() => {
   });
 
   Object.entries(Other).forEach(([unitClass, units]) => {
-    units.sort().forEach(unit => {
+    units.sort(sortData).forEach(unit => {
       formattedUnits.push({
         unit,
         faction: '',
@@ -190,14 +190,6 @@ export const UnitPairs = [
 ] as const;
 export const PairSet = new Set(UnitPairs.flatMap(pairs => pairs));
 
-export const TalentLocations = {
-  Lightbearer: false,
-  Wilder: false,
-  Mauler: true,
-  Graveborn: false,
-  'Celestial-Hypogean': false,
-} as const;
-
 export const LogoRegExp = new RegExp('Cat|Dog');
 
 const HexSuffix = ['Hex', 'Outline', 'Icon'] as const;
@@ -223,7 +215,6 @@ const generateHexName = (
 
 export const BaseHexData = (() => {
   const [hex, outline] = HexSuffix;
-
   const genericBase = generateHexName(GenericHexes, [hex, outline]);
   const factionBase = generateHexName([...wildCards], HexSuffix);
   const artifactBase = generateHexName(['Pre-Season', 'Season 3'] as const, [outline]);

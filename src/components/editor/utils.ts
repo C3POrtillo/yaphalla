@@ -1,8 +1,8 @@
 import type { TileDivData, UnitFormationData } from '@/components/editor/types';
 import type { BaseHexes, Talents } from '@/utils/types';
 
-import { TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/editor/types';
-import { PairSet, TalentLocations, UnitPairs, UnitsByFaction } from '@/utils/types';
+import { TalentLocations, TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/editor/types';
+import { PairSet, UnitPairs, UnitsByFaction } from '@/utils/types';
 import { compareStrings, sortData } from '@/utils/utils';
 
 export const getRelativeTileLabels = (tiles: number[]) => {

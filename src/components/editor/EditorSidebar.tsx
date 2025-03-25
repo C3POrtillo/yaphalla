@@ -65,7 +65,7 @@ const EditorSidebar: FC = () => {
         setEditArena(false);
       },
     },
-  ];
+  ] as const;
 
   const otherButtons = [
     {
@@ -144,14 +144,6 @@ const EditorSidebar: FC = () => {
         </Button>
       )),
     },
-    // {
-    //   label: 'Select',
-    //   divs: tabButtons.map(({ onClick, label, ...props }) => (
-    //     <Button key={label} className="w-full" onClick={onClick} {...props}>
-    //       {label}
-    //     </Button>
-    //   )),
-    // },
   ] as const;
 
   const advancedOptions = [

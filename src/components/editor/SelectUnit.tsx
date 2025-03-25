@@ -7,20 +7,19 @@ import type { UnitDivData } from '@/components/unit-grid/types';
 import type { FC } from 'react';
 
 import { useFormation } from '@/components/editor/FormationProvider';
-import UnitButtons from '@/components/unit-grid/UnitButtons';
-import UnitGridContainer from '@/components/unit-grid/UnitGridContainer';
+import UnitGrid from '@/components/unit-grid/UnitGrid';
 import { getFormattedUnits } from '@/components/unit-grid/utils';
 import { isDevMode } from '@/utils/utils';
 
-const UnitGrid: FC = () => {
+const SelectUnit: FC = () => {
   const {
     tileData,
     filterClass,
     setFilterClass,
     filterFaction,
     setFilterFaction,
-    searchFilter,
-    setSearchFilter,
+    filterSearch,
+    setFilterSearch,
     currentTile,
     setCurrentTile,
     units,
@@ -34,51 +33,43 @@ const UnitGrid: FC = () => {
   const [variant, setVariant] = useState<'unit' | 'class'>('unit');
   const disabled = currentTile === undefined || tileData[currentTile] === 2;
   const currentUnit = !disabled && units[currentTile]?.unit;
+  const onClick = (unit: string, sameUnit: boolean) => {
+    if (disabled) {
+      return;
+    }
+    setUnits(prev => {
+      const copy = { ...prev };
+      if (sameUnit) {
+        delete copy[currentTile];
+      } else {
+        copy[currentTile] = { unit, type: tileData[currentTile] };
+      }
+
+      return copy;
+    });
+    setCurrentTile(undefined);
+  };
 
   useEffect(() => {
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant, isDev));
   }, [isMdScreen, isXlScreen, variant, isDev]);
 
-  const unitHexes = (
-    <UnitButtons
-      formattedUnits={formattedUnits}
-      filterFaction={filterFaction}
-      filterClass={filterClass}
-      searchFilter={searchFilter}
-      currentUnit={currentUnit}
-      onClick={(unit: string, sameUnit: boolean) => {
-        if (disabled) {
-          return;
-        }
-        setUnits(prev => {
-          const copy = { ...prev };
-          if (sameUnit) {
-            delete copy[currentTile];
-          } else {
-            copy[currentTile] = { unit, type: tileData[currentTile] };
-          }
-
-          return copy;
-        });
-        setCurrentTile(undefined);
-      }}
-    />
-  );
-
   return (
-    <UnitGridContainer
+    <UnitGrid
       filterClass={filterClass}
       setFilterClass={setFilterClass}
       filterFaction={filterFaction}
       setFilterFaction={setFilterFaction}
-      searchFilter={searchFilter}
-      setSearchFilter={setSearchFilter}
+      filterSearch={filterSearch}
+      setFilterSearch={setFilterSearch}
       variant={variant}
       setVariant={setVariant}
-      unitHexes={unitHexes}
       disabled={disabled}
+      formattedUnits={formattedUnits}
+      currentUnit={currentUnit}
+      onClick={onClick}
     />
   );
 };
 
-export default UnitGrid;
+export default SelectUnit;

@@ -49,8 +49,8 @@ interface FormationContextType {
   setFilterFaction: Dispatch<SetStateAction<Faction | undefined>>;
   filterClass: UnitClass | undefined;
   setFilterClass: Dispatch<SetStateAction<UnitClass | undefined>>;
-  searchFilter: string;
-  setSearchFilter: Dispatch<SetStateAction<string>>;
+  filterSearch: string;
+  setFilterSearch: Dispatch<SetStateAction<string>>;
   isEditArena: boolean;
   setEditArena: Dispatch<SetStateAction<boolean>>;
   subMenu: number;
@@ -101,7 +101,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [currentArtifact, setCurrentArtifact] = useState<number>();
   const [filterFaction, setFilterFaction] = useState<Faction>();
   const [filterClass, setFilterClass] = useState<UnitClass>();
-  const [searchFilter, setSearchFilter] = useState<string>('');
+  const [filterSearch, setFilterSearch] = useState<string>('');
   const [isEditArena, setEditArena] = useState<boolean>(false);
   const [activeFaction, setActiveFaction] = useState<Talents>();
   const [isTalents, setTalents] = useState<boolean>(true);
@@ -325,8 +325,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setFilterFaction,
         filterClass,
         setFilterClass,
-        searchFilter,
-        setSearchFilter,
+        filterSearch,
+        setFilterSearch,
         isEditArena,
         setEditArena,
         subMenu,

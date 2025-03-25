@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
 
 import type { TileData } from '@/components/editor/types';
-import type { FC, PropsWithChildren } from 'react';
+import type { FC } from 'react';
 
 import ButtonArtifact from '@/components/editor/ButtonArtifact';
+import EditorToggles from '@/components/editor/EditorToggles';
 import { useFormation } from '@/components/editor/FormationProvider';
 import { AlwaysShowStates, TileIndexToPosition } from '@/components/editor/types';
 import { getIsTopRight, getRelativeTileLabels, getTalentTiles, processTileData } from '@/components/editor/utils';
@@ -11,7 +12,7 @@ import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import Text from '@/components/inputs/text/Text';
 import { joinStrings } from '@/utils/utils';
 
-interface TileGridProps extends PropsWithChildren {
+interface EditorArena {
   id?: string;
   label?: string;
   hideEnemy?: boolean;
@@ -26,7 +27,7 @@ interface TileGridProps extends PropsWithChildren {
   onClick?: (tile: TileData) => void;
 }
 
-const TileGrid: FC<TileGridProps> = ({
+const EditorArena: FC<EditorArena> = ({
   id,
   label,
   hideEnemy,
@@ -39,7 +40,6 @@ const TileGrid: FC<TileGridProps> = ({
   hideEmptyArtifact,
   hideTalents,
   onClick,
-  children,
 }) => {
   const {
     preset,
@@ -187,7 +187,7 @@ const TileGrid: FC<TileGridProps> = ({
           setState={setTitle}
         />
       )}
-      {children}
+      <EditorToggles />
       <div className="inset p-2 rounded-lg bg-primary-900 size-full flex items-center justify-center m-auto">
         <div className="inset-black">
           <div id={id} className="relative flex flex-col">
@@ -199,4 +199,4 @@ const TileGrid: FC<TileGridProps> = ({
   );
 };
 
-export default TileGrid;
+export default EditorArena;

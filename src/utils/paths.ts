@@ -126,6 +126,8 @@ export const redirects = {
     redirect: '/editor?mode=dev',
     label: 'Root',
     href: '/editor?mode=dev',
+    title: 'YapBuilder (Advanced)',
+    noIndex: true,
   } as RedirectType,
 } as const;
 

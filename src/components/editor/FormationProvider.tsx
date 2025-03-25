@@ -9,11 +9,11 @@ import type {
   TileData,
   UnitClass,
   UnitFormationData,
-} from '@/components/editor/types';
+} from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { AlwaysShowStates, ArenaPresets, ArtifactSet, requiredUnits } from '@/components/editor/types';
 import { countUnits } from '@/components/editor/utils';
+import { AlwaysShowStates, ArenaPresets, ArtifactSet, requiredUnits } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 
 interface FormationContextType {

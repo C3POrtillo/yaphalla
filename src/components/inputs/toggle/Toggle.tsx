@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-import type { HierarchyTypes } from '@/utils/types';
+import type { HierarchyTypes } from '@/utils/siteTypes';
 import type { ChangeEvent, FC, InputHTMLAttributes } from 'react';
 
 import { compareStrings, joinStrings, kebabCase } from '@/utils/utils';

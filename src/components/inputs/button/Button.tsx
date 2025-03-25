@@ -1,4 +1,4 @@
-import type { HierarchyTypes, InputSizeTypes } from '@/utils/types';
+import type { HierarchyTypes, InputSizeTypes } from '@/utils/siteTypes';
 import type { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 
 import Tooltip from '@/components/tooltip/Tooltip';

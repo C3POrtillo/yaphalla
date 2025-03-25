@@ -3,8 +3,8 @@ import type { FC } from 'react';
 import Accordion from '@/components/accordion/accordion';
 import { useFormation } from '@/components/editor/FormationProvider';
 import TilePreview from '@/components/editor/TilePreview';
-import { ArenaPresets } from '@/components/editor/types';
 import Button from '@/components/inputs/button/Button';
+import { ArenaPresets } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
 interface ArenaPresetSelectorProps {

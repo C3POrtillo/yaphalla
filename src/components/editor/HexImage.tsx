@@ -1,12 +1,12 @@
 import Image from 'next/image';
 
-import type { BaseHexes } from '@/components/editor/types';
+import type { BaseHexes } from '@/utils/types';
 import type { FC, ReactNode } from 'react';
 
-import { HexPath, LogoRegExp } from '@/components/editor/types';
-import { getSizeClass, testRegex } from '@/components/editor/utils';
+import { getSizeClass } from '@/components/editor/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { HexPath, LogoRegExp } from '@/utils/types';
+import { compareStrings, joinStrings, testRegex } from '@/utils/utils';
 
 export interface HexImageProps {
   src: string;

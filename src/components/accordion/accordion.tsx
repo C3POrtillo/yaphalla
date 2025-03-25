@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-import type { HierarchyTypes } from '@/utils/types';
+import type { HierarchyTypes } from '@/utils/siteTypes';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 
 import { joinStrings } from '@/utils/utils';

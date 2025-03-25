@@ -1,13 +1,13 @@
 import { Suspense, useMemo } from 'react';
 
-import type { TileDivData } from '@/components/editor/types';
+import type { TileDivData } from '@/utils/types';
 import type { FC } from 'react';
 
 import { useFormation } from '@/components/editor/FormationProvider';
 import HexImage from '@/components/editor/HexImage';
 import Logo from '@/components/editor/Logo';
-import { TileLayout } from '@/components/editor/types';
 import { getSizeClass } from '@/components/editor/utils';
+import { TileLayout } from '@/utils/types';
 import { joinStrings } from '@/utils/utils';
 
 interface TilePreviewProps {

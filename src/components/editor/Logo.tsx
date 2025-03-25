@@ -3,8 +3,8 @@ import { useSearchParams } from 'next/navigation';
 
 import type { FC } from 'react';
 
-import { getSizeClass, isDevMode } from '@/components/editor/utils';
-import { joinStrings } from '@/utils/utils';
+import { getSizeClass } from '@/components/editor/utils';
+import { isDevMode , joinStrings } from '@/utils/utils';
 
 interface LogoProps {
   hideLogo?: boolean;

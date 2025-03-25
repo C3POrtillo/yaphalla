@@ -1,15 +1,15 @@
 'use client';
 import { useState } from 'react';
 
-import type { ArtifactSource } from '@/components/editor/types';
-import type { HierarchyTypes } from '@/utils/types';
+import type { HierarchyTypes } from '@/utils/siteTypes';
+import type { ArtifactSource } from '@/utils/types';
 import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
 import { useFormation } from '@/components/editor/FormationProvider';
 import HexImage from '@/components/editor/HexImage';
-import { Artifacts, currentSeason } from '@/components/editor/types';
 import Button from '@/components/inputs/button/Button';
+import { Artifacts, currentSeason } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
 const ArtifactGrid: FC = () => {

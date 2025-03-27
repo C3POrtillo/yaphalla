@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next';
 
-import { domain, navigation, redirects } from '@/utils/paths';
+import { domain, navigation } from '@/utils/paths';
+import { redirects } from '@/utils/pathsRedirect';
 import { compareStrings } from '@/utils/utils';
 
 const url = `https://${domain}`;

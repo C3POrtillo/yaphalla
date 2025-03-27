@@ -1,13 +1,14 @@
 import { cache } from 'react';
 
-import type { RedirectType } from '@/utils/paths';
+import type { RedirectType } from '@/utils/pathsRedirect';
 import type { Metadata, Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
 import { metadata, viewport } from '@/app/(main)/layout';
 import Redirect from '@/components/redirect/Redirect';
 import Root from '@/components/root/Root';
-import { domain, redirects } from '@/utils/paths';
+import { domain } from '@/utils/paths';
+import { redirects } from '@/utils/pathsRedirect';
 import { compareStrings, discordInviteAPI } from '@/utils/utils';
 
 interface ParamProps {

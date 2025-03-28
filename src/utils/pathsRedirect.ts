@@ -148,8 +148,8 @@ const discords = {
 
 const creatorDiscords = Object.fromEntries(
   Object.entries(creators)
-    .filter(([_, { discord }]) => discord)
-    .map(([redirect, { discord: href }]) => [
+    .filter(([_, { Discord }]) => Discord)
+    .map(([redirect, { Discord: href }]) => [
       redirect,
       {
         redirect,

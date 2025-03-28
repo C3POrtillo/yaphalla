@@ -108,4 +108,4 @@ export const testRegex = (str: string, regExp?: RegExp | false) =>
   regExp === undefined || regExp === false || regExp?.test(str);
 
 export const isDevMode = (searchParams: ReadonlyURLSearchParams) =>
-  compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev') === 0;
+  !compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev');

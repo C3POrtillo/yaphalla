@@ -12,9 +12,9 @@ export const socials = {
     site: 'discord',
     href: 'https://discord.gg/yaphalla',
   },
-  Twitter: {
-    site: 'twitter',
-    href: 'https://twitter.com/yaphalla',
+  X: {
+    site: 'x-twitter',
+    href: 'https://x.com/yaphalla',
   },
   Instagram: {
     site: 'instagram',
@@ -40,6 +40,10 @@ const paths = {
     href: '/talents',
     label: 'Talents',
   },
+  Creators: {
+    href: '/creators',
+    label: 'Creators',
+  },
 } as const;
 
 const previews = {
@@ -48,18 +52,18 @@ const previews = {
     label: 'Previews',
   },
   Inputs: {
-    href: '/preview/inputs',
+    href: '/preview/inputs' as const,
     label: 'Inputs',
   },
 } as const;
 
-export const validHrefs = new Set(
+export const validHrefs = new Set([
   ...[...Object.values(paths), ...Object.values(previews)]
-    .filter(({ href }) => href[0] === '/')
+    .filter(({ href }) => href?.[0] === '/')
     .map(({ href }) => href),
   ...Object.values(redirects)
     .filter(({ noIndex }) => !noIndex)
     .map(({ redirect }) => redirect),
-);
+]);
 
-export const navigation = [paths['Home'], paths['Editor']] as PathType[];
+export const navigation = [paths['Home'], paths['Editor'], paths['Creators']] as PathType[];

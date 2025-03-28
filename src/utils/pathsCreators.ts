@@ -79,4 +79,8 @@ export const creators = {
     Discord: 'https://discord.com/invite/EFdpaBqek5',
     Twitch: 'https://www.twitch.tv/turtlelagz',
   } as CreatorData,
+  '/elfe': {
+    label: 'Elfe',
+    YouTube: 'https://www.youtube.com/@ElfeYT',
+  } as CreatorData,
 } as const;

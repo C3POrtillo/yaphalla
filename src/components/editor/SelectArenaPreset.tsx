@@ -14,10 +14,9 @@ interface SelectArenaPresetProps {
 const SelectArenaPreset: FC<SelectArenaPresetProps> = ({ variant = 'base' }) => {
   const { preset, setPreset } = useFormation();
   const isPreset = preset !== undefined && preset !== 'Custom';
-  const displayClasses =
-    compareStrings(variant, 'base') === 0
-      ? 'xl:grid xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6'
-      : 'flex-col flex-wrap sm:flex';
+  const displayClasses = !compareStrings(variant, 'base')
+    ? 'xl:grid xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6'
+    : 'flex-col flex-wrap sm:flex';
 
   return (
     <>

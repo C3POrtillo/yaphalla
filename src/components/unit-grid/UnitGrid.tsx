@@ -49,7 +49,7 @@ const UnitGrid: FC<UnitGridProps> = ({ currentUnit, disabled, onClick }) => {
             onChange={e => {
               setVariant(e.target.checked ? 'unit' : 'class');
             }}
-            defaultChecked={compareStrings(variant, 'unit') === 0}
+            defaultChecked={!compareStrings(variant, 'unit')}
           />
         </Text>
       </div>

@@ -175,7 +175,7 @@ export const DevUnits = (() => {
 
 export const UnitsByFaction = Object.fromEntries(
   [...SortedUnits, ...OtherUnits].map(({ unit, faction }) => {
-    const isCeleHypo = ['Celestial', 'Hypogean'].some(check => compareStrings(faction, check) === 0);
+    const isCeleHypo = ['Celestial', 'Hypogean'].some(check => !compareStrings(faction, check));
     const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);
 
     return [unit, factionName];

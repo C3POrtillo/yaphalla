@@ -195,7 +195,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       if (AlwaysShowStates.has(state)) {
         const fallback = baseHex || outline || 'Generic-Outline';
         const blank = showTalents ? `${activeFaction}-Hex` : fallback;
-        const isNotCustom = baseHex ? compareStrings(baseHex, 'Generic-Outline') === 0 : baseHex !== undefined;
+        const isNotCustom = baseHex ? !compareStrings(baseHex, 'Generic-Outline') : baseHex !== undefined;
         src = (!hideUnits && unit) || (isNotCustom ? blank : fallback);
       }
       if (state === -1 && !disableEnemy) {
@@ -214,7 +214,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 
   useEffect(() => {
-    if (['Custom', 'Double Artifacts'].some(check => compareStrings(preset, check) === 0)) {
+    if (['Custom', 'Double Artifacts'].some(check => !compareStrings(preset, check))) {
       return;
     }
 

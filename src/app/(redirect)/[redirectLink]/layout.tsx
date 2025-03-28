@@ -1,16 +1,17 @@
 import { cache } from 'react';
 
-import type { RedirectType } from '@/utils/paths';
+import type { RedirectType } from '@/utils/pathsRedirect';
 import type { Metadata, Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
 import { metadata, viewport } from '@/app/(main)/layout';
 import Redirect from '@/components/redirect/Redirect';
 import Root from '@/components/root/Root';
-import { domain, redirects } from '@/utils/paths';
+import { domain } from '@/utils/paths';
+import { redirects } from '@/utils/pathsRedirect';
 import { compareStrings, discordInviteAPI } from '@/utils/utils';
 
-interface ParamProps {
+export interface RedirectPageProps {
   params: Promise<{
     redirectLink: string;
   }>;
@@ -39,7 +40,7 @@ const fetchMetadata = cache(
     image,
   }: RedirectType): Promise<Metadata> => {
     try {
-      const isDiscord = compareStrings(label, redirects['/discord'].label) === 0;
+      const isDiscord = !compareStrings(label, redirects['/discord'].label);
       const fallbackOgImages = metadata.openGraph?.images;
       const fallbackTwitterImages = metadata.twitter?.images;
       const createMetadata = (
@@ -90,7 +91,7 @@ const fetchMetadata = cache(
 
         return createMetadata(targetTitle, description, site, fallbackOgImages, fallbackTwitterImages);
       }
-      const fetchUrl = compareStrings(label, 'Root') === 0 ? `https://${domain}${url}` : url;
+      const fetchUrl = !compareStrings(label, 'Root') ? `https://${domain}${url}` : url;
       const text = await (await fetch(fetchUrl, { method: 'GET' })).text();
       const textMatch = (fallback: string | null | undefined, ...regExp: string[]) => {
         const matchPattern = (pattern: string) => text.match(new RegExp(pattern, 'is'))?.[1];
@@ -117,7 +118,7 @@ const fetchMetadata = cache(
   },
 );
 
-export const generateViewport = async ({ params }: ParamProps): Promise<Viewport> => {
+export const generateViewport = async ({ params }: RedirectPageProps): Promise<Viewport> => {
   const { redirectLink } = await params;
   const target = redirects[`/${redirectLink}` as keyof typeof redirects];
 
@@ -126,7 +127,7 @@ export const generateViewport = async ({ params }: ParamProps): Promise<Viewport
   };
 };
 
-export const generateMetadata = async ({ params }: ParamProps): Promise<Metadata> => {
+export const generateMetadata = async ({ params }: RedirectPageProps): Promise<Metadata> => {
   const { redirectLink } = await params;
   const target = redirects[`/${redirectLink}` as keyof typeof redirects];
 
@@ -137,7 +138,7 @@ export const generateMetadata = async ({ params }: ParamProps): Promise<Metadata
   return fetchMetadata(target);
 };
 
-const Layout: FC<ParamProps & PropsWithChildren> = async ({ params, children }) => {
+const Layout: FC<RedirectPageProps & PropsWithChildren> = async ({ params, children }) => {
   const { redirectLink } = await params;
   const target = redirects[`/${redirectLink}` as keyof typeof redirects];
   const head = target?.href && target.href !== target.redirect && (

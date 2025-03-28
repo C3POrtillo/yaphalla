@@ -16,7 +16,7 @@ interface RedirectProps {
 
 const Redirect: FC<RedirectProps> = ({ parent, href, hidden }) => {
   useEffect(() => {
-    if (href && compareStrings(parent || '', href) !== 0) {
+    if (href && compareStrings(parent || '', href)) {
       permanentRedirect(href);
     }
   }, [href]);

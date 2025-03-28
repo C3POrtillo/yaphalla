@@ -2,7 +2,7 @@
 import { useSearchParams } from 'next/navigation';
 import { type FC, useState } from 'react';
 
-import EditorClearButtons from '@/components/editor/EditorClearButtons';
+// import EditorClearButtons from '@/components/editor/EditorClearButtons';
 import { useFormation } from '@/components/editor/FormationProvider';
 import ArtifactGrid from '@/components/editor/SelectArtifact';
 import { DoubleArtifacts } from '@/components/editor/types';
@@ -62,11 +62,7 @@ const EditorSidebar: FC = () => {
     },
     {
       label: isDev ? 'Advanced' : 'Other',
-      tooltip: (
-        <p className="text-sm">
-          Contains <span className="text-red-500">Clear</span> Buttons and other options.
-        </p>
-      ),
+      tooltip: <p className="text-sm">Contains other options.</p>,
     },
   ] as const;
 
@@ -126,7 +122,7 @@ const EditorSidebar: FC = () => {
               {...getDrawImage(label, baseHex || outline)}
               size="2xs"
               disabledOverlay={selected}
-              forceOutline={compareStrings(label, 'Player') === 0 && outline}
+              forceOutline={!compareStrings(label, 'Player') && outline}
             />
             <span>{label}</span>
           </div>
@@ -191,35 +187,37 @@ const EditorSidebar: FC = () => {
 
   return (
     <div className="flex size-full flex-col-reverse items-center justify-start gap-2 self-start sm:w-fit sm:flex-col 2xl:w-64">
-      <div className="container-primary w-full flex flex-col gap-2 items-center">
-        <div className="w-full flex flex-row gap-2">
-          {tabProps.map(({ label, tooltip }, i) => (
-            <Button
-              key={label}
-              className="w-full flex items-center justify-center"
-              size="sm"
-              selected={tab === i}
-              hasActiveBorder
-              tooltip={tooltip}
-              solidTooltip
-              onClick={() => setTab(i)}
-            >
-              {label}
-            </Button>
-          ))}
+      {isDev && (
+        <div className="container-primary w-full flex flex-col gap-2 items-center">
+          <div className="w-full flex flex-row gap-2">
+            {tabProps.map(({ label, tooltip }, i) => (
+              <Button
+                key={label}
+                className="w-full flex items-center justify-center"
+                size="sm"
+                selected={tab === i}
+                hasActiveBorder
+                tooltip={tooltip}
+                solidTooltip
+                onClick={() => setTab(i)}
+              >
+                {label}
+              </Button>
+            ))}
+          </div>
+          {isDevAdvanced && (
+            <Toggle
+              className="w-full !pl-2"
+              variant="switch"
+              value="Hide Logo"
+              onChange={e => {
+                setHideLogo(e.target.checked);
+              }}
+              defaultChecked={hideLogo}
+            />
+          )}
         </div>
-        {isDevAdvanced && (
-          <Toggle
-            className="w-full !pl-2"
-            variant="switch"
-            value="Hide Logo"
-            onChange={e => {
-              setHideLogo(e.target.checked);
-            }}
-            defaultChecked={hideLogo}
-          />
-        )}
-      </div>
+      )}
       <div className="flex w-full flex-col gap-2 items-center">
         {tab === 0 && (
           <>
@@ -227,7 +225,7 @@ const EditorSidebar: FC = () => {
             <ArtifactGrid />
           </>
         )}
-        {tab === 1 && <EditorClearButtons />}
+        {/* {tab === 1 && <EditorClearButtons />} */}
         {isDevAdvanced && <div className="w-full flex flex-col gap-2 items-center">{advancedOptions}</div>}
       </div>
     </div>

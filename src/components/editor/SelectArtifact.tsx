@@ -25,7 +25,7 @@ const SelectArtifact: FC = () => {
     artifacts.map(artifact => {
       const hasArtifact = artifactData[key].includes(artifact);
       const unitsHasArtifact = !!Object.values(units).filter(
-        ({ unit, type }) => type === 2 && compareStrings(unit, artifact) === 0,
+        ({ unit, type }) => type === 2 && !compareStrings(unit, artifact),
       ).length;
       const selected = !disabled && (hasArtifact || unitsHasArtifact);
 
@@ -48,7 +48,7 @@ const SelectArtifact: FC = () => {
                 setUnits(prev => {
                   const copy = { ...prev };
 
-                  if (compareStrings(artifact, prev[currentTile]?.unit) === 0) {
+                  if (!compareStrings(artifact, prev[currentTile]?.unit)) {
                     delete copy[currentTile];
                   } else {
                     copy[currentTile] = { unit: artifact, type: tileData[currentTile] };
@@ -75,7 +75,7 @@ const SelectArtifact: FC = () => {
   return (
     <>
       {Object.entries(Artifacts)
-        .filter(([label]) => ['Pre-Season', currentSeason].some(check => compareStrings(label, check) === 0))
+        .filter(([label]) => ['Pre-Season', currentSeason].some(check => !compareStrings(label, check)))
         .map(([label, artifacts], i) => (
           <div key={label} className="relative h-16 w-full block sm:hidden">
             <div
@@ -95,7 +95,7 @@ const SelectArtifact: FC = () => {
       <div className="container-primary hidden flex-col gap-2 items-center justify-center sm:flex ">
         <div className="w-full flex flex-col gap-2 sm:flex-row">
           {(['Seasonal', 'Pre-Season'] as const).map(label => {
-            const isSeasonal = compareStrings(label, 'Seasonal') === 0;
+            const isSeasonal = !compareStrings(label, 'Seasonal');
 
             return (
               <Button

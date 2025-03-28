@@ -312,7 +312,7 @@
     @apply bg-red-800;
   }
   .active-link {
-    @apply pointer-events-none text-tertiary-300 disabled:text-tertiary-300;
+    @apply text-tertiary-300 disabled:text-tertiary-300;
   }
   .active-border {
     @apply border-1 border-solid border-tertiary-300;

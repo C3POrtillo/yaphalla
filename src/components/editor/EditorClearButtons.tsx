@@ -45,7 +45,7 @@ const EditorClearButtons: FC<EditorClearButtonsProps> = ({ isRow }) => {
   ] as const;
 
   return (
-    <div className={joinStrings('container-primary w-full flex gap-2 items-center', isRow ? 'flex-row' : 'flex-col')}>
+    <div className={joinStrings('w-full flex gap-2 items-center', isRow ? 'flex-row' : 'flex-col')}>
       {buttons.map(({ onClick, label, ...props }) => (
         <Button key={label} size="sm" className="w-full" onClick={onClick} {...props}>
           {label}

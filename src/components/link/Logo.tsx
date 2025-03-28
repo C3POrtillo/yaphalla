@@ -9,7 +9,7 @@ interface LogoLinkProps {
 }
 
 const LogoLink: FC<LogoLinkProps> = ({ alt }) => (
-  <Link href="/" className="relative logo input-tertiary size-sm">
+  <Link href="/" className="relative logo input-tertiary p-1 rounded-lg">
     <Image src="/assets/images/yaphalla-logo.png" alt={alt || 'Homepage'} fill priority />
   </Link>
 );

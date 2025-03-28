@@ -38,6 +38,7 @@ const fetchMetadata = cache(
     keywords,
     noIndex,
     image,
+    fetchImage,
   }: RedirectType): Promise<Metadata> => {
     try {
       const isDiscord = !compareStrings(label, redirects['/discord'].label);
@@ -88,8 +89,11 @@ const fetchMetadata = cache(
         const invite = url.split('/').slice(-1)[0];
         const { members, online } = await fetchDiscordStats(invite);
         const description = `🟢 ${online} Online\n⚫ ${members} Members`;
+        const youtubeImage = await fetchImage();
+        const discordOg = youtubeImage || fallbackOgImages;
+        const discordTwitter = youtubeImage || fallbackTwitterImages;
 
-        return createMetadata(targetTitle, description, site, fallbackOgImages, fallbackTwitterImages);
+        return createMetadata(targetTitle, description, site, discordOg, discordTwitter);
       }
       const fetchUrl = !compareStrings(label, 'Root') ? `https://${domain}${url}` : url;
       const text = await (await fetch(fetchUrl, { method: 'GET' })).text();

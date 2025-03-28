@@ -31,7 +31,7 @@ const Header: FC = () => {
               <div
                 className={joinStrings(
                   'inset-secondary grid gap-1',
-                  content.length > 5 ? 'grid-cols-3' : 'grid-cols-2',
+                  content.length > 6 ? 'grid-cols-3' : 'grid-cols-2',
                 )}
               >
                 {content.map(({ ...contentData }) => (

@@ -8,8 +8,8 @@ import { fetchYouTubePicture, getIcon, getPriority } from '@/components/creators
 import Link from '@/components/link/Link';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
-const CreatorCard: FC<CreatorData> = async ({ label, language, ...props }) => {
-  const { YouTube, image } = props;
+const CreatorCard: FC<CreatorData> = async ({ label, language, image, ...props }) => {
+  const { YouTube } = props;
   const links = Object.entries(props)
     .sort(([a], [b]) => {
       const priorityA = getPriority(a);
@@ -19,8 +19,7 @@ const CreatorCard: FC<CreatorData> = async ({ label, language, ...props }) => {
     })
     .map(
       ([site, href]) =>
-        site &&
-        !!compareStrings(site, 'image') && (
+        site && (
           <Link key={site} href={href} className="bg-secondary input-secondary size-sm inline-flex gap-2">
             <i className={joinStrings('fab', `fa-${getIcon(site)}`)} />
             {capitalize(site)}

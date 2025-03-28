@@ -44,6 +44,52 @@ const paths = {
     href: '/creators',
     label: 'Creators',
   },
+  Communities: {
+    href: undefined,
+    label: 'Communities',
+    options: [
+      {
+        href: redirects['/fight-club'].href,
+        label: 'Fight Club',
+      },
+      {
+        href: redirects['/vn'].href,
+        label: 'Vietnam Server',
+      },
+      {
+        href: redirects['/official'].href,
+        label: 'Official Server',
+      },
+    ],
+  },
+  Leaderboards: {
+    href: undefined,
+    label: 'Leaderboards',
+    options: [
+      {
+        href: '/primal-lord',
+        label: 'Primal Lord',
+      },
+      {
+        href: '/battle-drills',
+        label: 'Battle Drills',
+      },
+    ],
+  },
+  Other: {
+    href: undefined,
+    label: 'Other',
+    options: [
+      {
+        href: '/paragon-form',
+        label: 'Paragon Form',
+      },
+      {
+        href: redirects['/emotes'].href,
+        label: 'Emoji Server',
+      },
+    ],
+  },
 } as const;
 
 const previews = {
@@ -66,4 +112,11 @@ export const validHrefs = new Set([
     .map(({ redirect }) => redirect),
 ]);
 
-export const navigation = [paths['Home'], paths['Editor'], paths['Creators']] as PathType[];
+export const navigation = [
+  paths['Home'],
+  paths['Editor'],
+  paths['Creators'],
+  paths['Communities'],
+  paths['Leaderboards'],
+  paths['Other'],
+] as PathType[];

@@ -23,24 +23,24 @@ const Link: FC<LinkProps> = ({ href, label, className, disabled, children, toolt
   const activeClass = (disabled ?? currentPath === parsedHref) && 'active-link';
   const invalidLinkClass =
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    !tooltip && isInternal && parsedHref && !validHrefs.has(parsedHref as any) && 'pointer-events-none';
+    !href || (!tooltip && isInternal && parsedHref && !validHrefs.has(parsedHref as any) && 'pointer-events-none');
 
-  return (
+  const link = (
     <NextLink
       key={parsedHref}
       href={parsedHref}
-      className={joinStrings(
-        !!tooltip && 'relative group',
-        'flex items-center',
-        className,
-        activeClass,
-        invalidLinkClass,
-      )}
+      className={joinStrings('flex items-center', className, activeClass, invalidLinkClass)}
       {...linkData}
       {...props}
     >
       {label}
       {children}
+    </NextLink>
+  );
+
+  return tooltip ? (
+    <div className={joinStrings(!!tooltip && 'relative group flex items-center justify-center max-lg:w-full')}>
+      {link}
       {tooltip && (
         <Tooltip
           className={joinStrings(
@@ -52,7 +52,9 @@ const Link: FC<LinkProps> = ({ href, label, className, disabled, children, toolt
           {tooltip}
         </Tooltip>
       )}
-    </NextLink>
+    </div>
+  ) : (
+    link
   );
 };
 

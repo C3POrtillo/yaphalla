@@ -1,15 +1,17 @@
 import { useMemo, useState } from 'react';
 
+
 import type { TileData } from '@/components/editor/types';
 import type { FC } from 'react';
 
 import ButtonArtifact from '@/components/editor/ButtonArtifact';
+import EditorClearButtons from '@/components/editor/EditorClearButtons';
 import EditorToggles from '@/components/editor/EditorToggles';
 import { useFormation } from '@/components/editor/FormationProvider';
 import { AlwaysShowStates, ObstacleStates, TileIndexToPosition } from '@/components/editor/types';
 import { getIsTopRight, getRelativeTileLabels, getTalentTiles, processTileData } from '@/components/editor/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
-import Text from '@/components/inputs/text/Text';
+// import Text from '@/components/inputs/text/Text';
 import { joinStrings } from '@/utils/utils';
 
 interface EditorArena {
@@ -43,19 +45,8 @@ const EditorArena: FC<EditorArena> = ({
   disableObstacles,
   onClick,
 }) => {
-  const {
-    preset,
-    isPreset,
-    tileData,
-    title,
-    setTitle,
-    currentTile,
-    units,
-    activeFaction,
-    getTileImage,
-    outline,
-    hideLogo,
-  } = useFormation();
+  const { preset, isPreset, tileData, currentTile, units, activeFaction, getTileImage, outline, hideLogo } =
+    useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
   const isTopRight = getIsTopRight(tileData);
@@ -174,7 +165,7 @@ const EditorArena: FC<EditorArena> = ({
 
   return (
     <div className="container-primary flex size-full md:w-156 flex-col items-center gap-2">
-      {label ? (
+      {/* {label ? (
         <h2 className="flex items-center text-2xl min-h-12">{label}</h2>
       ) : (
         <Text
@@ -185,7 +176,7 @@ const EditorArena: FC<EditorArena> = ({
           hideLabel
           setState={setTitle}
         />
-      )}
+      )} */}
       <EditorToggles />
       <div className="inset p-2 rounded-lg bg-primary-900 size-full flex items-center justify-center m-auto">
         <div className="inset-black">
@@ -194,6 +185,7 @@ const EditorArena: FC<EditorArena> = ({
           </div>
         </div>
       </div>
+      <EditorClearButtons isRow />
     </div>
   );
 };

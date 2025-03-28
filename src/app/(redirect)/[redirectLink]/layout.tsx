@@ -55,9 +55,9 @@ const fetchMetadata = cache(
         keywords,
         robots: noIndex
           ? {
-              index: false,
-              follow: false,
-            }
+            index: false,
+            follow: false,
+          }
           : undefined,
         openGraph: {
           title,
@@ -66,13 +66,13 @@ const fetchMetadata = cache(
           siteName,
           images: image
             ? [
-                {
-                  url: image,
-                  width: 128,
-                  height: 128,
-                  alt: title,
-                },
-              ]
+              {
+                url: image,
+                width: 128,
+                height: 128,
+                alt: title,
+              },
+            ]
             : og,
         },
         twitter: {

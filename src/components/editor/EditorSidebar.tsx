@@ -126,7 +126,7 @@ const EditorSidebar: FC = () => {
               {...getDrawImage(label, baseHex || outline)}
               size="2xs"
               disabledOverlay={selected}
-              forceOutline={compareStrings(label, 'Player') === 0 && outline}
+              forceOutline={!compareStrings(label, 'Player') && outline}
             />
             <span>{label}</span>
           </div>

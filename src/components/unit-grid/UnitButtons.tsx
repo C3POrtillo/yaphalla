@@ -38,7 +38,7 @@ const UnitButtons: FC<UnitButtonProps> = ({
         const matchesFaction = testRegex(faction, regexFaction);
         const matchesClass = testRegex(unitClass, regexClass);
         const validSearch = testRegex([faction, unitClass, unit].join(' '), regexSearch);
-        const sameUnit = !!currentUnit && compareStrings(currentUnit, unit) === 0;
+        const sameUnit = !!currentUnit && !compareStrings(currentUnit, unit);
         const isValid =
           filterFaction === undefined && filterClass === undefined
             ? validSearch

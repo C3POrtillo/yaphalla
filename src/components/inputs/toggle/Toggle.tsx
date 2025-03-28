@@ -28,7 +28,7 @@ const Toggle: FC<ToggleProps> = ({
 }) => {
   const [isChecked, setChecked] = useState(defaultChecked);
   const id = `${variant}-${kebabCase(value)}`;
-  const isCheckbox = compareStrings(variant, 'checkbox') === 0;
+  const isCheckbox = !compareStrings(variant, 'checkbox');
 
   useEffect(() => {
     setChecked(defaultChecked);

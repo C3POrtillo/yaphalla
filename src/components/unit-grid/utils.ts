@@ -19,7 +19,7 @@ export const getFormattedUnits = (
   variant: 'unit' | 'class' = 'unit',
   isDev?: boolean,
 ) => {
-  const isUnit = compareStrings(variant, 'unit') === 0;
+  const isUnit = !compareStrings(variant, 'unit');
   const data = (() => {
     if (isDev && !isUnit) {
       return [...OtherUnits, ...DevUnits];

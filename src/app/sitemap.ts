@@ -13,7 +13,7 @@ const createEntry = (path?: string) => ({
 
 const sitemap = (): MetadataRoute.Sitemap => {
   const pathData = Object.values(navigation)
-    .filter(({ href }) => !!href && compareStrings(href, '/') !== 0)
+    .filter(({ href }) => !!href && compareStrings(href, '/'))
     .map(({ href }) => createEntry(href));
 
   const redirectData = Object.values(redirects)

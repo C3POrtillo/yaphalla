@@ -18,7 +18,7 @@ const SelectBackgroundHex: FC = () => {
         if (!groupedHexes[groupIndex]) {
           groupedHexes[groupIndex] = [];
         }
-        const disabled = [baseHex, selectedOutline].some(check => compareStrings(check || '', hex) === 0);
+        const disabled = [baseHex, selectedOutline].some(check => !compareStrings(check || '', hex));
         groupedHexes[groupIndex].push(
           <ButtonTile
             key={hex}

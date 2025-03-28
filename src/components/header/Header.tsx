@@ -1,64 +1,46 @@
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
+import { LinkClasses } from '@/components/header/types';
+import { processCreators } from '@/components/header/utils';
 import Link from '@/components/link/Link';
 import LogoLink from '@/components/link/Logo';
 import Socials from '@/components/socials/Socials';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { navigation } from '@/utils/paths';
-import { creators } from '@/utils/pathsCreators';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
 const Header: FC = () => {
   const navLinks = navigation.slice(1).map(data => {
     const { href: slug, label: title, options } = data;
-    const className = 'flex rounded-lg w-full input-secondary justify-center bg-primary-800 lg:w-fit lg:bg-transparent';
+    let tooltip: ReactNode;
+
     if (!compareStrings(data.label!, 'Creators')) {
-      const videos = Object.values(creators)
-        .filter(({ YouTube, Bilibili }) => !!(YouTube || Bilibili))
-        .sort(({ label: a }, { label: b }) => compareStrings(a, b))
-        .map(({ label, YouTube, Bilibili }) => (
-          <Link key={label} className={joinStrings(className, 'px-1')} label={label} href={YouTube || Bilibili} />
-        ));
-
-      const discords = Object.values(creators)
-        .filter(({ Discord }) => !!Discord)
-        .sort(({ label: a }, { label: b }) => compareStrings(a, b))
-        .map(({ label, Discord }) => (
-          <Link key={label} className={joinStrings(className, 'px-1')} label={label} href={Discord} />
-        ));
-
       const tooltipDivs = [
-        { label: 'Creators', content: videos },
-        { label: 'Discords', content: discords },
+        { label: 'Creators', content: processCreators(({ YouTube, Bilibili }) => !!(YouTube || Bilibili)) },
+        { label: 'Discords', content: processCreators(({ Discord }) => !!Discord) },
       ] as const;
 
-      return (
-        <Link
-          className={joinStrings('group w-full', className, 'p-2')}
-          key={data.href}
-          tooltip={
-            <div className="flex flex-row gap-2">
-              {tooltipDivs.map(({ label, content }) => (
-                <div key={label} className="flex flex-col">
-                  <h2 className="text-base border-b-2 mb-1 border-tertiary-600 w-full text-left text-tertiary-600">
-                    {label}
-                  </h2>
-                  <div
-                    className={joinStrings(
-                      'inset-secondary grid gap-1',
-                      content.length > 5 ? 'grid-cols-3' : 'grid-cols-2',
-                    )}
-                  >
-                    {content}
-                  </div>
-                </div>
-              ))}
+      tooltip = (
+        <div className="flex flex-row gap-2">
+          {tooltipDivs.map(({ label, content }) => (
+            <div key={label} className="flex flex-col">
+              <h2 className="text-base border-b-2 mb-1 border-tertiary-600 w-full text-left text-tertiary-600">
+                {label}
+              </h2>
+              <div
+                className={joinStrings(
+                  'inset-secondary grid gap-1',
+                  content.length > 5 ? 'grid-cols-3' : 'grid-cols-2',
+                )}
+              >
+                {content.map(({ ...contentData }) => (
+                  <Link key={contentData.label} className={joinStrings(LinkClasses, 'px-1')} {...contentData} />
+                ))}
+              </div>
             </div>
-          }
-          hideMobileTooltip
-          {...data}
-        />
+          ))}
+        </div>
       );
     }
 
@@ -71,7 +53,7 @@ const Header: FC = () => {
           )}
         >
           {options.map(({ ...option }) => (
-            <Link key={option.href} className={joinStrings(className, 'p-1')} {...option} />
+            <Link key={option.href} className={joinStrings(LinkClasses, 'p-1')} {...option} />
           ))}
         </div>
       );
@@ -85,7 +67,7 @@ const Header: FC = () => {
           </div>
           <div
             key={title}
-            className={joinStrings('relative group hidden text-base !cursor-default', className, 'p-2 lg:flex')}
+            className={joinStrings('relative group hidden text-base !cursor-default', LinkClasses, 'p-2 lg:flex')}
           >
             {title}
             <Tooltip className="top-full !bg-primary-950 !w-max" pointerEvents>
@@ -96,7 +78,9 @@ const Header: FC = () => {
       );
     }
 
-    return <Link className={joinStrings(className, 'p-2')} key={slug} {...data} />;
+    return (
+      <Link className={joinStrings(LinkClasses, 'p-2')} key={slug} tooltip={tooltip} {...data} hideMobileTooltip />
+    );
   });
 
   return (

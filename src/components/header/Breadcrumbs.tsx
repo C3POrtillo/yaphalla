@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
+import { processPaths } from '@/components/header/utils';
 import Link from '@/components/link/Link';
 import { titleCase } from '@/utils/utils';
 
@@ -15,14 +16,7 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
   const currentPath = usePathname();
   let buildPathString = '/';
   const paths = currentPath.split('/').slice(1);
-  let slugIndex = 0;
-  const formattedPaths = paths.filter(Boolean).map(path => {
-    if (slug?.length && slugIndex < slug.length && path.match(/\[.*\]/)) {
-      return slug[slugIndex++];
-    }
-
-    return path;
-  });
+  const formattedPaths = processPaths(paths, slug);
 
   return (
     !!formattedPaths.length && (
@@ -34,9 +28,14 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
             buildPathString += `${path}/`;
 
             return (
-              <div key={path} className="flex flex-row items-center gap-2">
-                <p>/</p>
-                <Link className="input-tertiary" label={label} href={copy} disabled={index === paths.length - 1} />
+              <div key={path} className="flex flex-row items-center gap-1">
+                <p className="text-base">/</p>
+                <Link
+                  className="input-tertiary text-base rounded-lg px-1"
+                  label={label}
+                  href={copy}
+                  disabled={index === paths.length - 1}
+                />
               </div>
             );
           })}

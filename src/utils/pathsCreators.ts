@@ -73,4 +73,10 @@ export const creators = {
     Discord: 'https://discord.com/invite/BM8kSxXGFX',
     language: 'es',
   } as CreatorData,
+  '/turtlelagz': {
+    label: 'Turtlelagz',
+    YouTube: 'https://www.youtube.com/@turtlelagzgaming',
+    Discord: 'https://discord.com/invite/EFdpaBqek5',
+    Twitch: 'https://www.twitch.tv/turtlelagz'
+  } as CreatorData,
 } as const;

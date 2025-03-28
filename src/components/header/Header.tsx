@@ -17,8 +17,11 @@ const Header: FC = () => {
 
     if (!compareStrings(data.label!, 'Creators')) {
       const tooltipDivs = [
-        { label: 'Creators', content: processCreators(({ YouTube, Bilibili }) => !!(YouTube || Bilibili)) },
-        { label: 'Discords', content: processCreators(({ Discord }) => !!Discord) },
+        {
+          label: 'Creators',
+          content: processCreators(({ YouTube, Bilibili }) => !!(YouTube || Bilibili), ['YouTube', 'Bilibili']),
+        },
+        { label: 'Discords', content: processCreators(({ Discord }) => !!Discord, ['Discord']) },
       ] as const;
 
       tooltip = (

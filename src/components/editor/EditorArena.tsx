@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react';
 
-
 import type { TileData } from '@/components/editor/types';
 import type { FC } from 'react';
 

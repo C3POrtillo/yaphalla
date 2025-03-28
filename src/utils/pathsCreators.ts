@@ -77,6 +77,6 @@ export const creators = {
     label: 'Turtlelagz',
     YouTube: 'https://www.youtube.com/@turtlelagzgaming',
     Discord: 'https://discord.com/invite/EFdpaBqek5',
-    Twitch: 'https://www.twitch.tv/turtlelagz'
+    Twitch: 'https://www.twitch.tv/turtlelagz',
   } as CreatorData,
 } as const;

@@ -3,13 +3,15 @@ import type { CreatorData } from '@/utils/pathsCreators';
 import { creators } from '@/utils/pathsCreators';
 import { compareStrings } from '@/utils/utils';
 
-export const processCreators = (filter: (creator: CreatorData) => boolean) =>
+type ValidHrefs = ('Discord' | 'YouTube' | 'Bilibili')[];
+
+export const processCreators = (filter: (creator: CreatorData) => boolean, hrefs: ValidHrefs) =>
   Object.values(creators)
     .filter(filter)
     .sort(({ label: a }, { label: b }) => compareStrings(a, b))
-    .map(({ label, Discord, YouTube, Bilibili }) => ({
+    .map(({ label, ...props }) => ({
       label,
-      href: Discord || YouTube || Bilibili,
+      href: hrefs.map(site => props[site]).filter(Boolean)[0],
     }));
 
 export const processPaths = (paths: string[], slug: string[] | undefined) => {

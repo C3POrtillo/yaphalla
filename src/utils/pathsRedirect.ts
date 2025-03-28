@@ -1,3 +1,4 @@
+import { fetchYouTubePicture } from '@/components/creators/utils';
 import { creators } from '@/utils/pathsCreators';
 
 export type RedirectType = {
@@ -11,6 +12,7 @@ export type RedirectType = {
   noIndex?: boolean;
   image?: string;
   themeColor?: string;
+  fetchImage: () => Promise<string | null>;
 };
 
 const appName = ['AFKJ', 'AFKJourney', 'AFK Journey'];
@@ -149,13 +151,14 @@ const discords = {
 const creatorDiscords = Object.fromEntries(
   Object.entries(creators)
     .filter(([_, { Discord }]) => Discord)
-    .map(([redirect, { Discord: href }]) => [
+    .map(([redirect, { Discord: href, YouTube }]) => [
       redirect,
       {
         redirect,
         label: 'Discord',
         href,
         site: 'Discord',
+        fetchImage: async () => (YouTube ? await fetchYouTubePicture(YouTube) : null),
       } as RedirectType,
     ]),
 ) as Record<keyof typeof creators, RedirectType>;

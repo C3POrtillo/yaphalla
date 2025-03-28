@@ -98,6 +98,9 @@ export const sortCreators = (a: [string, CreatorData], b: [string, CreatorData])
 
 export const fetchYouTubePicture = async (url: string): Promise<string | null> => {
   try {
+    if (!url) {
+      throw new Error('No URL provided');
+    }
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error('Failed to fetch YouTube page');

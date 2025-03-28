@@ -83,4 +83,8 @@ export const creators = {
     label: 'Elfe',
     YouTube: 'https://www.youtube.com/@ElfeYT',
   } as CreatorData,
+  '/danmanreal': {
+    label: 'DanManReal',
+    YouTube: 'https://youtube.com/@DanManREAL',
+  } as CreatorData,
 } as const;

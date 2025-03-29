@@ -60,7 +60,7 @@ const SelectUnit: FC = () => {
                     if (!unitGrid) {
                       return false;
                     }
-                    
+
                     const image = await htmlToImage.toPng(unitGrid, { pixelRatio: 1, filter });
 
                     return image;

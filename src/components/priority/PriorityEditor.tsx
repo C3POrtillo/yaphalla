@@ -58,8 +58,8 @@ const PriorityEditor: FC = () => {
       </Container>
       <Container className="hidden my-2 xl:flex">
         <div className="flex flex-row gap-2 w-full max-w-[1920px] px-2">
-          <div className='flex flex-col gap-2'>
-            <div className='container-primary h-32'/>
+          <div className="flex flex-col gap-2">
+            <div className="container-primary h-32" />
             <div className="container-primary flex flex-col w-full grow gap-2">
               <div className="flex flex-row gap-2 items-center">
                 <span>Gap: </span>

@@ -22,9 +22,9 @@ const Header: FC = () => {
                 <h2 className="hidden text-sm border-b-2 mb-1 border-tertiary-600 w-full text-left text-tertiary-600 lg:block">
                   {label}
                 </h2>
-                <div className={joinStrings('inset-secondary grid gap-1 grid-cols-1', getLgCols(options.length))}>
+                <div className={joinStrings('inset-secondary grid gap-1 grid-cols-1 !p-1', getLgCols(options.length))}>
                   {options.map(({ ...contentData }) => (
-                    <Link key={contentData.label} className={joinStrings(LinkClasses, 'p-1')} {...contentData} />
+                    <Link key={contentData.label} className={joinStrings(LinkClasses, 'p-1 lg:w-full lg:justify-start')} {...contentData} />
                   ))}
                 </div>
               </div>

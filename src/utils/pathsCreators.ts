@@ -56,13 +56,13 @@ export const creators = {
     Instagram: 'https://www.instagram.com/afkjuicers',
   } as CreatorData,
   '/halfmoon': {
-    label: 'HalfMoon | 半月',
+    label: '半月 | HalfMoon',
     Bilibili: 'https://space.bilibili.com/430357373',
     image: '/assets/images/creators/halfmoon.png',
     language: 'cn',
   } as CreatorData,
   '/becky': {
-    label: 'Becky | 贝姬',
+    label: '贝姬 | Becky',
     Bilibili: 'https://space.bilibili.com/3546739751520445',
     image: '/assets/images/creators/becky.png',
     language: 'cn',
@@ -86,5 +86,11 @@ export const creators = {
   '/danmanreal': {
     label: 'DanManReal',
     YouTube: 'https://youtube.com/@DanManREAL',
+  } as CreatorData,
+  '/frosty': {
+    label: '站若隐寒星 | Frosty',
+    Bilibili: 'https://space.bilibili.com/401793216',
+    image: '/assets/images/creators/frosty.png',
+    language: 'cn',
   } as CreatorData,
 } as const;

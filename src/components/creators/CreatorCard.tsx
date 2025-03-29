@@ -41,7 +41,14 @@ const CreatorCard: FC<CreatorData> = async ({ label, language, image, ...props }
           </div>
         )}
 
-        <h2 className="w-full text-xl text-tertiary-600 border-b-2 pb-1 mb-1 ">{label}</h2>
+        <h2
+          className={joinStrings(
+            'w-full text-tertiary-600 border-b-2 pb-1 mb-1',
+            label.length > 13 ? 'text-lg' : 'text-xl',
+          )}
+        >
+          {label}
+        </h2>
       </div>
       <div className="w-full flex flex-col gap-1 h-min">{links}</div>
     </div>

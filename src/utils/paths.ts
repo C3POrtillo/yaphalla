@@ -13,7 +13,7 @@ export type PathType = {
   hideMobileOptions?: boolean;
 };
 
-type ValidHrefs = ('Discord' | 'YouTube' | 'Bilibili')[];
+type ValidHrefs = ('Discord' | 'YouTube' | 'Twitch' | 'Bilibili')[];
 
 const processCreators = (filter: (creator: CreatorData) => boolean, hrefs: ValidHrefs) =>
   Object.values(creators)
@@ -77,7 +77,10 @@ const paths = {
     options: [
       {
         label: 'Creators',
-        options: processCreators(({ YouTube, Bilibili }) => !!(YouTube || Bilibili), ['YouTube', 'Bilibili']),
+        options: processCreators(
+          ({ YouTube, Bilibili, Twitch }) => !!(YouTube || Twitch || Bilibili),
+          ['YouTube', 'Twitch', 'Bilibili'],
+        ),
       },
       { label: 'Discords', options: processCreators(({ Discord }) => !!Discord, ['Discord']) },
     ],

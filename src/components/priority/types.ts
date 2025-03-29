@@ -4,4 +4,6 @@ export type GroupUnitData = {
 
 export const maxGroups = 6;
 
-export const maxItems = undefined;
+export const maxItems = 20;
+
+export const maxLabel = 15;

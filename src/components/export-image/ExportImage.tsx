@@ -12,7 +12,13 @@ interface ExportImageProps extends ButtonProps {
   hasContainer?: boolean;
 }
 
-const ExportImage: FC<ExportImageProps> = ({ fileName, getImage, onClick: callback, hasContainer = true }) => {
+const ExportImage: FC<ExportImageProps> = ({
+  fileName,
+  getImage,
+  onClick: callback,
+  hasContainer = true,
+  selected,
+}) => {
   const handleClick = async (action: (image: string, file: string | undefined) => Promise<void>) => {
     const image = await getImage();
     if (!image) {
@@ -45,7 +51,15 @@ const ExportImage: FC<ExportImageProps> = ({ fileName, getImage, onClick: callba
       )}
     >
       {buttons.map(({ onClick, label, ...props }) => (
-        <Button key={label} size="sm" className="w-full" onClick={onClick} {...props} hasActiveBorder>
+        <Button
+          key={label}
+          size="sm"
+          className="w-full"
+          onClick={onClick}
+          {...props}
+          selected={selected}
+          hasActiveBorder
+        >
           {label}
         </Button>
       ))}

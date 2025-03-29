@@ -96,5 +96,6 @@ export const creators = {
   '/atraxy': {
     label: 'Atraxy',
     Twitch: 'https://www.twitch.tv/atraxy316',
+    image: '/assets/images/creators/atraxy.png',
   } as CreatorData,
 } as const;

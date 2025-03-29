@@ -28,12 +28,7 @@ const Header: FC = () => {
                     getLgCols(options.length),
                   )}
                 >
-                  {slug && (
-                    <Link
-                      className={joinStrings(LinkClasses, 'p-1', rootOptions && !hideMobileOptions && 'lg:hidden')}
-                      {...data}
-                    />
-                  )}
+                  {slug && <Link className={joinStrings(LinkClasses, 'p-1', rootOptions && 'lg:hidden')} {...data} />}
                   {options.map(({ ...contentData }) => (
                     <Link
                       key={contentData.label}

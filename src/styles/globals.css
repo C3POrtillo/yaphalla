@@ -56,7 +56,10 @@
   --color-neutral-400: #A1A1A1;
   --color-neutral-300: #D4D4D4;
   --color-error-900: #82181A;  
+  --font-lato: 'Lato', sans-serif;
+  --font-langar: 'Langar', cursive;
 }
+
 
 @layer base {
   html {
@@ -252,6 +255,9 @@
 }
 
 @layer utilities {
+  .font-langar {
+    font-family: var(--font-langar);
+  }
   .fab {
     @apply text-xl md:text-2xl;
   }
@@ -280,6 +286,10 @@
   }
   .size-base {
     @apply shadow-sm p-2 rounded-lg;
+  }
+  .text-outline {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #000;
   }
   .input-primary, .input-secondary, .input-tertiary, .input-warning, .group-primary, .group-secondary, .group-tertiary {
     @apply cursor-pointer hover:text-tertiary-300 disabled:text-neutral-400 disabled:cursor-auto;

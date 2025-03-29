@@ -5,7 +5,7 @@ export const getValidCount = (string: string, max?: number) => {
       return 1;
     }
 
-    if (!max || number <= max) {
+    if (max === undefined || number <= max) {
       return number;
     }
 
@@ -17,7 +17,7 @@ export const getValidCount = (string: string, max?: number) => {
 
 export const validateCount = (string: string, max?: number) => {
   const number = Number(string);
-  if (!max) {
+  if (max === undefined) {
     return number > 0;
   }
 

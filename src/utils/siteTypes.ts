@@ -1,8 +1,14 @@
-import { Lato } from 'next/font/google';
+import { Langar, Lato } from 'next/font/google';
 
 export const font = Lato({
   subsets: ['latin', 'latin-ext'],
   variable: '--font-lato',
+  weight: '400',
+});
+
+export const langar = Langar({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-langer',
   weight: '400',
 });
 

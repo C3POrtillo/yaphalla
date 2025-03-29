@@ -95,6 +95,3 @@ export const fetchPicture = async (url: string, regExp: RegExp): Promise<string 
 
 export const fetchYouTubePicture = async (url: string): Promise<string | null> =>
   fetchPicture(url, /<link rel="image_src" href="(.*?)"/is);
-
-export const fetchTwitchPicture = async (url: string): Promise<string | null> =>
-  fetchPicture(url, /<meta content="([^"]+)" property="og:image"\s*\/?>/is);

@@ -24,7 +24,11 @@ const Header: FC = () => {
                 </h2>
                 <div className={joinStrings('inset-secondary grid gap-1 grid-cols-1 !p-1', getLgCols(options.length))}>
                   {options.map(({ ...contentData }) => (
-                    <Link key={contentData.label} className={joinStrings(LinkClasses, 'p-1 lg:w-full lg:justify-start')} {...contentData} />
+                    <Link
+                      key={contentData.label}
+                      className={joinStrings(LinkClasses, 'p-1 lg:w-full lg:justify-start')}
+                      {...contentData}
+                    />
                   ))}
                 </div>
               </div>

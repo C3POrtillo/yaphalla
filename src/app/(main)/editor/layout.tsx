@@ -1,7 +1,7 @@
 import type { Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
-import { createMetadata } from '@/utils/utils';
+import { createMetadata, joinStrings } from '@/utils/utils';
 
 export const viewport: Viewport = {
   width: '608',
@@ -22,7 +22,7 @@ const createKeywords = () => {
   for (const a of start) {
     for (const b of mid) {
       for (const c of end) {
-        ret.push(`${a} ${b} ${c}`.trim());
+        ret.push(joinStrings(a, b, c).trim());
       }
     }
   }

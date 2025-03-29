@@ -2,14 +2,14 @@ import type { CreatorData } from '@/utils/pathsCreators';
 
 import { creators } from '@/utils/pathsCreators';
 import { redirects } from '@/utils/pathsRedirect';
-import { compareStrings } from '@/utils/utils';
+import { compareStrings, getHref, internalLinkFilter, sortData } from '@/utils/utils';
 
 export const domain = 'yaphalla.com' as const;
 
 export type PathType = {
   href?: string;
   label?: string;
-  options?: PathType[];
+  options?: readonly PathType[];
   hideMobileOptions?: boolean;
 };
 
@@ -56,10 +56,10 @@ const paths = {
     href: '/editor',
     label: 'New Formation',
   },
-  Talents: {
-    href: '/talents',
-    label: 'Talents',
-  },
+  // Talents: {
+  //   href: '/talents',
+  //   label: 'Talents',
+  // },
   Creators: {
     href: '/creators',
     label: 'Creators',
@@ -119,6 +119,15 @@ const paths = {
     label: 'Other',
     options: [
       {
+        label: 'Tools',
+        options: [
+          {
+            href: '/editor/priority',
+            label: 'New Priority List',
+          },
+        ],
+      },
+      {
         label: 'Miscellaneous',
         options: [
           {
@@ -126,7 +135,7 @@ const paths = {
             label: 'Paragon Form',
           },
           {
-            href: redirects['/emotes'].href,
+            href: '/emotes',
             label: 'Emoji Server',
           },
         ],
@@ -147,9 +156,15 @@ const previews = {
 } as const;
 
 export const validHrefs = new Set([
-  ...[...Object.values(paths), ...Object.values(previews)]
-    .filter(({ href }) => href?.[0] === '/')
-    .map(({ href }) => href),
+  ...(
+    [...Object.values(paths), ...Object.values(previews)]
+      .filter(internalLinkFilter)
+      .flatMap(({ href, options: root }: PathType) => [
+        href,
+        ...(root ? root.flatMap(({ options }) => options?.filter(internalLinkFilter).map(getHref)) : []),
+      ])
+      .filter(Boolean) as string[]
+  ).sort(sortData),
   ...Object.values(redirects)
     .filter(({ noIndex }) => !noIndex)
     .map(({ redirect }) => redirect),

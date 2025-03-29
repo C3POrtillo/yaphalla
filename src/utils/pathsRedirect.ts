@@ -1,5 +1,6 @@
 import { fetchYouTubePicture } from '@/components/creators/utils';
 import { creators } from '@/utils/pathsCreators';
+import { joinStrings } from '@/utils/utils';
 
 export type RedirectType = {
   redirect: string;
@@ -25,7 +26,7 @@ const createLeaderboardKeywords = (string: string) => {
   for (const a of prefix) {
     for (const b of mid) {
       for (const c of suffix) {
-        keywords.push(`${a} ${string} ${b} ${c}`.trim());
+        keywords.push(joinStrings(a, string, b, c).trim());
       }
     }
   }
@@ -45,7 +46,7 @@ const createDiscordKeywords = (string?: string) => {
         if (prefix === 'Official' && suffix === 'Official Discord') {
           continue;
         }
-        result.push([prefix, name, string, suffix].filter(Boolean).join(' ').trim());
+        result.push(joinStrings(prefix, name, string, suffix).trim());
       }
     }
   }

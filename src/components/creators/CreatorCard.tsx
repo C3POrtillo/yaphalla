@@ -4,12 +4,12 @@ import Image from 'next/image';
 import type { CreatorData } from '@/utils/pathsCreators';
 import type { FC } from 'react';
 
-import { fetchYouTubePicture, getIcon, getPriority } from '@/components/creators/utils';
+import { fetchTwitchPicture, fetchYouTubePicture, getIcon, getPriority } from '@/components/creators/utils';
 import Link from '@/components/link/Link';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
 const CreatorCard: FC<CreatorData> = async ({ label, language, image, ...props }) => {
-  const { YouTube } = props;
+  const { YouTube, Twitch } = props;
   const links = Object.entries(props)
     .sort(([a], [b]) => {
       const priorityA = getPriority(a);
@@ -30,7 +30,8 @@ const CreatorCard: FC<CreatorData> = async ({ label, language, image, ...props }
         ),
     );
 
-  const creatorImage = (YouTube && (await fetchYouTubePicture(YouTube))) || image;
+  const creatorImage =
+    (YouTube && (await fetchYouTubePicture(YouTube))) || (Twitch && (await fetchTwitchPicture(Twitch))) || image;
 
   return (
     <div className="relative container-primary w-full flex flex-col gap-1 items-center sm:w-56">

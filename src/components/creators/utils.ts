@@ -38,13 +38,6 @@ const compareProperties = (
       return lengthComparison;
     }
 
-    if (property === 'YouTube' && b['Bilibili']) {
-      return -1;
-    }
-    if (property === 'Bilibili' && a['YouTube']) {
-      return 1;
-    }
-
     return compareStrings(creatorA, creatorB);
   }
 
@@ -54,49 +47,32 @@ const compareProperties = (
 export const sortCreators = (a: [string, CreatorData], b: [string, CreatorData]): number => {
   const [creatorA, dataA] = a;
   const [creatorB, dataB] = b;
+
   const discordComparison = compareProperties(a, b, 'Discord');
   if (discordComparison !== 0) {
     return discordComparison;
   }
 
-  if ('Discord' in a && 'Discord' in b) {
-    const lengthComparison = compareLength(dataA, dataB);
-    if (lengthComparison !== 0) {
-      return lengthComparison;
-    }
-
-    const youtubeComparison = compareProperties(a, b, 'YouTube');
-    if (youtubeComparison !== 0) {
-      return youtubeComparison;
-    }
-
-    const bilibiliComparison = compareProperties(a, b, 'Bilibili');
-    if (bilibiliComparison !== 0) {
-      return bilibiliComparison;
-    }
+  const fallbackSort =
+    compareProperties(a, b, 'YouTube') ||
+    compareProperties(a, b, 'Twitch') ||
+    compareProperties(a, b, 'Bilibili') ||
+    compareStrings(creatorA, creatorB);
+  if ('Discord' in dataA && 'Discord' in dataB) {
+    return compareLength(dataA, dataB) || fallbackSort;
   }
 
-  if ('Discord' in dataA && !('Discord' in dataB)) {
+  if ('Discord' in dataA) {
     return -1;
   }
-  if (!('Discord' in dataA) && 'Discord' in dataB) {
+  if ('Discord' in dataB) {
     return 1;
   }
 
-  const youtubeComparison = compareProperties(a, b, 'YouTube');
-  if (youtubeComparison !== 0) {
-    return youtubeComparison;
-  }
-
-  const bilibiliComparison = compareProperties(a, b, 'Bilibili');
-  if (bilibiliComparison !== 0) {
-    return bilibiliComparison;
-  }
-
-  return compareStrings(creatorA, creatorB);
+  return fallbackSort;
 };
 
-export const fetchYouTubePicture = async (url: string): Promise<string | null> => {
+export const fetchPicture = async (url: string, regExp: RegExp): Promise<string | null> => {
   try {
     if (!url) {
       throw new Error('No URL provided');
@@ -107,7 +83,6 @@ export const fetchYouTubePicture = async (url: string): Promise<string | null> =
     }
 
     const html = await response.text();
-    const regExp = /<link rel="image_src" href="(.*?)"/;
     const match = html.match(regExp);
 
     return match && match[1];
@@ -117,3 +92,9 @@ export const fetchYouTubePicture = async (url: string): Promise<string | null> =
     return null;
   }
 };
+
+export const fetchYouTubePicture = async (url: string): Promise<string | null> =>
+  fetchPicture(url, /<link rel="image_src" href="(.*?)"/is);
+
+export const fetchTwitchPicture = async (url: string): Promise<string | null> =>
+  fetchPicture(url, /<meta content="([^"]+)" property="og:image"\s*\/?>/is);

@@ -93,4 +93,8 @@ export const creators = {
     image: '/assets/images/creators/frosty.png',
     language: 'cn',
   } as CreatorData,
+  '/atraxy': {
+    label: 'Atraxy',
+    Twitch: 'https://www.twitch.tv/atraxy316',
+  } as CreatorData,
 } as const;

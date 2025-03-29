@@ -30,8 +30,8 @@ const Button: FC<ButtonProps> = ({
       !!tooltip && 'group relative',
       `border-1 border-transparent size-${size} bg-${hierarchy} input-${hierarchy}`,
       className,
-      selected && 'active-link',
-      selected && hasActiveBorder && 'active-border',
+      !disabled && selected && 'active-link',
+      !disabled && selected && hasActiveBorder && 'active-border',
       !!tooltip && selected && 'disabled:pointer-events-auto',
     )}
     disabled={selected || disabled}

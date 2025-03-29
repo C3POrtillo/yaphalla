@@ -14,7 +14,7 @@ interface BreadcrumbsProps {
 
 const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
   const currentPath = usePathname();
-  let buildPathString = '/';
+  let buildPathString = '';
   const paths = currentPath.split('/').slice(1);
   const formattedPaths = processPaths(paths, slug);
 
@@ -24,16 +24,19 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
         <div className="flex flex-row flex-wrap gap-2 size-base bg-primary-950/80">
           {formattedPaths.map((path, index) => {
             const label = titleCase(path);
-            const copy = buildPathString;
-            buildPathString += `${path}/`;
+            buildPathString += `/${path}`;
 
             return (
               <div key={path} className="flex flex-row items-center gap-1">
-                <p className="text-base">/</p>
+                {index === 0 ? (
+                  <Link href="/" className="input-tertiary text-base rounded-lg px-1" label="/" />
+                ) : (
+                  <p className="text-base">/</p>
+                )}
                 <Link
                   className="input-tertiary text-base rounded-lg px-1"
                   label={label}
-                  href={copy}
+                  href={buildPathString}
                   disabled={index === paths.length - 1}
                 />
               </div>

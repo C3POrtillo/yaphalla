@@ -9,3 +9,11 @@ export const processPaths = (paths: string[], slug: string[] | undefined) => {
     return path;
   });
 };
+
+export const getLgCols = (length: number) => {
+  if (length > 4) {
+    return `lg:grid-cols-${1 + Math.floor(length / 4)}`;
+  }
+
+  return null;
+};

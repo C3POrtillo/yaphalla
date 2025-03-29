@@ -1,7 +1,9 @@
+
 import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
 import { LinkClasses } from '@/components/header/types';
+import { getLgCols } from '@/components/header/utils';
 import Link from '@/components/link/Link';
 import LogoLink from '@/components/link/Logo';
 import Socials from '@/components/socials/Socials';
@@ -13,7 +15,7 @@ const Header: FC = () => {
   const navLinks = navigation.slice(1).map(data => {
     const { href: slug, label: title, options: rootOptions, hideMobileOptions } = data;
     const tooltip = rootOptions && (
-      <div className="flex flex-col gap-2 overflow-auto lg:flex-row ">
+      <div className="flex flex-col gap-2 overflow-auto lg:flex-row">
         {rootOptions.map(
           ({ label, options }) =>
             options && (
@@ -21,12 +23,7 @@ const Header: FC = () => {
                 <h2 className="hidden text-sm border-b-2 mb-1 border-tertiary-600 w-full text-left text-tertiary-600 lg:block">
                   {label}
                 </h2>
-                <div
-                  className={joinStrings(
-                    'inset-secondary grid gap-1 grid-cols-1',
-                    options.length > 6 ? 'lg:grid-cols-4' : 'lg:grid-cols-2',
-                  )}
-                >
+                <div className={joinStrings('inset-secondary grid gap-1 grid-cols-1', getLgCols(options.length))}>
                   {options.map(({ ...contentData }) => (
                     <Link key={contentData.label} className={joinStrings(LinkClasses, 'p-1')} {...contentData} />
                   ))}

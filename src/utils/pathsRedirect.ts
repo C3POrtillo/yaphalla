@@ -141,6 +141,7 @@ const discords = {
     redirect: '/official',
     label: 'Discord',
     href: 'https://discord.com/invite/afkjourney',
+    title: 'Join the Official Discord for AFKJ!',
     site: 'Discord',
     themeColor: '#a6dcd0',
     keywords: createDiscordKeywords(),
@@ -151,12 +152,13 @@ const discords = {
 const creatorDiscords = Object.fromEntries(
   Object.entries(creators)
     .filter(([_, { Discord }]) => Discord)
-    .map(([redirect, { Discord: href, YouTube }]) => [
+    .map(([redirect, { label, Discord: href, YouTube }]) => [
       redirect,
       {
         redirect,
         label: 'Discord',
         href,
+        title: `Join ${label}'s Discord`,
         site: 'Discord',
         fetchImage: async () => (YouTube ? await fetchYouTubePicture(YouTube) : null),
       } as RedirectType,

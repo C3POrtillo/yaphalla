@@ -2,11 +2,11 @@
 import { useSearchParams } from 'next/navigation';
 import { type FC, useState } from 'react';
 
-// import EditorClearButtons from '@/components/editor/EditorClearButtons';
-import { useFormation } from '@/components/editor/FormationProvider';
-import ArtifactGrid from '@/components/editor/SelectArtifact';
-import { DoubleArtifacts } from '@/components/editor/types';
-import { getDrawImage } from '@/components/editor/utils';
+// import EditorClearButtons from '@/components/formation/EditorClearButtons';
+import { useFormation } from '@/components/formation/FormationProvider';
+import ArtifactGrid from '@/components/formation/SelectArtifact';
+import { DoubleArtifacts } from '@/components/formation/types';
+import { getDrawImage } from '@/components/formation/utils';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';

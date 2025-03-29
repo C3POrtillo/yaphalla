@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 
 import type { FC } from 'react';
 
-import { useFormation } from '@/components/editor/FormationProvider';
-import { processTileData } from '@/components/editor/utils';
+import { useFormation } from '@/components/formation/FormationProvider';
+import { processTileData } from '@/components/formation/utils';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Logo from '@/components/hex-tiles/Logo';
 import { joinStrings } from '@/utils/utils';

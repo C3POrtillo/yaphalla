@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 
-import { useFormation } from '@/components/editor/FormationProvider';
-import { ArenaPresets } from '@/components/editor/types';
+import { useFormation } from '@/components/formation/FormationProvider';
+import { ArenaPresets } from '@/components/formation/types';
 import Button from '@/components/inputs/button/Button';
 import { ArtifactSet } from '@/utils/types';
 import { joinStrings } from '@/utils/utils';

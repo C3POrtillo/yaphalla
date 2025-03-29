@@ -2,10 +2,10 @@
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
-import EditorMain from '@/components/editor/EditorMain';
-import { useFormation } from '@/components/editor/FormationProvider';
-import SelectArenaPreset from '@/components/editor/SelectArenaPreset';
-import SelectBackgroundHex from '@/components/editor/SelectBackgroundHex';
+import EditorMain from '@/components/formation/EditorMain';
+import { useFormation } from '@/components/formation/FormationProvider';
+import SelectArenaPreset from '@/components/formation/SelectArenaPreset';
+import SelectBackgroundHex from '@/components/formation/SelectBackgroundHex';
 
 const FormationEditor: FC = () => {
   const { subMenu } = useFormation();

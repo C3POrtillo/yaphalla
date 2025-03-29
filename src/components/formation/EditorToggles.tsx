@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { useFormation } from '@/components/editor/FormationProvider';
+import { useFormation } from '@/components/formation/FormationProvider';
 import Toggle from '@/components/inputs/toggle/Toggle';
 
 const EditorToggles: FC = () => {

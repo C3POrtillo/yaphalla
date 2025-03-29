@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
 
-import { useFormation } from '@/components/editor/FormationProvider';
+import { useFormation } from '@/components/formation/FormationProvider';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { BaseHexData } from '@/utils/types';

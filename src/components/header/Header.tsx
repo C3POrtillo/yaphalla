@@ -11,8 +11,8 @@ import { navigation } from '@/utils/paths';
 import { joinStrings } from '@/utils/utils';
 
 const Header: FC = () => {
-  const navLinks = navigation.slice(1).map(data => {
-    const { href: slug, label: title, options: rootOptions, hideMobileOptions } = data;
+  const navLinks = navigation.slice(1).map(({ options: rootOptions, hideMobileOptions, ...data }) => {
+    const { href: slug, label: title, } = data;
     const tooltip = rootOptions && (
       <div className="flex flex-col gap-2 overflow-auto lg:flex-row">
         {rootOptions.map(

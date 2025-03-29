@@ -11,8 +11,11 @@ export const processPaths = (paths: string[], slug: string[] | undefined) => {
 };
 
 export const getLgCols = (length: number) => {
+  if (length > 8) {
+    return 'lg:grid-cols-3'
+  }
   if (length > 4) {
-    return `lg:grid-cols-${1 + Math.floor(length / 4)}`;
+    return 'lg:grid-cols-2';
   }
 
   return null;

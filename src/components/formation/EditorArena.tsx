@@ -1,14 +1,14 @@
 import { useMemo, useState } from 'react';
 
-import type { TileData } from '@/components/editor/types';
+import type { TileData } from '@/components/formation/types';
 import type { FC } from 'react';
 
-import ButtonArtifact from '@/components/editor/ButtonArtifact';
-import EditorClearButtons from '@/components/editor/EditorClearButtons';
-import EditorToggles from '@/components/editor/EditorToggles';
-import { useFormation } from '@/components/editor/FormationProvider';
-import { AlwaysShowStates, ObstacleStates, TileIndexToPosition } from '@/components/editor/types';
-import { getIsTopRight, getRelativeTileLabels, getTalentTiles, processTileData } from '@/components/editor/utils';
+import ButtonArtifact from '@/components/formation/ButtonArtifact';
+import EditorClearButtons from '@/components/formation/EditorClearButtons';
+import EditorToggles from '@/components/formation/EditorToggles';
+import { useFormation } from '@/components/formation/FormationProvider';
+import { AlwaysShowStates, ObstacleStates, TileIndexToPosition } from '@/components/formation/types';
+import { getIsTopRight, getRelativeTileLabels, getTalentTiles, processTileData } from '@/components/formation/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 // import Text from '@/components/inputs/text/Text';
 import { joinStrings } from '@/utils/utils';

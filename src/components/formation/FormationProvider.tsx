@@ -1,12 +1,12 @@
 'use-client';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
-import type { ArtifactFormationData, TileData, UnitFormationData } from '@/components/editor/types';
+import type { ArtifactFormationData, TileData, UnitFormationData } from '@/components/formation/types';
 import type { BaseHexes, Talents } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { AlwaysShowStates, ArenaPresets, TalentRequiredUnits } from '@/components/editor/types';
-import { countUnits } from '@/components/editor/utils';
+import { AlwaysShowStates, ArenaPresets, TalentRequiredUnits } from '@/components/formation/types';
+import { countUnits } from '@/components/formation/utils';
 import { ArtifactSet } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 

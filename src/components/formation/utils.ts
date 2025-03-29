@@ -1,7 +1,7 @@
-import type { TileDivData, UnitFormationData } from '@/components/editor/types';
+import type { TileDivData, UnitFormationData } from '@/components/formation/types';
 import type { BaseHexes, Talents } from '@/utils/types';
 
-import { TalentLocations, TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/editor/types';
+import { TalentLocations, TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/formation/types';
 import { PairSet, UnitPairs, UnitsByFaction } from '@/utils/types';
 import { compareStrings, sortData } from '@/utils/utils';
 

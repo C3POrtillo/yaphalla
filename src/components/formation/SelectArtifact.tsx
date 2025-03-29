@@ -6,7 +6,7 @@ import type { ArtifactSource } from '@/utils/types';
 import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
-import { useFormation } from '@/components/editor/FormationProvider';
+import { useFormation } from '@/components/formation/FormationProvider';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Button from '@/components/inputs/button/Button';
 import { Artifacts, currentSeason } from '@/utils/types';

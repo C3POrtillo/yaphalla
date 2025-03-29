@@ -55,6 +55,17 @@ const paths = {
   Editor: {
     href: '/editor',
     label: 'New Formation',
+    options: [
+      {
+        label: 'Tools',
+        options: [
+          {
+            href: '/editor/priority',
+            label: 'New Priority List',
+          },
+        ],
+      },
+    ],
   },
   // Talents: {
   //   href: '/talents',
@@ -118,15 +129,6 @@ const paths = {
     href: undefined,
     label: 'Other',
     options: [
-      {
-        label: 'Tools',
-        options: [
-          {
-            href: '/editor/priority',
-            label: 'New Priority List',
-          },
-        ],
-      },
       {
         label: 'Miscellaneous',
         options: [

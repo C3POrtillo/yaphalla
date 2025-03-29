@@ -1,4 +1,6 @@
-import { type FC, Suspense } from 'react';
+import { Suspense } from 'react';
+
+import type { FC } from 'react';
 
 import { useFormation } from '@/components/formation/FormationProvider';
 import UnitGrid from '@/components/unit-grid/UnitGrid';

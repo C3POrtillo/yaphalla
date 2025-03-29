@@ -3,6 +3,7 @@ import Image from 'next/image';
 import type { BaseHexes } from '@/utils/types';
 import type { FC, ReactNode } from 'react';
 
+import { exclusionClasses } from '@/components/export-image/types';
 import { getSizeClass } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { HexPath, LogoRegExp } from '@/utils/types';
@@ -22,6 +23,7 @@ export interface HexImageProps {
   forceOutline?: BaseHexes | false;
   size?: 'md' | 'sm' | 'xs' | '2xs';
   tooltip?: ReactNode;
+  exportIgnore?: boolean;
 }
 
 const HexImage: FC<HexImageProps> = ({
@@ -38,6 +40,7 @@ const HexImage: FC<HexImageProps> = ({
   size = 'md',
   tooltip,
   forceOutline,
+  exportIgnore,
 }) => {
   const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
     imageSrc,
@@ -79,7 +82,12 @@ const HexImage: FC<HexImageProps> = ({
         </div>
       )}
       {assetSrcs.map((imageSrc, layer) => (
-        <Asset key={`${imageSrc}-${layer}`} imageSrc={imageSrc} zIndex={layer ? `z-${layer}` : undefined} />
+        <Asset
+          key={`${imageSrc}-${layer}`}
+          className={exportIgnore ? exclusionClasses[0] : undefined}
+          imageSrc={imageSrc}
+          zIndex={layer ? `z-${layer}` : undefined}
+        />
       ))}
       {tooltip && (
         <Tooltip className="text-xs bottom-0 translate-y-2/3" preWrapText={false}>

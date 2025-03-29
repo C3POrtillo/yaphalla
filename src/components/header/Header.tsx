@@ -12,7 +12,7 @@ import { joinStrings } from '@/utils/utils';
 
 const Header: FC = () => {
   const navLinks = navigation.slice(1).map(({ options: rootOptions, hideMobileOptions, ...data }) => {
-    const { href: slug, label: title, } = data;
+    const { href: slug, label: title } = data;
     const tooltip = rootOptions && (
       <div className="flex flex-col gap-2 overflow-auto lg:flex-row">
         {rootOptions.map(
@@ -22,7 +22,18 @@ const Header: FC = () => {
                 <h2 className="hidden text-sm border-b-2 mb-1 border-tertiary-600 w-full text-left text-tertiary-600 lg:block">
                   {label}
                 </h2>
-                <div className={joinStrings('inset-secondary grid gap-1 grid-cols-1 !p-1', getLgCols(options.length))}>
+                <div
+                  className={joinStrings(
+                    'inset-secondary grid gap-1 grid-cols-1 !p-1 !rounded-t-none',
+                    getLgCols(options.length),
+                  )}
+                >
+                  {slug && (
+                    <Link
+                      className={joinStrings(LinkClasses, 'p-1', rootOptions && !hideMobileOptions && 'lg:hidden')}
+                      {...data}
+                    />
+                  )}
                   {options.map(({ ...contentData }) => (
                     <Link
                       key={contentData.label}
@@ -39,7 +50,7 @@ const Header: FC = () => {
 
     const accordionLink = !!tooltip && (
       <div className="w-full block lg:hidden">
-        <Accordion key={`${slug || title} Accordion`} label={title} hierarchy="primary">
+        <Accordion key={`${slug || title} Accordion`} label={slug ? rootOptions[0].label : title} hierarchy="primary">
           {tooltip}
         </Accordion>
       </div>
@@ -51,7 +62,11 @@ const Header: FC = () => {
           {accordionLink}
           <div
             key={title}
-            className={joinStrings('relative group hidden text-base !cursor-default', LinkClasses, 'p-2 lg:flex')}
+            className={joinStrings(
+              'relative group hidden',
+              LinkClasses,
+              'text-base !cursor-default !text-white p-2 lg:flex',
+            )}
           >
             {title}
             <Tooltip className="top-full !bg-primary-950 !w-max" pointerEvents>
@@ -68,7 +83,7 @@ const Header: FC = () => {
           LinkClasses,
           'p-2',
           tooltip && 'group-secondary',
-          tooltip && !hideMobileOptions && '!hidden lg:flex',
+          tooltip && !hideMobileOptions && '!hidden lg:!flex',
         )}
         tooltip={tooltip}
         {...data}

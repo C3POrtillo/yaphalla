@@ -5,13 +5,14 @@ import { useMediaQuery } from 'react-responsive';
 import type { UnitDivData } from '@/components/unit-grid/types';
 import type { FC } from 'react';
 
+import Button from '@/components/inputs/button/Button';
 import Text from '@/components/inputs/text/Text';
 import Toggle from '@/components/inputs/toggle/Toggle';
 import UnitButtons from '@/components/unit-grid/UnitButtons';
 import UnitFilter from '@/components/unit-grid/UnitFilters';
 import { getFormattedUnits } from '@/components/unit-grid/utils';
 import { Faction, UnitClass } from '@/utils/types';
-import { compareStrings, isDevMode, joinStrings } from '@/utils/utils';
+import { isDevMode, joinStrings } from '@/utils/utils';
 
 export interface UnitGridProps {
   currentUnit: string | false | undefined;
@@ -24,15 +25,27 @@ const UnitGrid: FC<UnitGridProps> = ({ currentUnit, disabled, onClick }) => {
   const isDev = isDevMode(searchParams);
   const isMdScreen = useMediaQuery({ query: '(min-width: 768px)' });
   const isXlScreen = useMediaQuery({ query: '(min-width: 1280px)' });
-  const [variant, setVariant] = useState<'unit' | 'class'>('unit');
+  const [variant, setVariant] = useState(0);
   const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
   const [filterFaction, setFilterFaction] = useState<Faction>();
   const [filterClass, setFilterClass] = useState<UnitClass>();
   const [filterSearch, setFilterSearch] = useState('');
 
   useEffect(() => {
-    setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant, isDev));
-  }, [isMdScreen, isXlScreen, variant, isDev]);
+    setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant));
+  }, [isMdScreen, isXlScreen, variant]);
+
+  const devOptions = isDev && (
+    <div className="flex flex-row gap-1">
+      {['Units', 'Other', 'Dev']
+        .map((label, i) => (
+          <Button key={label} size="sm" selected={variant === i} hasActiveBorder onClick={() => setVariant(i)}>
+            {label}
+          </Button>
+        ))
+        .reverse()}
+    </div>
+  );
 
   return (
     <div className="container-primary w-full flex flex-col gap-2 p-2 sm:w-min">
@@ -42,15 +55,17 @@ const UnitGrid: FC<UnitGridProps> = ({ currentUnit, disabled, onClick }) => {
           <UnitFilter items={Faction} filter={filterFaction} setFilter={setFilterFaction} path="factions" />
         </div>
         <Text label="Search" setState={setFilterSearch} placeholder="Name/Faction/Class" value={filterSearch}>
-          <Toggle
-            variant="switch"
-            disableLabel="Other"
-            value="Units"
-            onChange={e => {
-              setVariant(e.target.checked ? 'unit' : 'class');
-            }}
-            defaultChecked={!compareStrings(variant, 'unit')}
-          />
+          {devOptions || (
+            <Toggle
+              variant="switch"
+              disableLabel="Other"
+              value="Units"
+              onChange={e => {
+                setVariant(e.target.checked ? 0 : 1);
+              }}
+              defaultChecked={variant === 0}
+            />
+          )}
         </Text>
       </div>
       <div className="relative flex size-full flex-row justify-center">

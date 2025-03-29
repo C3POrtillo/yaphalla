@@ -14,7 +14,6 @@ import SelectUnit from '@/components/formation/SelectUnit';
 const EditorMain: FC = () => {
   const [isActive, setActive] = useState(false);
   const {
-    title,
     preset,
     isEnemy,
     isEmpty,
@@ -65,7 +64,6 @@ const EditorMain: FC = () => {
         </div>
         <div className="size-full flex flex-col gap-2 items-center sm:w-fit">
           <ExportImage
-            fileName={title}
             disabled={isEditArena}
             selected={isActive}
             getImage={async () => {

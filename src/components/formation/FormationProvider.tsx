@@ -7,6 +7,7 @@ import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { AlwaysShowStates, ArenaPresets, TalentRequiredUnits } from '@/components/formation/types';
 import { countUnits } from '@/components/formation/utils';
+import { getPath } from '@/components/unit-grid/utils';
 import { ArtifactSet } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 
@@ -177,7 +178,6 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       hideUnits?: boolean,
       disableEnemy?: boolean,
     ) => {
-      const path = unit ? ('unit' as const) : ('base' as const);
       let src = 'Grid-Outline';
 
       if ((!hideUnits && ArtifactSet.has(unit)) || (!unit && state === 2)) {
@@ -207,6 +207,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       if (state === -3) {
         src = 'Unbreakable-Hex';
       }
+
+      const path = getPath(src);
 
       return { src, path };
     },

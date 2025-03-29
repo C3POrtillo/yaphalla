@@ -1,5 +1,5 @@
 'use client';
-import { type FC } from 'react';
+import type { FC } from 'react';
 
 import { useFormation } from '@/components/formation/FormationProvider';
 import HexImage from '@/components/hex-tiles/HexImage';

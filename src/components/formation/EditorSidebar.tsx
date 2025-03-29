@@ -1,6 +1,8 @@
 'use-client';
 import { useSearchParams } from 'next/navigation';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
+
+import type { FC } from 'react';
 
 // import EditorClearButtons from '@/components/formation/EditorClearButtons';
 import { useFormation } from '@/components/formation/FormationProvider';

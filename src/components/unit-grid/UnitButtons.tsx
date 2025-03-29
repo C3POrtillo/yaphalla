@@ -7,7 +7,7 @@ import type { FC } from 'react';
 
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import UnitTooltip from '@/components/unit-grid/UnitTooltip';
-import { ArtifactSet } from '@/utils/types';
+import { getPath } from '@/components/unit-grid/utils';
 import { cleanString, compareStrings, joinStrings, testRegex } from '@/utils/utils';
 
 interface UnitButtonProps extends UnitGridProps {
@@ -34,7 +34,7 @@ const UnitButtons: FC<UnitButtonProps> = ({
     <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>
       {tiles.map(unitData => {
         const { unit, faction, unitClass } = unitData;
-        const path = ArtifactSet.has(unit) ? 'artifact' : 'unit';
+        const path = getPath(unit);
         const matchesFaction = testRegex(faction, regexFaction);
         const matchesClass = testRegex(unitClass, regexClass);
         const validSearch = testRegex([faction, unitClass, unit].join(' '), regexSearch);

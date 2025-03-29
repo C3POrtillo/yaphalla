@@ -287,9 +287,6 @@
     --webkit-transition: ease-in-out .2s;
     transition-propery: all;
   }
-  .group-primary, .group-secondary, .group-tertiary {
-    @apply group-hover:text-tertiary-300
-  }
   .input-primary, .group-primary {
     @apply hover:bg-primary-600 active:bg-primary-600 disabled:bg-primary-950;
   }
@@ -343,8 +340,14 @@
     --webkit-transition: ease-in-out .1s;
     transition-propery: all;
   }
+  .container-primary, .container-secondary {
+    @apply p-2 rounded-lg shadow-sm shadow-black;
+  }
   .container-primary {
-    @apply bg-primary-950/80 p-2 rounded-lg shadow-sm shadow-black;
+    @apply bg-primary-950/80;
+  }
+  .container-secondary {
+    @apply bg-primary-700/80;
   }
   .inset, .inset-primary, .inset-secondary, .inset-black {
     box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.50) inset;

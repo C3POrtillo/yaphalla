@@ -1,4 +1,6 @@
-export const exportToPNG = async (image: string, fileName: string) => {
+import { exclusionClasses } from '@/components/export-image/types';
+
+export const exportToPNG = async (image: string, fileName: string | undefined) => {
   const link = document.createElement('a');
   link.href = image;
   link.download = `${fileName || 'download'}.png`;
@@ -16,3 +18,5 @@ export const copy = async (image: string) => {
     console.error('Failed to copy image:', error);
   }
 };
+
+export const filter = (node: HTMLElement) => !exclusionClasses.some(classname => node.classList?.contains(classname));

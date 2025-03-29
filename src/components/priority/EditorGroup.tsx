@@ -30,9 +30,9 @@ const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty }) => {
 
   return (
     <div className="relative flex flex-col gap-4 items-center">
-      <div className={joinStrings('container-secondary flex flex-col gap-1 !p-1', exclusionClasses[0])}>
+      <div className={joinStrings('absolute bg-primary rounded-lg flex flex-col gap-1 !p-1 z-20 bottom-full -translate-y-3/5', exclusionClasses[0])}>
         <Text
-          label={joinStrings('Units', maxItems && `(Max: ${maxItems})`)}
+          label={joinStrings('Group', group + 1, maxItems && `(Max: ${maxItems})`)}
           value={count}
           setState={setCount}
           type="number"
@@ -42,7 +42,7 @@ const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty }) => {
         />
         <Toggle
           value={`offset-${group}`}
-          activeLabel="Offset Col 2"
+          activeLabel="Staggered"
           hierarchy="secondary"
           onChange={e => {
             setOffset(e.target.checked);

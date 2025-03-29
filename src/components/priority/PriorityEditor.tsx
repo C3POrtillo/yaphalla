@@ -58,21 +58,24 @@ const PriorityEditor: FC = () => {
       </Container>
       <Container className="hidden my-2 xl:flex">
         <div className="flex flex-row gap-2 w-full max-w-[1920px] px-2">
-          <div className="container-primary flex flex-col w-full grow gap-2">
-            <div className="flex flex-row gap-2 items-center">
-              <span>Gap: </span>
-              {sizes}
-              <span>|</span>
-              {toggles}
-            </div>
-            <div className="inset-black flex justify-center size-full !p-4">
-              <div
-                id="unit-grid"
-                className={joinStrings('flex flex-row justify-center size-min', !offset && getGap(gap))}
-              >
-                {new Array(getValidCount(groups)).fill(0).map((_, i) => (
-                  <EditorGroup key={i} group={i} offsetRow={offset} hideEmpty={hideEmpty} />
-                ))}
+          <div className='flex flex-col gap-2'>
+            <div className='container-primary h-32'/>
+            <div className="container-primary flex flex-col w-full grow gap-2">
+              <div className="flex flex-row gap-2 items-center">
+                <span>Gap: </span>
+                {sizes}
+                <span>|</span>
+                {toggles}
+              </div>
+              <div className="inset-black flex justify-center size-full !p-4">
+                <div
+                  id="unit-grid"
+                  className={joinStrings('flex flex-row justify-center size-min', !offset && getGap(gap))}
+                >
+                  {new Array(getValidCount(groups)).fill(0).map((_, i) => (
+                    <EditorGroup key={i} group={i} offsetRow={offset} hideEmpty={hideEmpty} />
+                  ))}
+                </div>
               </div>
             </div>
           </div>

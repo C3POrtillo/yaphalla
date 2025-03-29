@@ -79,7 +79,7 @@ const Header: FC = () => {
           <div
             key={title}
             className={joinStrings(
-              'relative group hidden',
+              'relative group hidden items-center',
               LinkClasses,
               'text-base !cursor-default !text-white p-2 lg:flex',
             )}
@@ -111,7 +111,7 @@ const Header: FC = () => {
     );
 
     return (
-      <div key={slug || title} className="w-full lg:w-fit">
+      <div key={slug || title} className="flex items-center w-full lg:w-fit">
         {!hideMobileOptions && accordionLink}
         {mainLink}
       </div>
@@ -119,7 +119,7 @@ const Header: FC = () => {
   });
 
   return (
-    <header className="relative header sticky-header">
+    <header className="relative header sticky-header min-h-14">
       <div className="mx-auto hidden min-h-6 w-full max-w-7xl flex-row items-center justify-between gap-4 px-4 lg:flex">
         <div className="flex flex-row items-center gap-6">
           <LogoLink />
@@ -129,7 +129,7 @@ const Header: FC = () => {
           <Socials />
         </div>
       </div>
-      <div className="absolute flex min-h-8 w-full top-0 flex-row lg:hidden z-10">
+      <div className="absolute flex w-full top-0 flex-row lg:hidden z-10">
         <Accordion
           className="header"
           label={<LogoLink />}

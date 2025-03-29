@@ -4,13 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 import type { HierarchyTypes } from '@/utils/siteTypes';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 
-import { joinStrings } from '@/utils/utils';
+import { joinStrings, solidIcon } from '@/utils/utils';
 
 interface AccordionProps extends PropsWithChildren {
   className?: string;
   hierarchy?: HierarchyTypes;
   label?: string | ReactNode;
-  icon?: 'fa-bars';
+  icon?: string;
   labelIsClickable?: boolean;
   keepOpen?: boolean;
   ariaLabel?: string;
@@ -62,7 +62,7 @@ const Accordion: FC<AccordionProps> = ({
     };
   }, [isOpen]);
 
-  const faIcon = icon || (isOpen ? 'fa-chevron-up' : 'fa-chevron-down');
+  const faIcon = icon || (isOpen ? 'chevron-up' : 'chevron-down');
 
   return (
     <div ref={accordionRef} className="flex w-full flex-col">
@@ -91,8 +91,8 @@ const Accordion: FC<AccordionProps> = ({
             {isClickable && label}
             <i
               className={joinStrings(
-                'fa self-center before:text-2xl lg:before:text-lg',
-                faIcon,
+                'self-center before:text-2xl lg:before:text-lg',
+                solidIcon(faIcon),
                 !isClickable && 'mx-auto',
               )}
             />

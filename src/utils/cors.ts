@@ -7,9 +7,9 @@ const isOriginAllowed = (origin: string): boolean => {
     return true;
   }
 
-  const regex = /^https?:\/\/.*\.c3portillos-projects\.vercel\.app$/;
+  const regExp = /^https?:\/\/.*\.c3portillos-projects\.vercel\.app$/;
 
-  return regex.test(origin);
+  return regExp.test(origin);
 };
 
 type Handler = (req: NextApiRequest, res: NextApiResponse) => void;

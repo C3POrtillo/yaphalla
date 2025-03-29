@@ -28,7 +28,7 @@ const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty, isDev 
   const equal = Math.floor(validCount / 2);
   const col1 = equal + (validCount % 2);
   const col2 = equal;
-  const columns = [new Array(col1).fill(0), new Array(col2).fill(0)] as number[][]
+  const columns = [new Array(col1).fill(0), new Array(col2).fill(0)] as number[][];
 
   return (
     <div className="relative flex flex-col gap-4 items-center">

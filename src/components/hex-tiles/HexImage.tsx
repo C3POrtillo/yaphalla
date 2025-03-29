@@ -7,7 +7,7 @@ import { exclusionClasses } from '@/components/export-image/types';
 import { getSizeClass } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { HexPath, LogoRegExp } from '@/utils/types';
-import { compareStrings, joinStrings, testRegex } from '@/utils/utils';
+import { compareStrings, joinStrings, testRegExp } from '@/utils/utils';
 
 export interface HexImageProps {
   src: string;
@@ -61,7 +61,7 @@ const HexImage: FC<HexImageProps> = ({
 
   const assetSrcs = [
     !hideImage && `${path}/${src}`,
-    isEnemy && !compareStrings(path, 'unit') && !testRegex(src, LogoRegExp) && 'base/Enemy-Overlay',
+    isEnemy && !compareStrings(path, 'unit') && !testRegExp(src, LogoRegExp) && 'base/Enemy-Overlay',
     !hideImage && !isEnemy && forceOutline && `base/${forceOutline}`,
     isTalent && 'base/Talent-Selected',
     !disabled && selected && 'base/Select-Outline',

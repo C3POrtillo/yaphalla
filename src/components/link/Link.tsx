@@ -29,12 +29,12 @@ const Link: FC<LinkProps> = ({ href, label, className, disabled, children, toolt
     <NextLink
       key={parsedHref}
       href={parsedHref}
-      className={joinStrings('flex items-center', className, activeClass, invalidLinkClass)}
+      className={joinStrings('flex items-center flex-row gap-1', className, activeClass, invalidLinkClass)}
       {...linkData}
       {...props}
     >
-      {label}
       {children}
+      {label}
     </NextLink>
   );
 

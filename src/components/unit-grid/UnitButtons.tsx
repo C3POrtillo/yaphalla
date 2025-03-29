@@ -8,7 +8,7 @@ import type { FC } from 'react';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import UnitTooltip from '@/components/unit-grid/UnitTooltip';
 import { getPath } from '@/components/unit-grid/utils';
-import { cleanString, compareStrings, joinStrings, testRegex } from '@/utils/utils';
+import { cleanString, compareStrings, joinStrings, testRegExp } from '@/utils/utils';
 
 interface UnitButtonProps extends UnitGridProps {
   formattedUnits: UnitDivData[];
@@ -35,9 +35,9 @@ const UnitButtons: FC<UnitButtonProps> = ({
       {tiles.map(unitData => {
         const { unit, faction, unitClass } = unitData;
         const path = getPath(unit);
-        const matchesFaction = testRegex(faction, regexFaction);
-        const matchesClass = testRegex(unitClass, regexClass);
-        const validSearch = testRegex([faction, unitClass, unit].join(' '), regexSearch);
+        const matchesFaction = testRegExp(faction, regexFaction);
+        const matchesClass = testRegExp(unitClass, regexClass);
+        const validSearch = testRegExp([faction, unitClass, unit].join(' '), regexSearch);
         const sameUnit = !!currentUnit && !compareStrings(currentUnit, unit);
         const isValid =
           filterFaction === undefined && filterClass === undefined

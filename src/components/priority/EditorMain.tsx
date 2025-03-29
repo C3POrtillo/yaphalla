@@ -2,7 +2,6 @@
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
-
 import type { ChangeEvent, FC } from 'react';
 
 import Button from '@/components/inputs/button/Button';

@@ -2,7 +2,7 @@ import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
 import { LinkClasses } from '@/components/header/types';
-import { getLgCols } from '@/components/header/utils';
+import { getLgCols, getLinkIcon } from '@/components/header/utils';
 import Link from '@/components/link/Link';
 import LogoLink from '@/components/link/Logo';
 import Socials from '@/components/socials/Socials';
@@ -13,6 +13,12 @@ import { joinStrings } from '@/utils/utils';
 const Header: FC = () => {
   const navLinks = navigation.slice(1).map(({ options: rootOptions, hideMobileOptions, ...data }) => {
     const { href: slug, label: title } = data;
+    let rootIconName = getLinkIcon(slug);
+    if (!slug) {
+      rootIconName = getLinkIcon(title);
+    }
+    const rootIcon = !!rootIconName && <i className={joinStrings('!text-base w-5', rootIconName)} />;
+
     const tooltip = rootOptions && (
       <div className="flex flex-col gap-2 overflow-auto lg:flex-row">
         {rootOptions.map(
@@ -28,14 +34,29 @@ const Header: FC = () => {
                     getLgCols(options.length),
                   )}
                 >
-                  {slug && <Link className={joinStrings(LinkClasses, 'p-1', rootOptions && 'lg:hidden')} {...data} />}
-                  {options.map(({ ...contentData }) => (
-                    <Link
-                      key={contentData.label}
-                      className={joinStrings(LinkClasses, 'p-1 lg:w-full lg:justify-start')}
-                      {...contentData}
-                    />
-                  ))}
+                  {slug && (
+                    <Link className={joinStrings(LinkClasses, 'p-1', rootOptions && 'lg:hidden')} {...data}>
+                      {rootIcon}
+                    </Link>
+                  )}
+                  {options.map(({ ...contentData }) => {
+                    const { label: contentLabel, href } = contentData;
+                    if (!href) {
+                      return null;
+                    }
+                    const iconName = getLinkIcon(href);
+                    const icon = !!iconName && <i className={joinStrings('!text-base w-5', iconName)} />;
+
+                    return (
+                      <Link
+                        key={contentLabel}
+                        className={joinStrings(LinkClasses, 'p-1 lg:w-full lg:justify-start')}
+                        {...contentData}
+                      >
+                        {icon}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             ),
@@ -63,6 +84,7 @@ const Header: FC = () => {
               'text-base !cursor-default !text-white p-2 lg:flex',
             )}
           >
+            {rootIcon}
             {title}
             <Tooltip className="top-full !bg-primary-950 !w-max" pointerEvents>
               {tooltip}
@@ -83,7 +105,9 @@ const Header: FC = () => {
         tooltip={tooltip}
         {...data}
         hideMobileTooltip={hideMobileOptions}
-      />
+      >
+        {rootIcon}
+      </Link>
     );
 
     return (
@@ -95,7 +119,7 @@ const Header: FC = () => {
   });
 
   return (
-    <header className="header sticky-header">
+    <header className="relative header sticky-header">
       <div className="mx-auto hidden min-h-6 w-full max-w-7xl flex-row items-center justify-between gap-4 px-4 lg:flex">
         <div className="flex flex-row items-center gap-6">
           <LogoLink />
@@ -105,12 +129,12 @@ const Header: FC = () => {
           <Socials />
         </div>
       </div>
-      <div className="flex min-h-8 w-full flex-row lg:hidden">
+      <div className="absolute flex min-h-8 w-full top-0 flex-row lg:hidden z-10">
         <Accordion
           className="header"
           label={<LogoLink />}
           hierarchy="tertiary"
-          icon="fa-bars"
+          icon="bars"
           ariaLabel="Toggle Navigation Menu"
           labelIsClickable={false}
         >

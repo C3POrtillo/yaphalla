@@ -32,7 +32,7 @@ const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty }) => {
     <div className="relative flex flex-col gap-4 items-center">
       <div
         className={joinStrings(
-          'absolute bg-primary rounded-lg flex flex-col gap-1 !p-1 z-20 bottom-full -translate-y-3/5',
+          'absolute bg-primary rounded-lg flex flex-col gap-1 !p-1 z-20 bottom-full -translate-y-2/3',
           exclusionClasses[0],
         )}
       >

@@ -45,7 +45,7 @@ const Link: FC<LinkProps> = ({ href, label, className, disabled, children, toolt
         <Tooltip
           className={joinStrings(
             'top-full !bg-primary-950 !w-max',
-            hideMobileTooltip && '!group-hover:hidden !group-active:hidden lg:group-hover:block lg:group-active:block',
+            hideMobileTooltip && 'group-hover:!hidden group-active:!hidden lg:group-hover:!block lg:group-active:!block',
           )}
           pointerEvents
         >

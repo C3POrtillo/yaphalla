@@ -1,88 +1,86 @@
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
 import { LinkClasses } from '@/components/header/types';
-import { processCreators } from '@/components/header/utils';
 import Link from '@/components/link/Link';
 import LogoLink from '@/components/link/Logo';
 import Socials from '@/components/socials/Socials';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { navigation } from '@/utils/paths';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { joinStrings } from '@/utils/utils';
 
 const Header: FC = () => {
   const navLinks = navigation.slice(1).map(data => {
-    const { href: slug, label: title, options } = data;
-    let tooltip: ReactNode;
-
-    if (!compareStrings(data.label!, 'Creators')) {
-      const tooltipDivs = [
-        {
-          label: 'Creators',
-          content: processCreators(({ YouTube, Bilibili }) => !!(YouTube || Bilibili), ['YouTube', 'Bilibili']),
-        },
-        { label: 'Discords', content: processCreators(({ Discord }) => !!Discord, ['Discord']) },
-      ] as const;
-
-      tooltip = (
-        <div className="flex flex-row gap-2">
-          {tooltipDivs.map(({ label, content }) => (
-            <div key={label} className="flex flex-col">
-              <h2 className="text-base border-b-2 mb-1 border-tertiary-600 w-full text-left text-tertiary-600">
-                {label}
-              </h2>
-              <div
-                className={joinStrings(
-                  'inset-secondary grid gap-1',
-                  content.length > 6 ? 'grid-cols-3' : 'grid-cols-2',
-                )}
-              >
-                {content.map(({ ...contentData }) => (
-                  <Link key={contentData.label} className={joinStrings(LinkClasses, 'px-1')} {...contentData} />
-                ))}
+    const { href: slug, label: title, options: rootOptions, hideMobileOptions } = data;
+    const tooltip = rootOptions && (
+      <div className="flex flex-col gap-2 overflow-auto lg:flex-row ">
+        {rootOptions.map(
+          ({ label, options }) =>
+            options && (
+              <div key={label} className="flex flex-col">
+                <h2 className="hidden text-sm border-b-2 mb-1 border-tertiary-600 w-full text-left text-tertiary-600 lg:block">
+                  {label}
+                </h2>
+                <div
+                  className={joinStrings(
+                    'inset-secondary grid gap-1 grid-cols-1',
+                    options.length > 6 ? 'lg:grid-cols-4' : 'lg:grid-cols-2',
+                  )}
+                >
+                  {options.map(({ ...contentData }) => (
+                    <Link key={contentData.label} className={joinStrings(LinkClasses, 'p-1')} {...contentData} />
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      );
-    }
+            ),
+        )}
+      </div>
+    );
 
-    if (!slug && options) {
-      const optionLinks = (
-        <div
-          className={joinStrings(
-            'inset-secondary grid gap-1 !rounded-t-none lg:!rounded-t-lg',
-            options.length > 1 ? 'grid-cols-1 lg:grid-cols-2' : 'grid-cols-1',
-          )}
-        >
-          {options.map(({ ...option }) => (
-            <Link key={option.href} className={joinStrings(LinkClasses, 'p-1')} {...option} />
-          ))}
-        </div>
-      );
+    const accordionLink = !!tooltip && (
+      <div className="w-full block lg:hidden">
+        <Accordion key={`${slug || title} Accordion`} label={title} hierarchy="primary">
+          {tooltip}
+        </Accordion>
+      </div>
+    );
 
+    if (!slug && tooltip) {
       return (
         <>
-          <div className="w-full block lg:hidden">
-            <Accordion key={`${title} Accordion`} label={title} hierarchy="primary">
-              {optionLinks}
-            </Accordion>
-          </div>
+          {accordionLink}
           <div
             key={title}
             className={joinStrings('relative group hidden text-base !cursor-default', LinkClasses, 'p-2 lg:flex')}
           >
             {title}
             <Tooltip className="top-full !bg-primary-950 !w-max" pointerEvents>
-              {optionLinks}
+              {tooltip}
             </Tooltip>
           </div>
         </>
       );
     }
 
+    const mainLink = (
+      <Link
+        className={joinStrings(
+          LinkClasses,
+          'p-2',
+          tooltip && 'group-secondary',
+          tooltip && !hideMobileOptions && '!hidden lg:flex',
+        )}
+        tooltip={tooltip}
+        {...data}
+        hideMobileTooltip={hideMobileOptions}
+      />
+    );
+
     return (
-      <Link className={joinStrings(LinkClasses, 'p-2')} key={slug} tooltip={tooltip} {...data} hideMobileTooltip />
+      <div key={slug || title} className="w-full lg:w-fit">
+        {!hideMobileOptions && accordionLink}
+        {mainLink}
+      </div>
     );
   });
 
@@ -106,7 +104,7 @@ const Header: FC = () => {
           ariaLabel="Toggle Navigation Menu"
           labelIsClickable={false}
         >
-          <div className="inset-primary flex flex-col gap-2 items-center p-2 bg-primary-800">
+          <div className="inset-primary flex flex-col gap-2 items-center p-2 bg-primary-800 overflow-auto">
             {navLinks}
             <Socials />
           </div>

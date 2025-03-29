@@ -1,18 +1,38 @@
+import type { CreatorData } from '@/utils/pathsCreators';
+
+import { creators } from '@/utils/pathsCreators';
 import { redirects } from '@/utils/pathsRedirect';
+import { compareStrings } from '@/utils/utils';
 
 export const domain = 'yaphalla.com' as const;
+
 export type PathType = {
   href?: string;
   label?: string;
   options?: PathType[];
+  hideMobileOptions?: boolean;
 };
+
+type ValidHrefs = ('Discord' | 'YouTube' | 'Bilibili')[];
+
+const processCreators = (filter: (creator: CreatorData) => boolean, hrefs: ValidHrefs) =>
+  Object.values(creators)
+    .filter(filter)
+    .sort(({ label: a }, { label: b }) => compareStrings(a, b))
+    .map(
+      ({ label, ...props }) =>
+        ({
+          label,
+          href: hrefs.map(site => props[site]).filter(Boolean)[0],
+        }) as PathType,
+    );
 
 export const socials = {
   Discord: {
     site: 'discord',
     href: 'https://discord.gg/yaphalla',
   },
-  X: {
+  Twitter: {
     site: 'x-twitter',
     href: 'https://x.com/yaphalla',
   },
@@ -43,22 +63,35 @@ const paths = {
   Creators: {
     href: '/creators',
     label: 'Creators',
+    options: [
+      {
+        label: 'Creators',
+        options: processCreators(({ YouTube, Bilibili }) => !!(YouTube || Bilibili), ['YouTube', 'Bilibili']),
+      },
+      { label: 'Discords', options: processCreators(({ Discord }) => !!Discord, ['Discord']) },
+    ],
+    hideMobileOptions: true,
   },
   Communities: {
     href: undefined,
     label: 'Communities',
     options: [
       {
-        href: redirects['/fight-club'].href,
-        label: 'Fight Club',
-      },
-      {
-        href: redirects['/vn'].href,
-        label: 'Vietnam Server',
-      },
-      {
-        href: redirects['/official'].href,
-        label: 'Official Server',
+        label: 'Discords',
+        options: [
+          {
+            href: redirects['/fight-club'].href,
+            label: 'Fight Club',
+          },
+          {
+            href: redirects['/vn'].href,
+            label: 'Vietnam Server',
+          },
+          {
+            href: redirects['/official'].href,
+            label: 'Official Server',
+          },
+        ],
       },
     ],
   },
@@ -67,12 +100,17 @@ const paths = {
     label: 'Leaderboards',
     options: [
       {
-        href: '/primal-lord',
-        label: 'Primal Lord',
-      },
-      {
-        href: '/battle-drills',
-        label: 'Battle Drills',
+        label: 'Google Sheets',
+        options: [
+          {
+            href: '/primal-lord',
+            label: 'Primal Lord',
+          },
+          {
+            href: '/battle-drills',
+            label: 'Battle Drills',
+          },
+        ],
       },
     ],
   },
@@ -81,12 +119,17 @@ const paths = {
     label: 'Other',
     options: [
       {
-        href: '/paragon-form',
-        label: 'Paragon Form',
-      },
-      {
-        href: redirects['/emotes'].href,
-        label: 'Emoji Server',
+        label: 'Miscellaneous',
+        options: [
+          {
+            href: '/paragon-form',
+            label: 'Paragon Form',
+          },
+          {
+            href: redirects['/emotes'].href,
+            label: 'Emoji Server',
+          },
+        ],
       },
     ],
   },

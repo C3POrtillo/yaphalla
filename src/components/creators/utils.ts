@@ -19,10 +19,7 @@ const excludeProperty = (key: string) => ['language'].some(test => !!compareStri
 const compareLength = (aObj: CreatorData, bObj: CreatorData): number =>
   Object.keys(bObj).filter(excludeProperty).length - Object.keys(aObj).filter(excludeProperty).length;
 
-const compareProperties = (
-  a: [string, CreatorData], b: [string, CreatorData],
-  property: string,
-): number => {
+const compareProperties = (a: [string, CreatorData], b: [string, CreatorData], property: string): number => {
   const [creatorA, dataA] = a;
   const [creatorB, dataB] = b;
   const aHasProp = property in dataA;
@@ -38,9 +35,9 @@ const compareProperties = (
     if (lengthComparison !== 0) {
       return lengthComparison;
     }
-    const twitchComparison = compareStrings(property, 'Twitch') && compareProperties(a, b, 'Twitch')
+    const twitchComparison = compareStrings(property, 'Twitch') && compareProperties(a, b, 'Twitch');
     if (twitchComparison !== 0) {
-      return twitchComparison
+      return twitchComparison;
     }
 
     return compareStrings(creatorA, creatorB);
@@ -63,7 +60,7 @@ export const sortCreators = (a: [string, CreatorData], b: [string, CreatorData])
     compareProperties(a, b, 'Twitch') ||
     compareProperties(a, b, 'Bilibili') ||
     compareStrings(creatorA, creatorB);
-    
+
   if ('Discord' in dataA && 'Discord' in dataB) {
     return compareLength(dataA, dataB) || fallbackSort;
   }

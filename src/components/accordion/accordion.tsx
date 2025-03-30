@@ -89,13 +89,7 @@ const Accordion: FC<AccordionProps> = ({
             aria-label={!isClickable ? ariaLabel : undefined}
           >
             {isClickable && label}
-            <i
-              className={joinStrings(
-                'self-center lg:before:text-lg',
-                solidIcon(faIcon),
-                !isClickable && 'mx-auto',
-              )}
-            />
+            <i className={joinStrings('self-center lg:before:text-lg', solidIcon(faIcon), !isClickable && 'mx-auto')} />
           </button>
         </div>
       )}

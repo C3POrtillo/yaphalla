@@ -1,4 +1,3 @@
-
 import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
@@ -46,8 +45,7 @@ const Header: FC = () => {
     const accordionLink = !!tooltip && (
       <div className="w-full block lg:hidden">
         <Accordion key={`${slug || title} Accordion`} label={slug ? rootOptions[0].label : title} hierarchy="primary">
-          <div
-            className="inset-secondary grid gap-1 grid-cols-1 !p-1 !rounded-t-none">
+          <div className="inset-secondary grid gap-1 grid-cols-1 !p-1 !rounded-t-none">
             {slug && (
               <Link key={slug} className={joinStrings(LinkClasses, 'p-1')} href={slug} {...data}>
                 {rootIcon}
@@ -61,12 +59,7 @@ const Header: FC = () => {
                 const icon = !!iconName && <i className={joinStrings('!text-base w-5', iconName)} />;
 
                 return (
-                  <Link
-                    key={`${label}-${i}`}
-                    href={href}
-                    label={label}
-                    className={joinStrings(LinkClasses, 'p-1')}
-                  >
+                  <Link key={`${label}-${i}`} href={href} label={label} className={joinStrings(LinkClasses, 'p-1')}>
                     {icon}
                   </Link>
                 );

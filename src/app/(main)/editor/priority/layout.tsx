@@ -1,22 +1,16 @@
-import type { Viewport } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
 import { createMetadata, joinStrings } from '@/utils/utils';
 
-export const viewport: Viewport = {
-  width: '608',
-  initialScale: 0.69,
-};
-
-const title = 'YapBuilder';
-const description = 'Build your custom formations for AFK Journey now!';
+const title = 'YapPriority';
+const description = 'Build your priority list for AFK Journey now!';
 
 const { keywords, ...baseMetadata } = createMetadata(title, description);
 
 const createKeywords = () => {
   const start = ['AFKJ', 'AFKJourney', 'AFK Journey', ''];
-  const mid = ['Formation', 'Team'];
-  const end = ['Editor', 'Builder'];
+  const mid = ['Priority List', 'Wishlist'];
+  const end = ['Editor', 'Builder', 'Maker'];
 
   const ret = [];
   for (const a of start) {

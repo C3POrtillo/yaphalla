@@ -1,5 +1,7 @@
 'use client';
-import { type FC, useState } from 'react';
+import { useState } from 'react';
+
+import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
 import Container from '@/components/container/Container';

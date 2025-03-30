@@ -1,7 +1,7 @@
-import type { TileDivData, UnitFormationData } from '@/components/editor/types';
+import type { TileDivData, UnitFormationData } from '@/components/formation/types';
 import type { BaseHexes, Talents } from '@/utils/types';
 
-import { TalentLocations, TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/editor/types';
+import { TalentLocations, TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/formation/types';
 import { PairSet, UnitPairs, UnitsByFaction } from '@/utils/types';
 import { compareStrings, sortData } from '@/utils/utils';
 
@@ -30,7 +30,7 @@ export const getRelativeTileLabels = (tiles: number[]) => {
 export const getIsTopRight = (tileData: number[]) =>
   [28, 38, 39, 43].some(i => tileData[i] !== 1) && [1, 5, 6, 16].some(i => tileData[i] === 1);
 
-export const getDrawImage = (str: string, baseHex: BaseHexes = 'Generic-Outline') => {
+export const getDrawImage = (str: string, baseHex: boolean) => {
   const label = str.toLowerCase();
   const isUnit = !compareStrings(label, 'unit');
   const path = isUnit ? ('unit' as const) : ('base' as const);
@@ -38,10 +38,10 @@ export const getDrawImage = (str: string, baseHex: BaseHexes = 'Generic-Outline'
   const isEnemy = !compareStrings(label, 'enemy');
 
   if (isPlayer) {
-    return { src: baseHex, path };
+    return { src: `Generic-${baseHex ? 'Hex' : 'Outline'}`, path };
   }
   if (isEnemy) {
-    return { src: `${str}-Outline`, path };
+    return { src: `${str}-${baseHex ? 'Hex' : 'Outline'}`, path };
   }
   if (!isUnit) {
     return { src: `${str}-Hex`, path };
@@ -67,12 +67,13 @@ const updateFactionCount = (
 export const countUnits = (
   count: Record<Talents, number>,
   units: UnitFormationData,
-  setCurrentFaction: (faction?: Talents) => void,
+  validType: number,
+  setCurrentFaction: (string?: Talents) => void,
 ) => {
   const unitCount = {} as Record<string, number>;
 
   Object.entries(units).forEach(([_, { unit, type }]) => {
-    if (type !== 1 || !UnitsByFaction[unit] || !UnitsByFaction[unit].length) {
+    if (type !== validType || !UnitsByFaction[unit] || !UnitsByFaction[unit].length) {
       return;
     }
 
@@ -96,8 +97,11 @@ export const countUnits = (
   });
 };
 
-export const getTalentTiles = (tiles: number[], faction: Talents) =>
-  new Set<number>(TalentLocations[faction] ? tiles.slice(-3, -1) : tiles.slice(0, 2));
+export const getTalentTiles = (tiles: number[], faction: Talents, type: number) => {
+  const talentTiles = type === -1 ? tiles.toReversed() : tiles;
+
+  return new Set<number>(TalentLocations[faction] ? talentTiles.slice(-3, -1) : talentTiles.slice(0, 2));
+};
 
 export const processTileData = (
   tileData: number[],
@@ -143,3 +147,13 @@ export const processTileData = (
 
   return result;
 };
+
+export const determineFaction = (count: Record<Talents, number>, string?: Talents): Talents | undefined => {
+  if (string && count[string] >= TalentRequiredUnits) {
+    return string;
+  }
+
+  return Object.keys(count).find(key => count[key as Talents] >= TalentRequiredUnits) as Talents | undefined;
+};
+
+export const isCustom = (target?: BaseHexes) => target && !/^Generic-/.test(target);

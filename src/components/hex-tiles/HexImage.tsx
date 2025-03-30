@@ -3,10 +3,11 @@ import Image from 'next/image';
 import type { BaseHexes } from '@/utils/types';
 import type { FC, ReactNode } from 'react';
 
+import { exclusionClasses } from '@/components/export-image/types';
 import { getSizeClass } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { HexPath, LogoRegExp } from '@/utils/types';
-import { compareStrings, joinStrings, testRegex } from '@/utils/utils';
+import { compareStrings, joinStrings, testRegExp } from '@/utils/utils';
 
 export interface HexImageProps {
   src: string;
@@ -22,6 +23,7 @@ export interface HexImageProps {
   forceOutline?: BaseHexes | false;
   size?: 'md' | 'sm' | 'xs' | '2xs';
   tooltip?: ReactNode;
+  exportIgnore?: boolean;
 }
 
 const HexImage: FC<HexImageProps> = ({
@@ -38,6 +40,7 @@ const HexImage: FC<HexImageProps> = ({
   size = 'md',
   tooltip,
   forceOutline,
+  exportIgnore,
 }) => {
   const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
     imageSrc,
@@ -58,7 +61,10 @@ const HexImage: FC<HexImageProps> = ({
 
   const assetSrcs = [
     !hideImage && `${path}/${src}`,
-    isEnemy && !compareStrings(path, 'unit') && !testRegex(src, LogoRegExp) && 'base/Enemy-Overlay',
+    isEnemy &&
+      ['unit', 'base'].some(test => compareStrings(path, test)) &&
+      !testRegExp(src, LogoRegExp) &&
+      'base/Enemy-Overlay',
     !hideImage && !isEnemy && forceOutline && `base/${forceOutline}`,
     isTalent && 'base/Talent-Selected',
     !disabled && selected && 'base/Select-Outline',
@@ -74,12 +80,17 @@ const HexImage: FC<HexImageProps> = ({
       )}
     >
       {!hideLabel && label && (
-        <div className="absolute inset-0 z-10 flex size-full rotate-[30deg] items-center justify-center text-center text-3xl">
+        <div className="absolute text-outline inset-0 z-10 flex size-full rotate-[30deg] items-center justify-center text-center text-3xl">
           {label}
         </div>
       )}
       {assetSrcs.map((imageSrc, layer) => (
-        <Asset key={`${imageSrc}-${layer}`} imageSrc={imageSrc} zIndex={layer ? `z-${layer}` : undefined} />
+        <Asset
+          key={`${imageSrc}-${layer}`}
+          className={exportIgnore ? exclusionClasses[0] : undefined}
+          imageSrc={imageSrc}
+          zIndex={layer ? `z-${layer}` : undefined}
+        />
       ))}
       {tooltip && (
         <Tooltip className="text-xs bottom-0 translate-y-2/3" preWrapText={false}>

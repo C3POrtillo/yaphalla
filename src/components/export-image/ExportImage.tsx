@@ -3,15 +3,23 @@ import type { FC } from 'react';
 
 import { copy, exportToPNG } from '@/components/export-image/utils';
 import Button from '@/components/inputs/button/Button';
+import { joinStrings, solidIcon } from '@/utils/utils';
 
 interface ExportImageProps extends ButtonProps {
-  fileName: string;
+  fileName?: string;
   getImage: () => Promise<string | false>;
   onClick: () => void;
+  hasContainer?: boolean;
 }
 
-const ExportImage: FC<ExportImageProps> = ({ fileName, getImage, onClick: callback }) => {
-  const handleClick = async (action: (image: string, file: string) => Promise<void>) => {
+const ExportImage: FC<ExportImageProps> = ({
+  fileName,
+  getImage,
+  onClick: callback,
+  hasContainer = true,
+  selected,
+}) => {
+  const handleClick = async (action: (image: string, file: string | undefined) => Promise<void>) => {
     const image = await getImage();
     if (!image) {
       return;
@@ -23,22 +31,38 @@ const ExportImage: FC<ExportImageProps> = ({ fileName, getImage, onClick: callba
   const buttons = [
     {
       label: 'Copy to Clipboard',
+      icon: 'copy',
       onClick: () => {
         handleClick(copy);
       },
     },
     {
       label: 'Export to PNG',
+      icon: 'download',
       onClick: () => {
         handleClick(exportToPNG);
       },
     },
-  ];
+  ] as const;
 
   return (
-    <div className="container-primary w-full flex flex-col grow gap-2 items-center lg:flex-row">
-      {buttons.map(({ onClick, label, ...props }) => (
-        <Button key={label} size="sm" className="w-full" onClick={onClick} {...props} hasActiveBorder>
+    <div
+      className={joinStrings(
+        hasContainer && 'container-primary',
+        'w-full flex flex-col grow gap-2 items-center lg:flex-row',
+      )}
+    >
+      {buttons.map(({ onClick, label, icon, ...props }) => (
+        <Button
+          key={label}
+          size="sm"
+          className="inline-flex w-full gap-1 justify-center items-center"
+          onClick={onClick}
+          {...props}
+          selected={selected}
+          hasActiveBorder
+        >
+          <i className={solidIcon(icon)} />
           {label}
         </Button>
       ))}

@@ -1,10 +1,10 @@
 import type { FC } from 'react';
 
-import { useFormation } from '@/components/editor/FormationProvider';
-import { ArenaPresets } from '@/components/editor/types';
+import { useFormation } from '@/components/formation/FormationProvider';
+import { ArenaPresets } from '@/components/formation/types';
 import Button from '@/components/inputs/button/Button';
 import { ArtifactSet } from '@/utils/types';
-import { joinStrings } from '@/utils/utils';
+import { joinStrings, solidIcon } from '@/utils/utils';
 
 interface EditorClearButtonsProps {
   isRow?: boolean;
@@ -17,6 +17,7 @@ const EditorClearButtons: FC<EditorClearButtonsProps> = ({ isRow }) => {
     {
       label: 'Invert Tiles',
       hierarchy: 'primary',
+      icon: 'retweet',
       onClick: () => {
         setTileData(prev => prev.map(prevTile => (Math.abs(prevTile) === 1 ? -prevTile : prevTile)) as number[]);
       },
@@ -24,6 +25,7 @@ const EditorClearButtons: FC<EditorClearButtonsProps> = ({ isRow }) => {
     {
       label: 'Clear Units',
       hierarchy: 'warning',
+      icon: 'user-slash',
       onClick: () => {
         setEditArena(false);
         setUnits(prevUnits =>
@@ -34,6 +36,7 @@ const EditorClearButtons: FC<EditorClearButtonsProps> = ({ isRow }) => {
     {
       label: 'Clear All',
       hierarchy: 'warning',
+      icon: 'trash',
       onClick: () => {
         setDrawType(1);
         setEditArena(true);
@@ -46,8 +49,16 @@ const EditorClearButtons: FC<EditorClearButtonsProps> = ({ isRow }) => {
 
   return (
     <div className={joinStrings('w-full flex gap-2 items-center', isRow ? 'flex-row' : 'flex-col')}>
-      {buttons.map(({ onClick, label, ...props }) => (
-        <Button key={label} size="sm" className="w-full" onClick={onClick} {...props}>
+      {buttons.map(({ onClick, label, icon, ...props }) => (
+        <Button
+          key={label}
+          size="sm"
+          className="inline-flex w-full gap-1 justify-center items-center"
+          onClick={onClick}
+          {...props}
+        >
+          <i className={solidIcon(icon)} />
+
           {label}
         </Button>
       ))}

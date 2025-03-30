@@ -4,17 +4,16 @@ import { Suspense, useState } from 'react';
 
 import type { FC } from 'react';
 
-import EditorArena from '@/components/editor/EditorArena';
-import EditorSidebar from '@/components/editor/EditorSidebar';
-import { useFormation } from '@/components/editor/FormationProvider';
-import SelectArenaPreset from '@/components/editor/SelectArenaPreset';
-import SelectUnit from '@/components/editor/SelectUnit';
 import ExportImage from '@/components/export-image/ExportImage';
+import EditorArena from '@/components/formation/EditorArena';
+import EditorSidebar from '@/components/formation/EditorSidebar';
+import { useFormation } from '@/components/formation/FormationProvider';
+import SelectArenaPreset from '@/components/formation/SelectArenaPreset';
+import SelectUnit from '@/components/formation/SelectUnit';
 
 const EditorMain: FC = () => {
   const [isActive, setActive] = useState(false);
   const {
-    title,
     preset,
     isEnemy,
     isEmpty,
@@ -65,7 +64,6 @@ const EditorMain: FC = () => {
         </div>
         <div className="size-full flex flex-col gap-2 items-center sm:w-fit">
           <ExportImage
-            fileName={title}
             disabled={isEditArena}
             selected={isActive}
             getImage={async () => {

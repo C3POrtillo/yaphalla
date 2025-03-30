@@ -1,5 +1,6 @@
 import { fetchYouTubePicture } from '@/components/creators/utils';
 import { creators } from '@/utils/pathsCreators';
+import { joinStrings } from '@/utils/utils';
 
 export type RedirectType = {
   redirect: string;
@@ -25,7 +26,7 @@ const createLeaderboardKeywords = (string: string) => {
   for (const a of prefix) {
     for (const b of mid) {
       for (const c of suffix) {
-        keywords.push(`${a} ${string} ${b} ${c}`.trim());
+        keywords.push(joinStrings(a, string, b, c).trim());
       }
     }
   }
@@ -45,7 +46,7 @@ const createDiscordKeywords = (string?: string) => {
         if (prefix === 'Official' && suffix === 'Official Discord') {
           continue;
         }
-        result.push([prefix, name, string, suffix].filter(Boolean).join(' ').trim());
+        result.push(joinStrings(prefix, name, string, suffix).trim());
       }
     }
   }
@@ -141,6 +142,7 @@ const discords = {
     redirect: '/official',
     label: 'Discord',
     href: 'https://discord.com/invite/afkjourney',
+    title: 'Join the Official Discord for AFKJ!',
     site: 'Discord',
     themeColor: '#a6dcd0',
     keywords: createDiscordKeywords(),
@@ -151,12 +153,13 @@ const discords = {
 const creatorDiscords = Object.fromEntries(
   Object.entries(creators)
     .filter(([_, { Discord }]) => Discord)
-    .map(([redirect, { Discord: href, YouTube }]) => [
+    .map(([redirect, { label, Discord: href, YouTube }]) => [
       redirect,
       {
         redirect,
         label: 'Discord',
         href,
+        title: `Join ${label}'s Discord`,
         site: 'Discord',
         fetchImage: async () => (YouTube ? await fetchYouTubePicture(YouTube) : null),
       } as RedirectType,

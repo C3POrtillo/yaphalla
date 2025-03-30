@@ -1,9 +1,9 @@
 import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
-import { useFormation } from '@/components/editor/FormationProvider';
-import PreviewArena from '@/components/editor/PreviewArena';
-import { ArenaPresets } from '@/components/editor/types';
+import { useFormation } from '@/components/formation/FormationProvider';
+import PreviewArena from '@/components/formation/PreviewArena';
+import { ArenaPresets } from '@/components/formation/types';
 import Button from '@/components/inputs/button/Button';
 import { compareStrings, joinStrings } from '@/utils/utils';
 

@@ -1,5 +1,4 @@
 'use client';
-
 import type { HexImageProps } from '@/components/hex-tiles/HexImage';
 import type { FC } from 'react';
 
@@ -8,6 +7,7 @@ import HexImage from '@/components/hex-tiles/HexImage';
 interface ButtonTileProps extends HexImageProps {
   onClick: () => void;
   ariaLabel?: string;
+  className?: string;
 }
 
 const ButtonTile: FC<ButtonTileProps> = ({ ariaLabel, disabled, onClick, ...props }) => (

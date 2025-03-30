@@ -1,6 +1,8 @@
-import { type FC, Suspense } from 'react';
+import { Suspense } from 'react';
 
-import { useFormation } from '@/components/editor/FormationProvider';
+import type { FC } from 'react';
+
+import { useFormation } from '@/components/formation/FormationProvider';
 import UnitGrid from '@/components/unit-grid/UnitGrid';
 
 const SelectUnit: FC = () => {

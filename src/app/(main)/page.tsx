@@ -19,20 +19,23 @@ const Index: FC = () => (
           <h2 className="text-tertiary-600">Announcements</h2>
           <div className="inset-secondary flex flex-col items-center w-full gap-2 whitespace-normal">
             <h3 className="flex flex-row whitespace-pre items-center">
-              Now introducing{' '}
               <Link href="/editor" className="bg-primary input-primary size-base text-tertiary-600">
-                YapBuilder!
+                YapBuilder
+              </Link>
+              {' now has a new friend: '}
+              <Link href="/editor/priority" className="bg-primary input-primary size-base text-tertiary-600">
+                YapPriority!
               </Link>
             </h3>
             <p>
-              Use{' '}
-              <Link href="/editor" className="input-link inline">
-                YapBuilder
-              </Link>{' '}
-              to create your own custom formations including enemy placements or Arena/Supreme Arena defenses!
+              {'Use '}
+              <Link href="/editor/priority" className="input-link inline">
+                YapPriority
+              </Link>
+              {' to create your own priority recommendations or lists!'}
             </p>
             <p>
-              Please report any issues to{' '}
+              {'Please report any issues to '}
               <Link
                 href="https://discord.com/channels/1332082220013322240/1332814583781523529"
                 className="input-link inline"

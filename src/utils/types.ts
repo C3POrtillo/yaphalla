@@ -234,3 +234,15 @@ export const BaseHexData = (() => {
   base: BaseHexes[];
   outline: BaseHexes[];
 };
+
+export const BaseSet = new Set<string>(Object.values(BaseHexData).flatMap(hexes => hexes.map(hex => hex)));
+
+export const BaseUnits = (() => {
+  const formattedUnits = [...BaseSet].map(unit => ({
+    unit,
+    faction: '',
+    unitClass: '',
+  })) as Unit[];
+
+  return formattedUnits;
+})();

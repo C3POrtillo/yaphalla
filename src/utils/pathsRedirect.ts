@@ -13,7 +13,7 @@ export type RedirectType = {
   noIndex?: boolean;
   image?: string;
   themeColor?: string;
-  bigCard?: boolean;
+  card?: 'summary_large_image' | 'summary';
   fetchImage: () => Promise<string | null>;
 };
 
@@ -199,6 +199,7 @@ const misc = {
     label: 'Prydwen',
     href: 'https://www.prydwen.gg/afk-journey/',
     site: 'Prydwen',
+    card: 'summary_large_image',
   } as RedirectType,
 };
 

@@ -39,6 +39,7 @@ const fetchMetadata = cache(
     keywords,
     noIndex,
     image,
+    card,
     fetchImage,
   }: RedirectType): Promise<Metadata> => {
     try {
@@ -78,7 +79,7 @@ const fetchMetadata = cache(
             : og,
         },
         twitter: {
-          card: 'summary',
+          card: card || 'summary',
           title,
           description,
           site: siteName,

@@ -6,8 +6,8 @@ import type { FC } from 'react';
 import { redirects } from '@/utils/pathsRedirect';
 
 export const generateStaticParams = () =>
-  Object.values(redirects).map(({ redirect: redirectLink }) => ({
-    redirectLink: redirectLink.slice(1),
+  Object.values(redirects).map(({ redirect }) => ({
+    redirectLink: redirect.slice(1).split('/')[0],
   }));
 
 const Index: FC<RedirectPageProps> = async ({ params }) => {

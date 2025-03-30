@@ -13,6 +13,7 @@ export type RedirectType = {
   noIndex?: boolean;
   image?: string;
   themeColor?: string;
+  bigCard?: boolean;
   fetchImage: () => Promise<string | null>;
 };
 
@@ -148,6 +149,15 @@ const discords = {
     keywords: createDiscordKeywords(),
     image: 'https://www.yaphalla.com/assets/images/logos/afkj-logo.png',
   } as RedirectType,
+  '/prydwen': {
+    redirect: '/prydwen',
+    label: 'Discord',
+    href: 'https://discord.com/invite/prydwen',
+    title: 'Join Prydwen!',
+    site: 'Discord',
+    themeColor: '#009eec',
+    keywords: createDiscordKeywords('Prydwen'),
+  } as RedirectType,
 };
 
 const creatorDiscords = Object.fromEntries(
@@ -183,6 +193,12 @@ const misc = {
     site: 'GitHub',
     themeColor: '#9fbfe5',
     image: 'https://raw.githubusercontent.com/AdbAutoPlayer/AdbAutoPlayer/refs/heads/main/cmd/wails/build/appicon.png',
+  } as RedirectType,
+  '/prydwen-afk-journey': {
+    redirect: '/prydwen-afk-journey',
+    label: 'Prydwen',
+    href: 'https://www.prydwen.gg/afk-journey/',
+    site: 'Prydwen',
   } as RedirectType,
 };
 

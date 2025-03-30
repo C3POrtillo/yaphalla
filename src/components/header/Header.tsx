@@ -18,9 +18,9 @@ const Header: FC = () => {
       rootIconName = getLinkIcon(title);
     }
     const rootIcon = !!rootIconName && <i className={joinStrings('!text-base w-5', rootIconName)} />;
-
+    const isCol = rootOptions?.every(({ options }) => options && options?.length <= 4);
     const tooltip = rootOptions && (
-      <div className="flex flex-col gap-2 overflow-auto lg:flex-row">
+      <div className={joinStrings('flex flex-col gap-2 overflow-auto', !isCol && 'lg:flex-row')}>
         {rootOptions.map(
           ({ label, options }) =>
             options && (

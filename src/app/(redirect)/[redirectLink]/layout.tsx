@@ -6,6 +6,7 @@ import type { FC, PropsWithChildren } from 'react';
 
 import { metadata, viewport } from '@/app/(main)/layout';
 import Redirect from '@/components/redirect/Redirect';
+import { getTarget } from '@/components/redirect/utils';
 import Root from '@/components/root/Root';
 import { domain } from '@/utils/paths';
 import { redirects } from '@/utils/pathsRedirect';
@@ -89,7 +90,7 @@ const fetchMetadata = cache(
         const invite = url.split('/').slice(-1)[0];
         const { members, online } = await fetchDiscordStats(invite);
         const description = `🟢 ${online} Online\n⚫ ${members} Members`;
-        const youtubeImage = await fetchImage();
+        const youtubeImage = fetchImage && (await fetchImage());
         const discordOg = youtubeImage || fallbackOgImages;
         const discordTwitter = youtubeImage || fallbackTwitterImages;
 
@@ -124,7 +125,7 @@ const fetchMetadata = cache(
 
 export const generateViewport = async ({ params }: RedirectPageProps): Promise<Viewport> => {
   const { redirectLink } = await params;
-  const target = redirects[`/${redirectLink}` as keyof typeof redirects];
+  const target = getTarget(redirectLink);
 
   return {
     themeColor: target?.themeColor ? target.themeColor : viewport.themeColor,
@@ -133,7 +134,7 @@ export const generateViewport = async ({ params }: RedirectPageProps): Promise<V
 
 export const generateMetadata = async ({ params }: RedirectPageProps): Promise<Metadata> => {
   const { redirectLink } = await params;
-  const target = redirects[`/${redirectLink}` as keyof typeof redirects];
+  const target = getTarget(redirectLink);
 
   if (!target?.href) {
     return metadata;
@@ -144,7 +145,7 @@ export const generateMetadata = async ({ params }: RedirectPageProps): Promise<M
 
 const Layout: FC<RedirectPageProps & PropsWithChildren> = async ({ params, children }) => {
   const { redirectLink } = await params;
-  const target = redirects[`/${redirectLink}` as keyof typeof redirects];
+  const target = getTarget(redirectLink);
   const head = target?.href && target.href !== target.redirect && (
     <meta httpEquiv="refresh" content={`0; url=${target.href}`} />
   );

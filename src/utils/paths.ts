@@ -91,8 +91,21 @@ const paths = {
     label: 'Communities',
     options: [
       {
+        label: 'Resources',
+        options: [
+          {
+            href: redirects['/prydwen-afk-journey'].href,
+            label: 'Prydwen',
+          },
+        ],
+      },
+      {
         label: 'Discords',
         options: [
+          {
+            href: redirects['/prydwen'].href,
+            label: 'Prydwen',
+          },
           {
             href: redirects['/fight-club'].href,
             label: 'Fight Club',
@@ -136,6 +149,10 @@ const paths = {
         label: 'Miscellaneous',
         options: [
           {
+            href: '/auto-player',
+            label: 'ABD Auto Player',
+          },
+          {
             href: '/paragon-form',
             label: 'Paragon Form',
           },
@@ -172,7 +189,8 @@ export const validHrefs = new Set([
   ).sort(sortData),
   ...Object.values(redirects)
     .filter(({ noIndex }) => !noIndex)
-    .map(({ redirect }) => redirect),
+    .map(({ redirect }) => redirect)
+    .sort(sortData),
 ]);
 
 export const navigation = [

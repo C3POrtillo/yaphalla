@@ -1,4 +1,4 @@
-import { brandIcon, compareStrings, solidIcon } from '@/utils/utils';
+import { brandIcon, solidIcon } from '@/utils/utils';
 
 export const processPaths = (paths: string[], slug: string[] | undefined) => {
   let slugIndex = 0;
@@ -27,22 +27,14 @@ const discordSlugs = new Set(['/emotes']);
 const sheetSlugs = new Set(['/primal-lord', '/battle-drills', 'Leaderboards']);
 const formSlugs = new Set(['/paragon-form']);
 
-export const getLinkIcon = (href?: string) => {
-  if (!href) {
-    return null;
-  }
-  if (!compareStrings(href, 'Other')) {
-    return solidIcon('list');
-  }
-  if (!compareStrings(href, 'Communities')) {
-    return solidIcon('user-group');
-  }
-  if (!compareStrings(href, '/creators')) {
-    return solidIcon('tv');
-  }
-  if (href.match(/^\/editor(?:\/|$)/)) {
-    return solidIcon('wrench');
-  }
+const staticSlugs: Record<string, string> = {
+  Other: solidIcon('list'),
+  Communities: solidIcon('user-group'),
+  '/creators': solidIcon('tv'),
+  '/auto-player': solidIcon('robot'),
+};
+
+const staticSets = (href: string) => {
   if (discordSlugs.has(href)) {
     return brandIcon('discord');
   }
@@ -52,9 +44,26 @@ export const getLinkIcon = (href?: string) => {
   if (formSlugs.has(href)) {
     return solidIcon('square-poll-horizontal');
   }
+};
 
-  const regExp = /^(?:https?:\/\/)?(?:[\w-]+\.)*(\w+)\.\w+/;
-  const match = href.match(regExp);
+const matchRegExp = (href: string) => {
+  if (href.match(/^https:\/\/www\.prydwen\.gg\/.*/)) {
+    return solidIcon('sailboat');
+  }
+  if (href.match(/^\/editor(?:\/|$)/)) {
+    return solidIcon('wrench');
+  }
+};
 
-  return match ? brandIcon(match?.[1].toLowerCase()) : null;
+export const getLinkIcon = (href?: string) => {
+  if (!href) {
+    return null;
+  }
+  const match = href.match(/^(?:https?:\/\/)?(?:[\w-]+\.)*(\w+)\.\w+/);
+
+  if (staticSlugs[href]) {
+    return staticSlugs[href];
+  }
+
+  return matchRegExp(href) || staticSets(href) || (match && brandIcon(match?.[1].toLowerCase())) || null;
 };

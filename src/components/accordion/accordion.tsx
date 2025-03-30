@@ -91,7 +91,7 @@ const Accordion: FC<AccordionProps> = ({
             {isClickable && label}
             <i
               className={joinStrings(
-                'self-center before:text-2xl lg:before:text-lg',
+                'self-center lg:before:text-lg',
                 solidIcon(faIcon),
                 !isClickable && 'mx-auto',
               )}

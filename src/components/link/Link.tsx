@@ -39,7 +39,12 @@ const Link: FC<LinkProps> = ({ href, label, className, disabled, children, toolt
   );
 
   return tooltip ? (
-    <div className={joinStrings(!!tooltip && 'relative group flex items-center justify-center max-lg:w-full')}>
+    <div
+      className={joinStrings(
+        !!tooltip && 'relative group flex items-center justify-center max-lg:w-full',
+        !hideMobileTooltip && 'hidden lg:flex',
+      )}
+    >
       {link}
       {tooltip && (
         <Tooltip

@@ -1,6 +1,8 @@
+
 import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
+import SubLinks from '@/components/header/SubLinks';
 import { LinkClasses } from '@/components/header/types';
 import { getLgCols, getLinkIcon } from '@/components/header/utils';
 import Link from '@/components/link/Link';
@@ -34,40 +36,42 @@ const Header: FC = () => {
                     getLgCols(options.length),
                   )}
                 >
-                  {slug && (
-                    <Link className={joinStrings(LinkClasses, 'p-1', rootOptions && 'lg:hidden')} {...data}>
-                      {rootIcon}
-                    </Link>
-                  )}
-                  {options.map(({ ...contentData }) => {
-                    const { label: contentLabel, href } = contentData;
-                    if (!href) {
-                      return null;
-                    }
-                    const iconName = getLinkIcon(href);
-                    const icon = !!iconName && <i className={joinStrings('!text-base w-5', iconName)} />;
-
-                    return (
-                      <Link
-                        key={contentLabel}
-                        className={joinStrings(LinkClasses, 'p-1 lg:w-full lg:justify-start')}
-                        {...contentData}
-                      >
-                        {icon}
-                      </Link>
-                    );
-                  })}
+                  <SubLinks className={rootOptions ? 'lg:hidden' : undefined} options={options} rootIcon={rootIcon} />
                 </div>
               </div>
             ),
         )}
       </div>
     );
-
     const accordionLink = !!tooltip && (
       <div className="w-full block lg:hidden">
         <Accordion key={`${slug || title} Accordion`} label={slug ? rootOptions[0].label : title} hierarchy="primary">
-          {tooltip}
+          <div
+            className="inset-secondary grid gap-1 grid-cols-1 !p-1 !rounded-t-none">
+            {slug && (
+              <Link key={slug} className={joinStrings(LinkClasses, 'p-1')} href={slug} {...data}>
+                {rootIcon}
+              </Link>
+            )}
+            {rootOptions
+              .flatMap(({ options }) => options)
+              .filter(path => !!path)
+              .map(({ href, label }, i) => {
+                const iconName = getLinkIcon(href);
+                const icon = !!iconName && <i className={joinStrings('!text-base w-5', iconName)} />;
+
+                return (
+                  <Link
+                    key={`${label}-${i}`}
+                    href={href}
+                    label={label}
+                    className={joinStrings(LinkClasses, 'p-1')}
+                  >
+                    {icon}
+                  </Link>
+                );
+              })}
+          </div>
         </Accordion>
       </div>
     );
@@ -138,7 +142,7 @@ const Header: FC = () => {
           ariaLabel="Toggle Navigation Menu"
           labelIsClickable={false}
         >
-          <div className="inset-primary flex flex-col gap-2 items-center p-2 bg-primary-800 overflow-auto">
+          <div className="inset-primary flex flex-col gap-2 items-center p-2 bg-primary-800 overflow-auto mb-2">
             {navLinks}
             <Socials />
           </div>

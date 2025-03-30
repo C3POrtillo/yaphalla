@@ -18,13 +18,13 @@ const Index: FC = () => (
         <div className="container-primary flex flex-col items-center gap-2 text-center">
           <h2 className="text-tertiary-600">Announcements</h2>
           <div className="inset-secondary flex flex-col items-center w-full gap-2 whitespace-normal">
-            <h3 className="flex flex-row whitespace-pre items-center">
+            <h3 className="flex flex-row whitespace-pre-wrap items-center wrap gap-2">
               <Link href="/editor" className="bg-primary input-primary size-base text-tertiary-600">
                 YapBuilder
               </Link>
-              {' now has a new friend: '}
+              {' | '}
               <Link href="/editor/priority" className="bg-primary input-primary size-base text-tertiary-600">
-                YapPriority!
+                YapPriority
               </Link>
             </h3>
             <p>

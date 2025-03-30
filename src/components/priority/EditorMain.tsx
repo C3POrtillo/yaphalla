@@ -16,7 +16,7 @@ const EditorMain: FC = () => {
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
   const { groups, setUnits } = usePriority();
-  const [gap, setGap] = useState(0);
+  const [gap, setGap] = useState(3);
   const [offset, setOffset] = useState(false);
   const [hideEmpty, setHideEmpty] = useState(false);
   const buttonClass = 'inline-flex w-fit gap-1 justify-center items-center';
@@ -27,7 +27,7 @@ const EditorMain: FC = () => {
       selected={gap === i}
       onClick={() => setGap(i)}
       size="sm"
-      disabled={offset}
+      disabled={offset || getValidCount(groups, maxGroups) >= maxGroups}
       hasActiveBorder
     >
       {size}
@@ -86,7 +86,13 @@ const EditorMain: FC = () => {
           {buttons}
         </div>
         <div className="inset-black flex justify-center size-full !p-4">
-          <div id="unit-grid" className={joinStrings('flex flex-row justify-center size-min', !offset && getGap(gap))}>
+          <div
+            id="unit-grid"
+            className={joinStrings(
+              'flex flex-row justify-center size-min',
+              !offset && getValidCount(groups, maxGroups) < maxGroups && getGap(gap),
+            )}
+          >
             {new Array(getValidCount(groups, maxGroups)).fill(0).map((_, i) => (
               <EditorGroup key={i} group={i} offsetRow={offset} hideEmpty={hideEmpty} isDev={isDev} />
             ))}

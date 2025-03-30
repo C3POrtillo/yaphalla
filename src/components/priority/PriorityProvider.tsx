@@ -19,7 +19,7 @@ interface PriorityContextType {
 const PriorityContext = createContext<PriorityContextType | undefined>(undefined);
 
 export const PriorityProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [groups, setGroups] = useState('1');
+  const [groups, setGroups] = useState('2');
   const [units, setUnits] = useState<GroupUnitData>({});
   const [currentTile, setCurrentTile] = useState<string>();
   const getTileImage = useCallback((unit?: string) => {

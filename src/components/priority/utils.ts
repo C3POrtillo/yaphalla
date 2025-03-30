@@ -27,7 +27,7 @@ export const validateCount = (string: string, max?: number) => {
 export const getGap = (number: number) => {
   switch (number) {
     case 3:
-      return 'gap-12';
+      return 'gap-10';
     case 2:
       return 'gap-6';
     case 1:

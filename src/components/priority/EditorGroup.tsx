@@ -70,7 +70,7 @@ const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty, isDev 
       <div className="flex flex-col text-center">
         {!offsetRow && label && (
           <div className="h-13 flex justify-center items-center p-1">
-            <h2 className={joinStrings('text-2xl tracking-wider text-outline truncate max-w-[189px]')}>{label}</h2>{' '}
+            <h2 className={joinStrings('text-2xl text-outline truncate max-w-[189px]')}>{label}</h2>{' '}
           </div>
         )}
 

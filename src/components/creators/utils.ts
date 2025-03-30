@@ -20,12 +20,13 @@ const compareLength = (aObj: CreatorData, bObj: CreatorData): number =>
   Object.keys(bObj).filter(excludeProperty).length - Object.keys(aObj).filter(excludeProperty).length;
 
 const compareProperties = (
-  [creatorA, a]: [string, CreatorData],
-  [creatorB, b]: [string, CreatorData],
+  a: [string, CreatorData], b: [string, CreatorData],
   property: string,
 ): number => {
-  const aHasProp = property in a;
-  const bHasProp = property in b;
+  const [creatorA, dataA] = a;
+  const [creatorB, dataB] = b;
+  const aHasProp = property in dataA;
+  const bHasProp = property in dataB;
   if (aHasProp && !bHasProp) {
     return -1;
   }
@@ -33,9 +34,13 @@ const compareProperties = (
     return 1;
   }
   if (aHasProp && bHasProp) {
-    const lengthComparison = compareLength(a, b);
+    const lengthComparison = compareLength(dataA, dataB);
     if (lengthComparison !== 0) {
       return lengthComparison;
+    }
+    const twitchComparison = compareStrings(property, 'Twitch') && compareProperties(a, b, 'Twitch')
+    if (twitchComparison !== 0) {
+      return twitchComparison
     }
 
     return compareStrings(creatorA, creatorB);
@@ -58,6 +63,7 @@ export const sortCreators = (a: [string, CreatorData], b: [string, CreatorData])
     compareProperties(a, b, 'Twitch') ||
     compareProperties(a, b, 'Bilibili') ||
     compareStrings(creatorA, creatorB);
+    
   if ('Discord' in dataA && 'Discord' in dataB) {
     return compareLength(dataA, dataB) || fallbackSort;
   }

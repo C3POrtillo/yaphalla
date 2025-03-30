@@ -3,7 +3,7 @@ import type { FC } from 'react';
 
 import { copy, exportToPNG } from '@/components/export-image/utils';
 import Button from '@/components/inputs/button/Button';
-import { joinStrings } from '@/utils/utils';
+import { joinStrings, solidIcon } from '@/utils/utils';
 
 interface ExportImageProps extends ButtonProps {
   fileName?: string;
@@ -31,17 +31,19 @@ const ExportImage: FC<ExportImageProps> = ({
   const buttons = [
     {
       label: 'Copy to Clipboard',
+      icon: 'copy',
       onClick: () => {
         handleClick(copy);
       },
     },
     {
       label: 'Export to PNG',
+      icon: 'download',
       onClick: () => {
         handleClick(exportToPNG);
       },
     },
-  ];
+  ] as const;
 
   return (
     <div
@@ -50,16 +52,17 @@ const ExportImage: FC<ExportImageProps> = ({
         'w-full flex flex-col grow gap-2 items-center lg:flex-row',
       )}
     >
-      {buttons.map(({ onClick, label, ...props }) => (
+      {buttons.map(({ onClick, label, icon, ...props }) => (
         <Button
           key={label}
           size="sm"
-          className="w-full"
+          className="inline-flex w-full gap-1 justify-center items-center"
           onClick={onClick}
           {...props}
           selected={selected}
           hasActiveBorder
         >
+          <i className={solidIcon(icon)} />
           {label}
         </Button>
       ))}

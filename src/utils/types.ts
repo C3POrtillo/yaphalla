@@ -74,7 +74,7 @@ const Graveborn = {
 
 const Celestial = {
   Tank: ['Dunlingr'],
-  Support: ['Elijah', 'Lailah'],
+  Support: ['Elijah & Lailah', 'Elijah', 'Lailah'],
   Marksman: ['Dionel'],
   Mage: ['Talene'],
   Rogue: ['Athalia'],

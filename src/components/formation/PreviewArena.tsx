@@ -13,7 +13,7 @@ interface TilePreviewProps {
 }
 
 const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
-  const { baseHex, outline } = useFormation();
+  const { baseHex } = useFormation();
   const size = '2xs' as const;
 
   const formattedTiles = useMemo(() => processTileData(tileData, true), [tileData]);
@@ -35,10 +35,10 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
           const getImage = () => {
             let src = 'Grid-Outline';
             if (state === 1) {
-              src = baseHex || outline || 'Generic-Outline';
+              src = baseHex ? 'Generic-Hex' : 'Generic-Outline';
             }
             if (state === -1) {
-              src = 'Enemy-Outline';
+              src = baseHex ? 'Enemy-Hex' : 'Enemy-Outline';
             }
             if (state === -2) {
               src = 'Breakable-Hex';
@@ -52,7 +52,7 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
 
           const src = getImage();
 
-          return <HexImage key={j} src={src} path="base" size={size} disabled forceOutline={state === 1 && outline} />;
+          return <HexImage key={j} src={src} path="base" size={size} disabled />;
         })}
         {isFirst && (
           <>

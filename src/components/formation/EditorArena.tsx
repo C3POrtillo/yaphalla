@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import type { TileData } from '@/components/formation/types';
+import type { Talents } from '@/utils/types';
 import type { FC } from 'react';
 
 import ButtonArtifact from '@/components/formation/ButtonArtifact';
@@ -44,12 +45,22 @@ const EditorArena: FC<EditorArena> = ({
   disableObstacles,
   onClick,
 }) => {
-  const { preset, isPreset, tileData, currentTile, units, activeFaction, getTileImage, outline, hideLogo } =
-    useFormation();
+  const {
+    preset,
+    isPreset,
+    tileData,
+    currentTile,
+    units,
+    playerFaction,
+    enemyFaction,
+    getTileImage,
+    outline,
+    hideLogo,
+  } = useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
   const isTopRight = getIsTopRight(tileData);
-  const showTalents = !hideTalents && activeFaction;
+
   const relativeTileLabel = getRelativeTileLabels(tileData);
   const getArtifactProps = () => ({
     hideNumbers,
@@ -57,6 +68,11 @@ const EditorArena: FC<EditorArena> = ({
     disableArtifacts,
     hideEmptyArtifact,
   });
+
+  const getTalents = (key: 'player' | 'enemy', faction: Talents | undefined, type: number) =>
+    !hideTalents && !!faction && getTalentTiles(relativeTileLabel[key], faction, type);
+  const playerTalents = getTalents('player', playerFaction, isTopRight ? -1 : 1);
+  const enemyTalents = getTalents('enemy', enemyFaction, isTopRight ? 1 : -1);
 
   const getTileLabel = (state: number, index: number) => {
     const absolutePosition = TileIndexToPosition[index];
@@ -132,10 +148,11 @@ const EditorArena: FC<EditorArena> = ({
             return null;
           }
 
+          const talents = state === 1 ? playerTalents : enemyTalents;
           const unit = units[index]?.unit;
           const tileLabel = getTileLabel(state, index);
           const { disableGrid, disableEnemy, disabled } = getDisabledProps(state);
-          const { src, path } = getTileImage(unit, state, showTalents, hideUnits, hideEnemy);
+          const { src, path } = getTileImage(unit, state, !!talents, hideUnits, hideEnemy);
 
           return (
             <ButtonTile
@@ -146,10 +163,8 @@ const EditorArena: FC<EditorArena> = ({
               label={tileLabel}
               hideLabel={(!hideUnits && (disableGrid || (!disableEnemy && !!unit))) || hideNumbers}
               hideImage={disableGrid || (state === 100 && hideLogo)}
-              isEnemy={!!unit && state === -1 && !hideEnemy}
-              isTalent={
-                showTalents && getTalentTiles(relativeTileLabel.player, activeFaction).has(TileIndexToPosition[index])
-              }
+              isEnemy={state === -1 && !hideUnits && !!unit && !hideEnemy}
+              isTalent={talents && talents.has(TileIndexToPosition[index])}
               disabled={disabled || (!hideUnits && state === 100)}
               path={state !== 2 && (hideUnits || disableEnemy) ? 'base' : path}
               forceOutline={state === 1 && !unit && outline}

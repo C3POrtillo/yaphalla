@@ -61,7 +61,10 @@ const HexImage: FC<HexImageProps> = ({
 
   const assetSrcs = [
     !hideImage && `${path}/${src}`,
-    isEnemy && !compareStrings(path, 'unit') && !testRegExp(src, LogoRegExp) && 'base/Enemy-Overlay',
+    isEnemy &&
+      ['unit', 'base'].some(test => compareStrings(path, test)) &&
+      !testRegExp(src, LogoRegExp) &&
+      'base/Enemy-Overlay',
     !hideImage && !isEnemy && forceOutline && `base/${forceOutline}`,
     isTalent && 'base/Talent-Selected',
     !disabled && selected && 'base/Select-Outline',

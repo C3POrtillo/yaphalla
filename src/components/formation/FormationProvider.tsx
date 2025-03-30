@@ -5,8 +5,8 @@ import type { ArtifactFormationData, TileData, UnitFormationData } from '@/compo
 import type { BaseHexes, Talents } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { AlwaysShowStates, ArenaPresets, TalentRequiredUnits } from '@/components/formation/types';
-import { countUnits } from '@/components/formation/utils';
+import { AlwaysShowStates, ArenaPresets } from '@/components/formation/types';
+import { countUnits, determineFaction } from '@/components/formation/utils';
 import { getPath } from '@/components/unit-grid/utils';
 import { ArtifactSet } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
@@ -50,14 +50,17 @@ interface FormationContextType {
   setOutline: Dispatch<SetStateAction<BaseHexes | undefined>>;
   updateArena: (tile: TileData) => void;
   updateUnit: (tile: TileData) => void;
-  activeFaction?: Talents;
+  playerFaction?: Talents;
+  enemyFaction?: Talents;
   isTalents: boolean;
   setTalents: Dispatch<SetStateAction<boolean>>;
   setArtifact: (position: number, artifact: string | boolean) => void;
+  background: boolean;
+  setBackground: Dispatch<SetStateAction<boolean>>;
   getTileImage: (
     unit: string,
     state: number,
-    showTalents: false | Talents | undefined,
+    showTalents: boolean,
     hideUnits?: boolean,
     disableEnemy?: boolean,
   ) => {
@@ -86,12 +89,14 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isPreset, setIsPreset] = useState<boolean>(false);
   const [currentArtifact, setCurrentArtifact] = useState<number>();
   const [isEditArena, setEditArena] = useState<boolean>(false);
-  const [activeFaction, setActiveFaction] = useState<Talents>();
+  const [playerFaction, setPlayerFaction] = useState<Talents>();
+  const [enemyFaction, setEnemyFaction] = useState<Talents>();
   const [isTalents, setTalents] = useState<boolean>(true);
   const [hideLogo, setHideLogo] = useState<boolean>(false);
+  const [background, setBackground] = useState<boolean>(false);
   const [subMenu, setSubMenu] = useState(0);
   const [baseHex, setBaseHex] = useState<BaseHexes | undefined>();
-  const [outline, setOutline] = useState<BaseHexes | undefined>('Generic-Outline');
+  const [outline, setOutline] = useState<BaseHexes | undefined>();
 
   const updateArena = useCallback(
     (tile: TileData) =>
@@ -171,13 +176,18 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     [currentArtifact, artifactData],
   );
   const getTileImage = useCallback(
-    (
-      unit: string,
-      state: number,
-      showTalents: false | Talents | undefined,
-      hideUnits?: boolean,
-      disableEnemy?: boolean,
-    ) => {
+    (unit: string, state: number, showTalents: boolean, hideUnits?: boolean, disableEnemy?: boolean) => {
+      const getFactionTile = (value: string, type: number) => {
+        const factionValue = type === 1 ? playerFaction : enemyFaction;
+        const custom = type === 1 && (baseHex || outline);
+
+        if (custom || !showTalents || !factionValue) {
+          return value;
+        }
+
+        return `${factionValue}-${background ? 'Hex' : 'Outline'}`;
+      };
+
       let src = 'Grid-Outline';
 
       if ((!hideUnits && ArtifactSet.has(unit)) || (!unit && state === 2)) {
@@ -193,13 +203,12 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         };
       }
       if (AlwaysShowStates.has(state)) {
-        const fallback = baseHex || outline || 'Generic-Outline';
-        const blank = showTalents ? `${activeFaction}-Hex` : fallback;
-        const isNotCustom = baseHex ? !compareStrings(baseHex, 'Generic-Outline') : baseHex !== undefined;
-        src = (!hideUnits && unit) || (isNotCustom ? blank : fallback);
+        const fallback = baseHex || outline || `Generic-${background ? 'Hex' : 'Outline'}`;
+        src = (!hideUnits && unit) || getFactionTile(fallback, 1);
       }
       if (state === -1 && !disableEnemy) {
-        src = (!hideUnits && unit) || 'Enemy-Outline';
+        const fallback = `Enemy-${background ? 'Hex' : 'Outline'}`;
+        src = (!hideUnits && unit) || getFactionTile(fallback, -1);
       }
       if (state === -2) {
         src = 'Breakable-Hex';
@@ -212,7 +221,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
 
       return { src, path };
     },
-    [activeFaction, baseHex, outline],
+    [enemyFaction, playerFaction, baseHex, outline, background],
   );
 
   useEffect(() => {
@@ -252,25 +261,24 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [tileData]);
 
   useEffect(() => {
-    let currentFaction = undefined as Talents | undefined;
-    const count = {} as Record<Talents, number>;
-    countUnits(count, units, (faction?: Talents) => {
-      if (!activeFaction) {
-        currentFaction = faction;
+    let currentPlayer = undefined as Talents | undefined;
+    let currentEnemy = undefined as Talents | undefined;
+    const countPlayer = {} as Record<Talents, number>;
+    const countEnemy = {} as Record<Talents, number>;
+    countUnits(countPlayer, units, 1, (faction?: Talents) => {
+      if (!playerFaction) {
+        currentPlayer = faction;
       }
     });
 
-    if (!currentFaction) {
-      if (activeFaction && count[activeFaction] >= TalentRequiredUnits) {
-        currentFaction = activeFaction;
-      } else {
-        const nextFaction = Object.keys(count).find(
-          faction => count[faction as unknown as Talents] >= TalentRequiredUnits,
-        );
-        currentFaction = nextFaction as Talents | undefined;
+    countUnits(countEnemy, units, -1, (faction?: Talents) => {
+      if (!enemyFaction) {
+        currentEnemy = faction;
       }
-    }
-    setActiveFaction(currentFaction ?? undefined);
+    });
+
+    setPlayerFaction(determineFaction(countPlayer, currentPlayer ?? playerFaction));
+    setEnemyFaction(determineFaction(countEnemy, currentEnemy ?? enemyFaction));
   }, [units]);
 
   return (
@@ -310,7 +318,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setSubMenu,
         updateArena,
         updateUnit,
-        activeFaction,
+        playerFaction,
+        enemyFaction,
         isTalents,
         setTalents,
         setArtifact,
@@ -319,6 +328,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setBaseHex,
         outline,
         setOutline,
+        background,
+        setBackground,
       }}
     >
       {children}

@@ -235,7 +235,7 @@ export const BaseHexData = (() => {
   outline: BaseHexes[];
 };
 
-export const BaseSet = new Set<string>(Object.values(BaseHexData).flatMap(hexes => hexes.map(hex => hex)));
+export const BaseSet = new Set<string>(['Grid-Outline', ...Object.values(BaseHexData).flatMap(hexes => hexes.map(hex => hex))]);
 
 export const BaseUnits = (() => {
   const formattedUnits = [...BaseSet].map(unit => ({

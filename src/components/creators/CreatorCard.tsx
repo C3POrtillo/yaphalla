@@ -24,7 +24,7 @@ const CreatorCard: FC<CreatorData> = async ({ label, language, image, ...props }
             <i className={joinStrings('fab', `fa-${getIcon(site)}`)} />
             {capitalize(site)}
             {['YouTube', 'Bilibili'].some(test => !compareStrings(site, test)) && !!language && (
-              <span className={`fi fi-${language} flag-icon-squared`} />
+              <span className={`fi fi-${language} flag-icon-squared rounded-sm`} />
             )}
           </Link>
         ),

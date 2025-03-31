@@ -98,4 +98,9 @@ export const creators = {
     Twitch: 'https://twitch.tv/atraxy316',
     image: '/assets/images/creators/atraxy.png',
   } as CreatorData,
+  '/bonvoya': {
+    label: 'Bonvoya',
+    YouTube: 'https://youtube.com/@bon.voya93',
+    language: 'id',
+  } as CreatorData,
 } as const;

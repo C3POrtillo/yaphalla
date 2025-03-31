@@ -1,4 +1,3 @@
-import { capitalize } from 'lodash';
 import Image from 'next/image';
 
 import type { CreatorData } from '@/utils/pathsCreators';
@@ -22,7 +21,7 @@ const CreatorCard: FC<CreatorData> = async ({ label, language, image, ...props }
         site && (
           <Link key={site} href={href} className="bg-secondary input-secondary size-sm inline-flex gap-2">
             <i className={joinStrings('fab', `fa-${getIcon(site)}`)} />
-            {capitalize(site)}
+            {site}
             {['YouTube', 'Bilibili'].some(test => !compareStrings(site, test)) && !!language && (
               <span className={`fi fi-${language} flag-icon-squared rounded-sm`} />
             )}

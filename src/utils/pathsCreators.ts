@@ -6,6 +6,7 @@ export type CreatorData = {
   Twitch?: string;
   Twitter?: string;
   Instagram?: string;
+  TikTok?: string;
   image?: string;
   language?: string;
 };
@@ -101,6 +102,7 @@ export const creators = {
   '/bonvoya': {
     label: 'Bonvoya',
     YouTube: 'https://youtube.com/@bon.voya93',
+    TikTok: 'https://www.tiktok.com/@bon.voya',
     language: 'id',
   } as CreatorData,
 } as const;

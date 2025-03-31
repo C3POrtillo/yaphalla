@@ -100,7 +100,7 @@ export const creators = {
     image: '/assets/images/creators/atraxy.png',
   } as CreatorData,
   '/bonvoya': {
-    label: 'Bonvoya',
+    label: 'Bon Voya',
     YouTube: 'https://youtube.com/@bon.voya93',
     TikTok: 'https://www.tiktok.com/@bon.voya',
     language: 'id',

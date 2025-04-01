@@ -1,7 +1,15 @@
 import { compareStrings, sortData } from '@/utils/utils';
 
 export const UnitClass = ['Tank', 'Support', 'Marksman', 'Mage', 'Rogue', 'Warrior'] as const;
-export const Faction = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celestial', 'Hypogean'] as const;
+export const Faction = [
+  'Lightbearer',
+  'Wilder',
+  'Mauler',
+  'Graveborn',
+  'Celestial',
+  'Hypogean',
+  'Dimensional',
+] as const;
 const Talents = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celestial-Hypogean'] as const;
 export type Faction = (typeof Faction)[number];
 export type UnitClass = (typeof UnitClass)[number];
@@ -90,6 +98,15 @@ const Hypogean = {
   Warrior: ['Harak'],
 } as ClassData;
 
+const Dimensional = {
+  Tank: [],
+  Support: ['Happy'],
+  Marksman: ['Gray'],
+  Mage: ['Lucy'],
+  Rogue: ['Natsu'],
+  Warrior: ['Erza'],
+};
+
 const Other = {
   Tank: ['Guywin'],
   Support: [],
@@ -106,6 +123,7 @@ const Units = {
   Graveborn,
   Celestial,
   Hypogean,
+  Dimensional,
 } as FactionData;
 
 export const SortedUnits = Object.entries(Units).flatMap(([faction, classData]) =>
@@ -235,7 +253,10 @@ export const BaseHexData = (() => {
   outline: BaseHexes[];
 };
 
-export const BaseSet = new Set<string>(['Grid-Outline', ...Object.values(BaseHexData).flatMap(hexes => hexes.map(hex => hex))]);
+export const BaseSet = new Set<string>([
+  'Grid-Outline',
+  ...Object.values(BaseHexData).flatMap(hexes => hexes.map(hex => hex)),
+]);
 
 export const BaseUnits = (() => {
   const formattedUnits = [...BaseSet].map(unit => ({

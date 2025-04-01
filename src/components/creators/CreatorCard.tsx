@@ -3,7 +3,7 @@ import Image from 'next/image';
 import type { CreatorData } from '@/utils/pathsCreators';
 import type { FC } from 'react';
 
-import { fetchYouTubePicture, getIcon, getPriority } from '@/components/creators/utils';
+import { fetchYouTubePicture, getFontSize, getIcon, getPriority } from '@/components/creators/utils';
 import Link from '@/components/link/Link';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
@@ -39,15 +39,9 @@ const CreatorCard: FC<CreatorData> = async ({ label, language, image, ...props }
             <Image className="rounded-full" src={creatorImage} alt="" fill sizes="64px" unoptimized priority />
           </div>
         )}
-
-        <h2
-          className={joinStrings(
-            'w-full text-tertiary-600 border-b-2 pb-1 mb-1',
-            label.length > 13 ? 'text-lg' : 'text-xl',
-          )}
-        >
-          {label}
-        </h2>
+        <div className="flex flex-row w-full text-tertiary-600 border-b-2 pb-1 mb-1">
+          <h2 className={joinStrings('w-full', getFontSize(label.length))}>{label}</h2>
+        </div>
       </div>
       <div className="w-full flex flex-col gap-1 h-min">{links}</div>
     </div>

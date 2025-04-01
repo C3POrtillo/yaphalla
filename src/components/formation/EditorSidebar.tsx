@@ -6,7 +6,7 @@ import type { FC } from 'react';
 
 import { useFormation } from '@/components/formation/FormationProvider';
 import ArtifactGrid from '@/components/formation/SelectArtifact';
-import { DoubleArtifacts } from '@/components/formation/types';
+// import { DoubleArtifacts } from '@/components/formation/types';
 import { getDrawImage } from '@/components/formation/utils';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Button from '@/components/inputs/button/Button';
@@ -22,13 +22,13 @@ const EditorSidebar: FC = () => {
     setEditArena,
     subMenu,
     setSubMenu,
-    setTileData,
-    setPreset,
-    setUnits,
+    // setTileData,
+    // setPreset,
+    // setUnits,
     isEditArena,
-    setNumber,
-    setEnemy,
-    setEmpty,
+    // setNumber,
+    // setEnemy,
+    // setEmpty,
     hideLogo,
     setHideLogo,
     background,
@@ -44,7 +44,7 @@ const EditorSidebar: FC = () => {
   const spanBreakable = <span className="text-yellow-700">Breakable</span>;
   const spanUnbreakable = <span className="text-zinc-400">Unbreakable</span>;
   const spanArtifact = <span className="text-primary-400">Artifact</span>;
-  const spanLogo = <span className="text-tertiary-400">Logo</span>;
+  // const spanLogo = <span className="text-tertiary-400">Logo</span>;
 
   const tabProps = [
     {
@@ -142,42 +142,42 @@ const EditorSidebar: FC = () => {
   ] as const;
 
   const advancedOptions = [
-    <div key="Double Artifacts" className="container-primary w-full flex flex-col gap-2 items-center">
-      <Button
-        size="sm"
-        className="w-full flex items-center justify-center"
-        onClick={() => {
-          setDrawType(1);
-          setEditArena(false);
-          setNumber(true);
-          setEnemy(true);
-          setEmpty(true);
-          setPreset('Double Artifacts');
-          setUnits({
-            39: { unit: 'Yaphalla Cat Hex', type: 100 },
-          });
-          setTileData(DoubleArtifacts as unknown as number[]);
-        }}
-        hierarchy="warning"
-        hasActiveBorder
-        tooltip={
-          <p className="text-sm">
-            <span className="text-red-500">Warning:</span>
-            {' Strictly for Arena 1. Do not use for PVP.\n'}
-            Extra {spanArtifact}
-            {' and '}
-            {spanLogo}
-            {' tiles cannot be readded but\ncan be replaced with a '}
-            {spanPlayer}, {spanEnemy}, {spanBreakable}
-            {',\n'}
-            {spanUnbreakable} tile
-          </p>
-        }
-        solidTooltip
-      >
-        Double Artifact Arena 1
-      </Button>
-    </div>,
+    // <div key="Double Artifacts" className="container-primary w-full flex flex-col gap-2 items-center">
+    //   <Button
+    //     size="sm"
+    //     className="w-full flex items-center justify-center"
+    //     onClick={() => {
+    //       setDrawType(1);
+    //       setEditArena(false);
+    //       setNumber(true);
+    //       setEnemy(true);
+    //       setEmpty(true);
+    //       setPreset('Double Artifacts');
+    //       setUnits({
+    //         39: { unit: 'Yaphalla Cat Hex', type: 100 },
+    //       });
+    //       setTileData(DoubleArtifacts as unknown as number[]);
+    //     }}
+    //     hierarchy="warning"
+    //     hasActiveBorder
+    //     tooltip={
+    //       <p className="text-sm">
+    //         <span className="text-red-500">Warning:</span>
+    //         {' Strictly for Arena 1. Do not use for PVP.\n'}
+    //         Extra {spanArtifact}
+    //         {' and '}
+    //         {spanLogo}
+    //         {' tiles cannot be readded but\ncan be replaced with a '}
+    //         {spanPlayer}, {spanEnemy}, {spanBreakable}
+    //         {',\n'}
+    //         {spanUnbreakable} tile
+    //       </p>
+    //     }
+    //     solidTooltip
+    //   >
+    //     Double Artifact Arena 1
+    //   </Button>
+    // </div>,
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
       {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Menu Tab</h2>}
       {subMenuProps.map(({ onClick, label, ...props }) => (

@@ -79,7 +79,7 @@ const paths = {
         label: 'Creators',
         options: processCreators(
           ({ YouTube, Bilibili, Twitch }) => !!(YouTube || Twitch || Bilibili),
-          ['YouTube', 'Twitch', 'Bilibili'],
+          ['Bilibili', 'YouTube', 'Twitch'],
         ),
       },
       { label: 'Discords', options: processCreators(({ Discord }) => !!Discord, ['Discord']) },

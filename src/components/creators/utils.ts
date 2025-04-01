@@ -98,3 +98,17 @@ export const fetchPicture = async (url: string, regExp: RegExp): Promise<string 
 
 export const fetchYouTubePicture = async (url: string): Promise<string | null> =>
   fetchPicture(url, /<link rel="image_src" href="(.*?)"/is);
+
+export const getFontSize = (length: number) => {
+  if (length > 18) {
+    return 'text-sm';
+  }
+  if (length > 16) {
+    return 'text-base';
+  }
+  if (length > 13) {
+    return 'text-lg';
+  }
+
+  return 'text-xl';
+};

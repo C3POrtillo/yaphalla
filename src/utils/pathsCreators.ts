@@ -89,7 +89,7 @@ export const creators = {
     YouTube: 'https://youtube.com/@DanManREAL',
   } as CreatorData,
   '/frosty': {
-    label: '站若隐寒星 | Frosty',
+    label: '若隐寒星 | Frosty',
     Bilibili: 'https://space.bilibili.com/401793216',
     image: '/assets/images/creators/frosty.png',
     language: 'cn',
@@ -104,5 +104,11 @@ export const creators = {
     YouTube: 'https://youtube.com/@bon.voya93',
     TikTok: 'https://www.tiktok.com/@bon.voya',
     language: 'id',
+  } as CreatorData,
+  '/squirrelfish': {
+    label: '松鼠年糕鱼 | SquirrelFish',
+    YouTube: 'https://www.youtube.com/@SquirrelFishGame',
+    Bilibili: 'https://space.bilibili.com/11018422',
+    language: 'cn',
   } as CreatorData,
 } as const;

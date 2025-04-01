@@ -158,7 +158,11 @@ const paths = {
           },
           {
             href: '/emotes',
-            label: 'Emoji Server',
+            label: 'Emojis',
+          },
+          {
+            href: '/emotes-hd',
+            label: 'Honor Duel Emojis',
           },
         ],
       },

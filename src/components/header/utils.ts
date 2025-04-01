@@ -23,7 +23,7 @@ export const getLgCols = (length: number) => {
   return null;
 };
 
-const discordSlugs = new Set(['/emotes']);
+const discordSlugs = new Set(['/emotes', '/emotes-hd']);
 const sheetSlugs = new Set(['/primal-lord', '/battle-drills', 'Leaderboards']);
 const formSlugs = new Set(['/paragon-form']);
 

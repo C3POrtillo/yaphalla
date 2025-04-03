@@ -1,6 +1,6 @@
 import type { UnitDivData } from '@/components/unit-grid/types';
 
-import { ArtifactSet, BaseSet, BaseUnits, DevUnits, OtherUnits, SortedUnits } from '@/utils/types';
+import { ArtifactUnits, BaseUnits, DevUnits, OtherUnits, SortedUnits } from '@/utils/types';
 
 const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {
   if (isXlScreen) {
@@ -14,14 +14,17 @@ const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {
 };
 
 export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant = 0) => {
-  const isUnit = variant === 0;
-  const isBase = variant === 2;
   const data = (() => {
-    if (isBase) {
-      return [...BaseUnits, ...DevUnits];
+    switch (variant) {
+      case 3:
+        return [...BaseUnits, ...DevUnits];
+      case 2:
+        return ArtifactUnits;
+      case 1:
+        return OtherUnits;
+      default:
+        return SortedUnits;
     }
-
-    return isUnit ? SortedUnits : OtherUnits;
   })();
 
   const result: UnitDivData[] = [];
@@ -40,16 +43,4 @@ export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant
   }
 
   return result;
-};
-
-export const getPath = (unit: string) => {
-  if (ArtifactSet.has(unit)) {
-    return 'artifact' as const;
-  }
-
-  if (BaseSet.has(unit)) {
-    return 'base' as const;
-  }
-
-  return 'unit' as const;
 };

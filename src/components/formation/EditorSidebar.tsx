@@ -1,6 +1,5 @@
 'use-client';
 import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
 
 import type { FC } from 'react';
 
@@ -22,19 +21,14 @@ const EditorSidebar: FC = () => {
     setEditArena,
     subMenu,
     setSubMenu,
-    // setTileData,
-    // setPreset,
-    // setUnits,
     isEditArena,
-    // setNumber,
-    // setEnemy,
-    // setEmpty,
     hideLogo,
     setHideLogo,
     background,
     setBackground,
+    tab,
+    setTab,
   } = useFormation();
-  const [tab, setTab] = useState(0);
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
   const isDevAdvanced = isDev && tab === 1;
@@ -43,27 +37,32 @@ const EditorSidebar: FC = () => {
   const spanEnemy = <span className="text-hex-enemy-400">Enemy</span>;
   const spanBreakable = <span className="text-yellow-700">Breakable</span>;
   const spanUnbreakable = <span className="text-zinc-400">Unbreakable</span>;
-  const spanArtifact = <span className="text-primary-400">Artifact</span>;
+  // const spanArtifact = <span className="text-primary-400">Artifact</span>;
   // const spanLogo = <span className="text-tertiary-400">Logo</span>;
 
   const tabProps = [
     {
-      label: 'Main',
+      label: 'Artifacts',
+      // tooltip: (
+      //   <p className="text-sm">
+      //     {'Select '}
+      //     {spanArtifact}.
+      //   </p>
+      // ),
+    },
+    {
+      label: 'Tiles',
       tooltip: (
         <p className="text-sm">
-          Place {spanPlayer}, {spanEnemy}
+          {'Toggle Grid background\nPlace '}
+          {spanPlayer}, {spanEnemy}
           {', '}
           {spanBreakable}
           {',\n and '}
-          {spanUnbreakable} tiles
-          {'.\nSelect '}
-          {spanArtifact}.
+          {spanUnbreakable}
+          {' Tiles\n'}
         </p>
       ),
-    },
-    {
-      label: isDev ? 'Advanced' : 'Other',
-      tooltip: <p className="text-sm">Contains other options.</p>,
     },
   ] as const;
 
@@ -79,10 +78,6 @@ const EditorSidebar: FC = () => {
   });
 
   const placeProps = [
-    getPlaceProps('Player', 1),
-    getPlaceProps('Enemy', -1),
-    getPlaceProps('Breakable', -2),
-    getPlaceProps('Unbreakable', -3),
     {
       label: 'Unit',
       selected: !isEditArena,
@@ -90,6 +85,10 @@ const EditorSidebar: FC = () => {
         setEditArena(false);
       },
     },
+    getPlaceProps('Player', 1),
+    getPlaceProps('Enemy', -1),
+    getPlaceProps('Breakable', -2),
+    getPlaceProps('Unbreakable', -3),
   ] as const;
 
   const subMenuProps = [
@@ -98,7 +97,6 @@ const EditorSidebar: FC = () => {
       hierarchy: 'primary',
       selected: subMenu === 0,
       onClick: () => {
-        setEditArena(true);
         setSubMenu(0);
       },
     },
@@ -124,20 +122,6 @@ const EditorSidebar: FC = () => {
           </div>
         </Button>
       )),
-    },
-    {
-      label: 'Toggle',
-      divs: (
-        <Toggle
-          variant="switch"
-          value="sidebar-background"
-          activeLabel="Background"
-          onChange={e => {
-            setBackground(e.target.checked);
-          }}
-          defaultChecked={background}
-        />
-      ),
     },
   ] as const;
 
@@ -181,14 +165,14 @@ const EditorSidebar: FC = () => {
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
       {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Menu Tab</h2>}
       {subMenuProps.map(({ onClick, label, ...props }) => (
-        <Button key={label} className="w-full" onClick={onClick} {...props} hasActiveBorder>
+        <Button key={label} className="w-full" size="sm" onClick={onClick} hasActiveBorder {...props}>
           {label}
         </Button>
       ))}
     </div>,
   ];
 
-  const [place, ...options] = controlDivs.map(
+  const options = controlDivs.map(
     ({ label, divs }) =>
       !!divs && (
         <div key={label} className="container-primary w-full flex flex-col gap-2 items-center">
@@ -199,27 +183,39 @@ const EditorSidebar: FC = () => {
   );
 
   return (
-    <div className="flex size-full flex-col-reverse items-center justify-start gap-2 self-start sm:w-fit sm:flex-col 2xl:w-64">
+    <div className="flex size-full flex-col items-center justify-start gap-2 self-start sm:w-fit sm:flex-col 2xl:w-64">
       <div className="container-primary w-full flex flex-col gap-2 items-center">
         <div className="w-full flex flex-row gap-2">
-          {tabProps.map(({ label, tooltip }, i) => (
+          {tabProps.map(({ label, ...props }, i) => (
             <Button
               key={label}
               className="w-full flex items-center justify-center"
               size="sm"
               selected={tab === i}
               hasActiveBorder
-              tooltip={tooltip}
               solidTooltip
               onClick={() => setTab(i)}
+              {...props}
             >
               {label}
             </Button>
           ))}
         </div>
+        {tab === 1 && (
+          <Toggle
+            className="w-full"
+            variant="switch"
+            value="sidebar-background"
+            activeLabel="Background"
+            onChange={e => {
+              setBackground(e.target.checked);
+            }}
+            defaultChecked={background}
+          />
+        )}
         {isDevAdvanced && (
           <Toggle
-            className="w-full !pl-2"
+            className="w-full"
             variant="switch"
             value="Hide Logo"
             onChange={e => {
@@ -230,12 +226,7 @@ const EditorSidebar: FC = () => {
         )}
       </div>
       <div className="flex w-full flex-col gap-2 items-center">
-        {tab === 0 && (
-          <>
-            {place}
-            <ArtifactGrid />
-          </>
-        )}
+        {tab === 0 && <ArtifactGrid />}
         {tab === 1 && <div className="w-full flex flex-col gap-2 items-center">{options}</div>}
         {isDevAdvanced && <div className="w-full flex flex-col gap-2 items-center">{advancedOptions}</div>}
       </div>

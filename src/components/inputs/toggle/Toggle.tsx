@@ -2,8 +2,9 @@
 import { useEffect, useState } from 'react';
 
 import type { HierarchyTypes } from '@/utils/siteTypes';
-import type { ChangeEvent, FC, InputHTMLAttributes } from 'react';
+import type { ChangeEvent, FC, InputHTMLAttributes, ReactNode } from 'react';
 
+import Tooltip from '@/components/tooltip/Tooltip';
 import { compareStrings, joinStrings, kebabCase } from '@/utils/utils';
 
 interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -12,6 +13,8 @@ interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
   activeLabel?: string;
   disableLabel?: string;
   hierarchy?: HierarchyTypes;
+  tooltip?: ReactNode;
+  solidTooltip?: boolean;
 }
 
 const Toggle: FC<ToggleProps> = ({
@@ -24,6 +27,8 @@ const Toggle: FC<ToggleProps> = ({
   defaultChecked,
   onChange,
   disabled,
+  tooltip,
+  solidTooltip,
   ...props
 }) => {
   const [isChecked, setChecked] = useState(defaultChecked);
@@ -46,6 +51,7 @@ const Toggle: FC<ToggleProps> = ({
     <label
       htmlFor={id}
       className={joinStrings(
+        !!tooltip && 'group relative lg:justify-center',
         'size-sm !pr-2 flex flex-row items-center gap-2',
         !!disableLabel && '!pl-2',
         isCheckbox && '!pl-2',
@@ -87,6 +93,9 @@ const Toggle: FC<ToggleProps> = ({
         )}
         <span>{activeLabel || value}</span>
       </div>
+      {tooltip && (
+        <Tooltip className={joinStrings('top-full text-center', solidTooltip && '!bg-primary-950')}>{tooltip}</Tooltip>
+      )}
     </label>
   );
 };

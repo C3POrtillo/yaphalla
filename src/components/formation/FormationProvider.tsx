@@ -2,12 +2,12 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 import type { ArtifactFormationData, TileData, UnitFormationData } from '@/components/formation/types';
-import type { BaseHexes, Talents } from '@/utils/types';
+import type { BaseHexes, ImagePath, Talents } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { AlwaysShowStates, ArenaPresets } from '@/components/formation/types';
 import { countUnits, determineFaction } from '@/components/formation/utils';
-import { getPath } from '@/components/unit-grid/utils';
+import { getArtifactPath, getPath } from '@/components/hex-tiles/utils';
 import { ArtifactSet } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 
@@ -42,6 +42,8 @@ interface FormationContextType {
   setCurrentArtifact: Dispatch<SetStateAction<number | undefined>>;
   isEditArena: boolean;
   setEditArena: Dispatch<SetStateAction<boolean>>;
+  tab: number;
+  setTab: Dispatch<SetStateAction<number>>;
   subMenu: number;
   setSubMenu: Dispatch<SetStateAction<number>>;
   baseHex: BaseHexes | undefined;
@@ -65,7 +67,7 @@ interface FormationContextType {
     disableEnemy?: boolean,
   ) => {
     src: string;
-    path: 'unit' | 'base' | 'artifact';
+    path: ImagePath;
   };
 }
 
@@ -94,6 +96,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isTalents, setTalents] = useState<boolean>(true);
   const [hideLogo, setHideLogo] = useState<boolean>(false);
   const [background, setBackground] = useState<boolean>(false);
+  const [tab, setTab] = useState(0);
   const [subMenu, setSubMenu] = useState(0);
   const [baseHex, setBaseHex] = useState<BaseHexes | undefined>();
   const [outline, setOutline] = useState<BaseHexes | undefined>();
@@ -171,6 +174,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
             return updated;
           });
         }
+      } else {
+        setTab(0);
       }
     },
     [currentArtifact, artifactData],
@@ -191,9 +196,11 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       let src = 'Grid-Outline';
 
       if ((!hideUnits && ArtifactSet.has(unit)) || (!unit && state === 2)) {
+        const hasUnit = !hideUnits && unit;
+
         return {
-          src: (!hideUnits && unit) || 'Artifact-Hex',
-          path: 'artifact' as const,
+          src: hasUnit || 'Artifact-Hex',
+          path: getArtifactPath(hasUnit || ''),
         };
       }
       if (unit && state === 100 && hideUnits) {
@@ -314,6 +321,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setCurrentArtifact,
         isEditArena,
         setEditArena,
+        tab,
+        setTab,
         subMenu,
         setSubMenu,
         updateArena,

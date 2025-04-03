@@ -29,7 +29,7 @@ const UnitTooltip: FC<UnitTooltipProps> = ({ unit, faction, unitClass }) => {
   return (
     <div className="flex flex-row gap-1 items-center">
       {imageFaction || imageClass}
-      <p className="text-xs w-max max-w-16">{unit}</p>
+      <p className="text-xs w-max max-w-16">{unit.replaceAll('-', ' ')}</p>
       {imageClass || imageFaction}
     </div>
   );

@@ -12,7 +12,7 @@ interface ButtonTileProps extends HexImageProps {
 
 const ButtonTile: FC<ButtonTileProps> = ({ ariaLabel, disabled, onClick, ...props }) => (
   <button className="cursor-pointer disabled:cursor-auto" onClick={onClick} disabled={disabled} aria-label={ariaLabel}>
-    <HexImage {...props} disabled={disabled} />
+    <HexImage disabled={disabled} {...props} />
   </button>
 );
 

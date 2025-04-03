@@ -2,24 +2,27 @@
 import { useState } from 'react';
 
 import type { HierarchyTypes } from '@/utils/siteTypes';
-import type { ArtifactSource } from '@/utils/types';
 import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
 import { useFormation } from '@/components/formation/FormationProvider';
+import { getArtifacts } from '@/components/formation/utils';
 import HexImage from '@/components/hex-tiles/HexImage';
+import { getArtifactPath } from '@/components/hex-tiles/utils';
 import Button from '@/components/inputs/button/Button';
-import { Artifacts, currentSeason } from '@/utils/types';
+import { Artifacts } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
 const SelectArtifact: FC = () => {
-  const [tab, setTab] = useState<ArtifactSource>(currentSeason);
+  const [tab, setTab] = useState<number>(0);
   const { currentArtifact, artifactData, setArtifactData, currentTile, tileData, units, setUnits, setCurrentTile } =
     useFormation();
   const artifactDisabled = currentArtifact === undefined;
   const notArtifactTile = currentTile ? tileData[currentTile] !== 2 : true;
   const disabled = artifactDisabled && notArtifactTile;
   const key = currentArtifact ? 'enemy' : 'player';
+
+  const buttonLabels = ['Seasonal', 'Pre-Season', 'Honor Duel'] as const;
 
   const getArtifactButtons = (artifacts: string[], hierarchy?: HierarchyTypes) =>
     artifacts.map(artifact => {
@@ -64,7 +67,7 @@ const SelectArtifact: FC = () => {
             hasActiveBorder
           >
             <div className="flex flex-row gap-2 items-center w-full">
-              <HexImage src={artifact} path="artifact" size="2xs" disabled />
+              <HexImage src={artifact} path={getArtifactPath(artifact || '')} size="2xs" disabled />
               <p className="text-lg">{artifact}</p>
             </div>
           </Button>
@@ -74,53 +77,43 @@ const SelectArtifact: FC = () => {
 
   return (
     <>
-      {Object.entries(Artifacts)
-        .filter(([label]) => ['Pre-Season', currentSeason].some(check => !compareStrings(label, check)))
-        .map(([label, artifacts], i) => (
-          <div key={label} className="relative h-16 w-full block sm:hidden">
-            <div
-              className={joinStrings(
-                'container-primary absolute top-0 left-0 w-full p-2 flex flex-col gap-2',
-                i ? 'z-20' : 'z-30',
-              )}
-            >
-              <Accordion label={label.includes('Season ') ? 'Seasonal' : label} keepOpen={false}>
-                <div className="scroll-bar-left scroll-bar-auto inset-secondary !rounded-t-none flex flex-col p-2 gap-1 max-h-[360px] overflow-auto">
-                  {getArtifactButtons(artifacts, 'tertiary')}
-                </div>
-              </Accordion>
-            </div>
+      {Object.entries(Artifacts).map(([label, artifacts]) => (
+        <div key={label} className="relative h-16 w-full block sm:hidden">
+          <div className="container-primary absolute top-0 left-0 w-full p-2 flex flex-col gap-2">
+            <Accordion label={`${label.includes('Season ') ? 'Seasonal' : label} Artifacts`} keepOpen={false}>
+              <div className="scroll-bar-left scroll-bar-auto inset-secondary !rounded-t-none flex flex-col p-2 gap-1 max-h-[360px] overflow-auto z-100">
+                {getArtifactButtons(artifacts, 'tertiary')}
+              </div>
+            </Accordion>
           </div>
-        ))}
-      <div className="container-primary hidden flex-col gap-2 items-center justify-center sm:flex ">
-        <div className="w-full flex flex-col gap-2 sm:flex-row">
-          {(['Seasonal', 'Pre-Season'] as const).map(label => {
-            const isSeasonal = !compareStrings(label, 'Seasonal');
-
-            return (
-              <Button
-                key={label}
-                className="w-full"
-                onClick={() => {
-                  setTab(isSeasonal ? currentSeason : 'Pre-Season');
-                }}
-                selected={tab === (isSeasonal ? currentSeason : label)}
-                hasActiveBorder
-              >
-                {label}
-              </Button>
-            );
-          })}
         </div>
-        <div className="scroll-bar-left scroll-bar-auto max-h-80 4xl:max-h-92 overflow-y-auto">
-          <div className="w-52 flex flex-col gap-2">
+      ))}
+      <div className="container-primary hidden w-full flex-col gap-2 items-center justify-center sm:flex ">
+        <div className="w-full flex flex-col gap-2">
+          {buttonLabels.map((label, i) => (
+            <Button
+              key={label}
+              className="w-full"
+              size="sm"
+              onClick={() => {
+                setTab(i);
+              }}
+              selected={tab === i}
+              hasActiveBorder
+            >
+              {label}
+            </Button>
+          ))}
+        </div>
+        <div className="scroll-bar-left scroll-bar-auto scroll-bar-thin w-full max-h-142 overflow-y-auto">
+          <div className="w-full flex flex-col gap-2">
             <div
               className={joinStrings(
                 'inset-secondary flex w-full flex-col justify-center text-center p-2 gap-2',
                 disabled && 'opacity-40',
               )}
             >
-              <div className="flex flex-col gap-2">{getArtifactButtons(Artifacts[tab])}</div>
+              <div className="flex flex-col gap-1">{getArtifactButtons(getArtifacts(tab))}</div>
             </div>
           </div>
         </div>

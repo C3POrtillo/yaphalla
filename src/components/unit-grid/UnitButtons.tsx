@@ -6,8 +6,8 @@ import type { Faction, UnitClass } from '@/utils/types';
 import type { FC } from 'react';
 
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
+import { getPath } from '@/components/hex-tiles/utils';
 import UnitTooltip from '@/components/unit-grid/UnitTooltip';
-import { getPath } from '@/components/unit-grid/utils';
 import { cleanString, compareStrings, joinStrings, testRegExp } from '@/utils/utils';
 
 interface UnitButtonProps extends UnitGridProps {

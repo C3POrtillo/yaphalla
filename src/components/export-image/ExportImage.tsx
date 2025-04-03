@@ -58,9 +58,9 @@ const ExportImage: FC<ExportImageProps> = ({
           size="sm"
           className="inline-flex w-full gap-1 justify-center items-center"
           onClick={onClick}
-          {...props}
           selected={selected}
           hasActiveBorder
+          {...props}
         >
           <i className={solidIcon(icon)} />
           {label}

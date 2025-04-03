@@ -1,9 +1,10 @@
 import { createContext, useCallback, useContext, useState } from 'react';
 
 import type { GroupUnitData } from '@/components/priority/types';
+import type { ImagePath } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { getPath } from '@/components/unit-grid/utils';
+import { getPath } from '@/components/hex-tiles/utils';
 
 interface PriorityContextType {
   groups: string;
@@ -12,7 +13,7 @@ interface PriorityContextType {
   setUnits: Dispatch<SetStateAction<GroupUnitData>>;
   currentTile: string | undefined;
   setCurrentTile: Dispatch<SetStateAction<string | undefined>>;
-  getTileImage: (string?: string) => { src: string; path: 'unit' | 'base' | 'artifact' };
+  getTileImage: (string?: string) => { src: string; path: ImagePath };
   updateUnit: (index: string) => void;
 }
 

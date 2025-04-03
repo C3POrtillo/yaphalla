@@ -2,7 +2,7 @@ import type { TileDivData, UnitFormationData } from '@/components/formation/type
 import type { BaseHexes, Talents } from '@/utils/types';
 
 import { TalentLocations, TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/formation/types';
-import { PairSet, UnitPairs, UnitsByFaction } from '@/utils/types';
+import { Artifacts, CurrentSeason, PairSet, UnitPairs, UnitsByFaction } from '@/utils/types';
 import { compareStrings, sortData } from '@/utils/utils';
 
 export const getRelativeTileLabels = (tiles: number[]) => {
@@ -157,3 +157,26 @@ export const determineFaction = (count: Record<Talents, number>, string?: Talent
 };
 
 export const isCustom = (target?: BaseHexes) => target && !/^Generic-/.test(target);
+
+export const getGroupIndex = (i: number) => {
+  if (i < 5) {
+    return 0;
+  }
+
+  if (i < 10) {
+    return 1;
+  }
+
+  return Math.floor((i - 10) / 8) + 2;
+};
+
+export const getArtifacts = (i: number) => {
+  switch (i) {
+    case 2:
+      return Artifacts['Honor Duel'];
+    case 1:
+      return Artifacts['Pre-Season'];
+    default:
+      return Artifacts[CurrentSeason];
+  }
+};

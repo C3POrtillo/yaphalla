@@ -49,7 +49,7 @@ const SelectBackgroundHex: FC = () => {
           const shouldOverlap = isOdd !== isPrevOdd;
 
           return (
-            <div key={i} className={joinStrings('flex gap-1', shouldOverlap && '-mt-4')}>
+            <div key={i} className={joinStrings('flex gap-0.5', shouldOverlap && '-mt-4')}>
               {group}
             </div>
           );
@@ -89,7 +89,7 @@ const SelectBackgroundHex: FC = () => {
       {containers.map(({ title, options }) => (
         <div key={title} className="container-primary flex flex-col gap-2 items-center h-full">
           <Header title={title} />
-          <div className="inset-secondary flex flex-col flex-wrap items-center gap-2 grow justify-center">
+          <div className="inset-secondary flex flex-col flex-wrap items-center gap-1 grow justify-center">
             {options}
           </div>
         </div>

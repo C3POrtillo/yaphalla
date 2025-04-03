@@ -96,7 +96,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isTalents, setTalents] = useState<boolean>(true);
   const [hideLogo, setHideLogo] = useState<boolean>(false);
   const [background, setBackground] = useState<boolean>(false);
-    const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState(0);
   const [subMenu, setSubMenu] = useState(0);
   const [baseHex, setBaseHex] = useState<BaseHexes | undefined>();
   const [outline, setOutline] = useState<BaseHexes | undefined>();
@@ -175,7 +175,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
           });
         }
       } else {
-        setTab(0)
+        setTab(0);
       }
     },
     [currentArtifact, artifactData],
@@ -321,7 +321,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setCurrentArtifact,
         isEditArena,
         setEditArena,
-        tab, setTab,
+        tab,
+        setTab,
         subMenu,
         setSubMenu,
         updateArena,

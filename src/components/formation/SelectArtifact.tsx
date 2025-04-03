@@ -105,7 +105,7 @@ const SelectArtifact: FC = () => {
             </Button>
           ))}
         </div>
-        <div className="scroll-bar-left scroll-bar-auto scroll-bar-thin w-full max-h-156 overflow-y-auto">
+        <div className="scroll-bar-left scroll-bar-auto scroll-bar-thin w-full max-h-142 overflow-y-auto">
           <div className="w-full flex flex-col gap-2">
             <div
               className={joinStrings(

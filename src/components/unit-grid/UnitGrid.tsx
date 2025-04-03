@@ -7,7 +7,6 @@ import type { FC } from 'react';
 
 import Button from '@/components/inputs/button/Button';
 import Text from '@/components/inputs/text/Text';
-import Toggle from '@/components/inputs/toggle/Toggle';
 import UnitButtons from '@/components/unit-grid/UnitButtons';
 import UnitFilter from '@/components/unit-grid/UnitFilters';
 import { getFormattedUnits } from '@/components/unit-grid/utils';
@@ -35,14 +34,17 @@ const UnitGrid: FC<UnitGridProps> = ({ currentUnit, disabled, onClick }) => {
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant));
   }, [isMdScreen, isXlScreen, variant]);
 
-  const devOptions = isDev && (
+  const unitOptions = (
     <div className="flex flex-row gap-1">
-      {['Units', 'Other', 'Artifacts', 'Tiles']
-        .map((label, i) => (
-          <Button key={label} size="sm" selected={variant === i} hasActiveBorder onClick={() => setVariant(i)}>
-            {label}
-          </Button>
-        ))
+      {['Units', 'Other', isDev && 'Artifacts', isDev && 'Tiles']
+        .map(
+          (label, i) =>
+            label && (
+              <Button key={label} size="sm" selected={variant === i} hasActiveBorder onClick={() => setVariant(i)}>
+                {label}
+              </Button>
+            ),
+        )
         .reverse()}
     </div>
   );
@@ -55,17 +57,7 @@ const UnitGrid: FC<UnitGridProps> = ({ currentUnit, disabled, onClick }) => {
           <UnitFilter items={Faction} filter={filterFaction} setFilter={setFilterFaction} path="factions" />
         </div>
         <Text label="Search" setState={setFilterSearch} placeholder="Name/Faction/Class" value={filterSearch}>
-          {devOptions || (
-            <Toggle
-              variant="switch"
-              disableLabel="Other"
-              value="Units"
-              onChange={e => {
-                setVariant(e.target.checked ? 0 : 1);
-              }}
-              defaultChecked={variant === 0}
-            />
-          )}
+          {unitOptions}
         </Text>
       </div>
       <div className="relative flex size-full flex-row justify-center">

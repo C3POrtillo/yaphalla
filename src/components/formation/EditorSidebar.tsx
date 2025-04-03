@@ -1,6 +1,5 @@
 'use-client';
 import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
 
 import type { FC } from 'react';
 
@@ -27,7 +26,8 @@ const EditorSidebar: FC = () => {
     setHideLogo,
     background,
     setBackground,
-    tab, setTab
+    tab,
+    setTab,
   } = useFormation();
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
@@ -37,28 +37,30 @@ const EditorSidebar: FC = () => {
   const spanEnemy = <span className="text-hex-enemy-400">Enemy</span>;
   const spanBreakable = <span className="text-yellow-700">Breakable</span>;
   const spanUnbreakable = <span className="text-zinc-400">Unbreakable</span>;
-  const spanArtifact = <span className="text-primary-400">Artifact</span>;
+  // const spanArtifact = <span className="text-primary-400">Artifact</span>;
   // const spanLogo = <span className="text-tertiary-400">Logo</span>;
 
   const tabProps = [
     {
       label: 'Artifacts',
-      tooltip: (
-        <p className="text-sm">
-          {'Select '}
-          {spanArtifact}.
-        </p>
-      ),
+      // tooltip: (
+      //   <p className="text-sm">
+      //     {'Select '}
+      //     {spanArtifact}.
+      //   </p>
+      // ),
     },
     {
       label: 'Tiles',
       tooltip: (
         <p className="text-sm">
-          Place {spanPlayer}, {spanEnemy}
+          {'Toggle Grid background\nPlace '}
+          {spanPlayer}, {spanEnemy}
           {', '}
           {spanBreakable}
           {',\n and '}
-          {spanUnbreakable} tiles
+          {spanUnbreakable}
+          {' Tiles\n'}
         </p>
       ),
     },
@@ -95,7 +97,6 @@ const EditorSidebar: FC = () => {
       hierarchy: 'primary',
       selected: subMenu === 0,
       onClick: () => {
-        setEditArena(true);
         setSubMenu(0);
       },
     },
@@ -164,7 +165,7 @@ const EditorSidebar: FC = () => {
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
       {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Menu Tab</h2>}
       {subMenuProps.map(({ onClick, label, ...props }) => (
-        <Button key={label} className="w-full" size="sm" onClick={onClick} {...props} hasActiveBorder>
+        <Button key={label} className="w-full" size="sm" onClick={onClick} hasActiveBorder {...props}>
           {label}
         </Button>
       ))}
@@ -185,16 +186,16 @@ const EditorSidebar: FC = () => {
     <div className="flex size-full flex-col items-center justify-start gap-2 self-start sm:w-fit sm:flex-col 2xl:w-64">
       <div className="container-primary w-full flex flex-col gap-2 items-center">
         <div className="w-full flex flex-row gap-2">
-          {tabProps.map(({ label, tooltip }, i) => (
+          {tabProps.map(({ label, ...props }, i) => (
             <Button
               key={label}
               className="w-full flex items-center justify-center"
               size="sm"
               selected={tab === i}
               hasActiveBorder
-              tooltip={tooltip}
               solidTooltip
               onClick={() => setTab(i)}
+              {...props}
             >
               {label}
             </Button>

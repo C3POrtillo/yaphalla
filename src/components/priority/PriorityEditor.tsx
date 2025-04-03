@@ -1,4 +1,6 @@
-import { type FC, Suspense } from 'react';
+import { Suspense } from 'react';
+
+import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
 import Link from '@/components/link/Link';

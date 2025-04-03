@@ -23,7 +23,7 @@ export const getLgCols = (length: number) => {
   return null;
 };
 
-const discordSlugs = new Set(['/emotes', '/emotes-hd']);
+const discordSlugs = new Set(['/emotes', '/emotes-hd', '/emotes-artifacts', '/emotes-charms']);
 const sheetSlugs = new Set(['/primal-lord', '/battle-drills', 'Leaderboards']);
 const formSlugs = new Set(['/paragon-form']);
 
@@ -32,6 +32,7 @@ const staticSlugs: Record<string, string> = {
   Communities: solidIcon('user-group'),
   '/creators': solidIcon('tv'),
   '/auto-player': solidIcon('robot'),
+  'https://afk-journey.fandom.com': solidIcon('book'),
 };
 
 const staticSets = (href: string) => {

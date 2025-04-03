@@ -157,12 +157,29 @@ const paths = {
             label: 'Paragon Form',
           },
           {
+            href: 'https://afk-journey.fandom.com',
+            label: 'AFKJ Wiki',
+          },
+        ],
+      },
+      {
+        label: 'Yapmojis',
+        options: [
+          {
             href: '/emotes',
-            label: 'Emojis',
+            label: 'Units',
+          },
+          {
+            href: '/emotes-artifacts',
+            label: 'Artifacts',
+          },
+          {
+            href: '/emotes-charms',
+            label: 'Charms',
           },
           {
             href: '/emotes-hd',
-            label: 'Honor Duel Emojis',
+            label: 'Honor Duel',
           },
         ],
       },

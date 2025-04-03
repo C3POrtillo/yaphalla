@@ -89,6 +89,9 @@ const google = {
   } as RedirectType,
 };
 
+const getLogo = (name: string) => `https://www.yaphalla.com/assets/images/logos/${name}.png`;
+const getCatLogo = (color: string) => getLogo(`yaphalla-cat-${color}`);
+
 const discords = {
   '/discord': {
     redirect: '/discord',
@@ -103,22 +106,38 @@ const discords = {
     label: 'Discord',
     href: 'https://discord.com/invite/qUdyM7nTYC',
     title: 'Yapmojis',
-    description: 'Join our emote discord!',
     site: 'Discord',
     themeColor: '#ae3fcd',
     keywords: ['Yaphalla Emote Discord', 'Emotes', 'Emojis'],
-    image: 'https://www.yaphalla.com/assets/images/logos/yaphalla-cat-pink.png',
+    image: getCatLogo('pink'),
   } as RedirectType,
   '/emotes-hd': {
     redirect: '/emotes-hd',
     label: 'Discord',
     href: 'https://discord.com/invite/AF9NYXQXXt',
     title: 'Honor Duel Yapmojis',
-    description: 'Join our Honor Duel emote discord!',
     site: 'Discord',
     themeColor: '#7c99dd',
     keywords: ['Yaphalla Honor Duel Emote Discord', 'Honor Duel Emotes', 'Honor Duel Emojis'],
-    image: 'https://www.yaphalla.com/assets/images/logos/yaphalla-cat-blue.png',
+    image: getCatLogo('blue'),
+  } as RedirectType,
+  '/emotes-artifacts': {
+    redirect: '/emotes-artifacts',
+    label: 'Discord',
+    href: 'https://discord.com/invite/FXGSSpsfTA',
+    site: 'Discord',
+    themeColor: '#e8b660',
+    keywords: ['Yaphalla Artifact Emote Discord', 'Artifact Emotes', 'Artifact Emojis'],
+    image: getCatLogo('orange'),
+  } as RedirectType,
+  '/emotes-charms': {
+    redirect: '/emotes-charms',
+    label: 'Discord',
+    href: 'https://discord.com/invite/vyQwN92njg',
+    site: 'Discord',
+    themeColor: '#9368ab',
+    keywords: ['Yaphalla Charms Emote Discord', 'Charm Emotes', 'Charm Emojis'],
+    image: getCatLogo('purple'),
   } as RedirectType,
   '/fight-club': {
     redirect: '/fight-club',
@@ -128,7 +147,7 @@ const discords = {
     site: 'Discord',
     keywords: ['Fight Club Discord'],
     themeColor: '#f9db89',
-    image: 'https://www.yaphalla.com/assets/images/logos/fight-club.png',
+    image: getLogo('fight-club'),
   } as RedirectType,
   '/trolley': {
     redirect: '/trolley',
@@ -138,7 +157,7 @@ const discords = {
     site: 'Discord',
     noIndex: true,
     themeColor: '#fed2a8',
-    image: 'https://www.yaphalla.com/assets/images/logos/trolley.png',
+    image: getLogo('trolley'),
   } as RedirectType,
   '/vn': {
     redirect: '/vn',
@@ -148,7 +167,7 @@ const discords = {
     site: 'Discord',
     themeColor: '#da251d',
     keywords: createDiscordKeywords('Vietnam'),
-    image: 'https://www.yaphalla.com/assets/images/logos/vn-logo.png',
+    image: getLogo('vn-logo'),
   } as RedirectType,
   '/official': {
     redirect: '/official',
@@ -158,7 +177,7 @@ const discords = {
     site: 'Discord',
     themeColor: '#a6dcd0',
     keywords: createDiscordKeywords(),
-    image: 'https://www.yaphalla.com/assets/images/logos/afkj-logo.png',
+    image: getLogo('afkj-logo'),
   } as RedirectType,
   '/prydwen': {
     redirect: '/prydwen',

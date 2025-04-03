@@ -1,6 +1,7 @@
 import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/accordion';
+import AccordionLinks from '@/components/header/AccordionLinks';
 import SubLinks from '@/components/header/SubLinks';
 import { LinkClasses } from '@/components/header/types';
 import { getLgCols, getLinkIcon } from '@/components/header/utils';
@@ -43,30 +44,7 @@ const Header: FC = () => {
       </div>
     );
     const accordionLink = !!tooltip && (
-      <div className="w-full block lg:hidden">
-        <Accordion key={`${slug || title} Accordion`} label={slug ? rootOptions[0].label : title} hierarchy="primary">
-          <div className="inset-secondary grid gap-1 grid-cols-1 !p-1 !rounded-t-none">
-            {slug && (
-              <Link key={slug} className={joinStrings(LinkClasses, 'p-1')} href={slug} {...data}>
-                {rootIcon}
-              </Link>
-            )}
-            {rootOptions
-              .flatMap(({ options }) => options)
-              .filter(path => !!path)
-              .map(({ href, label }, i) => {
-                const iconName = getLinkIcon(href);
-                const icon = !!iconName && <i className={joinStrings('!text-base w-5', iconName)} />;
-
-                return (
-                  <Link key={`${label}-${i}`} href={href} label={label} className={joinStrings(LinkClasses, 'p-1')}>
-                    {icon}
-                  </Link>
-                );
-              })}
-          </div>
-        </Accordion>
-      </div>
+      <AccordionLinks slug={slug} title={title} rootOptions={rootOptions} rootIcon={rootIcon} />
     );
 
     if (!slug && tooltip) {

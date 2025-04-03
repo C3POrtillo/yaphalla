@@ -77,17 +77,17 @@ const SelectArtifact: FC = () => {
 
   return (
     <>
-      {Object.entries(Artifacts).map(([label, artifacts]) => (
-        <div key={label} className="relative h-16 w-full block sm:hidden">
-          <div className="container-primary absolute top-0 left-0 w-full p-2 flex flex-col gap-2">
+      <div className="container-primary w-full flex flex-col gap-2 sm:hidden">
+        {Object.entries(Artifacts).map(([label, artifacts]) => (
+          <div key={label} className="relative h-10 w-full">
             <Accordion label={`${label.includes('Season ') ? 'Seasonal' : label} Artifacts`} keepOpen={false}>
               <div className="scroll-bar-left scroll-bar-auto inset-secondary !rounded-t-none flex flex-col p-2 gap-1 max-h-[360px] overflow-auto z-100">
                 {getArtifactButtons(artifacts, 'tertiary')}
               </div>
             </Accordion>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
       <div className="container-primary hidden w-full flex-col gap-2 items-center justify-center sm:flex ">
         <div className="w-full flex flex-col gap-2">
           {buttonLabels.map((label, i) => (

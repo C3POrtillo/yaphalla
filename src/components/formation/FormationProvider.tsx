@@ -7,8 +7,7 @@ import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { AlwaysShowStates, ArenaPresets } from '@/components/formation/types';
 import { countUnits, determineFaction } from '@/components/formation/utils';
-import { getArtifactPath, getPath } from '@/components/hex-tiles/utils';
-import { ArtifactSet } from '@/utils/types';
+import { getPath } from '@/components/hex-tiles/utils';
 import { compareStrings } from '@/utils/utils';
 
 interface FormationContextType {
@@ -194,20 +193,14 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       };
 
       let src = 'Grid-Outline';
-
-      if ((!hideUnits && ArtifactSet.has(unit)) || (!unit && state === 2)) {
-        const hasUnit = !hideUnits && unit;
-
-        return {
-          src: hasUnit || 'Artifact-Hex',
-          path: getArtifactPath(hasUnit || ''),
-        };
-      }
       if (unit && state === 100 && hideUnits) {
         return {
           src: 'Enemy-Outline',
           path: 'base' as const,
         };
+      }
+      if ((hideUnits || !unit) && state === 2) {
+        return { src: 'Grid-Hex', path: 'base' as const };
       }
       if (AlwaysShowStates.has(state)) {
         const fallback = baseHex || outline || `Generic-${background ? 'Hex' : 'Outline'}`;

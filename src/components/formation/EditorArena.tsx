@@ -151,6 +151,7 @@ const EditorArena: FC<EditorArena> = ({
           const talents = state === 1 ? playerTalents : enemyTalents;
           const unit = units[index]?.unit;
           const tileLabel = getTileLabel(state, index);
+          const showUnit = !hideUnits && !!unit;
           const { disableGrid, disableEnemy, disabled } = getDisabledProps(state);
           const { src, path } = getTileImage(unit, state, !!talents, hideUnits, hideEnemy);
 
@@ -163,7 +164,8 @@ const EditorArena: FC<EditorArena> = ({
               label={tileLabel}
               hideLabel={(!hideUnits && (disableGrid || (!disableEnemy && !!unit))) || hideNumbers}
               hideImage={disableGrid || (state === 100 && hideLogo)}
-              isEnemy={state === -1 && !hideUnits && !!unit && !hideEnemy}
+              isEnemy={state === -1 && showUnit && !hideEnemy}
+              isSwap={state === 2 && showUnit}
               isTalent={talents && talents.has(TileIndexToPosition[index])}
               disabled={disabled || (!hideUnits && state === 100)}
               path={state !== 2 && (hideUnits || disableEnemy) ? 'base' : path}

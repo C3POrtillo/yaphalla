@@ -94,7 +94,9 @@ const Toggle: FC<ToggleProps> = ({
         <span>{activeLabel || value}</span>
       </div>
       {tooltip && (
-        <Tooltip className={joinStrings('top-full text-center', solidTooltip && '!bg-primary-950')}>{tooltip}</Tooltip>
+        <Tooltip className={joinStrings('top-full text-center z-20', solidTooltip && '!bg-primary-950')}>
+          {tooltip}
+        </Tooltip>
       )}
     </label>
   );

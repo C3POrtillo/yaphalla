@@ -77,19 +77,22 @@ const EditorSidebar: FC = () => {
     },
   });
 
-  const placeProps = [
-    {
-      label: 'Unit',
-      selected: !isEditArena,
-      onClick: () => {
-        setEditArena(false);
+  const placeProps = (
+    [
+      {
+        label: 'Unit',
+        selected: !isEditArena,
+        onClick: () => {
+          setEditArena(false);
+        },
       },
-    },
-    getPlaceProps('Player', 1),
-    getPlaceProps('Enemy', -1),
-    getPlaceProps('Breakable', -2),
-    getPlaceProps('Unbreakable', -3),
-  ] as const;
+      getPlaceProps('Player', 1),
+      getPlaceProps('Enemy', -1),
+      getPlaceProps('Breakable', -2),
+      getPlaceProps('Unbreakable', -3),
+      isDev && getPlaceProps('Unit Swap', 2),
+    ] as const
+  ).filter(item => !!item);
 
   const subMenuProps = [
     {

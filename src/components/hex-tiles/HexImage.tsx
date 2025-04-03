@@ -19,6 +19,7 @@ export interface HexImageProps {
   disabled?: boolean;
   disabledOverlay?: boolean;
   isEnemy?: boolean;
+  isSwap?: boolean;
   isTalent?: boolean;
   forceOutline?: BaseHexes | false;
   size?: 'md' | 'sm' | 'xs' | '2xs';
@@ -36,6 +37,7 @@ const HexImage: FC<HexImageProps> = ({
   disabled,
   disabledOverlay,
   isEnemy,
+  isSwap,
   isTalent,
   size = 'md',
   tooltip,
@@ -76,6 +78,7 @@ const HexImage: FC<HexImageProps> = ({
         'hex-icon relative group flex flex-row justify-center',
         !disabled && !disabledOverlay && 'hex-overlay',
         disabledOverlay && 'disabled-overlay',
+        isSwap && 'swap-overlay',
         getSizeClass(size),
       )}
     >

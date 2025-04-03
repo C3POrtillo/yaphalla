@@ -143,7 +143,17 @@
     transition: ease-in-out .1s;
     --webkit-transition: ease-in-out .1s;
     transition-propery: all;
-  }  
+  }
+  .swap-overlay::after {
+    @apply absolute bg-neutral-950 opacity-60 inset-0;
+    content: "";
+    mask-image: url('/assets/images/hexes/base/Generic-Hex.png'); 
+    -webkit-mask-image: url('/assets/images/hexes/base/Generic-Hex.png'); 
+    mask-size: cover;
+    transition: ease-in-out .1s;
+    --webkit-transition: ease-in-out .1s;
+    transition-propery: all;
+  }    
   .enemy-overlay::after {
     @apply absolute bg-red-600 opacity-30 inset-0 pointer-events-none;
     content: "";

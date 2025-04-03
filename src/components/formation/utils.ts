@@ -12,7 +12,7 @@ export const getRelativeTileLabels = (tiles: number[]) => {
   tiles.forEach((state, index) => {
     const position = TileIndexToPosition[index];
 
-    if (state === 1) {
+    if (state === 1 || state === 2) {
       player.push(position);
     }
     if (state === -1) {
@@ -36,6 +36,11 @@ export const getDrawImage = (str: string, baseHex: boolean) => {
   const path = isUnit ? ('unit' as const) : ('base' as const);
   const isPlayer = !compareStrings(label, 'player');
   const isEnemy = !compareStrings(label, 'enemy');
+  const isDark = label.endsWith('swap');
+
+  if (isDark) {
+    return { src: 'Grid-Hex', path };
+  }
 
   if (isPlayer) {
     return { src: `Generic-${baseHex ? 'Hex' : 'Outline'}`, path };

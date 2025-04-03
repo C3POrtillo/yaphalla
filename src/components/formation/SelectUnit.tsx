@@ -7,7 +7,7 @@ import UnitGrid from '@/components/unit-grid/UnitGrid';
 
 const SelectUnit: FC = () => {
   const { tileData, currentTile, setCurrentTile, units, setUnits } = useFormation();
-  const disabled = currentTile === undefined || tileData[currentTile] === 2;
+  const disabled = currentTile === undefined;
   const currentUnit = !disabled && units[currentTile]?.unit;
   const onClick = (unit: string, sameUnit: boolean) => {
     if (disabled) {

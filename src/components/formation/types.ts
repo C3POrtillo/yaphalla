@@ -37,7 +37,7 @@ export type TileDivData = {
    -1: enemy
     0: empty
     1: player
-    2: artifact
+    2: swap
   100: disable
 */
 

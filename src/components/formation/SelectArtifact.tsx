@@ -15,8 +15,7 @@ import { compareStrings, joinStrings } from '@/utils/utils';
 
 const SelectArtifact: FC = () => {
   const [tab, setTab] = useState<number>(0);
-  const { currentArtifact, artifactData, setArtifactData, currentTile, tileData, units, setUnits, setCurrentTile } =
-    useFormation();
+  const { currentArtifact, artifactData, setArtifactData, currentTile, tileData, units } = useFormation();
   const artifactDisabled = currentArtifact === undefined;
   const notArtifactTile = currentTile ? tileData[currentTile] !== 2 : true;
   const disabled = artifactDisabled && notArtifactTile;
@@ -27,9 +26,7 @@ const SelectArtifact: FC = () => {
   const getArtifactButtons = (artifacts: string[], hierarchy?: HierarchyTypes) =>
     artifacts.map(artifact => {
       const hasArtifact = artifactData[key].includes(artifact);
-      const unitsHasArtifact = !!Object.values(units).filter(
-        ({ unit, type }) => type === 2 && !compareStrings(unit, artifact),
-      ).length;
+      const unitsHasArtifact = !!Object.values(units).filter(({ unit }) => !compareStrings(unit, artifact)).length;
       const selected = !disabled && (hasArtifact || unitsHasArtifact);
 
       return (
@@ -45,22 +42,6 @@ const SelectArtifact: FC = () => {
                   ...prev,
                   [key]: prev[key]?.includes(artifact) ? prev[key].filter(a => a !== artifact) : [artifact],
                 }));
-              }
-
-              if (currentTile && tileData[currentTile] === 2) {
-                setUnits(prev => {
-                  const copy = { ...prev };
-
-                  if (!compareStrings(artifact, prev[currentTile]?.unit)) {
-                    delete copy[currentTile];
-                  } else {
-                    copy[currentTile] = { unit: artifact, type: tileData[currentTile] };
-                  }
-
-                  return copy;
-                });
-
-                setCurrentTile(undefined);
               }
             }}
             disabled={disabled}

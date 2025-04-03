@@ -44,7 +44,13 @@ const Header: FC = () => {
       </div>
     );
     const accordionLink = !!tooltip && (
-      <AccordionLinks slug={slug} title={title} rootOptions={rootOptions} rootIcon={rootIcon} />
+      <AccordionLinks
+        key={`${title}-accordion`}
+        slug={slug}
+        title={title}
+        rootOptions={rootOptions}
+        rootIcon={rootIcon}
+      />
     );
 
     if (!slug && tooltip) {

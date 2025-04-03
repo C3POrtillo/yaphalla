@@ -4,7 +4,7 @@ import type { BaseHexes, ImagePath } from '@/utils/types';
 import type { FC, ReactNode } from 'react';
 
 import { exclusionClasses } from '@/components/export-image/types';
-import { getSizeClass } from '@/components/hex-tiles/utils';
+import { getPath, getSizeClass } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { HexPath, LogoRegExp } from '@/utils/types';
 import { compareStrings, joinStrings, testRegExp } from '@/utils/utils';
@@ -65,7 +65,7 @@ const HexImage: FC<HexImageProps> = ({
       ['unit', 'base'].some(test => compareStrings(path, test)) &&
       !testRegExp(src, LogoRegExp) &&
       'base/Enemy-Overlay',
-    !hideImage && !isEnemy && forceOutline && `base/${forceOutline}`,
+    !hideImage && !isEnemy && forceOutline && `${getPath(forceOutline)}/${forceOutline}`,
     isTalent && 'base/Talent-Selected',
     !disabled && selected && 'base/Select-Outline',
   ].filter(Boolean) as string[];

@@ -269,7 +269,7 @@ type Modes = (typeof Modes)[number];
 
 const HexSuffix = ['Hex', 'Outline', 'Icon'] as const;
 type HexSuffix = (typeof HexSuffix)[number];
-const GenericHexes = ['Generic', 'Enemy', 'Breakable', 'Unbreakable'] as const;
+const GenericHexes = ['Grid', 'Generic', 'Enemy', 'Breakable', 'Unbreakable'] as const;
 type GenericHexes = (typeof GenericHexes)[number];
 export type BaseHexes =
   | `${GenericHexes | Rarity}-${Exclude<HexSuffix, 'Icon'>}`
@@ -324,7 +324,6 @@ export const { GenericHexSet, FactionHexSet, ArtifactHexSet, RarityHexSet, ModeH
 })();
 
 export const BaseSet = new Set<string>([
-  'Grid-Outline',
   ...GenericHexSet,
   ...FactionHexSet,
   ...ArtifactHexSet,

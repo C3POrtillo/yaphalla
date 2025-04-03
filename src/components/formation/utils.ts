@@ -159,15 +159,15 @@ export const determineFaction = (count: Record<Talents, number>, string?: Talent
 export const isCustom = (target?: BaseHexes) => target && !/^Generic-/.test(target);
 
 export const getGroupIndex = (i: number) => {
-  if (i < 5) {
+  if (i < 6) {
     return 0;
   }
 
-  if (i < 10) {
+  if (i < 11) {
     return 1;
   }
 
-  return Math.floor((i - 10) / 8) + 2;
+  return Math.floor((i - 11) / 8) + 2;
 };
 
 export const getArtifacts = (i: number) => {

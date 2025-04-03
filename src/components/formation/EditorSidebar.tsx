@@ -78,10 +78,6 @@ const EditorSidebar: FC = () => {
   });
 
   const placeProps = [
-    getPlaceProps('Player', 1),
-    getPlaceProps('Enemy', -1),
-    getPlaceProps('Breakable', -2),
-    getPlaceProps('Unbreakable', -3),
     {
       label: 'Unit',
       selected: !isEditArena,
@@ -89,6 +85,10 @@ const EditorSidebar: FC = () => {
         setEditArena(false);
       },
     },
+    getPlaceProps('Player', 1),
+    getPlaceProps('Enemy', -1),
+    getPlaceProps('Breakable', -2),
+    getPlaceProps('Unbreakable', -3),
   ] as const;
 
   const subMenuProps = [

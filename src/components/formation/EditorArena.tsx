@@ -95,8 +95,8 @@ const EditorArena: FC<EditorArena> = ({
 
   const shouldOmitHex = (state: number, relativeIndex: number, tiles: TileData[]) => {
     const omitDirection = isTopRight
-      ? relativeIndex < tiles.findIndex(a => a.state === 1)
-      : relativeIndex > tiles.findLastIndex(a => a.state === 1);
+      ? relativeIndex < tiles.findIndex(a => AlwaysShowStates.has(a.state))
+      : relativeIndex > tiles.findLastIndex(a => AlwaysShowStates.has(a.state));
 
     const showFirstHex =
       tiles.every(a => a.state === 0 || a.state === -1 || ObstacleStates.has(state)) &&

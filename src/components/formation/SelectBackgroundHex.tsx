@@ -1,7 +1,9 @@
 import type { FC, ReactNode } from 'react';
 
 import { useFormation } from '@/components/formation/FormationProvider';
+import { getGroupIndex } from '@/components/formation/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
+import { getPath } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { BaseHexData } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
@@ -13,7 +15,7 @@ const SelectBackgroundHex: FC = () => {
     Object.entries(BaseHexData).map(([key, hexes]) => {
       const groupedHexes: ReactNode[][] = [];
       hexes.forEach((hex, i) => {
-        const groupIndex = i < 4 ? 0 : Math.floor((i - 4) / 7) + 1;
+        const groupIndex = getGroupIndex(i);
 
         if (!groupedHexes[groupIndex]) {
           groupedHexes[groupIndex] = [];
@@ -22,8 +24,9 @@ const SelectBackgroundHex: FC = () => {
         groupedHexes[groupIndex].push(
           <ButtonTile
             key={hex}
-            path="base"
+            path={getPath(hex)}
             src={hex}
+            size="sm"
             disabledOverlay={disabled}
             onClick={() => {
               if (key === 'base') {
@@ -32,6 +35,7 @@ const SelectBackgroundHex: FC = () => {
                 setOutline(disabled ? undefined : hex);
               }
             }}
+            tooltip={hex.replaceAll('-', ' ')}
           />,
         );
       });
@@ -45,7 +49,7 @@ const SelectBackgroundHex: FC = () => {
           const shouldOverlap = isOdd !== isPrevOdd;
 
           return (
-            <div key={i} className={joinStrings('flex gap-1', shouldOverlap && '-mt-6')}>
+            <div key={i} className={joinStrings('flex gap-1', shouldOverlap && '-mt-4')}>
               {group}
             </div>
           );
@@ -85,7 +89,7 @@ const SelectBackgroundHex: FC = () => {
       {containers.map(({ title, options }) => (
         <div key={title} className="container-primary flex flex-col gap-2 items-center h-full">
           <Header title={title} />
-          <div className="inset-secondary flex flex-col flex-wrap items-center gap-2 grow justify-center">
+          <div className="inset-secondary flex flex-col flex-wrap items-center gap-2 grow justify-center !pt-6">
             {options}
           </div>
         </div>

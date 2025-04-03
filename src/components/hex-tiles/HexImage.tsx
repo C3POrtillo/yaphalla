@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import type { BaseHexes } from '@/utils/types';
+import type { BaseHexes, ImagePath } from '@/utils/types';
 import type { FC, ReactNode } from 'react';
 
 import { exclusionClasses } from '@/components/export-image/types';
@@ -11,7 +11,7 @@ import { compareStrings, joinStrings, testRegExp } from '@/utils/utils';
 
 export interface HexImageProps {
   src: string;
-  path?: 'base' | 'unit' | 'artifact';
+  path?: ImagePath;
   selected?: boolean;
   label?: string | number;
   hideLabel?: boolean;

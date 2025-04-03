@@ -11,6 +11,9 @@ export const Faction = [
   'Dimensional',
 ] as const;
 const Talents = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celestial-Hypogean'] as const;
+const Rarity = ['Rare', 'Elite', 'Epic', 'Legendary', 'Mythic'] as const;
+type Rarity = (typeof Rarity)[number];
+export const RaritySet = new Set(Rarity);
 export type Faction = (typeof Faction)[number];
 export type UnitClass = (typeof UnitClass)[number];
 export type Talents = (typeof Talents)[number];
@@ -23,10 +26,58 @@ export type Unit = {
   unitClass: UnitClass | '';
 };
 
-export type ArtifactSource = 'Pre-Season' | `Season ${number}`;
-export const currentSeason = 'Season 3' as const;
+// .replaceAll('.png', '').split(/\s\s+|\n/)
+export type ImagePath =
+  | 'base'
+  | 'unit'
+  | 'artifact'
+  | `base/${'artifact' | 'faction' | 'rarity' | 'mode'}`
+  | `unit/${'wildcard'}`
+  | `artifact/${'honor-duel' | 'pre-season' | `season-${number}`}`;
+export type ArtifactSource = 'Pre-Season' | `Season ${number}` | 'Honor Duel';
+export const CurrentSeason = 'Season 3' as const;
 export const Artifacts = {
   'Pre-Season': ['Awakening', 'Starshard', 'Enlightening', 'Blazing', 'Confining', 'Ironwall'],
+  'Honor Duel': [
+    'Art of Ruling',
+    'Gruglin Mask',
+    'Proud Greaves',
+    'Bloodlust Cleaver',
+    'Illusion Censer',
+    'Pure Nectar',
+    'Bone Scroll',
+    'Immortal Flame',
+    'Pyro Catalyst',
+    'Breeze Rider',
+    'Inspiring Horn',
+    'Relic Shard',
+    'Crimson Gem',
+    'Lethal Elixer',
+    'Rock Necklace',
+    'Crystal Cell',
+    'Lithe Larkspur',
+    'Snow Herb',
+    'Crystal Dew',
+    'Lucky Cage',
+    'Solidarity Fruit',
+    'Dawn Antlers',
+    'Luxurious Sachet',
+    'Speed Seed',
+    'Fang Pendant',
+    'Misery Lamp',
+    'Swifty Book',
+    'Flame Orb',
+    'Mystic Crystals',
+    'Thorn Bloom',
+    'Fragrant Bag',
+    'Obsidian Earring',
+    'Tranquil Flask',
+    'Glowing Blossom',
+    'Oracle Sculpture',
+    'Unity Pompom',
+    'Golden Blooms',
+    'Pale Crown',
+  ],
   'Season 3': [
     'Lightforge',
     'Overcharge',
@@ -42,7 +93,11 @@ export const Artifacts = {
     'Iceguard',
   ],
 } as Record<ArtifactSource, string[]>;
-export const ArtifactSet = new Set(Object.values(Artifacts).flatMap(artifacts => artifacts.map(artifact => artifact)));
+
+export const HonorDuelSet = new Set(Artifacts['Honor Duel']);
+export const PreSeasonSet = new Set(Artifacts['Pre-Season']);
+export const SeasonSet = new Set(Artifacts[CurrentSeason]);
+export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet, ...HonorDuelSet]);
 
 const Lightbearer = {
   Tank: ['Chippy', 'Lucca', 'Lucius', 'Temesia'],
@@ -100,11 +155,11 @@ const Hypogean = {
 
 const Dimensional = {
   Tank: [],
-  Support: ['Happy'],
-  Marksman: ['Gray'],
-  Mage: ['Lucy'],
-  Rogue: ['Natsu'],
-  Warrior: ['Erza'],
+  Support: [],
+  Marksman: [],
+  Mage: [],
+  Rogue: [],
+  Warrior: [],
 };
 
 const Other = {
@@ -136,7 +191,7 @@ export const SortedUnits = Object.entries(Units).flatMap(([faction, classData]) 
   ),
 ) as Unit[];
 
-const wildCards = new Set([...Faction, ...Talents]);
+export const WildcardSet = new Set([...Faction, ...Talents]);
 
 export const OtherUnits = (() => {
   const formattedUnits = UnitClass.map(unitClass => ({
@@ -145,7 +200,7 @@ export const OtherUnits = (() => {
     unitClass,
   })) as Unit[];
 
-  wildCards.forEach(faction => {
+  WildcardSet.forEach(faction => {
     formattedUnits.push({
       unit: `${faction} Wildcard`,
       faction,
@@ -180,16 +235,14 @@ export const DevUnits = (() => {
     unitClass: '',
   })) as Unit[];
 
-  ArtifactSet.forEach(artifact => {
-    formattedUnits.push({
-      unit: artifact,
-      faction: '',
-      unitClass: '',
-    });
-  });
-
   return formattedUnits;
 })();
+
+export const ArtifactUnits = [...ArtifactSet].map(artifact => ({
+  unit: artifact,
+  faction: '',
+  unitClass: '',
+})) as Unit[];
 
 export const UnitsByFaction = Object.fromEntries(
   [...SortedUnits, ...OtherUnits].map(({ unit, faction }) => {
@@ -210,52 +263,73 @@ export const PairSet = new Set(UnitPairs.flatMap(pairs => pairs));
 
 export const LogoRegExp = new RegExp('Cat|Dog');
 
+const Modes = ['Honor Duel'] as const;
+type Modes = (typeof Modes)[number];
+// const ModeSet = new Set([Modes])
+
 const HexSuffix = ['Hex', 'Outline', 'Icon'] as const;
 type HexSuffix = (typeof HexSuffix)[number];
 const GenericHexes = ['Generic', 'Enemy', 'Breakable', 'Unbreakable'] as const;
 type GenericHexes = (typeof GenericHexes)[number];
 export type BaseHexes =
-  | `${GenericHexes}-${Exclude<HexSuffix, 'Icon'>}`
+  | `${GenericHexes | Rarity}-${Exclude<HexSuffix, 'Icon'>}`
   | `${Faction | Talents}-${HexSuffix}`
-  | `${ArtifactSource}-Outline`;
+  | `${ArtifactSource}-Outline`
+  | 'Grid-Outline';
 
 const generateHexName = (
-  prefixArray: readonly (GenericHexes | Faction | Talents | ArtifactSource)[],
+  prefixArray: readonly (GenericHexes | Faction | Talents | ArtifactSource | Rarity)[],
   suffixArray: readonly HexSuffix[],
-) => {
+): [Record<HexSuffix, BaseHexes[]>, Set<string>] => {
   const suffixMap = {} as Record<HexSuffix, BaseHexes[]>;
   suffixArray.forEach(suffix => {
-    suffixMap[suffix] = prefixArray.map(prefix => `${prefix}-${suffix}` as BaseHexes);
+    suffixMap[suffix] = prefixArray.map(prefix => `${prefix.replaceAll(' ', '-')}-${suffix}` as BaseHexes);
   });
 
-  return suffixMap;
+  const hexSet = new Set(Object.values(suffixMap).flatMap(key => key));
+
+  return [suffixMap, hexSet];
 };
 
-export const BaseHexData = (() => {
+export const { GenericHexSet, FactionHexSet, ArtifactHexSet, RarityHexSet, ModeHexSet, BaseHexData } = (() => {
   const [hex, outline] = HexSuffix;
-  const genericBase = generateHexName(GenericHexes, [hex, outline]);
-  const factionBase = generateHexName([...wildCards], HexSuffix);
-  const artifactBase = generateHexName(['Pre-Season', 'Season 3'] as const, [outline]);
+  const [generic, genericHexSet] = generateHexName(GenericHexes, [hex, outline]);
+  const [faction, factionHexSet] = generateHexName([...WildcardSet], HexSuffix);
+  const [rarity, rarityHexSet] = generateHexName(Rarity, [hex, outline]);
+  const [mode, modeHexSet] = generateHexName(Modes, [hex, outline]);
+  const [artifact, artifactHexSet] = generateHexName(['Pre-Season', 'Season 3'] as const, [outline]);
 
-  return Object.fromEntries(
+  const baseHexData = Object.fromEntries(
     [hex, outline].map(key => [
       key === hex ? 'base' : 'outline',
       [
-        ...genericBase[key],
-        ...factionBase[key],
-        ...(artifactBase[key] ? artifactBase[key] : []),
-        ...(key === hex ? factionBase.Icon : []),
+        ...generic[key],
+        ...mode[key],
+        ...rarity[key],
+        ...faction[key],
+        ...(artifact[key] ? artifact[key] : []),
+        ...(key === hex ? faction.Icon : []),
       ],
     ]),
   );
-})() as {
-  base: BaseHexes[];
-  outline: BaseHexes[];
-};
+
+  return {
+    BaseHexData: baseHexData,
+    GenericHexSet: genericHexSet,
+    FactionHexSet: factionHexSet,
+    ArtifactHexSet: artifactHexSet,
+    RarityHexSet: rarityHexSet,
+    ModeHexSet: modeHexSet,
+  };
+})();
 
 export const BaseSet = new Set<string>([
   'Grid-Outline',
-  ...Object.values(BaseHexData).flatMap(hexes => hexes.map(hex => hex)),
+  ...GenericHexSet,
+  ...FactionHexSet,
+  ...ArtifactHexSet,
+  ...RarityHexSet,
+  ...ModeHexSet,
 ]);
 
 export const BaseUnits = (() => {

@@ -262,9 +262,7 @@
     @apply text-xl md:text-2xl;
   }
   .scroll-bar-left {
-    @apply lg:pr-[17px];
     direction: rtl;
-    scrollbar-gutter: stable;
   }
   .scroll-bar-left > * {
     direction: ltr;

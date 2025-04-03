@@ -37,7 +37,7 @@ const UnitGrid: FC<UnitGridProps> = ({ currentUnit, disabled, onClick }) => {
 
   const devOptions = isDev && (
     <div className="flex flex-row gap-1">
-      {['Units', 'Other', 'Dev']
+      {['Units', 'Other', 'Artifacts', 'Tiles']
         .map((label, i) => (
           <Button key={label} size="sm" selected={variant === i} hasActiveBorder onClick={() => setVariant(i)}>
             {label}

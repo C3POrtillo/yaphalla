@@ -1,9 +1,11 @@
 'use client';
+
 import type { FC } from 'react';
 
 import { useFormation } from '@/components/formation/FormationProvider';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Logo from '@/components/hex-tiles/Logo';
+import { getArtifactPath } from '@/components/hex-tiles/utils';
 
 interface ButtonArtifactProps {
   index: number;
@@ -41,7 +43,7 @@ const ButtonArtifact: FC<ButtonArtifactProps> = ({
           selected={currentArtifact === index && !hideArtifacts}
           label={artifact ? undefined : label}
           hideLabel={hideNumbers || isArtifactDisabled()}
-          path="artifact"
+          path={getArtifactPath(artifact || '')}
           disabled={isArtifactDisabled()}
           hideImage={isArtifactDisabled()}
         />

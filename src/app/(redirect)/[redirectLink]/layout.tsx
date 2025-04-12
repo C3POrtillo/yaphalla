@@ -18,12 +18,15 @@ export interface RedirectPageProps {
   }>;
 }
 
-const fetchDiscordStats = cache(async (invite = 'yaphalla'): Promise<{ members: number; online: number }> => {
+const fetchDiscordStats = cache(async (invite = 'yaphalla'): Promise<{ members: number; online: number; serverImage: string }> => {
   const data = await (await fetch(discordInviteAPI(invite), { method: 'GET' })).json();
+  const { guild, approximate_member_count, approximate_presence_count } = data
+  const { id, icon } = guild 
 
   return {
-    members: data.approximate_member_count,
-    online: data.approximate_presence_count,
+    members: approximate_member_count,
+    online: approximate_presence_count,
+    serverImage: `https://cdn.discordapp.com/icons/${id}/${icon}.png`
   };
 });
 
@@ -89,11 +92,11 @@ const fetchMetadata = cache(
 
       if (isDiscord) {
         const invite = url.split('/').slice(-1)[0];
-        const { members, online } = await fetchDiscordStats(invite);
+        const { members, online, serverImage } = await fetchDiscordStats(invite);
         const description = `🟢 ${online} Online\n⚫ ${members} Members`;
         const youtubeImage = fetchImage && (await fetchImage());
-        const discordOg = youtubeImage || fallbackOgImages;
-        const discordTwitter = youtubeImage || fallbackTwitterImages;
+        const discordOg = youtubeImage || serverImage || fallbackOgImages;
+        const discordTwitter = youtubeImage || serverImage || fallbackTwitterImages;
 
         return createMetadata(targetTitle, description, site, discordOg, discordTwitter);
       }

@@ -90,7 +90,7 @@ const google = {
 };
 
 const getLogo = (name: string) => `https://www.yaphalla.com/assets/images/logos/${name}.png`;
-// const getCatLogo = (color: string) => getLogo(`yaphalla-cat-${color}`);
+const getCatLogo = (color: string) => getLogo(`yaphalla-cat-${color}`);
 
 const discords = {
   '/discord': {
@@ -109,7 +109,7 @@ const discords = {
     site: 'Discord',
     themeColor: '#ae3fcd',
     keywords: ['Yaphalla Emote Discord', 'Emotes', 'Emojis'],
-    // image: getCatLogo('pink'),
+    image: getCatLogo('pink'),
   } as RedirectType,
   '/emotes-hd': {
     redirect: '/emotes-hd',
@@ -119,7 +119,7 @@ const discords = {
     site: 'Discord',
     themeColor: '#7c99dd',
     keywords: ['Yaphalla Honor Duel Emote Discord', 'Honor Duel Emotes', 'Honor Duel Emojis'],
-    // image: getCatLogo('blue'),
+    image: getCatLogo('blue'),
   } as RedirectType,
   '/emotes-artifacts': {
     redirect: '/emotes-artifacts',
@@ -129,7 +129,7 @@ const discords = {
     site: 'Discord',
     themeColor: 'c3894c',
     keywords: ['Yaphalla Artifact Emote Discord', 'Artifact Emotes', 'Artifact Emojis'],
-    // image: getCatLogo('orange'),
+    image: getCatLogo('orange'),
   } as RedirectType,
   '/emotes-charms': {
     redirect: '/emotes-charms',
@@ -139,7 +139,7 @@ const discords = {
     site: 'Discord',
     themeColor: '#9368ab',
     keywords: ['Yaphalla Charms Emote Discord', 'Charm Emotes', 'Charm Emojis'],
-    // image: getCatLogo('purple'),
+    image: getCatLogo('purple'),
   } as RedirectType,
   '/fight-club': {
     redirect: '/fight-club',
@@ -149,7 +149,7 @@ const discords = {
     site: 'Discord',
     keywords: ['Fight Club Discord'],
     themeColor: '#f9db89',
-    // image: getLogo('fight-club'),
+    image: getLogo('fight-club'),
   } as RedirectType,
   '/trolley': {
     redirect: '/trolley',
@@ -159,7 +159,7 @@ const discords = {
     site: 'Discord',
     noIndex: true,
     themeColor: '#fed2a8',
-    // image: getLogo('trolley'),
+    image: getLogo('trolley'),
   } as RedirectType,
   '/vn': {
     redirect: '/vn',
@@ -179,7 +179,7 @@ const discords = {
     site: 'Discord',
     themeColor: '#a6dcd0',
     keywords: createDiscordKeywords(),
-    // image: getLogo('afkj-logo'),
+    image: getLogo('afkj-logo'),
   } as RedirectType,
   '/prydwen': {
     redirect: '/prydwen',
@@ -189,15 +189,17 @@ const discords = {
     site: 'Discord',
     themeColor: '#009eec',
     keywords: createDiscordKeywords('Prydwen'),
+    image: getLogo('prydwen'),
   } as RedirectType,
   '/honor-duel-hq': {
     redirect: '/honor-duel-hq',
     label: 'Discord',
     href: 'https://discord.com/invite/YDndgX8RYV',
-    title: 'Join Prydwen!',
+    title: 'Join Honor Duel HQ!',
     site: 'Discord',
     themeColor: '#009eec',
     keywords: createDiscordKeywords('Honor Duel HQ'),
+    image: getLogo('honor-duel-hq'),
   } as RedirectType,
 };
 

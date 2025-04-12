@@ -92,11 +92,11 @@ const fetchMetadata = cache(
 
       if (isDiscord) {
         const invite = url.split('/').slice(-1)[0];
-        const { members, online, serverImage } = await fetchDiscordStats(invite);
+        const { members, online } = await fetchDiscordStats(invite);
         const description = `🟢 ${online} Online\n⚫ ${members} Members`;
         const youtubeImage = fetchImage && (await fetchImage());
-        const discordOg = youtubeImage || serverImage || fallbackOgImages;
-        const discordTwitter = youtubeImage || serverImage || fallbackTwitterImages;
+        const discordOg = youtubeImage || fallbackOgImages;
+        const discordTwitter = youtubeImage || fallbackTwitterImages;
 
         return createMetadata(targetTitle, description, site, discordOg, discordTwitter);
       }

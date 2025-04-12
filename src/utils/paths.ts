@@ -111,6 +111,10 @@ const paths = {
             label: 'Fight Club',
           },
           {
+            href: redirects['/honor-duel-hq'].href,
+            label: 'Honor Duel HQ',
+          },
+          {
             href: redirects['/vn'].href,
             label: 'Vietnam Server',
           },

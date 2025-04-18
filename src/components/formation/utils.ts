@@ -92,8 +92,8 @@ export const countUnits = (
   });
 
   UnitPairs.forEach(pairs => {
-    const pairCounts = pairs.map(unit => unitCount[unit] || 0);
-    const maxPairs = Math.min(...pairCounts);
+    const pairCounts = Math.min(...pairs.map(unit => unitCount[unit] || 0));
+    const maxPairs = pairs.length === 1 ? pairCounts / 2 : pairCounts;
     if (!maxPairs) {
       return;
     }

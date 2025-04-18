@@ -256,10 +256,7 @@ export const UnitsByFaction = Object.fromEntries(
 
 export const HexPath = '/assets/images/hexes/';
 
-export const UnitPairs = [
-  ['Phraesto', 'Phraesto Clone'],
-  ['Elijah', 'Lailah'],
-] as const;
+export const UnitPairs = [['Phraesto', 'Phraesto Clone'], ['Elijah', 'Lailah'], ['Elijah & Lailah']] as const;
 export const PairSet = new Set(UnitPairs.flatMap(pairs => pairs));
 
 export const LogoRegExp = new RegExp('Cat|Dog');

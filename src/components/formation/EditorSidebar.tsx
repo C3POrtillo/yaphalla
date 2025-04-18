@@ -171,20 +171,21 @@ const EditorSidebar: FC = () => {
     // </div>,
     <div key="Logo Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
       {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Logo</h2>}
-      <div className="flex flex-row gap-x-1 flex-wrap justify-center items-center">
+      <div className="flex flex-row gap-1 flex-wrap justify-center items-center">
         {Object.entries(CommunityLogos).map(([key, brand]) => {
           const logoSelected = !compareStrings(logo, key);
 
           return (
             <ButtonTile
-              key={brand}
-              onClick={() => setLogo(key as CommunityLogos)}
+              key={key}
               src={`Hex ${brand}`}
               path="unit"
               size="xs"
               forceOutline={logoSelected && 'Pre-Season-Outline'}
               disabled={logoSelected}
               disabledOverlay={logoSelected}
+              onClick={() => setLogo(key as CommunityLogos)}
+              tooltip={brand}
             />
           );
         })}

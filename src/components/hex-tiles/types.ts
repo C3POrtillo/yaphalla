@@ -1,9 +1,9 @@
 export const CommunityLogos = {
-  cat: 'Yaphalla Cat',
   dog: 'Yaphalla Dog',
+  cat: 'Yaphalla Cat',
   prydwen: 'Prydwen',
   radiant: 'Radiant',
-  tea: 'Tea',
+  tea: 'TEA',
 } as const;
 
 export type CommunityLogos = keyof typeof CommunityLogos;

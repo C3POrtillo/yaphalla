@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
 import type { TileData } from '@/components/formation/types';
@@ -12,7 +13,7 @@ import { AlwaysShowStates, ObstacleStates, TileIndexToPosition } from '@/compone
 import { getIsTopRight, getRelativeTileLabels, getTalentTiles, processTileData } from '@/components/formation/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 // import Text from '@/components/inputs/text/Text';
-import { joinStrings } from '@/utils/utils';
+import { compareStrings, joinStrings } from '@/utils/utils';
 
 interface EditorArena {
   id?: string;
@@ -199,6 +200,14 @@ const EditorArena: FC<EditorArena> = ({
         <div className="inset-black">
           <div id={id} className="relative flex flex-col">
             {tileDivs}
+            {['dog', 'cat'].every(check => compareStrings(logo, check)) && (
+              <span className="inline-flex w-full text-sm text-outline items-center justify-end whitespace-pre pt-1 pr-2">
+                {'Powered by '}
+                <div className="relative logo h-6">
+                  <Image src="/assets/images/yaphalla-logo.png" alt="Yaphalla" fill priority />
+                </div>
+              </span>
+            )}
           </div>
         </div>
       </div>

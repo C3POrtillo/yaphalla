@@ -18,17 +18,19 @@ export interface RedirectPageProps {
   }>;
 }
 
-const fetchDiscordStats = cache(async (invite = 'yaphalla'): Promise<{ members: number; online: number; serverImage: string }> => {
-  const data = await (await fetch(discordInviteAPI(invite), { method: 'GET' })).json();
-  const { guild, approximate_member_count, approximate_presence_count } = data
-  const { id, icon } = guild 
+const fetchDiscordStats = cache(
+  async (invite = 'yaphalla'): Promise<{ members: number; online: number; serverImage: string }> => {
+    const data = await (await fetch(discordInviteAPI(invite), { method: 'GET' })).json();
+    const { guild, approximate_member_count, approximate_presence_count } = data;
+    const { id, icon } = guild;
 
-  return {
-    members: approximate_member_count,
-    online: approximate_presence_count,
-    serverImage: `https://cdn.discordapp.com/icons/${id}/${icon}.png`
-  };
-});
+    return {
+      members: approximate_member_count,
+      online: approximate_presence_count,
+      serverImage: `https://cdn.discordapp.com/icons/${id}/${icon}.png`,
+    };
+  },
+);
 
 const createMetaString = (prop: string) => `<meta ${prop} content="(.*?)"`;
 

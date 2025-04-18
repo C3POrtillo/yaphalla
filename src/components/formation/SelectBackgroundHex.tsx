@@ -46,7 +46,7 @@ const SelectBackgroundHex: FC = () => {
           const isOdd = group.length % 2 !== 0;
           const isPrevOdd = i > 0 ? groupedHexes[i - 1].length % 2 !== 0 : false;
 
-          const shouldOverlap = isOdd !== isPrevOdd;
+          const shouldOverlap = i !== 0 && isOdd !== isPrevOdd;
 
           return (
             <div key={i} className={joinStrings('flex gap-0.5', shouldOverlap && '-mt-4')}>

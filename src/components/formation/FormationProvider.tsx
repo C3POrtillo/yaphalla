@@ -2,6 +2,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 
 import type { ArtifactFormationData, TileData, UnitFormationData } from '@/components/formation/types';
+import type { CommunityLogos } from '@/components/hex-tiles/types';
 import type { BaseHexes, ImagePath, Talents } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
@@ -68,6 +69,8 @@ interface FormationContextType {
     src: string;
     path: ImagePath;
   };
+  logo: CommunityLogos;
+  setLogo: Dispatch<SetStateAction<CommunityLogos>>;
 }
 
 const FormationContext = createContext<FormationContextType | undefined>(undefined);
@@ -99,6 +102,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [subMenu, setSubMenu] = useState(0);
   const [baseHex, setBaseHex] = useState<BaseHexes | undefined>();
   const [outline, setOutline] = useState<BaseHexes | undefined>();
+  const [logo, setLogo] = useState<CommunityLogos>('dog');
 
   const updateArena = useCallback(
     (tile: TileData) =>
@@ -332,6 +336,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setOutline,
         background,
         setBackground,
+        logo,
+        setLogo,
       }}
     >
       {children}

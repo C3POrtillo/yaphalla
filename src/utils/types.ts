@@ -1,3 +1,4 @@
+import { CommunityLogos } from '@/components/hex-tiles/types';
 import { compareStrings, sortData } from '@/utils/utils';
 
 export const UnitClass = ['Tank', 'Support', 'Marksman', 'Mage', 'Rogue', 'Warrior'] as const;
@@ -229,8 +230,8 @@ export const OtherUnits = (() => {
 })();
 
 export const DevUnits = (() => {
-  const formattedUnits = ['Dog', 'Cat'].map(unit => ({
-    unit: `Yaphalla ${unit} Hex`,
+  const formattedUnits = Object.values(CommunityLogos).map(unit => ({
+    unit: `Hex ${unit}`,
     faction: '',
     unitClass: '',
   })) as Unit[];
@@ -269,7 +270,7 @@ type Modes = (typeof Modes)[number];
 
 const HexSuffix = ['Hex', 'Outline', 'Icon'] as const;
 type HexSuffix = (typeof HexSuffix)[number];
-const GenericHexes = ['Grid', 'Generic', 'Enemy', 'Breakable', 'Unbreakable'] as const;
+const GenericHexes = ['Grid', 'Generic', 'Enemy', 'Breakable', 'Unbreakable', 'Collab'] as const;
 type GenericHexes = (typeof GenericHexes)[number];
 export type BaseHexes =
   | `${GenericHexes | Rarity}-${Exclude<HexSuffix, 'Icon'>}`

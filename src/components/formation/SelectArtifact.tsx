@@ -11,11 +11,11 @@ import HexImage from '@/components/hex-tiles/HexImage';
 import { getArtifactPath } from '@/components/hex-tiles/utils';
 import Button from '@/components/inputs/button/Button';
 import { Artifacts } from '@/utils/types';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { joinStrings } from '@/utils/utils';
 
 const SelectArtifact: FC = () => {
   const [tab, setTab] = useState<number>(0);
-  const { currentArtifact, artifactData, setArtifactData, currentTile, tileData, units } = useFormation();
+  const { currentArtifact, artifactData, setArtifactData, currentTile, tileData } = useFormation();
   const artifactDisabled = currentArtifact === undefined;
   const notArtifactTile = currentTile ? tileData[currentTile] !== 2 : true;
   const disabled = artifactDisabled && notArtifactTile;
@@ -26,8 +26,7 @@ const SelectArtifact: FC = () => {
   const getArtifactButtons = (artifacts: string[], hierarchy?: HierarchyTypes) =>
     artifacts.map(artifact => {
       const hasArtifact = artifactData[key].includes(artifact);
-      const unitsHasArtifact = !!Object.values(units).filter(({ unit }) => !compareStrings(unit, artifact)).length;
-      const selected = !disabled && (hasArtifact || unitsHasArtifact);
+      const selected = !disabled && hasArtifact;
 
       return (
         <div key={artifact} className="relative">

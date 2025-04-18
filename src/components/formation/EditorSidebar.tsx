@@ -7,10 +7,12 @@ import { useFormation } from '@/components/formation/FormationProvider';
 import ArtifactGrid from '@/components/formation/SelectArtifact';
 // import { DoubleArtifacts } from '@/components/formation/types';
 import { getDrawImage } from '@/components/formation/utils';
+import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import HexImage from '@/components/hex-tiles/HexImage';
+import { CommunityLogos } from '@/components/hex-tiles/types';
 import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';
-import { isDevMode } from '@/utils/utils';
+import { compareStrings, isDevMode } from '@/utils/utils';
 
 const EditorSidebar: FC = () => {
   const {
@@ -28,6 +30,8 @@ const EditorSidebar: FC = () => {
     setBackground,
     tab,
     setTab,
+    logo,
+    setLogo,
   } = useFormation();
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
@@ -165,6 +169,28 @@ const EditorSidebar: FC = () => {
     //     Double Artifact Arena 1
     //   </Button>
     // </div>,
+    <div key="Logo Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
+      {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Logo</h2>}
+      <div className="flex flex-row gap-x-1 flex-wrap justify-center items-center">
+        {Object.entries(CommunityLogos).map(([key, brand]) => {
+          const logoSelected = !compareStrings(logo, key);
+
+          return (
+            <ButtonTile
+              key={brand}
+              onClick={() => setLogo(key as CommunityLogos)}
+              src={`Hex ${brand}`}
+              path="unit"
+              size="xs"
+              forceOutline={logoSelected && 'Pre-Season-Outline'}
+              disabled={logoSelected}
+              disabledOverlay={logoSelected}
+            />
+          );
+        })}
+      </div>
+    </div>,
+
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
       {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Menu Tab</h2>}
       {subMenuProps.map(({ onClick, label, ...props }) => (

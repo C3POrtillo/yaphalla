@@ -163,16 +163,20 @@ export const determineFaction = (count: Record<Talents, number>, string?: Talent
 
 export const isCustom = (target?: BaseHexes) => target && !/^Generic-/.test(target);
 
+const row1 = 6;
+const row2 = row1 + 5;
+const rowDefault = row2 + 1;
+
 export const getGroupIndex = (i: number) => {
-  if (i < 6) {
+  if (i <= row1) {
     return 0;
   }
 
-  if (i < 11) {
+  if (i <= row2) {
     return 1;
   }
 
-  return Math.floor((i - 11) / 8) + 2;
+  return Math.floor((i - rowDefault) / 8) + 2;
 };
 
 export const getArtifacts = (i: number) => {

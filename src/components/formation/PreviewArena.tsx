@@ -56,7 +56,7 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
         })}
         {isFirst && (
           <>
-            <Logo isCat size={size} />
+            <Logo logo="cat" size={size} />
             <HexImage src="Artifact-Hex" hideLabel path="artifact" disabled hideImage size={size} />
           </>
         )}

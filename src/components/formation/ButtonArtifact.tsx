@@ -1,5 +1,6 @@
 'use client';
 
+import type { CommunityLogos } from 'components/hex-tiles/types';
 import type { FC } from 'react';
 
 import { useFormation } from '@/components/formation/FormationProvider';
@@ -15,7 +16,7 @@ interface ButtonArtifactProps {
   disableArtifacts?: boolean;
   hideEmptyArtifact?: boolean;
   isReverse?: boolean;
-  isCat?: boolean;
+  logo?: CommunityLogos;
 }
 
 const ButtonArtifact: FC<ButtonArtifactProps> = ({
@@ -26,17 +27,17 @@ const ButtonArtifact: FC<ButtonArtifactProps> = ({
   disableArtifacts,
   hideEmptyArtifact,
   isReverse,
-  isCat,
+  logo = 'dog',
 }) => {
   const { currentArtifact, setArtifact, artifactData, hideLogo } = useFormation();
   const key = index === 0 ? 'player' : 'enemy';
   const artifact = !!artifactData[key].length && artifactData[key][0];
   const isArtifactDisabled = () => hideArtifacts || disableArtifacts || (hideEmptyArtifact && !artifact);
-  const logo = <Logo isCat={isCat} hideLogo={hideLogo} />;
+  const logoHex = <Logo logo={logo} hideLogo={hideLogo} />;
 
   return (
     <>
-      {isReverse && logo}
+      {isReverse && logoHex}
       <button className="cursor-pointer disabled:cursor-auto" onClick={() => setArtifact(index, artifact)}>
         <HexImage
           src={artifact || 'Artifact-Hex'}
@@ -48,7 +49,7 @@ const ButtonArtifact: FC<ButtonArtifactProps> = ({
           hideImage={isArtifactDisabled()}
         />
       </button>
-      {!isReverse && logo}
+      {!isReverse && logoHex}
     </>
   );
 };

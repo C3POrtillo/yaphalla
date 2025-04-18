@@ -56,6 +56,7 @@ const EditorArena: FC<EditorArena> = ({
     getTileImage,
     outline,
     hideLogo,
+    logo,
   } = useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
@@ -140,7 +141,7 @@ const EditorArena: FC<EditorArena> = ({
           hideEnemy && hideEmpty && isTopRight ? reverse : offset,
         )}
       >
-        {isLast && <ButtonArtifact index={0} label="A1" {...getArtifactProps()} />}
+        {isLast && <ButtonArtifact index={0} label="A1" logo={logo} {...getArtifactProps()} />}
         {tiles.map((tile, relativeIndex) => {
           const { state, index } = tile;
           const omitHex = shouldOmitHex(state, relativeIndex, tiles);
@@ -168,13 +169,13 @@ const EditorArena: FC<EditorArena> = ({
               isSwap={state === 2 && showUnit}
               isTalent={talents && talents.has(TileIndexToPosition[index])}
               disabled={disabled || (!hideUnits && state === 100)}
-              path={state !== 2 && (hideUnits || disableEnemy) ? 'base' : path}
+              path={path}
               forceOutline={state === 1 && !unit && outline}
               onClick={() => onClick && onClick(tile)}
             />
           );
         })}
-        {isFirst && <ButtonArtifact index={1} label="A2" {...getArtifactProps()} isReverse isCat />}
+        {isFirst && <ButtonArtifact index={1} label="A2" logo="cat" {...getArtifactProps()} isReverse />}
       </div>
     );
   });

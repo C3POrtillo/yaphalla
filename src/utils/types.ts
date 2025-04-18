@@ -131,7 +131,7 @@ const Graveborn = {
   Tank: ['Thoran', 'Callan'],
   Support: ['Ludovic', 'Niru'],
   Marksman: ['Bonnie', 'Cecia'],
-  Mage: ['Carolina', 'Viperian'],
+  Mage: ['Carolina', 'Shemira', 'Viperian'],
   Rogue: ['Nara', 'Salazer', 'Silvina'],
   Warrior: ['Hodgkin', 'Igor', 'Valka'],
 } as ClassData;

@@ -1,6 +1,6 @@
 'use client';
 
-import type { CommunityLogos } from 'components/hex-tiles/types';
+import type { CommunityLogos } from '@/components/hex-tiles/types';
 import type { FC } from 'react';
 
 import { useFormation } from '@/components/formation/FormationProvider';

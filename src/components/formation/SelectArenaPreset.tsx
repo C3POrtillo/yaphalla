@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import Accordion from '@/components/accordion/accordion';
+import Accordion from '@/components/accordion/Accordion';
 import { useFormation } from '@/components/formation/FormationProvider';
 import PreviewArena from '@/components/formation/PreviewArena';
 import { ArenaPresets } from '@/components/formation/types';

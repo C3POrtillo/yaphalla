@@ -6,6 +6,7 @@ import type { FC } from 'react';
 import Container from '@/components/container/Container';
 import { processPaths } from '@/components/header/utils';
 import Link from '@/components/link/Link';
+import { HeroSet } from '@/utils/pathsHeroes';
 import { titleCase } from '@/utils/utils';
 
 interface BreadcrumbsProps {
@@ -23,7 +24,8 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
       <Container className="justify-start mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">
         <div className="flex flex-row flex-wrap gap-2 size-base bg-primary-950/80">
           {formattedPaths.map((path, index) => {
-            const label = titleCase(path);
+            const decodedPath = decodeURIComponent(path);
+            const label = HeroSet.has(decodedPath) ? decodedPath : titleCase(path);
             buildPathString += `/${path}`;
 
             return (

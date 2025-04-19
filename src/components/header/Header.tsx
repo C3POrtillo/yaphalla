@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import Accordion from '@/components/accordion/accordion';
+import Accordion from '@/components/accordion/Accordion';
 import AccordionLinks from '@/components/header/AccordionLinks';
 import SubLinks from '@/components/header/SubLinks';
 import { LinkClasses } from '@/components/header/types';
@@ -13,7 +13,7 @@ import { navigation } from '@/utils/paths';
 import { joinStrings } from '@/utils/utils';
 
 const Header: FC = () => {
-  const navLinks = navigation.slice(1).map(({ options: rootOptions, hideMobileOptions, ...data }) => {
+  const navLinks = navigation.slice(1).map(({ options: rootOptions, hideMobileOptions, ...data }, i) => {
     const { href: slug, label: title } = data;
     let rootIconName = getLinkIcon(slug);
     if (!slug) {
@@ -81,7 +81,7 @@ const Header: FC = () => {
           LinkClasses,
           'p-2',
           tooltip && 'group-secondary',
-          tooltip && !hideMobileOptions && '!hidden lg:!flex',
+          tooltip && !hideMobileOptions && '!hidden xl:!flex',
         )}
         tooltip={tooltip}
         {...data}
@@ -92,7 +92,7 @@ const Header: FC = () => {
     );
 
     return (
-      <div key={slug || title} className="flex items-center w-full lg:w-fit">
+      <div key={`${i}-${slug || title}`} className="flex items-center w-full xl:w-fit">
         {!hideMobileOptions && accordionLink}
         {mainLink}
       </div>
@@ -101,7 +101,7 @@ const Header: FC = () => {
 
   return (
     <header className="relative header sticky-header min-h-14">
-      <div className="mx-auto hidden min-h-6 w-full max-w-7xl flex-row items-center justify-between gap-4 px-4 lg:flex">
+      <div className="mx-auto hidden min-h-6 w-full max-w-7xl flex-row items-center justify-between gap-4 px-4 xl:flex">
         <div className="flex flex-row items-center gap-6">
           <LogoLink />
           <div className="flex flex-row gap-4">{navLinks}</div>
@@ -110,7 +110,7 @@ const Header: FC = () => {
           <Socials />
         </div>
       </div>
-      <div className="absolute flex w-full top-0 flex-row lg:hidden z-10">
+      <div className="absolute flex w-full top-0 flex-row xl:hidden z-10">
         <Accordion
           className="header"
           label={<LogoLink />}

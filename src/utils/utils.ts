@@ -70,14 +70,19 @@ export const joinStrings = (...strings: (string | number | boolean | undefined |
 
 const imageURL = 'https://www.yaphalla.com/assets/images/yaphalla-dog.png';
 
-export const createMetadata = (title: string, description: string, siteName = 'Yaphalla'): Metadata => ({
+export const createMetadata = (
+  title: string,
+  description: string,
+  siteName = 'Yaphalla',
+  image = imageURL,
+): Metadata => ({
   title,
   description,
   keywords: ['Yaphalla', 'AFKJ', 'AFKJourney', 'AFK Journey', 'AFKJ Guides', 'AFKJourney Guides', 'AFK Journey Guides'],
   icons: {
-    icon: imageURL,
-    shortcut: imageURL,
-    apple: imageURL,
+    icon: image,
+    shortcut: image,
+    apple: image,
   },
   openGraph: {
     title,
@@ -85,7 +90,7 @@ export const createMetadata = (title: string, description: string, siteName = 'Y
     siteName,
     images: [
       {
-        url: imageURL,
+        url: image,
         width: 128,
         height: 128,
         alt: title,
@@ -98,7 +103,7 @@ export const createMetadata = (title: string, description: string, siteName = 'Y
     title,
     description,
     site: siteName,
-    images: [imageURL],
+    images: [image],
   },
 });
 

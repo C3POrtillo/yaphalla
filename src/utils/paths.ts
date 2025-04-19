@@ -1,6 +1,7 @@
 import type { CreatorData } from '@/utils/pathsCreators';
 
 import { creators } from '@/utils/pathsCreators';
+import { heroes } from '@/utils/pathsHeroes';
 import { redirects } from '@/utils/pathsRedirect';
 import { compareStrings, getHref, internalLinkFilter, sortData } from '@/utils/utils';
 
@@ -66,6 +67,10 @@ const paths = {
         ],
       },
     ],
+  },
+  Heroes: {
+    href: '/heroes',
+    label: 'Heroes',
   },
   // Talents: {
   //   href: '/talents',
@@ -204,7 +209,7 @@ const previews = {
 
 export const validHrefs = new Set([
   ...(
-    [...Object.values(paths), ...Object.values(previews)]
+    [...Object.values(paths), ...Object.values(previews), ...heroes]
       .filter(internalLinkFilter)
       .flatMap(({ href, options: root }: PathType) => [
         href,
@@ -221,6 +226,7 @@ export const validHrefs = new Set([
 export const navigation = [
   paths['Home'],
   paths['Editor'],
+  paths['Heroes'],
   paths['Creators'],
   paths['Communities'],
   paths['Leaderboards'],

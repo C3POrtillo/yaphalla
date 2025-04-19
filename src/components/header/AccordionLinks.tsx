@@ -1,7 +1,7 @@
 import type { PathType } from '@/utils/paths';
 import type { FC, ReactNode } from 'react';
 
-import Accordion from '@/components/accordion/accordion';
+import Accordion from '@/components/accordion/Accordion';
 import { LinkClasses } from '@/components/header/types';
 import { getLinkIcon } from '@/components/header/utils';
 import Link from '@/components/link/Link';

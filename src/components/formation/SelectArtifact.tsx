@@ -4,7 +4,7 @@ import { useState } from 'react';
 import type { HierarchyTypes } from '@/utils/siteTypes';
 import type { FC } from 'react';
 
-import Accordion from '@/components/accordion/accordion';
+import Accordion from '@/components/accordion/Accordion';
 import { useFormation } from '@/components/formation/FormationProvider';
 import { getArtifacts } from '@/components/formation/utils';
 import HexImage from '@/components/hex-tiles/HexImage';

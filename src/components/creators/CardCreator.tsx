@@ -7,7 +7,7 @@ import { fetchYouTubePicture, getFontSize, getIcon, getPriority } from '@/compon
 import Link from '@/components/link/Link';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
-const CreatorCard: FC<CreatorData> = async ({ label, language, image, ...props }) => {
+const CardCreator: FC<CreatorData> = async ({ label, language, image, ...props }) => {
   const { YouTube } = props;
   const links = Object.entries(props)
     .sort(([a], [b]) => {
@@ -48,4 +48,4 @@ const CreatorCard: FC<CreatorData> = async ({ label, language, image, ...props }
   );
 };
 
-export default CreatorCard;
+export default CardCreator;

@@ -2,7 +2,7 @@ import 'flag-icons/css/flag-icons.min.css';
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
-import CreatorCard from '@/components/creators/CreatorCard';
+import CardCreator from '@/components/creators/CardCreator';
 import { sortCreators } from '@/components/creators/utils';
 import { creators } from '@/utils/pathsCreators';
 
@@ -18,7 +18,7 @@ const Index: FC = () => (
         {Object.entries(creators)
           .sort(sortCreators)
           .map(([slug, props]) => (
-            <CreatorCard key={slug} {...props} />
+            <CardCreator key={slug} {...props} />
           ))}
       </div>
     </Container>

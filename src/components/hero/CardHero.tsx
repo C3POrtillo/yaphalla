@@ -16,11 +16,13 @@ interface CardHeroProps extends HeroDetailProps {
 
 const CardHero: FC<CardHeroProps> = ({ hero, title, description, hasDetails = true, href, ...props }) => {
   const card = (
-    <div className={joinStrings(!href && 'container-primary', 'flex flex-col gap-2')}>
+    <div className={joinStrings(!href && 'container-primary', 'w-full flex flex-col gap-2')}>
       <div className="flex flex-row gap-2 items-center">
         <HexImage src={hero} path="unit" disabled />
-        <div className="flex flex-col gap-2">
-          <h1>{hasDetails && title ? `${hero} - ${title}` : hero}</h1>
+        <div className="flex flex-col gap-2 w-full">
+          <h2 className="w-full border-tertiary-600 border-b-2 pb-1">
+            {hasDetails && title ? `${hero} - ${title}` : hero}
+          </h2>
           <HeroDetail {...props} />
         </div>
       </div>

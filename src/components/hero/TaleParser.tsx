@@ -44,11 +44,12 @@ const TaleParser: FC<TaleParserProps> = ({ hero, id, tale }) => {
             );
           } else {
             acc.push(unitSpan);
+            acc.push(' ');
             acc.push(token);
           }
         } else {
           const [start, ...splitToken] = token.split(unitToken);
-          const joinedToken = [unitToken, ...splitToken].join('');
+          const joinedToken = [' ', unitToken, ...splitToken].join('');
           const tokens = [
             start,
             ...(linkProps
@@ -59,11 +60,13 @@ const TaleParser: FC<TaleParserProps> = ({ hero, id, tale }) => {
                 </Link>,
               ]
               : [unitSpan, joinedToken]),
+            ' ',
           ].filter(Boolean);
           acc.push(...tokens);
         }
       } else {
         acc.push(token);
+        acc.push(' ');
       }
 
       return acc;

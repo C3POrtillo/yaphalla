@@ -44,11 +44,9 @@ export const mergeTokens = (tokens: (string | ReactNode)[]) =>
       if (typeof last === 'string') {
         acc[acc.length - 1] = `${last} ${token}`;
       } else {
-        acc.push(' ');
         acc.push(token);
       }
     } else {
-      acc.push(' ');
       acc.push(token);
     }
 

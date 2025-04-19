@@ -13,6 +13,7 @@ const HeroSkills: FC<HeroSkillsProps> = ({ hero, skills }) => (
   <div className="w-full flex flex-row flex-wrap">
     {skills
       .sort(({ DisplaySlot: a }, { DisplaySlot: b }) => sortData(a, b))
+      .filter(skill => !!skill.Description)
       .map((skill, i) => (
         <div key={i} className="p-1 basis-1/1 md:basis-1/2 lg:basis-1/3 whitespace-pre-wrap grow">
           <CardSkill hero={hero} {...skill} />

@@ -13,7 +13,7 @@ import { navigation } from '@/utils/paths';
 import { joinStrings } from '@/utils/utils';
 
 const Header: FC = () => {
-  const navLinks = navigation.slice(1).map(({ options: rootOptions, hideMobileOptions, ...data }) => {
+  const navLinks = navigation.slice(1).map(({ options: rootOptions, hideMobileOptions, ...data }, i) => {
     const { href: slug, label: title } = data;
     let rootIconName = getLinkIcon(slug);
     if (!slug) {
@@ -92,7 +92,7 @@ const Header: FC = () => {
     );
 
     return (
-      <div key={slug || title} className="flex items-center w-full xl:w-fit">
+      <div key={`${i}-${slug || title}`} className="flex items-center w-full xl:w-fit">
         {!hideMobileOptions && accordionLink}
         {mainLink}
       </div>

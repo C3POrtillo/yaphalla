@@ -18,28 +18,28 @@ type HeroInfo = {
   StartMP: number;
 };
 
-type HeroSkillArgs = Record<`SArg${number}`, number>;
+export type HeroSkillArgs = Record<`${'SArg' | 'PlusRatio'}${number}`, number>;
 
-type HeroSkillLevel = {
-  DisplayLevel: 2;
-  UnlockLevel: 51;
-  Description: 'Increases the damage dealt by Vigorous Slam to <ATK>{SArg0%}.';
+export type HeroSkillLevel = {
+  DisplayLevel?: number;
+  UnlockLevel?: number;
+  Description: string;
   Args: HeroSkillArgs;
 };
 
-type HeroSkill = {
+export type HeroSkill = HeroSkillLevel & {
   Icon: string;
   DisplaySlot: number;
   Levels: HeroSkillLevel[];
-  UnlockLevel: 1;
   SimpleDescription: string;
-  Description: string;
-  Args: HeroSkillArgs;
   CD: number;
   InitCD: number;
   DisplayName: string;
   TargetShapeArgs: number;
 };
+
+export const SkillMap = ['Ultimate', 'Skill 1', 'Skill 2', 'Hero Focus', 'EX. Skill', 'Enhance Force'] as const;
+export const Label = new Set([1, 2, 3, 5]);
 
 export type HeroStory = {
   IsDefaultUnlock: boolean;

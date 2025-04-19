@@ -7,6 +7,7 @@ import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
 import CardHero from '@/components/hero/CardHero';
+import HeroSkills from '@/components/hero/HeroSkills';
 import HeroTales from '@/components/hero/HeroTales';
 import { SortedUnits } from '@/utils/types';
 
@@ -30,7 +31,7 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
       Authorization: `Bearer ${AFKJ_API_KEY}`,
     },
   });
-  const { Info, Story } = (await res.json()) as HeroJSON;
+  const { Info, Story, Skills } = (await res.json()) as HeroJSON;
   const { DisplayTitle, Description, UnitRace, UnitJob, UnitRarity, DamageType } = Info;
 
   return (
@@ -45,6 +46,9 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
           unitClass={UnitJob}
           damage={DamageType}
         />
+      </Container>
+      <Container className="mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">
+        <HeroSkills hero={hero} skills={Skills} />
       </Container>
       <Container className="mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">
         <HeroTales hero={hero} tales={Story} />

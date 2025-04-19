@@ -56,6 +56,9 @@
   --color-neutral-400: #A1A1A1;
   --color-neutral-300: #D4D4D4;
   --color-error-900: #82181A;  
+  --color-legendary-400: #FF5B55;
+  --color-mythic-400: #A3F1EF;
+  --color-supreme-400: #E67E22;
   --font-lato: 'Lato', sans-serif;
   --font-langar: 'Langar', cursive;
 }

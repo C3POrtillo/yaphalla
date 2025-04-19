@@ -1,7 +1,7 @@
 import type { HeroStory } from '@/components/hero/types';
 import type { FC } from 'react';
 
-import TaleParser from '@/components/hero/TaleParser';
+import ParserTale from '@/components/hero/ParserTale';
 import { sortData } from '@/utils/utils';
 
 interface HeroTalesProps {
@@ -14,7 +14,10 @@ const HeroTales: FC<HeroTalesProps> = ({ hero, tales }) => (
     <h2 className="pb-2">Tales</h2>
     {tales
       .sort(({ StoryID: a }, { StoryID: b }) => sortData(a, b))
-      .map(({ Story, StoryID }) => Story && <TaleParser hero={hero} key={StoryID} id={StoryID} tale={Story} />)}
+      .map(
+        ({ Story, StoryID, ...props }) =>
+          Story && <ParserTale hero={hero} key={StoryID} Story={Story} StoryID={StoryID} {...props} />,
+      )}
   </div>
 );
 

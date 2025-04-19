@@ -1,9 +1,9 @@
 import { capitalize } from 'lodash';
 
-import type { HeroSkillArgs } from '@/components/hero/types';
 import type { InputSizeTypes } from '@/utils/siteTypes';
 import type { ReactNode } from 'react';
 
+import { type HeroSkillArgs, IconMap } from '@/components/hero/types';
 import { UnitOverride } from '@/utils/pathsHeroes';
 import { Damage, Faction, Tier, UnitClass, UnitSet } from '@/utils/types';
 import { cleanString } from '@/utils/utils';
@@ -16,8 +16,6 @@ export const getDetailIconSize = (size: InputSizeTypes) => {
       return 'size-8';
   }
 };
-
-const skillStatSet = new Set(['ATK', 'HP']);
 
 const getDetailPath = (src: string) => {
   if (Damage.includes(src as Damage)) {
@@ -32,9 +30,8 @@ const getDetailPath = (src: string) => {
   if (UnitClass.includes(src as UnitClass)) {
     return 'class';
   }
-  if (skillStatSet.has(src)) {
-    return 'misc';
-  }
+
+  return 'misc';
 };
 const skillStatRegExp = /<([A-Za-z]+)>/;
 const sArgRegExp = /\{(SArg\d+|PlusRatio)(%)?\}(s)?/;
@@ -48,6 +45,8 @@ export const mergeLabeledTokens = (tokens: string[]): string[] => {
     buffer.push(token);
     const joined = buffer.join(' ');
 
+    const isIncompleteSprite = (str: string) => str.startsWith('<sprite') && !str.includes('>');
+
     if (labelRegExp.test(joined)) {
       merged.push(joined);
       buffer = [];
@@ -56,6 +55,17 @@ export const mergeLabeledTokens = (tokens: string[]): string[] => {
     }
 
     if (/^\[[^\]]+]/.test(joined) && !/\[\/]/.test(joined)) {
+      return;
+    }
+
+    if (isIncompleteSprite(joined)) {
+      return;
+    }
+
+    if (/^<sprite.*?>/.test(joined)) {
+      merged.push(joined);
+      buffer = [];
+
       return;
     }
 
@@ -75,7 +85,7 @@ export const mergeLabeledTokens = (tokens: string[]): string[] => {
   return merged;
 };
 
-export const parseSkillToken = (token: string): string | { name?: string; value?: string } => {
+export const parseSkillToken = (token: string): string | { name?: string; value?: string; icon?: string } => {
   const skillMatch = token.match(skillStatRegExp);
   const sArgMatch = token.match(sArgRegExp);
 
@@ -89,6 +99,12 @@ export const parseSkillToken = (token: string): string | { name?: string; value?
   const labelMatch = token.match(labelRegExp);
   if (labelMatch) {
     return labelMatch[1];
+  }
+
+  if (IconMap[`${token.split('>')[0]}>` as keyof typeof IconMap]) {
+    return {
+      icon: IconMap[`${token.split('>')[0]}>` as keyof typeof IconMap],
+    };
   }
 
   return token;

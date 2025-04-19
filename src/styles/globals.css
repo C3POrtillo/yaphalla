@@ -390,4 +390,12 @@
   .tale-book {
     aspect-ratio: 1070 / 1312;
   }
+  .dung-icon {
+    @apply min-w-6;
+    aspect-ratio: 70 / 74;
+  }
+  .natsu-icon {
+    @apply min-w-8;
+    aspect-ratio: 74 / 85;
+  }
 }

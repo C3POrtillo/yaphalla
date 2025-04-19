@@ -1,6 +1,10 @@
+import { capitalize } from 'lodash';
+
+
 import type { HeroSkillArgs } from '@/components/hero/types';
 import type { FC, ReactNode } from 'react';
 
+import IconDetail from '@/components/hero/IconDetail';
 import SkillStat from '@/components/hero/SkillStat';
 import { mergeLabeledTokens, mergeTokens, parseSkillToken } from '@/components/hero/utils';
 
@@ -20,6 +24,16 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix }) => {
       const parsedToken = parseSkillToken(token);
       if (typeof parsedToken === 'string') {
         acc.push(parsedToken);
+      } else if (parsedToken.icon) {
+        const [unit, icon] = parsedToken.icon.split('/');
+        acc.push('');
+        acc.push(
+          <span key={`${i}-${parsedToken.icon}`} className="inline-flex align-bottom">
+            <IconDetail src={parsedToken.icon} className={(() => `${unit}-icon`)()} />
+          </span>,
+        );
+        acc.push('');
+        acc.push(capitalize(icon));
       } else {
         acc.push('');
         acc.push(<SkillStat key={`${i}-${parsedToken.value}`} args={Args} {...parsedToken} />);

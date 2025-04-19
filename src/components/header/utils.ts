@@ -33,6 +33,7 @@ const staticSlugs: Record<string, string> = {
   '/creators': solidIcon('tv'),
   '/auto-player': solidIcon('robot'),
   'https://afk-journey.fandom.com': solidIcon('book'),
+  '/heroes': solidIcon('user'),
 };
 
 const staticSets = (href: string) => {

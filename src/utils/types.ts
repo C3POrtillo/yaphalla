@@ -14,6 +14,10 @@ export const Faction = [
 const Talents = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celestial-Hypogean'] as const;
 const Rarity = ['Rare', 'Elite', 'Epic', 'Legendary', 'Mythic'] as const;
 type Rarity = (typeof Rarity)[number];
+export const Tier = ['S', 'A', 'R'] as const;
+export type Tier = (typeof Tier)[number];
+export const Damage = ['Magic', 'Physical'] as const;
+export type Damage = (typeof Damage)[number];
 export const RaritySet = new Set(Rarity);
 export type Faction = (typeof Faction)[number];
 export type UnitClass = (typeof UnitClass)[number];
@@ -192,6 +196,7 @@ export const SortedUnits = Object.entries(Units).flatMap(([faction, classData]) 
   ),
 ) as Unit[];
 
+export const UnitSet = new Set(SortedUnits.map(({ unit }) => unit));
 export const WildcardSet = new Set([...Faction, ...Talents]);
 
 export const OtherUnits = (() => {
@@ -255,7 +260,6 @@ export const UnitsByFaction = Object.fromEntries(
 );
 
 export const HexPath = '/assets/images/hexes/';
-
 export const UnitPairs = [['Phraesto', 'Phraesto Clone'], ['Elijah', 'Lailah'], ['Elijah & Lailah']] as const;
 export const PairSet = new Set(UnitPairs.flatMap(pairs => pairs));
 

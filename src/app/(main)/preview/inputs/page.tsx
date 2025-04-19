@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import type { FC } from 'react';
 
-import Accordion from '@/components/accordion/accordion';
+import Accordion from '@/components/accordion/Accordion';
 import Container from '@/components/container/Container';
 import Button from '@/components/inputs/button/Button';
 import MarkdownEditor from '@/components/inputs/markdown/MarkdownEditor';

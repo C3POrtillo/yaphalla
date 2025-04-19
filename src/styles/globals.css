@@ -384,4 +384,7 @@
   .inset-black {
     @apply bg-black/50;
   }
+  .tale-book {
+    aspect-ratio: 1070 / 1312;
+  }
 }

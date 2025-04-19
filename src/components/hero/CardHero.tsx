@@ -16,7 +16,7 @@ interface CardHeroProps extends HeroDetailProps {
 
 const CardHero: FC<CardHeroProps> = ({ hero, title, description, hasDetails = true, href, ...props }) => {
   const card = (
-    <div className={joinStrings(!href && 'container-primary', 'w-full flex flex-col gap-2')}>
+    <div className={joinStrings(href ? 'w-full' : 'container-primary max-w-1/3', 'flex flex-col gap-2')}>
       <div className="flex flex-row gap-2 items-center">
         <HexImage src={hero} path="unit" disabled />
         <div className="flex flex-col gap-2 w-full">

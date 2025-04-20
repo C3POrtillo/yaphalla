@@ -190,6 +190,10 @@ const paths = {
             href: '/emotes-hd',
             label: 'Honor Duel',
           },
+          {
+            href: '/emotes-base',
+            label: 'Base Hexes',
+          },
         ],
       },
     ],

@@ -141,6 +141,16 @@ const discords = {
     keywords: ['Yaphalla Charms Emote Discord', 'Charm Emotes', 'Charm Emojis'],
     image: getCatLogo('purple'),
   } as RedirectType,
+  '/emotes-base': {
+    redirect: '/emotes-base',
+    label: 'Discord',
+    href: 'https://discord.com/invite/qwnNhxSsEs',
+    title: 'Base Yapmojis',
+    site: 'Discord',
+    themeColor: '#90ba98',
+    keywords: ['Yaphalla Hex Emote Discord', 'Hex Emotes', 'Hex Emojis'],
+    image: getCatLogo('green'),
+  },
   '/fight-club': {
     redirect: '/fight-club',
     label: 'Discord',

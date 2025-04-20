@@ -12,9 +12,10 @@ interface ParserSkillProps {
   Description: string;
   Args: HeroSkillArgs;
   prefix?: ReactNode | false;
+  hasLine?: boolean;
 }
 
-const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix }) => {
+const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix, hasLine }) => {
   const tokenizeDescription = () => {
     const rawTokens = Description.split(' ');
     const tokens = mergeLabeledTokens(rawTokens);
@@ -51,7 +52,7 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix }) => {
       {prefix}
       <div className="inline-block text-base lg:text-lg">{skill}</div>
     </div>
-    <hr className='w-full border-b-1 border-primary-750 '/>
+    {hasLine && <hr className='w-full border-b-1 border-primary-750 '/>}
     </>
   );
 };

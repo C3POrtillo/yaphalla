@@ -62,7 +62,7 @@ const Header: FC = () => {
             className={joinStrings(
               'relative group hidden items-center',
               LinkClasses,
-              'text-base !cursor-default !text-white p-2 lg:flex',
+              'text-base !cursor-default !text-white p-2 xl:flex',
             )}
           >
             {rootIcon}

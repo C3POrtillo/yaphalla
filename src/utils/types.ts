@@ -1,7 +1,7 @@
 import { CommunityLogos } from '@/components/hex-tiles/types';
 import { compareStrings, sortData } from '@/utils/utils';
 
-export const UnitClass = ['Tank', 'Support', 'Marksman', 'Mage', 'Rogue', 'Warrior'] as const;
+export const HeroClass = ['Tank', 'Support', 'Marksman', 'Mage', 'Rogue', 'Warrior'] as const;
 export const Faction = [
   'Lightbearer',
   'Wilder',
@@ -20,15 +20,15 @@ export const Damage = ['Magic', 'Physical'] as const;
 export type Damage = (typeof Damage)[number];
 export const RaritySet = new Set(Rarity);
 export type Faction = (typeof Faction)[number];
-export type UnitClass = (typeof UnitClass)[number];
+export type HeroClass = (typeof HeroClass)[number];
 export type Talents = (typeof Talents)[number];
 
-type ClassData = Record<UnitClass, string[]>;
+type ClassData = Record<HeroClass, string[]>;
 type FactionData = Record<Faction, ClassData>;
-export type Unit = {
-  unit: string;
+export type Hero = {
+  hero: string;
   faction: Faction | Talents | '';
-  unitClass: UnitClass | '';
+  heroClass: HeroClass | '';
 };
 
 // .replaceAll('.png', '').split(/\s\s+|\n/)
@@ -176,7 +176,7 @@ const Other = {
   Warrior: ['Hogan', 'Midnight Hunter'],
 } as ClassData;
 
-const Units = {
+const Heroes = {
   Lightbearer,
   Wilder,
   Mauler,
@@ -186,72 +186,72 @@ const Units = {
   Dimensional,
 } as FactionData;
 
-export const SortedUnits = Object.entries(Units).flatMap(([faction, classData]) =>
-  Object.entries(classData).flatMap(([unitClass, units]) =>
-    units.sort(sortData).map(unit => ({
-      unit,
+export const SortedHeroes = Object.entries(Heroes).flatMap(([faction, classData]) =>
+  Object.entries(classData).flatMap(([heroClass, heroes]) =>
+    heroes.sort(sortData).map(hero => ({
+      hero,
       faction,
-      unitClass,
+      heroClass,
     })),
   ),
-) as Unit[];
+) as Hero[];
 
-export const UnitSet = new Set(SortedUnits.map(({ unit }) => unit));
+export const HeroSet = new Set(SortedHeroes.map(({ hero }) => hero));
 export const WildcardSet = new Set([...Faction, ...Talents]);
 
-export const OtherUnits = (() => {
-  const formattedUnits = UnitClass.map(unitClass => ({
-    unit: `${unitClass} Wildcard`,
+export const OtherHeroes = (() => {
+  const formattedHeroes = HeroClass.map(heroClass => ({
+    hero: `${heroClass} Wildcard`,
     faction: '',
-    unitClass,
-  })) as Unit[];
+    heroClass,
+  })) as Hero[];
 
   WildcardSet.forEach(faction => {
-    formattedUnits.push({
-      unit: `${faction} Wildcard`,
+    formattedHeroes.push({
+      hero: `${faction} Wildcard`,
       faction,
-      unitClass: '',
+      heroClass: '',
     });
-    UnitClass.forEach(unitClass => {
-      formattedUnits.push({
-        unit: `${faction} ${unitClass}`,
+    HeroClass.forEach(heroClass => {
+      formattedHeroes.push({
+        hero: `${faction} ${heroClass}`,
         faction,
-        unitClass,
+        heroClass,
       });
     });
   });
 
-  Object.entries(Other).forEach(([unitClass, units]) => {
-    units.sort(sortData).forEach(unit => {
-      formattedUnits.push({
-        unit,
+  Object.entries(Other).forEach(([heroClass, units]) => {
+    units.sort(sortData).forEach(hero => {
+      formattedHeroes.push({
+        hero,
         faction: '',
-        unitClass: unitClass as UnitClass,
+        heroClass: heroClass as HeroClass,
       });
     });
   });
 
-  return formattedUnits;
+  return formattedHeroes;
 })();
 
-export const DevUnits = (() => {
-  const formattedUnits = Object.values(CommunityLogos).map(unit => ({
-    unit: `Hex ${unit}`,
+export const DevHeroes = (() => {
+  const formattedHeroes = Object.values(CommunityLogos).map(logo => ({
+    hero: `Hex ${logo}`,
     faction: '',
-    unitClass: '',
-  })) as Unit[];
+    heroClass: '',
+  })) as Hero[];
 
-  return formattedUnits;
+  return formattedHeroes;
 })();
 
-export const ArtifactUnits = [...ArtifactSet].map(artifact => ({
-  unit: artifact,
+export const ArtifactHeroes = [...ArtifactSet].map(artifact => ({
+  hero: artifact,
   faction: '',
-  unitClass: '',
-})) as Unit[];
+  heroClass: '',
+})) as Hero[];
 
 export const UnitsByFaction = Object.fromEntries(
-  [...SortedUnits, ...OtherUnits].map(({ unit, faction }) => {
+  [...SortedHeroes, ...OtherHeroes].map(({ hero: unit, faction }) => {
     const isCeleHypo = ['Celestial', 'Hypogean'].some(check => !compareStrings(faction, check));
     const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);
 
@@ -260,8 +260,8 @@ export const UnitsByFaction = Object.fromEntries(
 );
 
 export const HexPath = '/assets/images/hexes/';
-export const UnitPairs = [['Phraesto', 'Phraesto Clone'], ['Elijah', 'Lailah'], ['Elijah & Lailah']] as const;
-export const PairSet = new Set(UnitPairs.flatMap(pairs => pairs));
+export const HeroPairs = [['Phraesto', 'Phraesto Clone'], ['Elijah', 'Lailah'], ['Elijah & Lailah']] as const;
+export const PairSet = new Set(HeroPairs.flatMap(pairs => pairs));
 
 export const LogoRegExp = new RegExp('Cat|Dog');
 
@@ -333,12 +333,12 @@ export const BaseSet = new Set<string>([
   ...ModeHexSet,
 ]);
 
-export const BaseUnits = (() => {
-  const formattedUnits = [...BaseSet].map(unit => ({
-    unit,
+export const HexHeroes = (() => {
+  const formattedHeroes = [...BaseSet].map(hero => ({
+    hero,
     faction: '',
-    unitClass: '',
-  })) as Unit[];
+    heroClass: '',
+  })) as Hero[];
 
-  return formattedUnits;
+  return formattedHeroes;
 })();

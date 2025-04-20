@@ -1,4 +1,4 @@
-import { SortedUnits } from '@/utils/types';
+import { SortedHeroes } from '@/utils/types';
 
 export const UnitOverride = {
   Smokey: 'Smokey & Meerky',
@@ -15,7 +15,7 @@ export const HeroPairMap = {
 
 export const HeroSet = (() => {
   const units = new Set<string>();
-  SortedUnits.forEach(({ unit }) => {
+  SortedHeroes.forEach(({ hero: unit }) => {
     units.add(HeroPairMap[unit] ? HeroPairMap[unit] : unit);
   });
 

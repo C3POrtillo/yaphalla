@@ -6,12 +6,12 @@ import {
   BaseSet,
   CurrentSeason,
   FactionHexSet,
+  HeroClass,
   HonorDuelSet,
   ModeHexSet,
   PreSeasonSet,
   RarityHexSet,
   SeasonSet,
-  UnitClass,
 } from '@/utils/types';
 import { compareStrings, kebabCase } from '@/utils/utils';
 
@@ -65,7 +65,7 @@ const getBasePath = (unit: string): ImagePath => {
   return 'base';
 };
 
-const wildcardSet = new Set([...UnitClass, 'Wildcard']);
+const wildcardSet = new Set([...HeroClass, 'Wildcard']);
 
 const getUnitPath = (unit: string): ImagePath => {
   if (wildcardSet.has(unit.split(' ')[1])) {

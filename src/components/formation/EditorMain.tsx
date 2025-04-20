@@ -9,7 +9,7 @@ import EditorArena from '@/components/formation/EditorArena';
 import EditorSidebar from '@/components/formation/EditorSidebar';
 import { useFormation } from '@/components/formation/FormationProvider';
 import SelectArenaPreset from '@/components/formation/SelectArenaPreset';
-import SelectUnit from '@/components/formation/SelectUnit';
+import SelectHero from '@/components/formation/SelectHero';
 
 const EditorMain: FC = () => {
   const [isActive, setActive] = useState(false);
@@ -84,7 +84,7 @@ const EditorMain: FC = () => {
             }}
           />
           <div className="size-full grow flex flex-col-reverse sm:flex-row gap-2">
-            <SelectUnit />
+            <SelectHero />
             <div className="w-full 2xl:hidden">
               <SelectArenaPreset variant="sm" />
             </div>

@@ -1,6 +1,6 @@
-import type { UnitDivData } from '@/components/unit-grid/types';
+import type { UnitDivData } from '@/components/hero-grid/types';
 
-import { ArtifactUnits, BaseUnits, DevUnits, OtherUnits, SortedUnits } from '@/utils/types';
+import { ArtifactHeroes, DevHeroes, HexHeroes, OtherHeroes, SortedHeroes } from '@/utils/types';
 
 const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {
   if (isXlScreen) {
@@ -17,13 +17,13 @@ export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant
   const data = (() => {
     switch (variant) {
       case 3:
-        return [...BaseUnits, ...DevUnits];
+        return [...HexHeroes, ...DevHeroes];
       case 2:
-        return ArtifactUnits;
+        return ArtifactHeroes;
       case 1:
-        return OtherUnits;
+        return OtherHeroes;
       default:
-        return SortedUnits;
+        return SortedHeroes;
     }
   })();
 

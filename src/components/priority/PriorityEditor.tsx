@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import Container from '@/components/container/Container';
 import Link from '@/components/link/Link';
 import EditorMain from '@/components/priority/EditorMain';
-import SelectUnit from '@/components/priority/SelectUnit';
+import SelectHero from '@/components/priority/SelectHero';
 
 const PriorityEditor: FC = () => (
   <>
@@ -22,7 +22,7 @@ const PriorityEditor: FC = () => (
         >
           <EditorMain />
         </Suspense>
-        <SelectUnit />
+        <SelectHero />
       </div>
     </Container>
   </>

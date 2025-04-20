@@ -1,6 +1,5 @@
 import { capitalize } from 'lodash';
 
-
 import type { HeroSkillArgs } from '@/components/hero/types';
 import type { FC, ReactNode } from 'react';
 

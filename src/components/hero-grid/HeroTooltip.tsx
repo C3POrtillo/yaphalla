@@ -1,15 +1,15 @@
 import Image from 'next/image';
 
-import type { Faction, Talents, UnitClass } from '@/utils/types';
+import type { Faction, HeroClass, Talents } from '@/utils/types';
 import type { FC } from 'react';
 
-interface UnitTooltipProps {
+interface HeroTooltipProps {
   faction: Faction | Talents | '';
-  unit: string;
-  unitClass: UnitClass | '';
+  hero: string;
+  heroClass: HeroClass | '';
 }
 
-const UnitTooltip: FC<UnitTooltipProps> = ({ unit, faction, unitClass }) => {
+const HeroTooltip: FC<HeroTooltipProps> = ({ hero, faction, heroClass }) => {
   const createImage = (string: string, path: 'factions' | 'class') => (
     <div className="relative size-5 min-w-5">
       <Image
@@ -24,15 +24,15 @@ const UnitTooltip: FC<UnitTooltipProps> = ({ unit, faction, unitClass }) => {
   );
 
   const imageFaction = !!faction && createImage(faction, 'factions');
-  const imageClass = !!unitClass && createImage(unitClass, 'class');
+  const imageClass = !!heroClass && createImage(heroClass, 'class');
 
   return (
     <div className="flex flex-row gap-1 items-center">
       {imageFaction || imageClass}
-      <p className="text-xs w-max max-w-16">{unit.replaceAll('-', ' ')}</p>
+      <p className="text-xs w-max max-w-16">{hero.replaceAll('-', ' ')}</p>
       {imageClass || imageFaction}
     </div>
   );
 };
 
-export default UnitTooltip;
+export default HeroTooltip;

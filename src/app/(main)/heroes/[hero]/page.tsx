@@ -9,11 +9,11 @@ import Container from '@/components/container/Container';
 import CardHero from '@/components/hero/CardHero';
 import HeroSkills from '@/components/hero/HeroSkills';
 import HeroTales from '@/components/hero/HeroTales';
-import { SortedUnits } from '@/utils/types';
+import { SortedHeroes } from '@/utils/types';
 
 export const generateStaticParams = () =>
-  SortedUnits.map(({ unit }) => ({
-    hero: encodeURIComponent(unit),
+  SortedHeroes.map(({ hero }) => ({
+    hero: encodeURIComponent(hero),
   }));
 
 const Index: FC<HeroPageProps> = async ({ params }) => {
@@ -43,7 +43,7 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
           description={Description}
           tier={UnitRarity}
           faction={UnitRace}
-          unitClass={UnitJob}
+          heroClass={UnitJob}
           damage={DamageType}
         />
       </Container>

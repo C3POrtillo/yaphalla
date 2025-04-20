@@ -8,7 +8,7 @@ import Container from '@/components/container/Container';
 import CardHero from '@/components/hero/CardHero';
 import { heroes } from '@/utils/pathsHeroes';
 
-const Index: FC = async () => {
+const CardDeckHero: FC = async () => {
   await connection();
   const { AFKJ_API, AFKJ_API_KEY } = process.env;
 
@@ -48,4 +48,4 @@ const Index: FC = async () => {
   );
 };
 
-export default Index;
+export default CardDeckHero;

@@ -5,13 +5,13 @@ import type { FC } from 'react';
 
 import ExportImage from '@/components/export-image/ExportImage';
 import { filter } from '@/components/export-image/utils';
+import HeroGrid from '@/components/hero-grid/HeroGrid';
 import Text from '@/components/inputs/text/Text';
 import { usePriority } from '@/components/priority/PriorityProvider';
 import { maxGroups } from '@/components/priority/types';
 import { validateCount } from '@/components/priority/utils';
-import UnitGrid from '@/components/unit-grid/UnitGrid';
 
-const SelectUnit: FC = () => {
+const SelectHero: FC = () => {
   const { currentTile, setCurrentTile, units, setUnits, groups, setGroups } = usePriority();
   const [isActive, setActive] = useState(false);
   const disabled = currentTile === undefined;
@@ -75,11 +75,11 @@ const SelectUnit: FC = () => {
           </div>
         </div>
         <div className="size-full grow flex">
-          <UnitGrid disabled={disabled} currentUnit={currentUnit} onClick={onClick} />
+          <HeroGrid disabled={disabled} currentUnit={currentUnit} onClick={onClick} />
         </div>
       </div>
     </Suspense>
   );
 };
 
-export default SelectUnit;
+export default SelectHero;

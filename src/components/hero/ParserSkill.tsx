@@ -1,6 +1,5 @@
 import { capitalize } from 'lodash';
 
-
 import type { HeroSkillArgs } from '@/components/hero/types';
 import type { FC, ReactNode } from 'react';
 
@@ -13,9 +12,10 @@ interface ParserSkillProps {
   Description: string;
   Args: HeroSkillArgs;
   prefix?: ReactNode | false;
+  hasLine?: boolean;
 }
 
-const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix }) => {
+const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix, hasLine }) => {
   const tokenizeDescription = () => {
     const rawTokens = Description.split(' ');
     const tokens = mergeLabeledTokens(rawTokens);
@@ -47,10 +47,13 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix }) => {
   const skill = mergeTokens(tokenizeDescription());
 
   return (
-    <div className="flex flex-col border-b-1 border-primary-750 pb-1 mb-1">
-      {prefix}
-      <div className="inline-block text-base lg:text-lg">{skill}</div>
-    </div>
+    <>
+      <div className="flex flex-col my-1 input-secondary size-sm !cursor-auto !text-white">
+        {prefix}
+        <div className="inline-block text-base lg:text-lg">{skill}</div>
+      </div>
+      {hasLine && <hr className="w-full border-b-1 border-primary-750" />}
+    </>
   );
 };
 

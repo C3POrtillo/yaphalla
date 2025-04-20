@@ -1,11 +1,12 @@
 import { capitalize } from 'lodash';
 
+import type { HeroSkillArgs } from '@/components/hero/types';
 import type { InputSizeTypes } from '@/utils/siteTypes';
 import type { ReactNode } from 'react';
 
-import { type HeroSkillArgs, IconMap } from '@/components/hero/types';
+import { IconMap } from '@/components/hero/types';
 import { UnitOverride } from '@/utils/pathsHeroes';
-import { Damage, Faction, Tier, UnitClass, UnitSet } from '@/utils/types';
+import { Damage, Faction, HeroClass, HeroSet, Tier } from '@/utils/types';
 import { cleanString } from '@/utils/utils';
 
 export const getDetailIconSize = (size: InputSizeTypes) => {
@@ -27,7 +28,7 @@ const getDetailPath = (src: string) => {
   if (Tier.includes(src as Tier)) {
     return 'tier';
   }
-  if (UnitClass.includes(src as UnitClass)) {
+  if (HeroClass.includes(src as HeroClass)) {
     return 'class';
   }
 
@@ -160,11 +161,11 @@ export const mergeTokens = (tokens: (string | ReactNode)[]) =>
 
 export const cleanToken = (token: string) => {
   const capitalizedToken = capitalize(cleanString(token));
-  if (UnitSet.has(capitalizedToken)) {
+  if (HeroSet.has(capitalizedToken)) {
     return capitalizedToken;
   }
   const noPluralToken = capitalizedToken.slice(0, -1);
-  if (UnitSet.has(noPluralToken)) {
+  if (HeroSet.has(noPluralToken)) {
     return noPluralToken;
   }
 
@@ -207,6 +208,7 @@ export const getLevelUnlock = (slot: number, display: number, unlock: number | u
   let unlockText: string;
   switch (slot) {
     case 4:
+    case 6:
       return displayText;
     case 5:
       unlockText = formatLevelUnlock(`EX. +${(display - 1) * 5}`);

@@ -111,4 +111,9 @@ export const creators = {
     Bilibili: 'https://space.bilibili.com/11018422',
     language: 'cn',
   } as CreatorData,
+  '/mistahhbean': {
+    label: 'mistahhbean',
+    Twitch: 'https://twitch.tv/mistahhbean1',
+    image: '/assets/images/creators/mistahhbean.png',
+  } as CreatorData,
 } as const;

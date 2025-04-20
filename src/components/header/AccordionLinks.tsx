@@ -15,7 +15,7 @@ interface AccordionLinksProps {
 }
 
 const AccordionLinks: FC<AccordionLinksProps> = ({ slug, title, rootOptions, rootIcon }) => (
-  <div className="w-full block lg:hidden">
+  <div className="w-full block xl:hidden">
     <Accordion key={`${slug || title} Accordion`} label={slug ? rootOptions[0].label : title} hierarchy="primary">
       <div className="inset-secondary grid gap-1 grid-cols-1 !p-1 !rounded-t-none">
         {slug && (

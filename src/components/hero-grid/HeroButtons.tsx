@@ -1,23 +1,23 @@
 import { useMemo } from 'react';
 
-import type { UnitGridProps } from '@/components/unit-grid/UnitGrid';
-import type { UnitDivData } from '@/components/unit-grid/types';
-import type { Faction, UnitClass } from '@/utils/types';
+import type { HeroGridProps } from '@/components/hero-grid/HeroGrid';
+import type { UnitDivData } from '@/components/hero-grid/types';
+import type { Faction, HeroClass } from '@/utils/types';
 import type { FC } from 'react';
 
+import HeroTooltip from '@/components/hero-grid/HeroTooltip';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import { getPath } from '@/components/hex-tiles/utils';
-import UnitTooltip from '@/components/unit-grid/UnitTooltip';
 import { cleanString, compareStrings, joinStrings, testRegExp } from '@/utils/utils';
 
-interface UnitButtonProps extends UnitGridProps {
+interface HeroButtonProps extends HeroGridProps {
   formattedUnits: UnitDivData[];
   filterFaction: Faction | undefined;
-  filterClass: UnitClass | undefined;
+  filterClass: HeroClass | undefined;
   filterSearch: string;
 }
 
-const UnitButtons: FC<UnitButtonProps> = ({
+const HeroButtons: FC<HeroButtonProps> = ({
   formattedUnits,
   filterFaction,
   filterClass,
@@ -33,11 +33,11 @@ const UnitButtons: FC<UnitButtonProps> = ({
   return formattedUnits.map(({ offset, tiles }, i) => (
     <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>
       {tiles.map(unitData => {
-        const { unit, faction, unitClass } = unitData;
+        const { hero: unit, faction, heroClass } = unitData;
         const path = getPath(unit);
         const matchesFaction = testRegExp(faction, regexFaction);
-        const matchesClass = testRegExp(unitClass, regexClass);
-        const validSearch = testRegExp([faction, unitClass, unit].join(' '), regexSearch);
+        const matchesClass = testRegExp(heroClass, regexClass);
+        const validSearch = testRegExp([faction, heroClass, unit].join(' '), regexSearch);
         const sameUnit = !!currentUnit && !compareStrings(currentUnit, unit);
         const isValid =
           filterFaction === undefined && filterClass === undefined
@@ -53,7 +53,7 @@ const UnitButtons: FC<UnitButtonProps> = ({
             size="sm"
             disabled={disabled}
             disabledOverlay={!isValid || sameUnit || disabled}
-            tooltip={<UnitTooltip {...unitData} />}
+            tooltip={<HeroTooltip {...unitData} />}
             onClick={() => onClick(unit, sameUnit)}
           />
         );
@@ -62,4 +62,4 @@ const UnitButtons: FC<UnitButtonProps> = ({
   ));
 };
 
-export default UnitButtons;
+export default HeroButtons;

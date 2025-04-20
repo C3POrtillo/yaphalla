@@ -1,11 +1,11 @@
 import Image from 'next/image';
 
-import type { Faction, UnitClass } from '@/utils/types';
+import type { FilterPaths, FilterValues } from '@/components/hero-filter/types';
 import type { FC } from 'react';
 
 interface ButtonFilterProps {
-  src: UnitClass | Faction;
-  path: 'class' | 'factions';
+  src: FilterValues;
+  path: FilterPaths;
   selected: boolean;
   onClick: () => void;
 }

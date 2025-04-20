@@ -62,7 +62,7 @@ const Header: FC = () => {
             className={joinStrings(
               'relative group hidden items-center',
               LinkClasses,
-              'text-base !cursor-default !text-white p-2 lg:flex',
+              'text-base !cursor-default !text-white p-2 xl:flex',
             )}
           >
             {rootIcon}
@@ -104,7 +104,7 @@ const Header: FC = () => {
       <div className="mx-auto hidden min-h-6 w-full max-w-7xl flex-row items-center justify-between gap-4 px-4 xl:flex">
         <div className="flex flex-row items-center gap-6">
           <LogoLink />
-          <div className="flex flex-row gap-4">{navLinks}</div>
+          <div className="flex flex-row gap-1">{navLinks}</div>
         </div>
         <div className="flex flex-row items-center gap-6">
           <Socials />

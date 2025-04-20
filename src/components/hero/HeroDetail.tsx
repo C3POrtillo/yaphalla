@@ -1,10 +1,10 @@
-import type { Damage, Faction, Tier, UnitClass } from '@/utils/types';
+import type { Damage, Faction, HeroClass, Tier } from '@/utils/types';
 import type { FC } from 'react';
 
 import IconDetail from '@/components/hero/IconDetail';
 
 export interface HeroDetailProps {
-  unitClass: UnitClass;
+  heroClass: HeroClass;
   faction: Faction;
   tier: Tier | undefined;
   damage: Damage;

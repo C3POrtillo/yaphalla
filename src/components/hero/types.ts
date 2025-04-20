@@ -1,4 +1,4 @@
-import type { Damage, Faction, Tier, UnitClass } from '@/utils/types';
+import type { Damage, Faction, HeroClass, Tier } from '@/utils/types';
 
 type HeroInfo = {
   ID: number;
@@ -12,7 +12,7 @@ type HeroInfo = {
   UnitRace: Faction;
   Gender: 'male' | 'female';
   UltIconSquare: string;
-  UnitJob: UnitClass;
+  UnitJob: HeroClass;
   UnitRarity: Tier | undefined;
   DisplayName: string;
   StartMP: number;

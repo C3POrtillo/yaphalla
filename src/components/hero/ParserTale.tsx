@@ -78,7 +78,7 @@ const ParserTale: FC<ParserTaleProps> = ({ hero, StoryID, Story, IsDefaultUnlock
       role="button"
       className={joinStrings(
         'inline-flex flex-row items-center gap-2 border-1 border-transparent size-sm',
-        isOpen ? '!cursor-auto' : 'cursor-pointer bg-primary input-primary',
+        isOpen ? '!cursor-auto' : 'cursor-pointer input-secondary',
       )}
       tabIndex={0}
       onClick={() => setOpen(true)}

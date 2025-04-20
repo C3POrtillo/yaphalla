@@ -46,10 +46,13 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix }) => {
   const skill = mergeTokens(tokenizeDescription());
 
   return (
-    <div className="flex flex-col border-b-1 border-primary-750 pb-1 mb-1">
+    <>
+    <div className="flex flex-col my-1 input-secondary size-sm !cursor-auto !text-white">
       {prefix}
       <div className="inline-block text-base lg:text-lg">{skill}</div>
     </div>
+    <hr className='w-full border-b-1 border-primary-750 '/>
+    </>
   );
 };
 

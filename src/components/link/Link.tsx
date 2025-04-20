@@ -41,8 +41,8 @@ const Link: FC<LinkProps> = ({ href, label, className, disabled, children, toolt
   return tooltip ? (
     <div
       className={joinStrings(
-        !!tooltip && 'relative group flex items-center justify-center max-lg:w-full',
-        !hideMobileTooltip && 'hidden lg:flex',
+        !!tooltip && 'relative group flex items-center justify-center max-xl:w-full',
+        !hideMobileTooltip && 'hidden xl:flex',
       )}
     >
       {link}
@@ -51,7 +51,7 @@ const Link: FC<LinkProps> = ({ href, label, className, disabled, children, toolt
           className={joinStrings(
             'top-full !bg-primary-950 !w-max',
             hideMobileTooltip &&
-              'group-hover:!hidden group-active:!hidden lg:group-hover:!block lg:group-active:!block',
+              'group-hover:!hidden group-active:!hidden xl:group-hover:!block xl:group-active:!block',
           )}
           pointerEvents
         >

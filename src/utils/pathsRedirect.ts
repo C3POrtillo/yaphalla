@@ -150,7 +150,7 @@ const discords = {
     themeColor: '#90ba98',
     keywords: ['Yaphalla Hex Emote Discord', 'Hex Emotes', 'Hex Emojis'],
     image: getCatLogo('green'),
-  },
+  } as RedirectType,
   '/fight-club': {
     redirect: '/fight-club',
     label: 'Discord',

@@ -48,11 +48,11 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix, hasLine 
 
   return (
     <>
-    <div className="flex flex-col my-1 input-secondary size-sm !cursor-auto !text-white">
-      {prefix}
-      <div className="inline-block text-base lg:text-lg">{skill}</div>
-    </div>
-    {hasLine && <hr className='w-full border-b-1 border-primary-750 '/>}
+      <div className="flex flex-col my-1 input-secondary size-sm !cursor-auto !text-white">
+        {prefix}
+        <div className="inline-block text-base lg:text-lg">{skill}</div>
+      </div>
+      {hasLine && <hr className="w-full border-b-1 border-primary-750" />}
     </>
   );
 };

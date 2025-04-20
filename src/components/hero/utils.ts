@@ -208,7 +208,7 @@ export const getLevelUnlock = (slot: number, display: number, unlock: number | u
   let unlockText: string;
   switch (slot) {
     case 4:
-    case 6: 
+    case 6:
       return displayText;
     case 5:
       unlockText = formatLevelUnlock(`EX. +${(display - 1) * 5}`);

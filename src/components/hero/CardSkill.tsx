@@ -51,7 +51,11 @@ const CardSkill: FC<CardSkillProps> = ({
         />
       </div>
       <div>
-        {isFull ? <ParserSkill hero={hero} hasLine {...props} /> : <p className="text-base lg:text-lg">{SimpleDescription}</p>}
+        {isFull ? (
+          <ParserSkill hero={hero} hasLine {...props} />
+        ) : (
+          <p className="text-base lg:text-lg">{SimpleDescription}</p>
+        )}
       </div>
       {isFull && Levels && (
         <div className="grow">
@@ -59,7 +63,15 @@ const CardSkill: FC<CardSkillProps> = ({
             const prefix = getLevelUnlock(DisplaySlot, DisplayLevel!, unlock);
             const prefixSpan = <span className="text-neutral-400 text-xs">{`${prefix}\n`}</span>;
 
-            return <ParserSkill key={DisplayLevel} hero={hero} {...level} prefix={prefixSpan} hasLine={i < Levels.length - 1} />;
+            return (
+              <ParserSkill
+                key={DisplayLevel}
+                hero={hero}
+                {...level}
+                prefix={prefixSpan}
+                hasLine={i < Levels.length - 1}
+              />
+            );
           })}
         </div>
       )}

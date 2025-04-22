@@ -30,12 +30,12 @@ interface FormationContextType {
   setHideLogo: Dispatch<SetStateAction<boolean>>;
   drawType: number;
   setDrawType: Dispatch<SetStateAction<number>>;
-  isEnemy: boolean;
-  setEnemy: Dispatch<SetStateAction<boolean>>;
-  isEmpty: boolean;
-  setEmpty: Dispatch<SetStateAction<boolean>>;
-  isNumber: boolean;
-  setNumber: Dispatch<SetStateAction<boolean>>;
+  hideEnemy: boolean;
+  setHideEnemy: Dispatch<SetStateAction<boolean>>;
+  hideEmpty: boolean;
+  setHideEmpty: Dispatch<SetStateAction<boolean>>;
+  hideNumbers: boolean;
+  setHideNumbers: Dispatch<SetStateAction<boolean>>;
   isPreset: boolean;
   setIsPreset: Dispatch<SetStateAction<boolean>>;
   currentArtifact: number | undefined;
@@ -54,8 +54,8 @@ interface FormationContextType {
   updateUnit: (tile: TileData) => void;
   playerFaction?: Talents;
   enemyFaction?: Talents;
-  isTalents: boolean;
-  setTalents: Dispatch<SetStateAction<boolean>>;
+  hideTalents: boolean;
+  setHideTalents: Dispatch<SetStateAction<boolean>>;
   setArtifact: (position: number, artifact: string | boolean) => void;
   background: boolean;
   setBackground: Dispatch<SetStateAction<boolean>>;
@@ -86,18 +86,18 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [preset, setPreset] = useState<string>('Arena I');
   const [currentTile, setCurrentTile] = useState<number>();
   const [drawType, setDrawType] = useState<number>(0);
+  const [hideTalents, setHideTalents] = useState<boolean>(true);
+  const [hideEmpty, setHideEmpty] = useState<boolean>(true);
+  const [hideEnemy, setHideEnemy] = useState<boolean>(true);
+  const [hideNumbers, setHideNumbers] = useState<boolean>(false);
   const [hideEmptyArtifact, setHideEmptyArtifact] = useState<boolean>(false);
-  const [isEnemy, setEnemy] = useState<boolean>(false);
-  const [isEmpty, setEmpty] = useState<boolean>(true);
-  const [isNumber, setNumber] = useState<boolean>(false);
-  const [isPreset, setIsPreset] = useState<boolean>(false);
+  const [background, setBackground] = useState<boolean>(false);
   const [currentArtifact, setCurrentArtifact] = useState<number>();
+  const [isPreset, setIsPreset] = useState<boolean>(false);
   const [isEditArena, setEditArena] = useState<boolean>(false);
   const [playerFaction, setPlayerFaction] = useState<Talents>();
-  const [enemyFaction, setEnemyFaction] = useState<Talents>();
-  const [isTalents, setTalents] = useState<boolean>(true);
+  const [enemyFaction, setHideEnemyFaction] = useState<Talents>();
   const [hideLogo, setHideLogo] = useState<boolean>(false);
-  const [background, setBackground] = useState<boolean>(false);
   const [tab, setTab] = useState(0);
   const [subMenu, setSubMenu] = useState(0);
   const [baseHex, setBaseHex] = useState<BaseHexes | undefined>();
@@ -238,10 +238,10 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [preset]);
 
   useEffect(() => {
-    if (isEnemy && currentTile !== undefined && tileData[currentTile] !== 1 && tileData[currentTile] !== 2) {
+    if (hideEnemy && currentTile !== undefined && tileData[currentTile] !== 1 && tileData[currentTile] !== 2) {
       setCurrentTile(undefined);
     }
-  }, [isEnemy, currentTile]);
+  }, [hideEnemy, currentTile]);
 
   useEffect(() => {
     if (currentArtifact !== undefined && hideEmptyArtifact) {
@@ -282,7 +282,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     });
 
     setPlayerFaction(determineFaction(countPlayer, currentPlayer ?? playerFaction));
-    setEnemyFaction(determineFaction(countEnemy, currentEnemy ?? enemyFaction));
+    setHideEnemyFaction(determineFaction(countEnemy, currentEnemy ?? enemyFaction));
   }, [units]);
 
   return (
@@ -306,12 +306,12 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setHideEmptyArtifact,
         hideLogo,
         setHideLogo,
-        isEnemy,
-        setEnemy,
-        isEmpty,
-        setEmpty,
-        isNumber,
-        setNumber,
+        hideEnemy,
+        setHideEnemy,
+        hideEmpty,
+        setHideEmpty,
+        hideNumbers,
+        setHideNumbers,
         isPreset,
         setIsPreset,
         currentArtifact,
@@ -326,8 +326,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         updateUnit,
         playerFaction,
         enemyFaction,
-        isTalents,
-        setTalents,
+        hideTalents,
+        setHideTalents,
         setArtifact,
         getTileImage,
         baseHex,

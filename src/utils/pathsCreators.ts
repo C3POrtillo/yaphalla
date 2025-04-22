@@ -116,4 +116,9 @@ export const creators = {
     Twitch: 'https://twitch.tv/mistahhbean1',
     image: '/assets/images/creators/mistahhbean.png',
   } as CreatorData,
+  '/aktube': {
+    label: 'AKTUBE',
+    YouTube: 'https://www.youtube.com/@AKTUBE_',
+    language: 'kr',
+  } as CreatorData,
 } as const;

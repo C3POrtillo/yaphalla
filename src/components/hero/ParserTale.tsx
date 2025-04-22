@@ -41,6 +41,7 @@ const ParserTale: FC<ParserTaleProps> = ({ hero, StoryID, Story, IsDefaultUnlock
                 <span className="pb-1.25">{unitToken}</span>
               </Link>,
             );
+            acc.push('');
           } else {
             acc.push(unitSpan);
             acc.push('');

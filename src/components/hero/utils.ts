@@ -148,7 +148,7 @@ export const mergeTokens = (tokens: (string | ReactNode)[]) =>
     if (typeof token === 'string') {
       const last = acc[acc.length - 1];
       if (typeof last === 'string') {
-        acc[acc.length - 1] = `${last} ${token}`;
+        acc[acc.length - 1] = `${last} ${token}`.replace('  ', ' ');
       } else {
         acc.push(token);
       }

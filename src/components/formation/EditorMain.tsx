@@ -15,9 +15,10 @@ const EditorMain: FC = () => {
   const [isActive, setActive] = useState(false);
   const {
     preset,
-    isEnemy,
-    isEmpty,
-    isNumber,
+    hideTalents,
+    hideEmpty,
+    hideEnemy,
+    hideNumbers,
     hideEmptyArtifact,
     isEditArena,
     updateArena,
@@ -25,7 +26,6 @@ const EditorMain: FC = () => {
     setEditArena,
     setCurrentTile,
     setCurrentArtifact,
-    isTalents,
   } = useFormation();
 
   const arenaProps = {
@@ -33,18 +33,18 @@ const EditorMain: FC = () => {
     hideArtifacts: true,
     hideUnits: true,
     hideTalents: true,
-    hideNumbers: isNumber,
+    hideNumbers,
     onClick: updateArena,
   };
 
   const unitProps = {
     id: 'unit-grid',
-    hideEnemy: isEnemy,
-    hideEmpty: isEmpty,
-    hideNumbers: isNumber,
+    hideEnemy,
+    hideEmpty,
+    hideNumbers,
     hideEmptyArtifact,
     disableEmpty: true,
-    hideTalents: isTalents,
+    hideTalents,
     disableObstacles: true,
     onClick: updateUnit,
   };

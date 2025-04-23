@@ -1,3 +1,4 @@
+import type { Cookie } from '@/utils/siteTypes';
 import type { Metadata } from 'next';
 import type { ReadonlyURLSearchParams } from 'next/navigation';
 
@@ -120,3 +121,15 @@ export const getHref = ({ href }: { href?: string }) => href;
 
 export const brandIcon = (string: string) => `fab fa-${string}` as const;
 export const solidIcon = (string: string) => `fa-solid fa-${string}` as const;
+
+export const generateCookie = (key: string, value: string, age: number = 31536000) =>
+  `${key}=${value}; path=/; max-age=${age}` as Cookie;
+
+export const getCookie = (document: Document, key: string): string | undefined => {
+  const match = document.cookie.match(new RegExp(`(?:^|; )${key}=([^;]*)`));
+
+  return match?.[1];
+};
+export const setCookie = (document: Document, cookie: Cookie) => {
+  document.cookie = cookie;
+};

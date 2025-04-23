@@ -5,17 +5,17 @@ import Toggle from '@/components/inputs/toggle/Toggle';
 
 const EditorToggles: FC = () => {
   const {
-    setEnemy,
-    setEmpty,
-    setNumber,
-    setHideEmptyArtifact,
-    setTalents,
-    isEditArena,
-    isTalents,
-    isEmpty,
-    isEnemy,
-    isNumber,
+    hideTalents,
+    hideEmpty,
+    hideEnemy,
+    hideNumbers,
     hideEmptyArtifact,
+    setHideEnemy,
+    setHideEmpty,
+    setHideNumbers,
+    setHideEmptyArtifact,
+    setHideTalents,
+    isEditArena,
   } = useFormation();
 
   const spanHide = <span className="text-neutral-500">Hide</span>;
@@ -32,18 +32,18 @@ const EditorToggles: FC = () => {
   const unitControls = [
     {
       name: 'talentToggle',
-      defaultChecked: !isTalents,
+      defaultChecked: !hideTalents,
       value: 'Talents',
       disabled: isEditArena,
-      onChange: setTalents,
-      tooltip: <p className="text-sm">{spanToggle} automatic Talents</p>,
+      onChange: setHideTalents,
+      tooltip: <p className="text-sm">{spanToggle} Faction Talents tiles</p>,
     },
     {
       name: 'emptyToggle',
-      defaultChecked: !isEmpty,
+      defaultChecked: !hideEmpty,
       value: 'Grid',
       disabled: isEditArena,
-      onChange: setEmpty,
+      onChange: setHideEmpty,
       tooltip: (
         <p className="text-sm">
           {spanToggle} {spanGrid}
@@ -56,10 +56,10 @@ const EditorToggles: FC = () => {
     },
     {
       name: 'enemyToggle',
-      defaultChecked: !isEnemy,
+      defaultChecked: !hideEnemy,
       value: 'Enemy',
       disabled: isEditArena,
-      onChange: setEnemy,
+      onChange: setHideEnemy,
       tooltip: (
         <p className="text-sm">
           {spanToggle} {spanEnemy}
@@ -72,9 +72,9 @@ const EditorToggles: FC = () => {
     },
     {
       name: 'numberToggle',
-      defaultChecked: !isNumber,
+      defaultChecked: !hideNumbers,
       value: 'Numbers',
-      onChange: setNumber,
+      onChange: setHideNumbers,
       tooltip: <p className="text-sm">{spanToggle} numbers</p>,
     },
     {

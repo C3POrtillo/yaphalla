@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
 
-
 import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/Accordion';
@@ -16,7 +15,6 @@ import Socials from '@/components/socials/Socials';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { navigation } from '@/utils/paths';
 import { generateCookie, getCookie, joinStrings, setCookie, solidIcon } from '@/utils/utils';
-
 
 const Header: FC = () => {
   const [isSticky, setSticky] = useState<boolean>(true);

@@ -76,6 +76,7 @@ interface FormationContextType {
 const FormationContext = createContext<FormationContextType | undefined>(undefined);
 
 export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
+  const [team, setTeam] = useState<number>(0);
   const [title, setTitle] = useState<string>('');
   const [units, setUnits] = useState<UnitFormationData>({});
   const [artifactData, setArtifactData] = useState<ArtifactFormationData>({
@@ -98,8 +99,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [playerFaction, setPlayerFaction] = useState<Talents>();
   const [enemyFaction, setHideEnemyFaction] = useState<Talents>();
   const [hideLogo, setHideLogo] = useState<boolean>(false);
-  const [tab, setTab] = useState(0);
-  const [subMenu, setSubMenu] = useState(0);
+  const [tab, setTab] = useState<number>(0);
+  const [subMenu, setSubMenu] = useState<number>(0);
   const [baseHex, setBaseHex] = useState<BaseHexes | undefined>();
   const [outline, setOutline] = useState<BaseHexes | undefined>();
   const [logo, setLogo] = useState<CommunityLogos>('dog');

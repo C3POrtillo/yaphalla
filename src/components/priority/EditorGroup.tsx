@@ -19,7 +19,7 @@ interface EditorGroupProps {
 }
 
 const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty, isDev }) => {
-  const { units, currentTile, getTileImage, updateUnit: onGroupUpdate } = usePriority();
+  const { units, currentTile, getTileImage, updateUnit } = usePriority();
   const [count, setCount] = useState<string>('10');
   const [label, setLabel] = useState<string>('');
   const [offset, setOffset] = useState<boolean>(true);
@@ -100,7 +100,7 @@ const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty, isDev 
                       path={path}
                       selected={!!currentTile && !compareStrings(thisTile, currentTile)}
                       hideImage={hideEmpty && isEmpty}
-                      onClick={() => onGroupUpdate(thisTile)}
+                      onClick={() => updateUnit(thisTile)}
                     />
                   </div>
                 );

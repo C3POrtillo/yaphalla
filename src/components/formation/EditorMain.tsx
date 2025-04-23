@@ -12,7 +12,7 @@ import SelectArenaPreset from '@/components/formation/SelectArenaPreset';
 import SelectHero from '@/components/formation/SelectHero';
 
 const EditorMain: FC = () => {
-  const [isActive, setActive] = useState(false);
+  const [isActive, setActive] = useState<boolean>(false);
   const {
     preset,
     hideTalents,

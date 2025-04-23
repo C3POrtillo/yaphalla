@@ -28,9 +28,9 @@ const Accordion: FC<AccordionProps> = ({
   ariaLabel,
   defaultState = false,
 }) => {
-  const [isOpen, setOpen] = useState(defaultState);
-  const [isClickable] = useState(labelIsClickable);
-  const [maxHeight, setMaxHeight] = useState('0px');
+  const [isOpen, setOpen] = useState<boolean>(defaultState);
+  const [isClickable] = useState<boolean>(labelIsClickable);
+  const [maxHeight, setMaxHeight] = useState<string>('0px');
   const panelRef = useRef<HTMLDivElement>(null);
   const accordionRef = useRef<HTMLDivElement>(null);
 

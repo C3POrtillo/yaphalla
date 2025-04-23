@@ -20,9 +20,9 @@ interface EditorGroupProps {
 
 const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty, isDev }) => {
   const { units, currentTile, getTileImage, updateUnit: onGroupUpdate } = usePriority();
-  const [count, setCount] = useState('10');
-  const [label, setLabel] = useState('');
-  const [offset, setOffset] = useState(true);
+  const [count, setCount] = useState<string>('10');
+  const [label, setLabel] = useState<string>('');
+  const [offset, setOffset] = useState<boolean>(true);
   const isOffset = !offsetRow && offset;
   const validCount = getValidCount(count, isDev ? undefined : maxItems);
   const equal = Math.floor(validCount / 2);

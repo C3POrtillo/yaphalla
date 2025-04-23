@@ -31,12 +31,12 @@ const Toggle: FC<ToggleProps> = ({
   solidTooltip,
   ...props
 }) => {
-  const [isChecked, setChecked] = useState(defaultChecked);
+  const [isChecked, setChecked] = useState<boolean>(!!defaultChecked);
   const id = `${variant}-${kebabCase(value)}`;
   const isCheckbox = !compareStrings(variant, 'checkbox');
 
   useEffect(() => {
-    setChecked(defaultChecked);
+    setChecked(!!defaultChecked);
   }, [defaultChecked]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

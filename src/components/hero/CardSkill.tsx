@@ -21,7 +21,7 @@ const CardSkill: FC<CardSkillProps> = ({
   Levels,
   ...props
 }) => {
-  const [isFull, setFull] = useState(true);
+  const [isFull, setFull] = useState<boolean>(true);
   // console.log(JSON.stringify(props, undefined, 2));
   const hasLabel = Label.has(DisplaySlot);
   const { baseUnlock, classUnlock } = getBaseUnlock(DisplaySlot, UnlockLevel || 1);

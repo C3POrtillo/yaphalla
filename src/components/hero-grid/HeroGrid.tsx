@@ -23,11 +23,11 @@ const HeroGrid: FC<HeroGridProps> = ({ currentUnit, disabled, onClick }) => {
   const isDev = isDevMode(searchParams);
   const isMdScreen = useMediaQuery({ query: '(min-width: 768px)' });
   const isXlScreen = useMediaQuery({ query: '(min-width: 1280px)' });
-  const [variant, setVariant] = useState(0);
+  const [variant, setVariant] = useState<number>(0);
   const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
   const [filterFaction, setFilterFaction] = useState<Faction>();
   const [filterClass, setFilterClass] = useState<HeroClass>();
-  const [filterSearch, setFilterSearch] = useState('');
+  const [filterSearch, setFilterSearch] = useState<string>('');
 
   useEffect(() => {
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant));

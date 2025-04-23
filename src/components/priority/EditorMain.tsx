@@ -16,9 +16,9 @@ const EditorMain: FC = () => {
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
   const { groups, setUnits } = usePriority();
-  const [gap, setGap] = useState(3);
-  const [offset, setOffset] = useState(false);
-  const [hideEmpty, setHideEmpty] = useState(false);
+  const [gap, setGap] = useState<number>(3);
+  const [offset, setOffset] = useState<boolean>(false);
+  const [hideEmpty, setHideEmpty] = useState<boolean>(false);
   const buttonClass = 'inline-flex w-fit gap-1 justify-center items-center';
   const sizes = ['None', 'Small', 'Medium', 'Large'].map((size, i) => (
     <Button

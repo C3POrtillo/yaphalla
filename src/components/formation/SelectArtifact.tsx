@@ -11,7 +11,6 @@ import HexImage from '@/components/hex-tiles/HexImage';
 import { getArtifactPath } from '@/components/hex-tiles/utils';
 import Button from '@/components/inputs/button/Button';
 import { Artifacts } from '@/utils/types';
-import { joinStrings } from '@/utils/utils';
 
 const SelectArtifact: FC = () => {
   const [tab, setTab] = useState<number>(0);

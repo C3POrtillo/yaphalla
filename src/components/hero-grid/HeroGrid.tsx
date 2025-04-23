@@ -10,7 +10,7 @@ import HeroFilter from '@/components/hero-filter/HeroFilter';
 import HeroButtons from '@/components/hero-grid/HeroButtons';
 import { getFormattedUnits } from '@/components/hero-grid/utils';
 import Button from '@/components/inputs/button/Button';
-import { isDevMode, joinStrings } from '@/utils/utils';
+import { isDevMode } from '@/utils/utils';
 
 export interface HeroGridProps {
   allUnits?: Set<string>;

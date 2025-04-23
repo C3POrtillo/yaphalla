@@ -1,6 +1,7 @@
 import type { UnitDivData } from '@/components/hero-grid/types';
 
 import { ArtifactHeroes, DevHeroes, HexHeroes, OtherHeroes, SortedHeroes } from '@/utils/types';
+import { compareStrings } from '@/utils/utils';
 
 const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {
   if (isXlScreen) {
@@ -43,4 +44,13 @@ export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant
   }
 
   return result;
+};
+
+export const hasUnit = (currentUnit: string | Set<string>, unit: string) => {
+  switch (typeof currentUnit) {
+    case 'string':
+      return !compareStrings(currentUnit, unit);
+    default:
+      return currentUnit.has(unit);
+  }
 };

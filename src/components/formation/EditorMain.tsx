@@ -12,8 +12,9 @@ import SelectArenaPreset from '@/components/formation/SelectArenaPreset';
 import SelectHero from '@/components/formation/SelectHero';
 
 const EditorMain: FC = () => {
-  const [isActive, setActive] = useState<boolean>(false);
+  const [isExport, setExport] = useState<boolean>(false);
   const {
+    id,
     preset,
     hideTalents,
     hideEmpty,
@@ -22,7 +23,6 @@ const EditorMain: FC = () => {
     hideEmptyArtifact,
     isEditArena,
     updateArena,
-    updateUnit,
     setEditArena,
     setCurrentTile,
     setCurrentArtifact,
@@ -38,7 +38,7 @@ const EditorMain: FC = () => {
   };
 
   const unitProps = {
-    id: 'unit-grid',
+    id: `unit-grid-${id}`,
     hideEnemy,
     hideEmpty,
     hideNumbers,
@@ -46,48 +46,45 @@ const EditorMain: FC = () => {
     disableEmpty: true,
     hideTalents,
     disableObstacles: true,
-    onClick: updateUnit,
   };
 
   const gridProps = isEditArena ? arenaProps : unitProps;
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-2">
-      <div className="w-full flex flex-col items-center justify-center gap-2 p-2 2xl:flex-row">
-        <div className="size-full flex flex-col gap-2 items-start justify-center sm:flex-row sm:w-fit">
-          <Suspense
-            fallback={<div className="container-primary w-full flex flex-col grow gap-2 p-2 sm:w-min">Loading...</div>}
-          >
-            <EditorSidebar />
-          </Suspense>
-          <EditorArena {...gridProps} />
-        </div>
-        <div className="size-full flex flex-col gap-2 items-center sm:w-fit">
-          <ExportImage
-            disabled={isEditArena}
-            selected={isActive}
-            getImage={async () => {
-              setActive(true);
-              setEditArena(false);
-              setCurrentTile(undefined);
-              setCurrentArtifact(undefined);
-              const unitGrid = document.getElementById('unit-grid');
-              if (!unitGrid) {
-                return false;
-              }
-              const image = await htmlToImage.toPng(unitGrid, { pixelRatio: 1 });
+    <div className="w-full flex flex-col items-center justify-center gap-2 p-2 2xl:flex-row">
+      <div className="size-full flex flex-col gap-2 items-start justify-center sm:flex-row sm:w-fit">
+        <Suspense
+          fallback={<div className="container-primary w-full flex flex-col grow gap-2 p-2 sm:w-min">Loading...</div>}
+        >
+          <EditorSidebar />
+        </Suspense>
+        <EditorArena {...gridProps} />
+      </div>
+      <div className="size-full flex flex-col gap-2 items-center sm:max-w-3/8">
+        <ExportImage
+          disabled={isEditArena}
+          selected={isExport}
+          getImage={async () => {
+            setExport(true);
+            setEditArena(false);
+            setCurrentTile(undefined);
+            setCurrentArtifact(undefined);
+            const unitGrid = document.getElementById(`unit-grid-${id}`);
+            if (!unitGrid) {
+              return false;
+            }
+            const image = await htmlToImage.toPng(unitGrid, { pixelRatio: 1 });
 
-              return image;
-            }}
-            onClick={() => {
-              setActive(false);
-            }}
-          />
-          <div className="size-full grow flex flex-col-reverse sm:flex-row gap-2">
-            <SelectHero />
-            <div className="w-full 2xl:hidden">
-              <SelectArenaPreset variant="sm" />
-            </div>
+            return image;
+          }}
+          onClick={() => {
+            setExport(false);
+          }}
+        />
+        <div className="size-full grow flex flex-col-reverse sm:flex-row gap-2">
+          <SelectHero />
+          <div className="w-full 2xl:hidden">
+            <SelectArenaPreset variant="sm" />
           </div>
         </div>
       </div>

@@ -62,7 +62,7 @@ const ExportImage: FC<ExportImageProps> = ({
           hasActiveBorder
           {...props}
         >
-          <i className={solidIcon(icon)} />
+          <i className={solidIcon(icon)} aria-hidden="true" />
           {label}
         </Button>
       ))}

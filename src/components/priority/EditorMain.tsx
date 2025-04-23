@@ -66,12 +66,14 @@ const EditorMain: FC = () => {
         setUnits({});
       },
     } as const,
-  ].map(({ onClick, label, icon, ...props }) => (
-    <Button key={label} size="sm" className={buttonClass} onClick={onClick} {...props}>
-      <i className={solidIcon(icon)} />
-      {label}
-    </Button>
-  ));
+  ]
+    .filter(item => !!item)
+    .map(({ onClick, label, icon, ...props }) => (
+      <Button key={label} size="sm" className={buttonClass} onClick={onClick} {...props}>
+        <i className={solidIcon(icon)} aria-hidden="true" />
+        {label}
+      </Button>
+    ));
 
   return (
     <div className="flex flex-col grow gap-2">

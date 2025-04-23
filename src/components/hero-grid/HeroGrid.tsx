@@ -13,12 +13,13 @@ import Button from '@/components/inputs/button/Button';
 import { isDevMode, joinStrings } from '@/utils/utils';
 
 export interface HeroGridProps {
+  allUnits?: Set<string>;
   currentUnit: string | false | undefined;
   disabled?: boolean;
   onClick: (unit: string, sameUnit: boolean) => void;
 }
 
-const HeroGrid: FC<HeroGridProps> = ({ currentUnit, disabled, onClick }) => {
+const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
   const isMdScreen = useMediaQuery({ query: '(min-width: 768px)' });
@@ -49,7 +50,7 @@ const HeroGrid: FC<HeroGridProps> = ({ currentUnit, disabled, onClick }) => {
   );
 
   return (
-    <div className="container-primary w-full flex flex-col gap-2 p-2 sm:w-min">
+    <div className="container-primary w-full flex flex-col grow gap-2 p-2">
       <HeroFilter
         filterClass={filterClass}
         filterFaction={filterFaction}
@@ -60,18 +61,17 @@ const HeroGrid: FC<HeroGridProps> = ({ currentUnit, disabled, onClick }) => {
       >
         {unitOptions}
       </HeroFilter>
-      <div className="relative flex size-full flex-row justify-center">
+      <div className="inset-secondary relative flex grow flex-row justify-center min-h-[41rem]">
         <div className="z-10 flex flex-col p-4 pt-8">
           <HeroButtons
+            disabled={disabled}
             formattedUnits={formattedUnits}
             filterFaction={filterFaction}
             filterClass={filterClass}
             filterSearch={filterSearch}
-            currentUnit={currentUnit}
-            onClick={onClick}
+            {...props}
           />
         </div>
-        <div className={joinStrings('inset-secondary absolute top-0 size-full', disabled && 'z-10 opacity-40')} />
       </div>
     </div>
   );

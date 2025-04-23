@@ -48,8 +48,10 @@ export const PriorityProvider: FC<PropsWithChildren> = ({ children }) => {
           }
           updated = true;
           setCurrentTile(undefined);
+        } else if (currentTile === index) {
+          setCurrentTile(undefined);
         } else {
-          setCurrentTile(currentTile !== index ? index : undefined);
+          setCurrentTile(index);
         }
 
         return updated ? copy : prevUnits;

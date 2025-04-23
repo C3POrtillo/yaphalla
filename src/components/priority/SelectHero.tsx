@@ -1,3 +1,4 @@
+'use client';
 import * as htmlToImage from 'html-to-image';
 import { Suspense, useState } from 'react';
 

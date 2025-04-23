@@ -28,7 +28,6 @@ interface EditorArena {
   hideEmptyArtifact?: boolean;
   hideTalents?: boolean;
   disableObstacles?: boolean;
-  onClick?: (tile: TileData) => void;
 }
 
 const EditorArena: FC<EditorArena> = ({
@@ -44,7 +43,6 @@ const EditorArena: FC<EditorArena> = ({
   hideEmptyArtifact,
   hideTalents,
   disableObstacles,
-  onClick,
 }) => {
   const {
     preset,
@@ -58,6 +56,7 @@ const EditorArena: FC<EditorArena> = ({
     outline,
     hideLogo,
     logo,
+    updateUnit,
   } = useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
@@ -172,7 +171,7 @@ const EditorArena: FC<EditorArena> = ({
               disabled={disabled || (!hideUnits && state === 100)}
               path={path}
               forceOutline={state === 1 && !unit && outline}
-              onClick={() => onClick && onClick(tile)}
+              onClick={() => updateUnit(tile)}
             />
           );
         })}
@@ -196,8 +195,8 @@ const EditorArena: FC<EditorArena> = ({
         />
       )} */}
       <EditorToggles />
-      <div className="inset p-2 rounded-lg bg-primary-900 size-full flex items-center justify-center m-auto">
-        <div className="inset-black">
+      <div className="inset-secondary p-2 rounded-lg size-full flex items-center justify-center m-auto">
+        <div className="inset-primary">
           <div id={id} className="relative flex flex-col">
             {tileDivs}
             {['dog', 'cat'].every(check => compareStrings(logo, check)) && (

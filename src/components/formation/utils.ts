@@ -190,5 +190,14 @@ export const getArtifacts = (i: number) => {
   }
 };
 
-export const generateCookies = (data: Record<string, boolean>) =>
-  Object.entries(data).map(([key, value]) => generateCookie(key, value ? '1' : '0'));
+const parseValue = (value: boolean | string) => {
+  switch (typeof value) {
+    case 'boolean':
+      return value ? '1' : '0';
+    default:
+      return value;
+  }
+};
+
+export const generateCookies = (data: Record<string, boolean | string>) =>
+  Object.entries(data).map(([key, value]) => generateCookie(key, parseValue(value)));

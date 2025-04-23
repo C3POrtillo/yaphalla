@@ -16,7 +16,7 @@ const Logo: FC<LogoProps> = ({ logo = 'dog', hideLogo, size = 'md' }) => (
   <div className={joinStrings('hex-icon relative', getSizeClass(size))}>
     {!hideLogo && (
       <Image
-        src={`/assets/images/hexes/unit/Hex ${CommunityLogos[logo]}.png`}
+        src={`/assets/images/hexes/unit/Hex ${CommunityLogos[logo] || 'Yaphalla Dog'}.png`}
         alt="Yaphalla Logo"
         fill
         sizes="256px"

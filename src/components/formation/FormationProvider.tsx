@@ -235,21 +235,26 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       hideNumbers: setHideNumbers,
       hideEmptyArtifact: setHideEmptyArtifact,
       background: setBackground,
+      logo: setLogo,
     }).forEach(([key, set]) => {
       const cookie = getCookie(document, key);
       if (cookie) {
-        set(!!Number(cookie));
+        if (cookie.match(/0|1/)) {
+          set(!!Number(cookie) as any);
+        } else {
+          set(cookie as any);
+        }
       }
     });
   }, []);
 
   useEffect(() => {
-    generateCookies({ hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background }).forEach(
+    generateCookies({ hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo }).forEach(
       cookie => {
         setCookie(document, cookie);
       },
     );
-  }, [hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background]);
+  }, [hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo]);
 
   useEffect(() => {
     if (['Custom', 'Double Artifacts'].some(check => !compareStrings(preset, check))) {

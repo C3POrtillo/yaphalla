@@ -31,6 +31,9 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
       Authorization: `Bearer ${AFKJ_API_KEY}`,
     },
   });
+  if (res.status !== 200) {
+    notFound();
+  }
   const { Info, Story, Skills } = (await res.json()) as HeroJSON;
   const { DisplayTitle, Description, UnitRace, UnitJob, UnitRarity, DamageType } = Info;
 

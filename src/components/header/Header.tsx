@@ -1,3 +1,7 @@
+'use client';
+import { useEffect, useState } from 'react';
+
+
 import type { FC } from 'react';
 
 import Accordion from '@/components/accordion/Accordion';
@@ -5,14 +9,17 @@ import AccordionLinks from '@/components/header/AccordionLinks';
 import SubLinks from '@/components/header/SubLinks';
 import { LinkClasses } from '@/components/header/types';
 import { getLgCols, getLinkIcon } from '@/components/header/utils';
+import Button from '@/components/inputs/button/Button';
 import Link from '@/components/link/Link';
 import LogoLink from '@/components/link/Logo';
 import Socials from '@/components/socials/Socials';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { navigation } from '@/utils/paths';
-import { joinStrings } from '@/utils/utils';
+import { generateCookie, getCookie, joinStrings, setCookie, solidIcon } from '@/utils/utils';
+
 
 const Header: FC = () => {
+  const [isSticky, setSticky] = useState<boolean>(true);
   const navLinks = navigation.slice(1).map(({ options: rootOptions, hideMobileOptions, ...data }, i) => {
     const { href: slug, label: title } = data;
     let rootIconName = getLinkIcon(slug);
@@ -58,7 +65,7 @@ const Header: FC = () => {
         <>
           {accordionLink}
           <div
-            key={title}
+            key={`${i}-${slug || title}-tooltip`}
             className={joinStrings(
               'relative group hidden items-center',
               LinkClasses,
@@ -99,8 +106,26 @@ const Header: FC = () => {
     );
   });
 
+  useEffect(() => {
+    const cookie = getCookie('isSticky');
+    if (cookie) {
+      setSticky(!!Number(cookie));
+    }
+  }, []);
+  useEffect(() => {
+    setCookie(generateCookie('isSticky', isSticky ? '1' : '0'));
+  }, [isSticky]);
+
   return (
-    <header className="relative header sticky-header min-h-14">
+    <header className={joinStrings('relative header min-h-14', isSticky && 'sticky-header')}>
+      <Button
+        className="hidden absolute right-2 text-xs xl:block size-8"
+        size="sm"
+        hierarchy="secondary"
+        onClick={() => setSticky(!isSticky)}
+      >
+        <i className={solidIcon(isSticky ? 'thumbtack' : 'thumbtack-slash')} />
+      </Button>
       <div className="mx-auto hidden min-h-6 w-full max-w-7xl flex-row items-center justify-between gap-4 px-4 xl:flex">
         <div className="flex flex-row items-center gap-6">
           <LogoLink />

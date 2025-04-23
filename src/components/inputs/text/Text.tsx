@@ -36,8 +36,8 @@ const Text: FC<TextProps> = ({
   children,
   ...props
 }) => {
-  const [isValid, setValid] = useState(validate?.(value as string) ?? true);
-  const [localValue, setLocalValue] = useState(value);
+  const [isValid, setValid] = useState<boolean>(validate?.(value as string) ?? true);
+  const [localValue, setLocalValue] = useState<typeof value>(value);
 
   useEffect(() => {
     setLocalValue(value);

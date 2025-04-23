@@ -6,9 +6,10 @@ import type { Faction, HeroClass } from '@/utils/types';
 import type { FC } from 'react';
 
 import HeroTooltip from '@/components/hero-grid/HeroTooltip';
+import { hasUnit } from '@/components/hero-grid/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import { getPath } from '@/components/hex-tiles/utils';
-import { cleanString, compareStrings, joinStrings, testRegExp } from '@/utils/utils';
+import { cleanString, joinStrings, testRegExp } from '@/utils/utils';
 
 interface HeroButtonProps extends HeroGridProps {
   formattedUnits: UnitDivData[];
@@ -22,6 +23,7 @@ const HeroButtons: FC<HeroButtonProps> = ({
   filterFaction,
   filterClass,
   filterSearch,
+  allUnits,
   currentUnit,
   disabled,
   onClick,
@@ -38,7 +40,9 @@ const HeroButtons: FC<HeroButtonProps> = ({
         const matchesFaction = testRegExp(faction, regexFaction);
         const matchesClass = testRegExp(heroClass, regexClass);
         const validSearch = testRegExp([faction, heroClass, unit].join(' '), regexSearch);
-        const sameUnit = !!currentUnit && !compareStrings(currentUnit, unit);
+        const inAllUnits = !!allUnits && hasUnit(allUnits, unit);
+        const sameUnit = !!currentUnit && hasUnit(currentUnit, unit);
+
         const isValid =
           filterFaction === undefined && filterClass === undefined
             ? validSearch
@@ -52,7 +56,7 @@ const HeroButtons: FC<HeroButtonProps> = ({
             path={path}
             size="sm"
             disabled={disabled}
-            disabledOverlay={!isValid || sameUnit || disabled}
+            disabledOverlay={!isValid || inAllUnits || sameUnit || disabled}
             tooltip={<HeroTooltip {...unitData} />}
             onClick={() => onClick(unit, sameUnit)}
           />

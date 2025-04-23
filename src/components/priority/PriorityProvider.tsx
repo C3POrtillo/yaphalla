@@ -20,7 +20,7 @@ interface PriorityContextType {
 const PriorityContext = createContext<PriorityContextType | undefined>(undefined);
 
 export const PriorityProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [groups, setGroups] = useState('2');
+  const [groups, setGroups] = useState<string>('2');
   const [units, setUnits] = useState<GroupUnitData>({});
   const [currentTile, setCurrentTile] = useState<string>();
   const getTileImage = useCallback((unit?: string) => {
@@ -48,8 +48,10 @@ export const PriorityProvider: FC<PropsWithChildren> = ({ children }) => {
           }
           updated = true;
           setCurrentTile(undefined);
+        } else if (currentTile === index) {
+          setCurrentTile(undefined);
         } else {
-          setCurrentTile(currentTile !== index ? index : undefined);
+          setCurrentTile(index);
         }
 
         return updated ? copy : prevUnits;

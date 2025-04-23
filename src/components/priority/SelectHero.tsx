@@ -1,3 +1,4 @@
+'use client';
 import * as htmlToImage from 'html-to-image';
 import { Suspense, useState } from 'react';
 
@@ -13,7 +14,7 @@ import { validateCount } from '@/components/priority/utils';
 
 const SelectHero: FC = () => {
   const { currentTile, setCurrentTile, units, setUnits, groups, setGroups } = usePriority();
-  const [isActive, setActive] = useState(false);
+  const [isActive, setActive] = useState<boolean>(false);
   const disabled = currentTile === undefined;
   const currentUnit = !disabled && units[currentTile];
 

@@ -11,7 +11,18 @@ import { countUnits, determineFaction, generateCookies } from '@/components/form
 import { getPath } from '@/components/hex-tiles/utils';
 import { compareStrings, getCookie, setCookie } from '@/utils/utils';
 
+interface FormationProviderProps extends PropsWithChildren {
+  id: number;
+  currentId: number;
+  allUnits: Set<string>;
+  units: UnitFormationData;
+  setUnits: Dispatch<SetStateAction<UnitFormationData>>;
+}
+
 interface FormationContextType {
+  id: number;
+  currentId: number;
+  allUnits: Set<string>;
   title: string;
   setTitle: Dispatch<SetStateAction<string>>;
   units: UnitFormationData;
@@ -52,6 +63,7 @@ interface FormationContextType {
   setOutline: Dispatch<SetStateAction<BaseHexes | undefined>>;
   updateArena: (tile: TileData) => void;
   updateUnit: (tile: TileData) => void;
+  addUnit: (unit: string, sameUnit: boolean) => void;
   playerFaction?: Talents;
   enemyFaction?: Talents;
   hideTalents: boolean;
@@ -75,9 +87,15 @@ interface FormationContextType {
 
 const FormationContext = createContext<FormationContextType | undefined>(undefined);
 
-export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
+export const FormationProvider: FC<FormationProviderProps> = ({
+  id,
+  currentId,
+  allUnits,
+  units,
+  setUnits,
+  children,
+}) => {
   const [title, setTitle] = useState<string>('');
-  const [units, setUnits] = useState<UnitFormationData>({});
   const [artifactData, setArtifactData] = useState<ArtifactFormationData>({
     player: [],
     enemy: [],
@@ -98,8 +116,8 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   const [playerFaction, setPlayerFaction] = useState<Talents>();
   const [enemyFaction, setHideEnemyFaction] = useState<Talents>();
   const [hideLogo, setHideLogo] = useState<boolean>(false);
-  const [tab, setTab] = useState(0);
-  const [subMenu, setSubMenu] = useState(0);
+  const [tab, setTab] = useState<number>(0);
+  const [subMenu, setSubMenu] = useState<number>(0);
   const [baseHex, setBaseHex] = useState<BaseHexes | undefined>();
   const [outline, setOutline] = useState<BaseHexes | undefined>();
   const [logo, setLogo] = useState<CommunityLogos>('dog');
@@ -150,11 +168,33 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
           }
           updated = true;
           setCurrentTile(undefined);
+        } else if (currentTile === index) {
+          setCurrentTile(undefined);
         } else {
-          setCurrentTile(currentTile !== index ? index : undefined);
+          setCurrentTile(index);
         }
 
         return updated ? copy : prevUnits;
+      });
+    },
+    [currentTile],
+  );
+
+  const addUnit = useCallback(
+    (unit: string, sameUnit: boolean) => {
+      if (currentTile === undefined) {
+        return;
+      }
+      setUnits(prev => {
+        const copy = { ...prev };
+        if (sameUnit) {
+          delete copy[currentTile];
+        } else {
+          copy[currentTile] = { unit, type: tileData[currentTile] };
+          setCurrentTile(undefined);
+        }
+
+        return copy;
       });
     },
     [currentTile],
@@ -183,6 +223,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     },
     [currentArtifact, artifactData],
   );
+
   const getTileImage = useCallback(
     (unit: string, state: number, showTalents: boolean, hideUnits?: boolean, disableEnemy?: boolean) => {
       const getFactionTile = (value: string, type: number) => {
@@ -237,7 +278,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       background: setBackground,
       logo: setLogo,
     }).forEach(([key, set]) => {
-      const cookie = getCookie(document, key);
+      const cookie = getCookie(key);
       if (cookie) {
         if (cookie.match(/0|1/)) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -253,10 +294,16 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     generateCookies({ hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo }).forEach(
       cookie => {
-        setCookie(document, cookie);
+        setCookie(cookie);
       },
     );
   }, [hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo]);
+
+  useEffect(() => {
+    setEditArena(false);
+    setCurrentTile(undefined);
+    setCurrentArtifact(undefined);
+  }, [currentId]);
 
   useEffect(() => {
     if (['Custom', 'Double Artifacts'].some(check => !compareStrings(preset, check))) {
@@ -318,6 +365,9 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   return (
     <FormationContext.Provider
       value={{
+        id,
+        currentId,
+        allUnits,
         title,
         setTitle,
         units,
@@ -354,6 +404,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
         setSubMenu,
         updateArena,
         updateUnit,
+        addUnit,
         playerFaction,
         enemyFaction,
         hideTalents,

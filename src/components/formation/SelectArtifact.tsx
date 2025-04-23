@@ -11,7 +11,6 @@ import HexImage from '@/components/hex-tiles/HexImage';
 import { getArtifactPath } from '@/components/hex-tiles/utils';
 import Button from '@/components/inputs/button/Button';
 import { Artifacts } from '@/utils/types';
-import { joinStrings } from '@/utils/utils';
 
 const SelectArtifact: FC = () => {
   const [tab, setTab] = useState<number>(0);
@@ -47,7 +46,13 @@ const SelectArtifact: FC = () => {
             hasActiveBorder
           >
             <div className="flex flex-row gap-2 items-center w-full">
-              <HexImage src={artifact} path={getArtifactPath(artifact || '')} size="2xs" disabled />
+              <HexImage
+                src={artifact}
+                path={getArtifactPath(artifact || '')}
+                size="2xs"
+                disabled
+                disabledOverlay={disabled}
+              />
               <p className="text-lg">{artifact}</p>
             </div>
           </Button>
@@ -85,17 +90,9 @@ const SelectArtifact: FC = () => {
             </Button>
           ))}
         </div>
-        <div className="scroll-bar-left scroll-bar-auto scroll-bar-thin w-full max-h-142 overflow-y-auto">
-          <div className="w-full flex flex-col gap-2">
-            <div
-              className={joinStrings(
-                'inset-secondary flex w-full flex-col justify-center text-center p-2 gap-2',
-                disabled && 'opacity-40',
-              )}
-            >
-              <div className="flex flex-col gap-1">{getArtifactButtons(getArtifacts(tab))}</div>
-            </div>
-          </div>
+        <hr className="w-full border-b-1 border-primary-750" />
+        <div className="inset-black scroll-bar-left scroll-bar-auto scroll-bar-thin w-full max-h-142 overflow-y-auto">
+          <div className="flex flex-col gap-1">{getArtifactButtons(getArtifacts(tab))}</div>
         </div>
       </div>
     </>

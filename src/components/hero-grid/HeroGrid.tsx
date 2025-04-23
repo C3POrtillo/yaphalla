@@ -10,24 +10,25 @@ import HeroFilter from '@/components/hero-filter/HeroFilter';
 import HeroButtons from '@/components/hero-grid/HeroButtons';
 import { getFormattedUnits } from '@/components/hero-grid/utils';
 import Button from '@/components/inputs/button/Button';
-import { isDevMode, joinStrings } from '@/utils/utils';
+import { isDevMode } from '@/utils/utils';
 
 export interface HeroGridProps {
+  allUnits?: Set<string>;
   currentUnit: string | false | undefined;
   disabled?: boolean;
   onClick: (unit: string, sameUnit: boolean) => void;
 }
 
-const HeroGrid: FC<HeroGridProps> = ({ currentUnit, disabled, onClick }) => {
+const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
   const isMdScreen = useMediaQuery({ query: '(min-width: 768px)' });
   const isXlScreen = useMediaQuery({ query: '(min-width: 1280px)' });
-  const [variant, setVariant] = useState(0);
+  const [variant, setVariant] = useState<number>(0);
   const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
   const [filterFaction, setFilterFaction] = useState<Faction>();
   const [filterClass, setFilterClass] = useState<HeroClass>();
-  const [filterSearch, setFilterSearch] = useState('');
+  const [filterSearch, setFilterSearch] = useState<string>('');
 
   useEffect(() => {
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant));
@@ -49,7 +50,7 @@ const HeroGrid: FC<HeroGridProps> = ({ currentUnit, disabled, onClick }) => {
   );
 
   return (
-    <div className="container-primary w-full flex flex-col gap-2 p-2 sm:w-min">
+    <div className="container-primary w-full flex flex-col grow gap-2 p-2">
       <HeroFilter
         filterClass={filterClass}
         filterFaction={filterFaction}
@@ -60,18 +61,17 @@ const HeroGrid: FC<HeroGridProps> = ({ currentUnit, disabled, onClick }) => {
       >
         {unitOptions}
       </HeroFilter>
-      <div className="relative flex size-full flex-row justify-center">
+      <div className="inset-secondary relative flex grow flex-row justify-center min-h-[42rem]">
         <div className="z-10 flex flex-col p-4 pt-8">
           <HeroButtons
+            disabled={disabled}
             formattedUnits={formattedUnits}
             filterFaction={filterFaction}
             filterClass={filterClass}
             filterSearch={filterSearch}
-            currentUnit={currentUnit}
-            onClick={onClick}
+            {...props}
           />
         </div>
-        <div className={joinStrings('inset-secondary absolute top-0 size-full', disabled && 'z-10 opacity-40')} />
       </div>
     </div>
   );

@@ -76,7 +76,7 @@ const HexImage: FC<HexImageProps> = ({
     <div
       className={joinStrings(
         'hex-icon relative group flex flex-row justify-center',
-        !disabled && !disabledOverlay && 'hex-overlay',
+        !disabled && 'hex-overlay',
         disabledOverlay && 'disabled-overlay',
         isSwap && 'swap-overlay',
         getSizeClass(size),

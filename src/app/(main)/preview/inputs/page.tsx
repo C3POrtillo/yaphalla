@@ -11,7 +11,7 @@ import Text from '@/components/inputs/text/Text';
 import Toggle from '@/components/inputs/toggle/Toggle';
 
 const Index: FC = () => {
-  const [md, setMd] = useState('');
+  const [md, setMd] = useState<string>('');
   const hierarchies = ['primary', 'secondary', 'tertiary', 'warning'] as const;
   const toggles = ['checkbox', 'switch'] as const;
   const input = ['With Label', 'No Label'] as const;

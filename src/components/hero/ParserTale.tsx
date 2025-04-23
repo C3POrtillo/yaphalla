@@ -16,7 +16,7 @@ interface ParserTaleProps extends HeroStory {
 }
 
 const ParserTale: FC<ParserTaleProps> = ({ hero, StoryID, Story, IsDefaultUnlock }) => {
-  const [isOpen, setOpen] = useState(!!IsDefaultUnlock);
+  const [isOpen, setOpen] = useState<boolean>(!!IsDefaultUnlock);
 
   const tokenizeTale = () =>
     Story.split(' ').reduce<(string | ReactNode)[]>((acc, token, i) => {

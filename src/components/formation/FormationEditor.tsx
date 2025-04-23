@@ -8,18 +8,20 @@ import SelectArenaPreset from '@/components/formation/SelectArenaPreset';
 import SelectBackgroundHex from '@/components/formation/SelectBackgroundHex';
 
 const FormationEditor: FC = () => {
-  const { subMenu } = useFormation();
+  const { subMenu, id, currentId } = useFormation();
 
   return (
-    <>
-      <Container>
-        <EditorMain />
-      </Container>
-      <Container className="hidden 2xl:flex">
-        {subMenu === 0 && <SelectArenaPreset />}
-        {subMenu === 1 && <SelectBackgroundHex />}
-      </Container>
-    </>
+    id === currentId && (
+      <>
+        <Container>
+          <EditorMain />
+        </Container>
+        <Container className="hidden 2xl:flex">
+          {subMenu === 0 && <SelectArenaPreset />}
+          {subMenu === 1 && <SelectBackgroundHex />}
+        </Container>
+      </>
+    )
   );
 };
 

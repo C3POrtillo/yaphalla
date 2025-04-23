@@ -125,11 +125,11 @@ export const solidIcon = (string: string) => `fa-solid fa-${string}` as const;
 export const generateCookie = (key: string, value: string, age: number = 31536000) =>
   `${key}=${value}; path=/; max-age=${age}` as Cookie;
 
-export const getCookie = (document: Document, key: string): string | undefined => {
+export const getCookie = (key: string): string | undefined => {
   const match = document.cookie.match(new RegExp(`(?:^|; )${key}=([^;]*)`));
 
   return match?.[1];
 };
-export const setCookie = (document: Document, cookie: Cookie) => {
+export const setCookie = (cookie: Cookie) => {
   document.cookie = cookie;
 };

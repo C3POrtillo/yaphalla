@@ -237,7 +237,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       background: setBackground,
       logo: setLogo,
     }).forEach(([key, set]) => {
-      const cookie = getCookie(document, key);
+      const cookie = getCookie(key);
       if (cookie) {
         if (cookie.match(/0|1/)) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -253,7 +253,7 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     generateCookies({ hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo }).forEach(
       cookie => {
-        setCookie(document, cookie);
+        setCookie(cookie);
       },
     );
   }, [hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo]);

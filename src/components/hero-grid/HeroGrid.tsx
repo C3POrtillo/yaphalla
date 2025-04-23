@@ -61,7 +61,7 @@ const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
       >
         {unitOptions}
       </HeroFilter>
-      <div className="inset-secondary relative flex grow flex-row justify-center min-h-[41rem]">
+      <div className="inset-secondary relative flex grow flex-row justify-center min-h-[42rem]">
         <div className="z-10 flex flex-col p-4 pt-8">
           <HeroButtons
             disabled={disabled}

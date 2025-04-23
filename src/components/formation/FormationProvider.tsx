@@ -7,9 +7,9 @@ import type { BaseHexes, ImagePath, Talents } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { AlwaysShowStates, ArenaPresets } from '@/components/formation/types';
-import { countUnits, determineFaction } from '@/components/formation/utils';
+import { countUnits, determineFaction, generateCookies } from '@/components/formation/utils';
 import { getPath } from '@/components/hex-tiles/utils';
-import { compareStrings } from '@/utils/utils';
+import { compareStrings, getCookie, setCookie } from '@/utils/utils';
 
 interface FormationContextType {
   title: string;
@@ -227,6 +227,29 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
     },
     [enemyFaction, playerFaction, baseHex, outline, background],
   );
+
+  useEffect(() => {
+    Object.entries({
+      hideTalents: setHideTalents,
+      hideEnemy: setHideEnemy,
+      hideNumbers: setHideNumbers,
+      hideEmptyArtifact: setHideEmptyArtifact,
+      background: setBackground,
+    }).forEach(([key, set]) => {
+      const cookie = getCookie(document, key);
+      if (cookie) {
+        set(!!Number(cookie));
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    generateCookies({ hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background }).forEach(
+      cookie => {
+        setCookie(document, cookie);
+      },
+    );
+  }, [hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background]);
 
   useEffect(() => {
     if (['Custom', 'Double Artifacts'].some(check => !compareStrings(preset, check))) {

@@ -18,3 +18,5 @@ export type HierarchyTypes = 'primary' | 'secondary' | 'tertiary' | 'warning';
 export type InputSizeTypes = 'sm' | 'base';
 
 export const themeColor = '#1a387b';
+
+export type Cookie = `${string}=${string}; path=/; max-age=${number}`;

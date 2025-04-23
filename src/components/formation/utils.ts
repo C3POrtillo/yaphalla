@@ -3,7 +3,7 @@ import type { BaseHexes, Talents } from '@/utils/types';
 
 import { TalentLocations, TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/formation/types';
 import { Artifacts, CurrentSeason, HeroPairs, PairSet, UnitsByFaction } from '@/utils/types';
-import { compareStrings, sortData } from '@/utils/utils';
+import { compareStrings, generateCookie, sortData } from '@/utils/utils';
 
 export const getRelativeTileLabels = (tiles: number[]) => {
   const player = [] as number[];
@@ -189,3 +189,6 @@ export const getArtifacts = (i: number) => {
       return Artifacts[CurrentSeason];
   }
 };
+
+export const generateCookies = (data: Record<string, boolean>) =>
+  Object.entries(data).map(([key, value]) => generateCookie(key, value ? '1' : '0'));

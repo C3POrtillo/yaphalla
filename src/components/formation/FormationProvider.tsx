@@ -240,8 +240,10 @@ export const FormationProvider: FC<PropsWithChildren> = ({ children }) => {
       const cookie = getCookie(document, key);
       if (cookie) {
         if (cookie.match(/0|1/)) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           set(!!Number(cookie) as any);
         } else {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           set(cookie as any);
         }
       }

@@ -17,6 +17,12 @@ export const GET = async (request: Request, { params }: { params: Promise<{ hero
     },
   });
   const { Info } = (await res.json()) as HeroJSON;
+  const { DamageType, UnitRace, UnitJob, UnitRarity } = Info;
 
-  return NextResponse.json(Info);
+  return NextResponse.json({
+    tier: UnitRarity,
+    faction: UnitRace,
+    heroClass: UnitJob,
+    damage: DamageType,
+  });
 };

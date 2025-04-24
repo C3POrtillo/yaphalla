@@ -1,11 +1,12 @@
 import { capitalize } from 'lodash';
 
-import type { HeroSkillArgs } from '@/components/hero/types';
+import type { HeroDetailProps } from '@/components/hero/HeroDetail';
+import type { HeroJSON, HeroSkillArgs } from '@/components/hero/types';
 import type { InputSizeTypes } from '@/utils/siteTypes';
 import type { ReactNode } from 'react';
 
 import { IconMap } from '@/components/hero/types';
-import { UnitOverride } from '@/utils/pathsHeroes';
+import { UnitOverride, heroes } from '@/utils/pathsHeroes';
 import { Damage, Faction, HeroClass, HeroSet, Tier } from '@/utils/types';
 import { cleanString } from '@/utils/utils';
 
@@ -219,3 +220,26 @@ export const getLevelUnlock = (slot: number, display: number, unlock: number | u
 
   return `${displayText} | ${unlockText}`;
 };
+
+const { AFKJ_API, AFKJ_API_KEY } = process.env;
+export const getAllHeroDetails = async () =>
+  (
+    await Promise.all(
+      heroes.map(async ({ label }) => {
+        try {
+          const apiURL = `${AFKJ_API}${label}`;
+          const res = await fetch(apiURL, {
+            headers: {
+              Authorization: `Bearer ${AFKJ_API_KEY}`,
+            },
+          });
+          const { Info } = (await res.json()) as HeroJSON;
+          const { DamageType, UnitRace, UnitJob, UnitRarity } = Info;
+
+          return { hero: label, heroClass: UnitJob, faction: UnitRace, tier: UnitRarity, damage: DamageType };
+        } catch {
+          return null;
+        }
+      }),
+    )
+  ).filter(Boolean) as HeroDetailProps[];

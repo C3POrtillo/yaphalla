@@ -23,7 +23,7 @@ const CardHero: FC<CardHeroProps> = ({ hero, title, description, hasDetails = tr
           <h2 className="w-full border-tertiary-600 border-b-2 pb-1">
             {hasDetails && title ? `${hero} - ${title}` : hero}
           </h2>
-          <HeroDetail {...props} />
+          <HeroDetail hero={hero} {...props} />
         </div>
       </div>
       {hasDetails && description && <p className="inset-secondary">{description}</p>}

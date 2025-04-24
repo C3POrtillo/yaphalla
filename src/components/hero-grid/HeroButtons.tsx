@@ -56,7 +56,7 @@ const HeroButtons: FC<HeroButtonProps> = ({
             path={path}
             size="sm"
             disabled={disabled}
-            disabledOverlay={!isValid || inAllUnits || sameUnit || disabled}
+            disabledOverlay={!isValid || inAllUnits || sameUnit}
             tooltip={<HeroTooltip {...unitData} />}
             onClick={() => onClick(unit, sameUnit)}
           />

@@ -12,10 +12,9 @@ I would install `Husky` to packages, but it does not work nicely with WSL - Run 
 ## Components - `src/components/[component_name]/...`
 Functional Components include their interface and export themselves under `[name].tsx`
 * This includes `ReactProviders` or reusable components related to `[component_name]`
-* All `tsx` code must be in `tsx` files
-Constants and Types are export from `types.ts`
-
-Functions related to a `[component_name]` that can be extracted from their `[name].tsx` are exported from `utils.ts`
+* Any code using TSX syntax must be in `tsx` files
+* Constants and Types are export from `types.ts`
+* Functions related to a `[component_name]` that can be extracted from their `[name].tsx` are exported from `utils.ts`
 
 ## Links
 `Next Link` component is implemented under `src/components/link/Link.tsx` and uses the `src/utils/parseUrl.ts` utility to
@@ -31,7 +30,7 @@ Just `globals.css`
 ## Utils `src/utils/...`
 Functions that are not specific to components are found in a specific `[util_name].ts` file or `utils.ts` if its generic.
 
-Website paths and external links are found in `paths.ts`, nested navigation is currently not supported (or needed).
+Website paths and external links are found in their respective `paths[Name].ts` files.
 
 ## Component Previews
 Slug/Path: `/preview/inputs` for input components and styling

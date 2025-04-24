@@ -270,15 +270,20 @@ export const FormationProvider: FC<FormationProviderProps> = ({
   );
 
   useEffect(() => {
+    document.cookie = '';
     Object.entries({
       hideTalents: setHideTalents,
+      hideEmpty: setHideEmpty,
       hideEnemy: setHideEnemy,
       hideNumbers: setHideNumbers,
       hideEmptyArtifact: setHideEmptyArtifact,
       background: setBackground,
       logo: setLogo,
+      baseHex: setBaseHex,
+      outline: setOutline,
+      preset: setPreset,
     }).forEach(([key, set]) => {
-      const cookie = getCookie(key);
+      const cookie = getCookie(`${id}-${key}`);
       if (cookie) {
         if (cookie.match(/0|1/)) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -292,12 +297,24 @@ export const FormationProvider: FC<FormationProviderProps> = ({
   }, []);
 
   useEffect(() => {
-    generateCookies({ hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo }).forEach(
-      cookie => {
-        setCookie(cookie);
+    generateCookies(
+      {
+        hideTalents,
+        hideEmpty,
+        hideEnemy,
+        hideNumbers,
+        hideEmptyArtifact,
+        background,
+        logo,
+        baseHex,
+        outline,
+        preset,
       },
-    );
-  }, [hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo]);
+      id,
+    ).forEach(cookie => {
+      setCookie(cookie);
+    });
+  }, [hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo, baseHex, outline, preset]);
 
   useEffect(() => {
     setEditArena(false);

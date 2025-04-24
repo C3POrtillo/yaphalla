@@ -199,5 +199,7 @@ const parseValue = (value: boolean | string) => {
   }
 };
 
-export const generateCookies = (data: Record<string, boolean | string>) =>
-  Object.entries(data).map(([key, value]) => generateCookie(key, parseValue(value)));
+export const generateCookies = (data: Record<string, boolean | string | BaseHexes | undefined>, id: number) =>
+  Object.entries(data)
+    .filter(([_, value]) => value !== undefined)
+    .map(([key, value]) => generateCookie(`${id}-${key}`, parseValue(value!)));

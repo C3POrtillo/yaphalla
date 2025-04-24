@@ -30,18 +30,24 @@ const HeroFilter: FC<HeroFilterProps> = ({
   setFilterTier,
   children,
 }) => (
-  <div className="flex w-full flex-row gap-2 items-end">
+  <div className="flex w-full flex-row flex-wrap gap-2 items-end">
     <div className="inset-secondary flex flex-col gap-2 p-2">
       <FilterCategory items={HeroClass} filter={filterClass} setFilter={setFilterClass} path="class" />
       <FilterCategory items={Faction} filter={filterFaction} setFilter={setFilterFaction} path="factions" />
-      {setFilterTier && <FilterCategory items={Tier} filter={filterTier} setFilter={setFilterTier} path="tier" />}
-      {setFilterDamage && (
-        <FilterCategory items={Damage} filter={filterDamage} setFilter={setFilterDamage} path="damage" />
-      )}
     </div>
-    <Text label="Search" setState={setFilterSearch} placeholder="Name/Faction/Class" value={filterSearch}>
-      {children}
-    </Text>
+    {(setFilterTier || setFilterDamage) && (
+      <div className="inset-secondary flex flex-col gap-2 p-2">
+        {setFilterTier && <FilterCategory items={Tier} filter={filterTier} setFilter={setFilterTier} path="tier" />}
+        {setFilterDamage && (
+          <FilterCategory items={Damage} filter={filterDamage} setFilter={setFilterDamage} path="damage" />
+        )}
+      </div>
+    )}
+    <div className="flex grow">
+      <Text label="Search" setState={setFilterSearch} placeholder="Name/Faction/Class" value={filterSearch}>
+        {children}
+      </Text>
+    </div>
   </div>
 );
 

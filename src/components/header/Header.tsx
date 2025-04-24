@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import type { FC } from 'react';
 
@@ -60,7 +60,7 @@ const Header: FC = () => {
 
     if (!slug && tooltip) {
       return (
-        <>
+        <Fragment key={`${i}-${slug || title}-fragment`}>
           {accordionLink}
           <div
             key={`${i}-${slug || title}-tooltip`}
@@ -76,7 +76,7 @@ const Header: FC = () => {
               {tooltip}
             </Tooltip>
           </div>
-        </>
+        </Fragment>
       );
     }
 

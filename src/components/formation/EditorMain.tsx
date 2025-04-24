@@ -23,6 +23,7 @@ const EditorMain: FC = () => {
     hideEmptyArtifact,
     isEditArena,
     updateArena,
+    updateUnit,
     setEditArena,
     setCurrentTile,
     setCurrentArtifact,
@@ -46,6 +47,7 @@ const EditorMain: FC = () => {
     disableEmpty: true,
     hideTalents,
     disableObstacles: true,
+    onClick: updateUnit,
   };
 
   const gridProps = isEditArena ? arenaProps : unitProps;

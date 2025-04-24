@@ -28,6 +28,7 @@ interface EditorArena {
   hideEmptyArtifact?: boolean;
   hideTalents?: boolean;
   disableObstacles?: boolean;
+  onClick: (tile: TileData) => void;
 }
 
 const EditorArena: FC<EditorArena> = ({
@@ -43,6 +44,7 @@ const EditorArena: FC<EditorArena> = ({
   hideEmptyArtifact,
   hideTalents,
   disableObstacles,
+  onClick,
 }) => {
   const {
     preset,
@@ -56,7 +58,6 @@ const EditorArena: FC<EditorArena> = ({
     outline,
     hideLogo,
     logo,
-    updateUnit,
   } = useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
@@ -171,7 +172,9 @@ const EditorArena: FC<EditorArena> = ({
               disabled={disabled || (!hideUnits && state === 100)}
               path={path}
               forceOutline={state === 1 && !unit && outline}
-              onClick={() => updateUnit(tile)}
+              onClick={() => {
+                onClick(tile);
+              }}
             />
           );
         })}

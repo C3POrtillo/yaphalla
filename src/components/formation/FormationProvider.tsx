@@ -281,6 +281,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
       logo: setLogo,
       baseHex: setBaseHex,
       outline: setOutline,
+      preset: setPreset,
     }).forEach(([key, set]) => {
       const cookie = getCookie(`${id}-${key}`);
       if (cookie) {
@@ -307,12 +308,13 @@ export const FormationProvider: FC<FormationProviderProps> = ({
         logo,
         baseHex,
         outline,
+        preset,
       },
       id,
     ).forEach(cookie => {
       setCookie(cookie);
     });
-  }, [hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo, baseHex, outline]);
+  }, [hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo, baseHex, outline, preset]);
 
   useEffect(() => {
     setEditArena(false);

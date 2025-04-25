@@ -120,6 +120,10 @@ const paths = {
             label: 'Honor Duel HQ',
           },
           {
+            href: redirects['/weirdos-club'].href,
+            label: "Weirdo's Club",
+          },
+          {
             href: redirects['/vn'].href,
             label: 'Vietnam Server',
           },

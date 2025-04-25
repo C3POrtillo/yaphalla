@@ -214,8 +214,8 @@ const discords = {
   '/weirdos-club': {
     redirect: '/weirdos-club',
     label: 'Discord',
-    href: 'https://discord.com/invite/YDndgX8RYV',
-    title: 'Join Honor Duel HQ!',
+    href: 'https://discord.com/invite/cheetosfff',
+    title: "Join Weirdo's Club!",
     site: 'Discord',
     themeColor: '#f6405b',
     keywords: createDiscordKeywords("Weirdo's Club"),

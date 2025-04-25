@@ -6,6 +6,7 @@ export const CommunityLogos = {
   tea: 'TEA',
   vn: 'VN',
   'fight-club': 'Fight Club',
+  'weirdos-club': "Weirdo's Club",
 } as const;
 
 export type CommunityLogos = keyof typeof CommunityLogos;

@@ -62,7 +62,7 @@ const EditorMain: FC = () => {
         </Suspense>
         <EditorArena {...gridProps} />
       </div>
-      <div className="size-full flex flex-col gap-2 items-center sm:max-w-3/8">
+      <div className="size-full flex flex-col gap-2 items-center xl:max-w-3/8">
         <ExportImage
           disabled={isEditArena}
           selected={isExport}

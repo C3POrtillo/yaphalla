@@ -207,9 +207,19 @@ const discords = {
     href: 'https://discord.com/invite/YDndgX8RYV',
     title: 'Join Honor Duel HQ!',
     site: 'Discord',
-    themeColor: '#009eec',
+    themeColor: '#dcae72',
     keywords: createDiscordKeywords('Honor Duel HQ'),
     image: getLogo('honor-duel-hq'),
+  } as RedirectType,
+  '/weirdos-club': {
+    redirect: '/weirdos-club',
+    label: 'Discord',
+    href: 'https://discord.com/invite/YDndgX8RYV',
+    title: 'Join Honor Duel HQ!',
+    site: 'Discord',
+    themeColor: '#f6405b',
+    keywords: createDiscordKeywords("Weirdo's Club"),
+    image: getLogo('weirdos-club'),
   } as RedirectType,
 };
 

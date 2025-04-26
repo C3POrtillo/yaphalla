@@ -285,6 +285,9 @@ export const FormationProvider: FC<FormationProviderProps> = ({
     }).forEach(([key, set]) => {
       const cookie = getCookie(`${id}-${key}`);
       if (cookie) {
+        if (!compareStrings(cookie, 'undefined')){
+          set(undefined as any)
+        }
         if (cookie.match(/0|1/)) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           set(!!Number(cookie) as any);

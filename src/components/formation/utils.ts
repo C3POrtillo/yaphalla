@@ -190,8 +190,10 @@ export const getArtifacts = (i: number) => {
   }
 };
 
-const parseValue = (value: boolean | string) => {
+const parseValue = (value: boolean | string | undefined) => {
   switch (typeof value) {
+    case 'undefined':
+      return 'undefined'
     case 'boolean':
       return value ? '1' : '0';
     default:
@@ -200,6 +202,4 @@ const parseValue = (value: boolean | string) => {
 };
 
 export const generateCookies = (data: Record<string, boolean | string | BaseHexes | undefined>, id: number) =>
-  Object.entries(data)
-    .filter(([_, value]) => value !== undefined)
-    .map(([key, value]) => generateCookie(`${id}-${key}`, parseValue(value!)));
+  Object.entries(data).map(([key, value]) => generateCookie(`${id}-${key}`, parseValue(value)));

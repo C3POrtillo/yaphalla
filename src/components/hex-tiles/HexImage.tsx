@@ -70,6 +70,7 @@ const HexImage: FC<HexImageProps> = ({
     !hideImage && !isEnemy && forceOutline && `${getPath(forceOutline)}/${forceOutline}`,
     isTalent && 'base/Talent-Selected',
     !disabled && selected && 'base/Select-Outline',
+    isSwap && 'base/Swap-Overlay',
   ].filter(Boolean) as string[];
 
   return (
@@ -78,7 +79,6 @@ const HexImage: FC<HexImageProps> = ({
         'hex-icon relative group flex flex-row justify-center',
         !disabled && 'hex-overlay',
         disabledOverlay && 'disabled-overlay',
-        isSwap && 'swap-overlay',
         getSizeClass(size),
       )}
     >

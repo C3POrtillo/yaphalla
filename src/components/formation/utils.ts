@@ -193,7 +193,7 @@ export const getArtifacts = (i: number) => {
 const parseValue = (value: boolean | string | undefined) => {
   switch (typeof value) {
     case 'undefined':
-      return 'undefined'
+      return 'undefined';
     case 'boolean':
       return value ? '1' : '0';
     default:

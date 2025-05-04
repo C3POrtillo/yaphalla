@@ -5,6 +5,7 @@ import type { UnitDivData } from '@/components/hero-grid/types';
 import type { Faction, HeroClass } from '@/utils/types';
 import type { FC } from 'react';
 
+import { Aliases } from '@/components/hero-filter/types';
 import HeroTooltip from '@/components/hero-grid/HeroTooltip';
 import { hasUnit } from '@/components/hero-grid/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
@@ -34,14 +35,15 @@ const HeroButtons: FC<HeroButtonProps> = ({
 
   return formattedUnits.map(({ offset, tiles }, i) => (
     <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>
-      {tiles.map(unitData => {
-        const { hero: unit, faction, heroClass } = unitData;
-        const path = getPath(unit);
+      {tiles.map(heroData => {
+        const { hero, faction, heroClass } = heroData;
+        const path = getPath(hero);
+        const aliases = Aliases[hero as keyof typeof Aliases] || [];
         const matchesFaction = testRegExp(faction, regexFaction);
         const matchesClass = testRegExp(heroClass, regexClass);
-        const validSearch = testRegExp([faction, heroClass, unit].join(' '), regexSearch);
-        const inAllUnits = !!allUnits && hasUnit(allUnits, unit);
-        const sameUnit = !!currentUnit && hasUnit(currentUnit, unit);
+        const validSearch = testRegExp([faction, heroClass, hero, ...aliases].join(' '), regexSearch);
+        const inAllUnits = !!allUnits && hasUnit(allUnits, hero);
+        const sameUnit = !!currentUnit && hasUnit(currentUnit, hero);
 
         const isValid =
           filterFaction === undefined && filterClass === undefined
@@ -50,15 +52,15 @@ const HeroButtons: FC<HeroButtonProps> = ({
 
         return (
           <ButtonTile
-            key={unit}
-            src={unit}
-            ariaLabel={unit}
+            key={hero}
+            src={hero}
+            ariaLabel={hero}
             path={path}
             size="sm"
             disabled={disabled}
             disabledOverlay={!isValid || inAllUnits || sameUnit}
-            tooltip={<HeroTooltip {...unitData} />}
-            onClick={() => onClick(unit, sameUnit)}
+            tooltip={<HeroTooltip {...heroData} />}
+            onClick={() => onClick(hero, sameUnit)}
           />
         );
       })}

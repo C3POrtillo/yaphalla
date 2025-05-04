@@ -29,6 +29,8 @@ export type Hero = {
   hero: string;
   faction: Faction | Talents | '';
   heroClass: HeroClass | '';
+  tier?: Tier;
+  damage?: Damage;
 };
 
 // .replaceAll('.png', '').split(/\s\s+|\n/)
@@ -97,6 +99,7 @@ export const Artifacts = {
     'Stormstrike',
     'Iceguard',
   ],
+  'Season 4': []
 } as Record<ArtifactSource, string[]>;
 
 export const HonorDuelSet = new Set(Artifacts['Honor Duel']);
@@ -299,7 +302,7 @@ export const { GenericHexSet, FactionHexSet, ArtifactHexSet, RarityHexSet, ModeH
   const [faction, factionHexSet] = generateHexName([...WildcardSet], HexSuffix);
   const [rarity, rarityHexSet] = generateHexName(Rarity, [hex, outline]);
   const [mode, modeHexSet] = generateHexName(Modes, [hex, outline]);
-  const [artifact, artifactHexSet] = generateHexName(['Pre-Season', 'Season 3'] as const, [outline]);
+  const [artifact, artifactHexSet] = generateHexName(['Pre-Season', CurrentSeason] as const, [outline]);
 
   const baseHexData = Object.fromEntries(
     [hex, outline].map(key => [

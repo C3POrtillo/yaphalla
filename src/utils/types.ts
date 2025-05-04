@@ -99,7 +99,7 @@ export const Artifacts = {
     'Stormstrike',
     'Iceguard',
   ],
-  'Season 4': []
+  'Season 4': [],
 } as Record<ArtifactSource, string[]>;
 
 export const HonorDuelSet = new Set(Artifacts['Honor Duel']);

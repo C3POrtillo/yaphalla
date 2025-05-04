@@ -19,6 +19,8 @@ const CardSkill: FC<CardSkillProps> = ({
   UnlockLevel,
   SimpleDescription,
   Levels,
+  CD,
+  InitCD,
   ...props
 }) => {
   const [isFull, setFull] = useState<boolean>(true);
@@ -50,6 +52,25 @@ const CardSkill: FC<CardSkillProps> = ({
           }}
         />
       </div>
+      {(!!CD || !!InitCD) && (
+        <div className="flex flex-row gap-1 border-b-2 border-primary-750 mt-1 pb-0.5 justify-between text-sm">
+          {!!CD && (
+            <span>
+              <span className="text-neutral-400">Cooldown:</span> {CD}s
+            </span>
+          )}
+          {
+            <span>
+              {!!InitCD && (
+                <>
+                  <span className="text-neutral-400">Initial Cooldown:</span>
+                  {` ${InitCD}s`}
+                </>
+              )}
+            </span>
+          }
+        </div>
+      )}
       <div>
         {isFull ? (
           <ParserSkill hero={hero} hasLine {...props} />

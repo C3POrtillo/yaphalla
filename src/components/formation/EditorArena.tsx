@@ -142,7 +142,7 @@ const EditorArena: FC<EditorArena> = ({
           hideEnemy && hideEmpty && isTopRight ? reverse : offset,
         )}
       >
-        {isLast && <ButtonArtifact index={0} label="A1" logo={logo} {...getArtifactProps()} />}
+        {isLast && <ButtonArtifact index={0} label="A1" logo={isTopRight ? 'dog' : logo} {...getArtifactProps()} />}
         {tiles.map((tile, relativeIndex) => {
           const { state, index } = tile;
           const omitHex = shouldOmitHex(state, relativeIndex, tiles);
@@ -178,7 +178,9 @@ const EditorArena: FC<EditorArena> = ({
             />
           );
         })}
-        {isFirst && <ButtonArtifact index={1} label="A2" logo="cat" {...getArtifactProps()} isReverse />}
+        {isFirst && (
+          <ButtonArtifact index={1} label="A2" logo={(isTopRight && logo) || 'cat'} {...getArtifactProps()} isReverse />
+        )}
       </div>
     );
   });
@@ -202,7 +204,7 @@ const EditorArena: FC<EditorArena> = ({
         <div className="inset-primary">
           <div id={id} className="relative flex flex-col">
             {tileDivs}
-            {['dog', 'cat'].every(check => compareStrings(logo, check)) && (
+            {['dog', 'cat'].every(check => logo && compareStrings(logo, check)) && (
               <span className="inline-flex w-full text-sm text-outline items-center justify-end whitespace-pre pt-1 pr-2">
                 {'Powered by '}
                 <div className="relative logo h-6">

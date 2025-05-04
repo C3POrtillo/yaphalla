@@ -81,8 +81,8 @@ interface FormationContextType {
     src: string;
     path: ImagePath;
   };
-  logo: CommunityLogos;
-  setLogo: Dispatch<SetStateAction<CommunityLogos>>;
+  logo: CommunityLogos | undefined;
+  setLogo: Dispatch<SetStateAction<CommunityLogos | undefined>>;
 }
 
 const FormationContext = createContext<FormationContextType | undefined>(undefined);
@@ -120,7 +120,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
   const [subMenu, setSubMenu] = useState<number>(0);
   const [baseHex, setBaseHex] = useState<BaseHexes | undefined>();
   const [outline, setOutline] = useState<BaseHexes | undefined>();
-  const [logo, setLogo] = useState<CommunityLogos>('dog');
+  const [logo, setLogo] = useState<CommunityLogos>();
 
   const updateArena = useCallback(
     (tile: TileData) =>

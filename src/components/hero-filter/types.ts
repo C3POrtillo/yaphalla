@@ -22,5 +22,15 @@ export const Aliases = {
   Phraesto: phraesto,
   'Phraesto Clone': phraesto,
   Salazer: ['salezar'],
-  Talene: ['kfc', 'fried', 'chicken']
+  Talene: ['kfc', 'fried', 'chicken'],
 } as const;
+
+type Filter = RegExp | undefined | false;
+
+export type FilterRecord = {
+  regexClass?: Filter;
+  regexDamage?: Filter;
+  regexFaction?: Filter;
+  regexTier?: Filter;
+  regexSearch?: Filter;
+};

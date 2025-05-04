@@ -5,12 +5,12 @@ import type { UnitDivData } from '@/components/hero-grid/types';
 import type { Faction, HeroClass } from '@/utils/types';
 import type { FC } from 'react';
 
-import { Aliases } from '@/components/hero-filter/types';
+import { filterHero } from '@/components/hero-filter/utils';
 import HeroTooltip from '@/components/hero-grid/HeroTooltip';
 import { hasUnit } from '@/components/hero-grid/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import { getPath } from '@/components/hex-tiles/utils';
-import { cleanString, joinStrings, testRegExp } from '@/utils/utils';
+import { cleanString, joinStrings } from '@/utils/utils';
 
 interface HeroButtonProps extends HeroGridProps {
   formattedUnits: UnitDivData[];
@@ -33,15 +33,21 @@ const HeroButtons: FC<HeroButtonProps> = ({
   const regexClass = useMemo(() => filterClass && new RegExp(cleanString(filterClass), 'i'), [filterClass]);
   const regexSearch = useMemo(() => !!filterSearch && new RegExp(cleanString(filterSearch), 'i'), [filterSearch]);
 
+  const filters = useMemo(
+    () => ({
+      regexClass,
+      regexFaction,
+      regexSearch,
+    }),
+    [regexClass, regexFaction, regexSearch],
+  );
+
   return formattedUnits.map(({ offset, tiles }, i) => (
     <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>
       {tiles.map(heroData => {
-        const { hero, faction, heroClass } = heroData;
+        const { hero } = heroData;
+        const { matchesClass, matchesFaction, validSearch } = filterHero(heroData, filters);
         const path = getPath(hero);
-        const aliases = Aliases[hero as keyof typeof Aliases] || [];
-        const matchesFaction = testRegExp(faction, regexFaction);
-        const matchesClass = testRegExp(heroClass, regexClass);
-        const validSearch = testRegExp([faction, heroClass, hero, ...aliases].join(' '), regexSearch);
         const inAllUnits = !!allUnits && hasUnit(allUnits, hero);
         const sameUnit = !!currentUnit && hasUnit(currentUnit, hero);
 

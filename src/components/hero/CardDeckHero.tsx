@@ -8,7 +8,8 @@ import type { FC } from 'react';
 import Container from '@/components/container/Container';
 import CardHero from '@/components/hero/CardHero';
 import HeroFilter from '@/components/hero-filter/HeroFilter';
-import { cleanString, testRegExp } from '@/utils/utils';
+import { filterHero } from '@/components/hero-filter/utils';
+import { cleanString } from '@/utils/utils';
 
 interface CardDeckHeroProps {
   heroes: HeroDetailProps[];
@@ -25,6 +26,17 @@ const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes }) => {
   const regexFaction = useMemo(() => filterFaction && new RegExp(cleanString(filterFaction), 'i'), [filterFaction]);
   const regexTier = useMemo(() => filterTier && new RegExp(cleanString(filterTier), 'i'), [filterTier]);
   const regexSearch = useMemo(() => !!filterSearch && new RegExp(cleanString(filterSearch), 'i'), [filterSearch]);
+
+  const filters = useMemo(
+    () => ({
+      regexClass,
+      regexDamage,
+      regexFaction,
+      regexTier,
+      regexSearch,
+    }),
+    [regexClass, regexDamage, regexFaction, regexTier, regexSearch],
+  );
 
   const filterProps = {
     filterClass,
@@ -46,12 +58,11 @@ const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes }) => {
       </div>
       <div className="flex flex-row flex-wrap items-stretch">
         {heroes
-          .filter(({ hero, heroClass, damage, faction, tier = 'R' }) => {
-            const matchesClass = testRegExp(heroClass, regexClass);
-            const matchesDamage = testRegExp(damage, regexDamage);
-            const matchesFaction = testRegExp(faction, regexFaction);
-            const matchesTier = testRegExp(tier, regexTier);
-            const validSearch = testRegExp([faction, heroClass, hero].join(' '), regexSearch);
+          .filter(heroData => {
+            const { matchesClass, matchesDamage, matchesFaction, matchesTier, validSearch } = filterHero(
+              heroData,
+              filters,
+            );
             const noFilter = [filterClass, filterDamage, filterFaction, filterTier].every(item => item === undefined);
             const withFilter =
               (matchesClass && matchesDamage && matchesFaction && matchesTier) || (!!regexSearch && validSearch);

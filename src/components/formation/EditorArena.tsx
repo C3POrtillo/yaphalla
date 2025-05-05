@@ -58,6 +58,8 @@ const EditorArena: FC<EditorArena> = ({
     outline,
     hideLogo,
     logo,
+    background,
+    baseHex
   } = useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
@@ -156,6 +158,9 @@ const EditorArena: FC<EditorArena> = ({
           const showUnit = !hideUnits && !!unit;
           const { disableGrid, disableEnemy, disabled } = getDisabledProps(state);
           const { src, path } = getTileImage(unit, state, !!talents, hideUnits, hideEnemy);
+          const talentOutline = talents && (!baseHex || state === -1) && background && 'Grid-Outline';
+          const forceOutline = !unit && ((state === 1 && outline) || talentOutline);
+          const hideNonPlayerLabel = disableGrid || (!disableEnemy && !!unit);
 
           return (
             <ButtonTile
@@ -164,14 +169,14 @@ const EditorArena: FC<EditorArena> = ({
               ariaLabel={unit ? unit : `Tile ${tileLabel}`}
               selected={!label && currentTile === index}
               label={tileLabel}
-              hideLabel={(!hideUnits && (disableGrid || (!disableEnemy && !!unit))) || hideNumbers}
+              hideLabel={(!hideUnits && hideNonPlayerLabel) || hideNumbers}
               hideImage={disableGrid || (state === 100 && hideLogo)}
               isEnemy={state === -1 && showUnit && !hideEnemy}
               isSwap={state === 2 && showUnit}
               isTalent={talents && talents.has(TileIndexToPosition[index])}
               disabled={disabled || (!hideUnits && state === 100)}
               path={path}
-              forceOutline={state === 1 && !unit && outline}
+              forceOutline={forceOutline}
               onClick={() => {
                 onClick(tile);
               }}

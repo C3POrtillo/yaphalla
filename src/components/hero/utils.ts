@@ -36,7 +36,7 @@ const getDetailPath = (src: string) => {
   return 'misc';
 };
 const skillStatRegExp = /<([A-Za-z]+)>/;
-const sArgRegExp = /\{(SArg\d+|PlusRatio)(%)?\}(s)?/;
+const sArgRegExp = /\{(SArg\d+|PlusRatio)(%)?\}(s)?(.)?/;
 const labelRegExp = /\[\w+](.*?)\[\/]/;
 
 export const mergeLabeledTokens = (tokens: string[]): string[] => {
@@ -117,8 +117,10 @@ export const getSkillStatValue = (value: string, args: HeroSkillArgs) => {
   if (match) {
     const hasPercent = !!match[2];
     const hasS = match[3] || '';
+    const hasPeriod = match[4] || ''
     const arg = args[match[1] as `SArg${number}`];
-    const formattedValue = hasPercent ? `${(Math.abs(arg) * 100).toFixed(0)}%` : `${arg}${hasS}`;
+    const percentValue = hasPercent ? `${(Math.abs(arg) * 100).toFixed(0)}%` : `${arg}${hasS}`;
+    const formattedValue = `${percentValue}${hasPeriod}`;
 
     return value.replace(sArgRegExp, formattedValue);
   }

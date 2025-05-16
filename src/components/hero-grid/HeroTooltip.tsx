@@ -4,9 +4,9 @@ import type { Faction, HeroClass, Talents } from '@/utils/types';
 import type { FC } from 'react';
 
 interface HeroTooltipProps {
-  faction: Faction | Talents | '';
+  faction?: Faction | Talents | '';
   hero: string;
-  heroClass: HeroClass | '';
+  heroClass?: HeroClass | '';
 }
 
 const HeroTooltip: FC<HeroTooltipProps> = ({ hero, faction, heroClass }) => {

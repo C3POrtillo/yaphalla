@@ -27,8 +27,8 @@ type ClassData = Record<HeroClass, string[]>;
 type FactionData = Record<Faction, ClassData>;
 export type Hero = {
   hero: string;
-  faction: Faction | Talents | '';
-  heroClass: HeroClass | '';
+  faction?: Faction | Talents | '';
+  heroClass?: HeroClass | '';
   tier?: Tier;
   damage?: Damage;
 };
@@ -37,6 +37,7 @@ export type Hero = {
 export type ImagePath =
   | 'base'
   | 'unit'
+  | 'boss'
   | 'artifact'
   | `base/${'artifact' | 'faction' | 'rarity' | 'mode'}`
   | `unit/${'wildcard'}`
@@ -112,7 +113,6 @@ export const Artifacts = {
     'Shieldnova',
     'Stormlash',
     'Vilespring',
-
   ],
 } as Record<ArtifactSource, string[]>;
 
@@ -133,7 +133,7 @@ const Lightbearer = {
 const Wilder = {
   Tank: ['Granny Dahnie', 'Ulmus'],
   Support: ['Damian', 'Hewynn', 'Lorsan'],
-  Marksman: ['Bryon', 'Indris','Lyca'],
+  Marksman: ['Bryon', 'Indris', 'Lyca'],
   Mage: ['Arden', 'Parisa', 'Tasi'],
   Rogue: ['Eironn', 'Faramor', 'Lenya', 'Lily May'],
   Warrior: ['Florabelle', 'Kafra'],
@@ -269,7 +269,7 @@ export const ArtifactHeroes = [...ArtifactSet].map(artifact => ({
 
 export const UnitsByFaction = Object.fromEntries(
   [...SortedHeroes, ...OtherHeroes].map(({ hero: unit, faction }) => {
-    const isCeleHypo = ['Celestial', 'Hypogean'].some(check => !compareStrings(faction, check));
+    const isCeleHypo = ['Celestial', 'Hypogean'].some(check => !compareStrings(faction || '', check));
     const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);
 
     return [unit, factionName];
@@ -359,3 +359,24 @@ export const HexHeroes = (() => {
 
   return formattedHeroes;
 })();
+
+export const Bosses = new Set([
+  'Alpha Bear',
+  'Crazed Shellbrute',
+  'Crystal Beetle',
+  'Glyphshade',
+  'Illucia',
+  'King Croaker',
+  'Lone Gaze',
+  'Mirage Frostspike',
+  'Necrodrakon',
+  'Nocturne Judicator',
+  'Novik',
+  'Orson',
+  'Plague Creeper',
+  'Setsahara',
+  'Sigmund',
+  'Skyclops',
+  'Snow Stomper',
+  'Thalassa',
+]);

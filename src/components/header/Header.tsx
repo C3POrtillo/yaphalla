@@ -29,9 +29,9 @@ const Header: FC = () => {
     const tooltip = rootOptions && (
       <div className={joinStrings('flex flex-col gap-2 overflow-auto', !isCol && 'lg:flex-row')}>
         {rootOptions.map(
-          ({ label, options }) =>
+          ({ label, options }, j) =>
             options && (
-              <div key={label} className="flex flex-col">
+              <div key={label || j} className="flex flex-col">
                 <h2 className="hidden text-sm border-b-2 mb-1 border-tertiary-600 w-full text-left text-tertiary-600 lg:block">
                   {label}
                 </h2>
@@ -116,14 +116,6 @@ const Header: FC = () => {
 
   return (
     <header className={joinStrings('relative header min-h-14', isSticky && 'sticky-header')}>
-      <Button
-        className="hidden absolute right-2 text-xs xl:block size-8"
-        size="sm"
-        hierarchy="secondary"
-        onClick={() => setSticky(!isSticky)}
-      >
-        <i className={solidIcon(isSticky ? 'thumbtack' : 'thumbtack-slash')} />
-      </Button>
       <div className="mx-auto hidden min-h-6 w-full max-w-7xl flex-row items-center justify-between gap-4 px-4 xl:flex">
         <div className="flex flex-row items-center gap-6">
           <LogoLink />
@@ -131,6 +123,14 @@ const Header: FC = () => {
         </div>
         <div className="flex flex-row items-center gap-6">
           <Socials />
+          <Button
+            className="block right-2 text-xs size-8 2xl:absolute"
+            size="sm"
+            hierarchy="secondary"
+            onClick={() => setSticky(!isSticky)}
+          >
+            <i className={solidIcon(isSticky ? 'thumbtack' : 'thumbtack-slash')} />
+          </Button>
         </div>
       </div>
       <div className="absolute flex w-full top-0 flex-row xl:hidden z-10">

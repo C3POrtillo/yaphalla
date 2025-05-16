@@ -7,16 +7,17 @@ import { sortData } from '@/utils/utils';
 interface HeroSkillsProps {
   hero: string;
   skills: HeroSkill[];
+  isBoss?: boolean;
 }
 
-const HeroSkills: FC<HeroSkillsProps> = ({ hero, skills }) => (
-  <div className="w-full flex flex-row flex-wrap">
+const HeroSkills: FC<HeroSkillsProps> = ({ hero, skills, isBoss }) => (
+  <div className="w-full flex flex-row flex-wrap justify-center">
     {skills
       .sort(({ DisplaySlot: a }, { DisplaySlot: b }) => sortData(a, b))
       .filter(skill => !!skill.Description)
       .map((skill, i) => (
         <div key={i} className="p-1 basis-1/1 md:basis-1/2 lg:basis-1/3 whitespace-pre-wrap grow">
-          <CardSkill hero={hero} {...skill} />
+          <CardSkill hero={hero} {...skill} isBoss={isBoss} />
         </div>
       ))}
   </div>

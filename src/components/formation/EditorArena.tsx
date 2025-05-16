@@ -59,7 +59,7 @@ const EditorArena: FC<EditorArena> = ({
     hideLogo,
     logo,
     background,
-    baseHex
+    baseHex,
   } = useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();

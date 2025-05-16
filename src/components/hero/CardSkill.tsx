@@ -10,6 +10,7 @@ import Toggle from '@/components/inputs/toggle/Toggle';
 
 interface CardSkillProps extends HeroSkill {
   hero: string;
+  isBoss?: boolean;
 }
 
 const CardSkill: FC<CardSkillProps> = ({
@@ -21,21 +22,27 @@ const CardSkill: FC<CardSkillProps> = ({
   Levels,
   CD,
   InitCD,
+  isBoss,
   ...props
 }) => {
   const [isFull, setFull] = useState<boolean>(true);
-  // console.log(JSON.stringify(props, undefined, 2));
-  const hasLabel = Label.has(DisplaySlot);
+  const hasLabel = !isBoss && Label.has(DisplaySlot);
   const { baseUnlock, classUnlock } = getBaseUnlock(DisplaySlot, UnlockLevel || 1);
+  const heroLabel = hasLabel && <span className="text-tertiary-600">{SkillMap[DisplaySlot - 1]}</span>;
+  const bossLabel = isBoss && (
+    <span className="text-tertiary-600">{DisplaySlot === 1 ? 'Ultimate' : `Skill ${DisplaySlot}`}</span>
+  );
 
   return (
     <div className="container-primary flex flex-col size-full">
       <span className="text-xs lg:text-sm">
-        {hasLabel && <span className="text-tertiary-600">{SkillMap[DisplaySlot - 1]}</span>}
+        {heroLabel || bossLabel}
         {hasLabel && ' - '}
-        <span className="text-neutral-400 text-xs lg:text-sm">
-          Unlocks at <span className={classUnlock}>{baseUnlock}</span>
-        </span>
+        {!isBoss && (
+          <span className="text-neutral-400 text-xs lg:text-sm">
+            Unlocks at <span className={classUnlock}>{baseUnlock}</span>
+          </span>
+        )}
       </span>
 
       <div className="flex flex-row items-end justify-between pb-1 border-b-2 border-tertiary-600">
@@ -73,15 +80,17 @@ const CardSkill: FC<CardSkillProps> = ({
       )}
       <div>
         {isFull ? (
-          <ParserSkill hero={hero} hasLine={Levels?.length > 1 } {...props} />
+          <ParserSkill hero={hero} hasLine={Levels?.length > 1} {...props} />
         ) : (
-          <p className="flex flex-col my-1 input-secondary size-sm !cursor-auto !text-white text-base lg:text-lg">{SimpleDescription}</p>
+          <p className="flex flex-col my-1 input-secondary size-sm !cursor-auto !text-white text-base lg:text-lg">
+            {SimpleDescription}
+          </p>
         )}
       </div>
       {isFull && Levels && (
         <div className="grow">
           {Levels?.map(({ DisplayLevel, UnlockLevel: unlock, ...level }, i) => {
-            const prefix = getLevelUnlock(DisplaySlot, DisplayLevel!, unlock);
+            const prefix = getLevelUnlock(DisplaySlot, DisplayLevel!, unlock, isBoss);
             const prefixSpan = <span className="text-neutral-400 text-xs">{`${prefix}\n`}</span>;
 
             return (

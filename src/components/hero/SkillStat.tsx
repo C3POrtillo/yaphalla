@@ -17,12 +17,17 @@ const SkillStat: FC<SkillStatProps> = ({ name, value, args }) => {
   }
 
   const stat = name && correctSrc(name);
+  const formattedValue = getSkillStatValue(value, args);
+  const match = formattedValue.match(/^(.*?)([^\w\s%])?$/);
+  const displayValue = match?.[1];
+  const hasTrail = match?.[2];
 
   return (
     <div className="relative inline-flex group justify-center align-bottom">
       <div className="inline-flex items-center align-baseline whitespace-pre gap-0.25">
         {name && <IconDetail src={name} size="sm" />}{' '}
-        {value && <span className="text-green-400">{getSkillStatValue(value, args)}</span>}
+        {displayValue && <span className="text-green-400">{displayValue}</span>}
+        {hasTrail}
       </div>
       {stat && (
         <Tooltip className="text-xs top-0 -translate-y-full !bg-primary-950">

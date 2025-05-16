@@ -6,7 +6,7 @@ import type { InputSizeTypes } from '@/utils/siteTypes';
 import type { ReactNode } from 'react';
 
 import { IconMap } from '@/components/hero/types';
-import { UnitOverride, heroes } from '@/utils/pathsHeroes';
+import { BossPaths, HeroPaths, UnitOverride } from '@/utils/pathsHeroes';
 import { Damage, Faction, HeroClass, HeroSet, Tier } from '@/utils/types';
 import { cleanString } from '@/utils/utils';
 
@@ -36,7 +36,7 @@ const getDetailPath = (src: string) => {
   return 'misc';
 };
 const skillStatRegExp = /<([A-Za-z]+)>/;
-const sArgRegExp = /\{(SArg\d+|PlusRatio)(%)?\}(s)?(.)?/;
+const sArgRegExp = /\{(SArg\d+|PlusRatio)(%)?\}(s)?([^\w\s%])?/;
 const labelRegExp = /\[\w+](.*?)\[\/]/;
 
 export const mergeLabeledTokens = (tokens: string[]): string[] => {
@@ -117,13 +117,15 @@ export const getSkillStatValue = (value: string, args: HeroSkillArgs) => {
   if (match) {
     const hasPercent = !!match[2];
     const hasS = match[3] || '';
-    const hasPeriod = match[4] || ''
+    const hasTrail = match[4] || '';
     const arg = args[match[1] as `SArg${number}`];
     const percentValue = hasPercent ? `${(Math.abs(arg) * 100).toFixed(0)}%` : `${arg}${hasS}`;
-    const formattedValue = `${percentValue}${hasPeriod}`;
+    const formattedValue = `${percentValue}${hasTrail}`;
 
     return value.replace(sArgRegExp, formattedValue);
   }
+
+  return value;
 };
 
 export const correctSrc = (src: string) => {
@@ -151,7 +153,7 @@ export const mergeTokens = (tokens: (string | ReactNode)[]) =>
     if (typeof token === 'string') {
       const last = acc[acc.length - 1];
       if (typeof last === 'string') {
-        acc[acc.length - 1] = `${last} ${token}`.replace('  ', ' ');
+        acc[acc.length - 1] = `${last} ${token}`.replace(/\s/, ' ');
       } else {
         acc.push(token);
       }
@@ -206,8 +208,11 @@ export const getBaseUnlock = (slot: number, level: number) => {
 
 const formatLevelUnlock = (text: string) => `Unlocks at ${text}`;
 
-export const getLevelUnlock = (slot: number, display: number, unlock: number | undefined) => {
+export const getLevelUnlock = (slot: number, display: number, unlock: number | undefined, isBoss = false) => {
   const displayText = `Level ${display}`;
+  if (isBoss) {
+    return displayText;
+  }
   let unlockText: string;
   switch (slot) {
     case 4:
@@ -224,10 +229,10 @@ export const getLevelUnlock = (slot: number, display: number, unlock: number | u
 };
 
 const { AFKJ_API, AFKJ_API_KEY } = process.env;
-export const getAllHeroDetails = async () =>
+export const getAllHeroDetails = async (isBoss?: boolean) =>
   (
     await Promise.all(
-      heroes.map(async ({ label }) => {
+      (isBoss ? BossPaths : HeroPaths).map(async ({ label }) => {
         try {
           const apiURL = `${AFKJ_API}${label}`;
           const res = await fetch(apiURL, {
@@ -236,9 +241,9 @@ export const getAllHeroDetails = async () =>
             },
           });
           const { Info } = (await res.json()) as HeroJSON;
-          const { DamageType, UnitRace, UnitJob, UnitRarity } = Info;
+          const { DamageType, UnitRace, UnitJob, UnitRarity = isBoss ? null : 'R' } = Info;
 
-          return { hero: label, heroClass: UnitJob, faction: UnitRace, tier: UnitRarity, damage: DamageType };
+          return { hero: label, tier: UnitRarity, heroClass: UnitJob, faction: UnitRace, damage: DamageType };
         } catch {
           return null;
         }

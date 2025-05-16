@@ -73,9 +73,9 @@ const CardSkill: FC<CardSkillProps> = ({
       )}
       <div>
         {isFull ? (
-          <ParserSkill hero={hero} hasLine {...props} />
+          <ParserSkill hero={hero} hasLine={Levels.length > 1} {...props} />
         ) : (
-          <p className="text-base lg:text-lg">{SimpleDescription}</p>
+          <p className="flex flex-col my-1 input-secondary size-sm !cursor-auto !text-white text-base lg:text-lg">{SimpleDescription}</p>
         )}
       </div>
       {isFull && Levels && (

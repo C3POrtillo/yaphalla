@@ -13,9 +13,10 @@ import { cleanString } from '@/utils/utils';
 
 interface CardDeckHeroProps {
   heroes: HeroDetailProps[];
+  hasFilters?: boolean;
 }
 
-const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes }) => {
+const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes, hasFilters = true }) => {
   const [filterClass, setFilterClass] = useState<HeroClass>();
   const [filterDamage, setFilterDamage] = useState<Damage>();
   const [filterFaction, setFilterFaction] = useState<Faction>();
@@ -53,9 +54,9 @@ const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes }) => {
 
   return (
     <Container className="flex-col mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">
-      <div className="container-primary w-full">
+      {hasFilters && <div className="container-primary w-full">
         <HeroFilter {...filterProps} />
-      </div>
+      </div>}
       <div className="flex flex-row flex-wrap items-stretch">
         {heroes
           .filter(heroData => {

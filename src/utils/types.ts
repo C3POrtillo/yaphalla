@@ -112,7 +112,6 @@ export const Artifacts = {
     'Shieldnova',
     'Stormlash',
     'Vilespring',
-
   ],
 } as Record<ArtifactSource, string[]>;
 
@@ -133,7 +132,7 @@ const Lightbearer = {
 const Wilder = {
   Tank: ['Granny Dahnie', 'Ulmus'],
   Support: ['Damian', 'Hewynn', 'Lorsan'],
-  Marksman: ['Bryon', 'Indris','Lyca'],
+  Marksman: ['Bryon', 'Indris', 'Lyca'],
   Mage: ['Arden', 'Parisa', 'Tasi'],
   Rogue: ['Eironn', 'Faramor', 'Lenya', 'Lily May'],
   Warrior: ['Florabelle', 'Kafra'],
@@ -359,3 +358,24 @@ export const HexHeroes = (() => {
 
   return formattedHeroes;
 })();
+
+export const Bosses = [
+  'Alpha Bear',
+  'Crazed Shellbrute',
+  'Crystal Beetle',
+  'Glyphshade',
+  'Illucia',
+  'King Croaker',
+  'Lone Gaze',
+  'Mirage Frostspike',
+  'Necrodrakon',
+  'Nocturne Judicator',
+  'Novik',
+  'Orson',
+  'Plague Creeper',
+  'Setsahara',
+  'Sigmund',
+  'Skyclops',
+  'Snow Stomper',
+  'Thalassa'
+];

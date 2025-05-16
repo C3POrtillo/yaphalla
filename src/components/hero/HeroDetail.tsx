@@ -12,7 +12,7 @@ export interface HeroDetailProps {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const HeroDetail: FC<HeroDetailProps> = ({ hero, tier = 'R', ...props }) => {
+const HeroDetail: FC<HeroDetailProps> = ({ hero, tier, ...props }) => {
   const details = [tier, ...Object.values(props)].map(src => src && <IconDetail key={src} src={src} />);
 
   return <div className="flex flex-row gap-1">{details}</div>;

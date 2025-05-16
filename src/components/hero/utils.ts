@@ -36,7 +36,7 @@ const getDetailPath = (src: string) => {
   return 'misc';
 };
 const skillStatRegExp = /<([A-Za-z]+)>/;
-const sArgRegExp = /\{(SArg\d+|PlusRatio)(%)?\}(s)?(.)?/;
+const sArgRegExp = /\{(SArg\d+|PlusRatio)(%)?\}(s)?([^\w\s%])?/;
 const labelRegExp = /\[\w+](.*?)\[\/]/;
 
 export const mergeLabeledTokens = (tokens: string[]): string[] => {
@@ -117,13 +117,15 @@ export const getSkillStatValue = (value: string, args: HeroSkillArgs) => {
   if (match) {
     const hasPercent = !!match[2];
     const hasS = match[3] || '';
-    const hasPeriod = match[4] || ''
+    const hasTrail = match[4] || '';
     const arg = args[match[1] as `SArg${number}`];
     const percentValue = hasPercent ? `${(Math.abs(arg) * 100).toFixed(0)}%` : `${arg}${hasS}`;
-    const formattedValue = `${percentValue}${hasPeriod}`;
+    const formattedValue = `${percentValue}${hasTrail}`;
 
     return value.replace(sArgRegExp, formattedValue);
   }
+
+  return value;
 };
 
 export const correctSrc = (src: string) => {
@@ -151,7 +153,7 @@ export const mergeTokens = (tokens: (string | ReactNode)[]) =>
     if (typeof token === 'string') {
       const last = acc[acc.length - 1];
       if (typeof last === 'string') {
-        acc[acc.length - 1] = `${last} ${token}`.replace('  ', ' ');
+        acc[acc.length - 1] = `${last} ${token}`.replace(/\s/, ' ');
       } else {
         acc.push(token);
       }
@@ -236,7 +238,7 @@ export const getAllHeroDetails = async () =>
             },
           });
           const { Info } = (await res.json()) as HeroJSON;
-          const { DamageType, UnitRace, UnitJob, UnitRarity } = Info;
+          const { DamageType, UnitRace, UnitJob, UnitRarity = 'R' } = Info;
 
           return { hero: label, heroClass: UnitJob, faction: UnitRace, tier: UnitRarity, damage: DamageType };
         } catch {

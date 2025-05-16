@@ -99,7 +99,21 @@ export const Artifacts = {
     'Stormstrike',
     'Iceguard',
   ],
-  'Season 4': [],
+  'Season 4': [
+    'Bladering',
+    'Bloodrage',
+    'Coreforge',
+    'Dragonroar',
+    'Elderbow',
+    'Guardian',
+    'Lightcall',
+    'Malison',
+    'Shadowblast',
+    'Shieldnova',
+    'Stormlash',
+    'Vilespring',
+
+  ],
 } as Record<ArtifactSource, string[]>;
 
 export const HonorDuelSet = new Set(Artifacts['Honor Duel']);
@@ -119,7 +133,7 @@ const Lightbearer = {
 const Wilder = {
   Tank: ['Granny Dahnie', 'Ulmus'],
   Support: ['Damian', 'Hewynn', 'Lorsan'],
-  Marksman: ['Bryon', 'Lyca'],
+  Marksman: ['Bryon', 'Indris','Lyca'],
   Mage: ['Arden', 'Parisa', 'Tasi'],
   Rogue: ['Eironn', 'Faramor', 'Lenya', 'Lily May'],
   Warrior: ['Florabelle', 'Kafra'],
@@ -135,7 +149,7 @@ const Mauler = {
 } as ClassData;
 
 const Graveborn = {
-  Tank: ['Thoran', 'Callan'],
+  Tank: ['Callan', 'Daimon', 'Thoran'],
   Support: ['Ludovic', 'Niru'],
   Marksman: ['Bonnie', 'Cecia'],
   Mage: ['Carolina', 'Shemira', 'Viperian'],
@@ -155,7 +169,7 @@ const Celestial = {
 const Hypogean = {
   Tank: ['Phraesto', 'Phraesto Clone'],
   Support: ['Reinier'],
-  Marksman: [],
+  Marksman: ['Kulu'],
   Mage: ['Cryonaia'],
   Rogue: ['Berial'],
   Warrior: ['Harak'],

@@ -34,6 +34,7 @@ const staticSlugs: Record<string, string> = {
   '/auto-player': solidIcon('robot'),
   'https://afk-journey.fandom.com': solidIcon('book'),
   '/heroes': solidIcon('user'),
+  '/bosses': solidIcon('skull'),
 };
 
 const staticSets = (href: string) => {

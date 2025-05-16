@@ -5,15 +5,15 @@ import IconDetail from '@/components/hero/IconDetail';
 
 export interface HeroDetailProps {
   hero: string;
-  heroClass: HeroClass;
-  faction: Faction;
-  tier: Tier | undefined;
-  damage: Damage;
+  heroClass?: HeroClass;
+  faction?: Faction;
+  tier?: Tier | undefined;
+  damage?: Damage;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const HeroDetail: FC<HeroDetailProps> = ({ hero, tier, ...props }) => {
-  const details = [tier, ...Object.values(props)].map(src => src && <IconDetail key={src} src={src} />);
+const HeroDetail: FC<HeroDetailProps> = ({ hero, ...props }) => {
+  const details = [...Object.values(props)].map(src => src && <IconDetail key={src} src={src} />);
 
   return <div className="flex flex-row gap-1">{details}</div>;
 };

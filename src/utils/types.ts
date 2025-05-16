@@ -27,8 +27,8 @@ type ClassData = Record<HeroClass, string[]>;
 type FactionData = Record<Faction, ClassData>;
 export type Hero = {
   hero: string;
-  faction: Faction | Talents | '';
-  heroClass: HeroClass | '';
+  faction?: Faction | Talents | '';
+  heroClass?: HeroClass | '';
   tier?: Tier;
   damage?: Damage;
 };
@@ -37,6 +37,7 @@ export type Hero = {
 export type ImagePath =
   | 'base'
   | 'unit'
+  | 'boss'
   | 'artifact'
   | `base/${'artifact' | 'faction' | 'rarity' | 'mode'}`
   | `unit/${'wildcard'}`
@@ -268,7 +269,7 @@ export const ArtifactHeroes = [...ArtifactSet].map(artifact => ({
 
 export const UnitsByFaction = Object.fromEntries(
   [...SortedHeroes, ...OtherHeroes].map(({ hero: unit, faction }) => {
-    const isCeleHypo = ['Celestial', 'Hypogean'].some(check => !compareStrings(faction, check));
+    const isCeleHypo = ['Celestial', 'Hypogean'].some(check => !compareStrings(faction || '', check));
     const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);
 
     return [unit, factionName];
@@ -359,7 +360,7 @@ export const HexHeroes = (() => {
   return formattedHeroes;
 })();
 
-export const Bosses = [
+export const Bosses = new Set([
   'Alpha Bear',
   'Crazed Shellbrute',
   'Crystal Beetle',
@@ -377,5 +378,5 @@ export const Bosses = [
   'Sigmund',
   'Skyclops',
   'Snow Stomper',
-  'Thalassa'
-];
+  'Thalassa',
+]);

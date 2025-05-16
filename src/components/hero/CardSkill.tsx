@@ -89,8 +89,8 @@ const CardSkill: FC<CardSkillProps> = ({
       </div>
       {isFull && Levels && (
         <div className="grow">
-          {Levels?.map(({ DisplayLevel, UnlockLevel, ...level }, i) => {
-            const prefix = getLevelUnlock(DisplaySlot, DisplayLevel!, UnlockLevel, isBoss);
+          {Levels?.map(({ DisplayLevel, UnlockLevel: unlock, ...level }, i) => {
+            const prefix = getLevelUnlock(DisplaySlot, DisplayLevel!, unlock, isBoss);
             const prefixSpan = <span className="text-neutral-400 text-xs">{`${prefix}\n`}</span>;
 
             return (

@@ -2,13 +2,13 @@ import { notFound } from 'next/navigation';
 import { connection } from 'next/server';
 
 import type { HeroPageProps } from '@/app/(main)/heroes/[hero]/layout';
-import type { HeroJSON } from '@/components/hero/types';
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
 import CardHero from '@/components/hero/CardHero';
 import HeroSkills from '@/components/hero/HeroSkills';
 import HeroTales from '@/components/hero/HeroTales';
+import { getHeroAllDetails } from '@/components/hero/utils';
 import { SortedHeroes } from '@/utils/types';
 
 export const generateStaticParams = () =>
@@ -19,22 +19,13 @@ export const generateStaticParams = () =>
 const Index: FC<HeroPageProps> = async ({ params }) => {
   await connection();
   const hero = decodeURIComponent((await params).hero);
-  const { AFKJ_API, AFKJ_API_KEY } = process.env;
+  const heroDetails = await getHeroAllDetails(hero);
 
-  if (!hero || !AFKJ_API || !AFKJ_API_KEY) {
+  if (!heroDetails) {
     notFound();
   }
-
-  const apiURL = `${AFKJ_API}${hero}`;
-  const res = await fetch(apiURL, {
-    headers: {
-      Authorization: `Bearer ${AFKJ_API_KEY}`,
-    },
-  });
-  if (res.status !== 200) {
-    notFound();
-  }
-  const { Info, Story, Skills } = (await res.json()) as HeroJSON;
+  
+  const { Info, Story, Skills } = heroDetails;
   const { DisplayTitle, Description, UnitRace, UnitJob, UnitRarity, DamageType } = Info;
 
   return (

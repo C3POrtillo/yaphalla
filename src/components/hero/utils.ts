@@ -8,7 +8,7 @@ import type { ReactNode } from 'react';
 import { IconMap } from '@/components/hero/types';
 import { BossPaths, HeroPaths, UnitOverride } from '@/utils/pathsHeroes';
 import { Damage, Faction, HeroClass, HeroSet, Tier } from '@/utils/types';
-import { cleanString } from '@/utils/utils';
+import { cleanString, compareStrings } from '@/utils/utils';
 
 export const getDetailIconSize = (size: InputSizeTypes) => {
   switch (size) {
@@ -35,6 +35,9 @@ const getDetailPath = (src: string) => {
 
   return 'misc';
 };
+
+export const joinTokens = (...tokens: (string | boolean)[]) => tokens.filter(Boolean).join('');
+
 const skillStatRegExp = /<([A-Za-z]+)>/;
 const sArgRegExp = /\{(SArg\d+|PlusRatio)(%)?\}(s)?([^\w\s%])?/;
 const labelRegExp = /\[\w+](.*?)\[\/]/;
@@ -245,26 +248,47 @@ export const getLevelUnlock = (slot: number, display: number, unlock: number | u
 };
 
 const { AFKJ_API, AFKJ_API_KEY } = process.env;
-export const getAllHeroDetails = async (isNPC?: boolean) =>
+const apiHeader = {
+  headers: {
+    Authorization: `Bearer ${AFKJ_API_KEY}`,
+  },
+};
+const fetchAPI = async (string: string) => await fetch(`${AFKJ_API}${string}`, apiHeader);
+
+export const getHeroAllDetails = async (hero: string) => {
+  if (!hero) {
+    return null;
+  }
+
+  const res = await fetchAPI(hero);
+  if (res.status !== 200) {
+    return null;
+  }
+  const { Info, Story, Skills } = (await res.json()) as HeroJSON;
+
+  return { Info, Story, Skills };
+};
+
+const getHeroMiniDetails = async (hero: string, isNPC = false) => {
+  try {
+    const res = await fetchAPI(hero);
+    const { Info } = (await res.json()) as HeroJSON;
+    const { DamageType, UnitRace, UnitJob, UnitRarity = isNPC ? null : 'R' } = Info;
+
+    return { hero, tier: UnitRarity, heroClass: UnitJob, faction: UnitRace, damage: DamageType };
+  } catch {
+    return null;
+  }
+};
+
+const pathMap = {
+  heroes: HeroPaths,
+  bosses: BossPaths,
+} as const;
+
+export const getAllHeroMiniDetails = async (path: keyof typeof pathMap = 'heroes') =>
   (
     await Promise.all(
-      (isNPC ? BossPaths : HeroPaths).map(async ({ label }) => {
-        try {
-          const apiURL = `${AFKJ_API}${label}`;
-          const res = await fetch(apiURL, {
-            headers: {
-              Authorization: `Bearer ${AFKJ_API_KEY}`,
-            },
-          });
-          const { Info } = (await res.json()) as HeroJSON;
-          const { DamageType, UnitRace, UnitJob, UnitRarity = isNPC ? null : 'R' } = Info;
-
-          return { hero: label, tier: UnitRarity, heroClass: UnitJob, faction: UnitRace, damage: DamageType };
-        } catch {
-          return null;
-        }
-      }),
+      pathMap[path].map(async ({ label }) => getHeroMiniDetails(label, !!compareStrings(path, 'heroes'))),
     )
   ).filter(Boolean) as HeroDetailProps[];
-
-export const joinTokens = (...tokens: (string | boolean)[]) => tokens.filter(Boolean).join('');

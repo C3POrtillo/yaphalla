@@ -42,7 +42,7 @@ const labelRegExp = /\[\w+](.*?)\[\/]/;
 export const mergeLabeledTokens = (tokens: string[]): string[] => {
   const merged: string[] = [];
   let buffer: string[] = [];
-  const formattedTokens = tokens.reduce((acc, token) => {
+  const formattedTokens = tokens.reduce<string[]>((acc, token) => {
     const lines = token.split(/\r?\n/);
     lines.forEach((line, i) => {
       acc.push(line.trim());
@@ -52,7 +52,7 @@ export const mergeLabeledTokens = (tokens: string[]): string[] => {
     });
 
     return acc;
-  }, [] as string[]);
+  }, []);
 
   formattedTokens.forEach(token => {
     buffer.push(token);
@@ -224,9 +224,9 @@ export const getBaseUnlock = (slot: number, level: number) => {
 
 const formatLevelUnlock = (text: string) => `Unlocks at ${text}`;
 
-export const getLevelUnlock = (slot: number, display: number, unlock: number | undefined, isBoss = false) => {
+export const getLevelUnlock = (slot: number, display: number, unlock: number | undefined, isNPC = false) => {
   const displayText = `Level ${display}`;
-  if (isBoss) {
+  if (isNPC) {
     return displayText;
   }
   let unlockText: string;
@@ -245,10 +245,10 @@ export const getLevelUnlock = (slot: number, display: number, unlock: number | u
 };
 
 const { AFKJ_API, AFKJ_API_KEY } = process.env;
-export const getAllHeroDetails = async (isBoss?: boolean) =>
+export const getAllHeroDetails = async (isNPC?: boolean) =>
   (
     await Promise.all(
-      (isBoss ? BossPaths : HeroPaths).map(async ({ label }) => {
+      (isNPC ? BossPaths : HeroPaths).map(async ({ label }) => {
         try {
           const apiURL = `${AFKJ_API}${label}`;
           const res = await fetch(apiURL, {
@@ -257,7 +257,7 @@ export const getAllHeroDetails = async (isBoss?: boolean) =>
             },
           });
           const { Info } = (await res.json()) as HeroJSON;
-          const { DamageType, UnitRace, UnitJob, UnitRarity = isBoss ? null : 'R' } = Info;
+          const { DamageType, UnitRace, UnitJob, UnitRarity = isNPC ? null : 'R' } = Info;
 
           return { hero: label, tier: UnitRarity, heroClass: UnitJob, faction: UnitRace, damage: DamageType };
         } catch {
@@ -266,3 +266,5 @@ export const getAllHeroDetails = async (isBoss?: boolean) =>
       }),
     )
   ).filter(Boolean) as HeroDetailProps[];
+
+export const joinTokens = (...tokens: (string | boolean)[]) => tokens.filter(Boolean).join('');

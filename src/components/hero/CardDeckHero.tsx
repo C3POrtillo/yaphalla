@@ -14,10 +14,10 @@ import { cleanString } from '@/utils/utils';
 interface CardDeckHeroProps {
   heroes: HeroDetailProps[];
   hasFilters?: boolean;
-  isBoss?: boolean;
+  isNPC?: boolean;
 }
 
-const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes, hasFilters = true, isBoss }) => {
+const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes, hasFilters = true, isNPC }) => {
   const [filterClass, setFilterClass] = useState<HeroClass>();
   const [filterDamage, setFilterDamage] = useState<Damage>();
   const [filterFaction, setFilterFaction] = useState<Faction>();
@@ -77,7 +77,7 @@ const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes, hasFilters = true, isBoss
             <div key={hero} className="p-1 basis-1/1 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5">
               <CardHero
                 hero={hero}
-                href={`/${isBoss ? 'bosses' : 'heroes'}/${encodeURIComponent(hero)}`}
+                href={`/${isNPC ? 'bosses' : 'heroes'}/${encodeURIComponent(hero)}`}
                 hasDetails={false}
                 {...props}
               />

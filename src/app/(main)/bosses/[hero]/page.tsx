@@ -42,7 +42,7 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
         <CardHero hero={hero} description={Description} faction={UnitRace} heroClass={UnitJob} damage={DamageType} />
       </Container>
       <Container className="mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">
-        <HeroSkills hero={hero} skills={Skills} isBoss />
+        <HeroSkills hero={hero} skills={Skills} isNPC />
       </Container>
     </>
   );

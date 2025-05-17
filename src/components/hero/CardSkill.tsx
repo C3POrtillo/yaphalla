@@ -10,7 +10,7 @@ import Toggle from '@/components/inputs/toggle/Toggle';
 
 interface CardSkillProps extends HeroSkill {
   hero: string;
-  isBoss?: boolean;
+  isNPC?: boolean;
 }
 
 const CardSkill: FC<CardSkillProps> = ({
@@ -22,14 +22,14 @@ const CardSkill: FC<CardSkillProps> = ({
   Levels,
   CD,
   InitCD,
-  isBoss,
+  isNPC,
   ...props
 }) => {
   const [isFull, setFull] = useState<boolean>(true);
-  const hasLabel = !isBoss && Label.has(DisplaySlot);
+  const hasLabel = !isNPC && Label.has(DisplaySlot);
   const { baseUnlock, classUnlock } = getBaseUnlock(DisplaySlot, UnlockLevel || 1);
   const heroLabel = hasLabel && <span className="text-tertiary-600">{SkillMap[DisplaySlot - 1]}</span>;
-  const bossLabel = isBoss && (
+  const bossLabel = isNPC && (
     <span className="text-tertiary-600">{DisplaySlot === 1 ? 'Ultimate' : `Skill ${DisplaySlot}`}</span>
   );
 
@@ -38,7 +38,7 @@ const CardSkill: FC<CardSkillProps> = ({
       <span className="text-xs lg:text-sm">
         {heroLabel || bossLabel}
         {hasLabel && ' - '}
-        {!isBoss && (
+        {!isNPC && (
           <span className="text-neutral-400 text-xs lg:text-sm">
             Unlocks at <span className={classUnlock}>{baseUnlock}</span>
           </span>
@@ -90,7 +90,7 @@ const CardSkill: FC<CardSkillProps> = ({
       {isFull && Levels && (
         <div className="grow">
           {Levels?.map(({ DisplayLevel, UnlockLevel: unlock, ...level }, i) => {
-            const prefix = getLevelUnlock(DisplaySlot, DisplayLevel!, unlock, isBoss);
+            const prefix = getLevelUnlock(DisplaySlot, DisplayLevel!, unlock, isNPC);
             const prefixSpan = <span className="text-neutral-400 text-xs">{`${prefix}\n`}</span>;
 
             return (

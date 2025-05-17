@@ -20,36 +20,32 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix, hasLine 
 
     return tokens.reduce<(string | ReactNode)[]>((acc, token, i) => {
       const parsedToken = parseSkillToken(token);
-      const prev = acc[acc.length - 1];
+      const preSpace = acc[acc.length - 1] !== '\n' && '';
+      const push = (...items: (string | ReactNode)[]) => acc.push(...items.filter(item => item !== false));
+
       if (typeof parsedToken === 'string') {
-        if (/Active|Passive/.test(parsedToken)) {
+        if (/^(Active|Passive)\.$/.test(parsedToken)) {
           acc.push(
             <span key={`${i}-${parsedToken}`} className="text-tertiary-400">
               {parsedToken}
             </span>,
+            '',
           );
-          acc.push('');
         } else {
           acc.push(parsedToken);
         }
       } else if (parsedToken.icon) {
         const [unit] = parsedToken.icon.split('/');
-        if (prev !== '\n') {
-          acc.push('');
-        }
-        acc.push(
+        push(
+          preSpace,
           <span key={`${i}-${parsedToken.icon}`} className="inline-flex align-bottom">
             <IconDetail src={parsedToken.icon} className={(() => `${unit}-icon`)()} />
           </span>,
+          '',
+          parsedToken.value,
         );
-        acc.push('');
-        acc.push(parsedToken.value);
       } else {
-        if (prev !== '\n') {
-          acc.push('');
-        }
-        acc.push(<SkillStat key={`${i}-${parsedToken.value}`} args={Args} {...parsedToken} />);
-        acc.push('');
+        push(preSpace, <SkillStat key={`${i}-${parsedToken.value}`} args={Args} {...parsedToken} />, '');
       }
 
       return acc;

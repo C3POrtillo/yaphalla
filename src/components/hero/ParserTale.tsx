@@ -5,7 +5,7 @@ import { useState } from 'react';
 import type { HeroStory } from '@/components/hero/types';
 import type { FC, ReactNode } from 'react';
 
-import { cleanToken, mergeTokens } from '@/components/hero/utils';
+import { cleanToken, joinTokens, mergeTokens } from '@/components/hero/utils';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Link from '@/components/link/Link';
 import { UnitOverride } from '@/utils/pathsHeroes';
@@ -21,56 +21,54 @@ const ParserTale: FC<ParserTaleProps> = ({ hero, StoryID, Story, IsDefaultUnlock
   const tokenizeTale = () =>
     Story.split(' ').reduce<(string | ReactNode)[]>((acc, token, i) => {
       const unitToken = cleanToken(token);
-      if (unitToken) {
-        const linkProps = !hero.includes(unitToken) && {
-          className: 'input-link !inline-flex align-middle',
-          href: isOpen ? `/heroes/${encodeURIComponent(unitToken)}` : '/disabled',
-        };
+      if (!unitToken) {
+        acc.push(token, '');
 
-        const unitSpan = (
-          <span key={`${i}-${token}`} className={linkProps ? 'inline' : 'inline-flex align-middle'}>
-            <HexImage src={UnitOverride[unitToken] || unitToken} path="unit" disabled size="2xs" />
-          </span>
-        );
-
-        if (!compareStrings(unitToken, token)) {
-          if (linkProps) {
-            acc.push(
-              <Link key={`${i}-${token}-link`} {...linkProps}>
-                {unitSpan}
-                <span className="pb-1.25">{unitToken}</span>
-              </Link>,
-            );
-            acc.push('');
-          } else {
-            acc.push(unitSpan);
-            acc.push('');
-            acc.push(token);
-          }
-        } else {
-          const [start, ...splitToken] = token.split(unitToken);
-          const trail = splitToken.join('');
-          const isPunctuation = trail.length === 1;
-          const joinedToken = [' ', unitToken, !isPunctuation && trail].filter(Boolean).join('');
-          const tokens = [
-            start,
-            ...(linkProps
-              ? [
-                <Link key={`${i}-${token}-link`} {...linkProps}>
-                  {unitSpan}
-                  <span className="pb-1.25">{joinedToken}</span>
-                </Link>,
-              ]
-              : [unitSpan, joinedToken]),
-            isPunctuation && trail,
-            ' ',
-          ].filter(Boolean);
-          acc.push(...tokens);
-        }
-      } else {
-        acc.push(token);
-        acc.push('');
+        return acc;
       }
+      const linkProps = !hero.includes(unitToken) && {
+        className: joinStrings('input-link !inline-flex align-middle', !isOpen && 'pointer-events-none'),
+        href: `/heroes/${encodeURIComponent(unitToken)}`,
+      };
+
+      const unitSpan = (
+        <span key={`${i}-${token}`} className={linkProps ? 'inline' : 'inline-flex align-middle'}>
+          <HexImage src={UnitOverride[unitToken] || unitToken} path="unit" disabled size="2xs" />
+        </span>
+      );
+
+      const getLink = ({ key, label }: Record<string, string>) => (
+        <Link key={key} {...linkProps}>
+          {unitSpan}
+          <span className="pb-1.25">{label}</span>
+        </Link>
+      );
+
+      if (!compareStrings(unitToken, token)) {
+        if (linkProps) {
+          const linkData = { key: `${i}-${token}-link`, label: unitToken };
+          acc.push(getLink(linkData), '');
+        } else {
+          acc.push(unitSpan, '', token);
+        }
+
+        return acc;
+      }
+
+      const [start, ...end] = token.split(unitToken);
+      const trail = end.join('');
+      const isPunctuation = trail.length === 1;
+      const suffix = isPunctuation && trail;
+      const joinedToken = joinTokens(' ', unitToken, !isPunctuation && trail);
+      const tokens = [start] as ReactNode[];
+      if (linkProps) {
+        const linkData = { key: `${i}-${token}-link`, label: joinedToken };
+        tokens.push(getLink(linkData), ...[suffix, ' ']);
+      } else {
+        const noLinkToken = joinTokens(joinedToken, suffix);
+        tokens.push(...[unitSpan, noLinkToken]);
+      }
+      acc.push(...tokens.filter(Boolean));
 
       return acc;
     }, []);

@@ -8,7 +8,7 @@ export const dynamic = 'force-static';
 const Index: FC = async () => {
   const heroes = await getAllHeroDetails(true);
 
-  return <CardDeckHero heroes={heroes} hasFilters={false} isBoss />;
+  return <CardDeckHero heroes={heroes} hasFilters={false} isNPC />;
 };
 
 export default Index;

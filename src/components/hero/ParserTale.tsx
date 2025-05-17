@@ -49,7 +49,9 @@ const ParserTale: FC<ParserTaleProps> = ({ hero, StoryID, Story, IsDefaultUnlock
           }
         } else {
           const [start, ...splitToken] = token.split(unitToken);
-          const joinedToken = [' ', unitToken, ...splitToken].join('');
+          const trail = splitToken.join('');
+          const isPunctuation = trail.length === 1;
+          const joinedToken = [' ', unitToken, !isPunctuation && trail].filter(Boolean).join('');
           const tokens = [
             start,
             ...(linkProps
@@ -60,6 +62,7 @@ const ParserTale: FC<ParserTaleProps> = ({ hero, StoryID, Story, IsDefaultUnlock
                 </Link>,
               ]
               : [unitSpan, joinedToken]),
+            isPunctuation && trail,
             ' ',
           ].filter(Boolean);
           acc.push(...tokens);

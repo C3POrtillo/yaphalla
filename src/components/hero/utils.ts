@@ -42,12 +42,23 @@ const labelRegExp = /\[\w+](.*?)\[\/]/;
 export const mergeLabeledTokens = (tokens: string[]): string[] => {
   const merged: string[] = [];
   let buffer: string[] = [];
+  const formattedTokens = tokens.reduce((acc, token) => {
+    const lines = token.split(/\r?\n/);
+    lines.forEach((line, i) => {
+      acc.push(line.trim());
+      if (i < lines.length - 1) {
+        acc.push('\n');
+      }
+    });
 
-  tokens.forEach(token => {
+    return acc;
+  }, [] as string[]);
+
+  formattedTokens.forEach(token => {
     buffer.push(token);
     const joined = buffer.join(' ');
 
-    const isIncompleteSprite = (str: string) => str.startsWith('<sprite') && !str.includes('>');
+    const isIncompleteSprite = (str: string) => /^\n?"?<sprite/.test(str) && !str.includes('>');
 
     if (labelRegExp.test(joined)) {
       merged.push(joined);
@@ -64,7 +75,7 @@ export const mergeLabeledTokens = (tokens: string[]): string[] => {
       return;
     }
 
-    if (/^<sprite.*?>/.test(joined)) {
+    if (/^\n?"?<sprite(.*)?>/.test(joined)) {
       merged.push(joined);
       buffer = [];
 
@@ -103,9 +114,14 @@ export const parseSkillToken = (token: string): string | { name?: string; value?
     return labelMatch[1];
   }
 
-  if (IconMap[`${token.split('>')[0]}>` as keyof typeof IconMap]) {
+  let iconSprite = token.match(/^"?<sprite[^>]*>/)?.[0] ?? '';
+  iconSprite = iconSprite.replace(/^"/, '');
+  if (IconMap[iconSprite as keyof typeof IconMap]) {
+    const value = token.match(/>(.*?)(?:"?$)/)?.[1] ?? '';
+
     return {
-      icon: IconMap[`${token.split('>')[0]}>` as keyof typeof IconMap],
+      icon: IconMap[iconSprite as keyof typeof IconMap],
+      value,
     };
   }
 
@@ -153,7 +169,7 @@ export const mergeTokens = (tokens: (string | ReactNode)[]) =>
     if (typeof token === 'string') {
       const last = acc[acc.length - 1];
       if (typeof last === 'string') {
-        acc[acc.length - 1] = `${last} ${token}`.replace(/\s/, ' ');
+        acc[acc.length - 1] = `${last} ${token}`.replaceAll(/\n\s+/g, '\n');
       } else {
         acc.push(token);
       }

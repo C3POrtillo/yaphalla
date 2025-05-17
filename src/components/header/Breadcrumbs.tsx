@@ -14,7 +14,7 @@ interface BreadcrumbsProps {
 }
 
 const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
-  const currentPath = usePathname();
+  const currentPath = decodeURIComponent(usePathname());
   let buildPathString = '';
   const paths = currentPath.split('/').slice(1);
   const formattedPaths = processPaths(paths, slug);
@@ -24,8 +24,7 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ slug }) => {
       <Container className="justify-start mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">
         <div className="flex flex-row flex-wrap gap-2 size-base bg-primary-950/80">
           {formattedPaths.map((path, index) => {
-            const decodedPath = decodeURIComponent(path);
-            const label = HeroSet.has(decodedPath) ? decodedPath : titleCase(path);
+            const label = HeroSet.has(path) ? path : titleCase(path);
             buildPathString += `/${path}`;
 
             return (

@@ -1,12 +1,9 @@
-import { capitalize } from 'lodash';
-
 import type { HeroSkillArgs } from '@/components/hero/types';
 import type { FC, ReactNode } from 'react';
 
 import IconDetail from '@/components/hero/IconDetail';
 import SkillStat from '@/components/hero/SkillStat';
 import { mergeLabeledTokens, mergeTokens, parseSkillToken } from '@/components/hero/utils';
-import { compareStrings } from '@/utils/utils';
 
 interface ParserSkillProps {
   hero: string;
@@ -18,26 +15,39 @@ interface ParserSkillProps {
 
 const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix, hasLine }) => {
   const tokenizeDescription = () => {
-    const rawTokens = Description.split(/\s/);
+    const rawTokens = Description.split(' ');
     const tokens = mergeLabeledTokens(rawTokens);
 
     return tokens.reduce<(string | ReactNode)[]>((acc, token, i) => {
       const parsedToken = parseSkillToken(token);
+      const prev = acc[acc.length - 1];
       if (typeof parsedToken === 'string') {
-        const formattedToken = !compareStrings(parsedToken, 'Active.') ? `\n${parsedToken}` : parsedToken;
-        acc.push(formattedToken);
+        if (/Active|Passive/.test(parsedToken)) {
+          acc.push(
+            <span key={`${i}-${parsedToken}`} className="text-tertiary-400">
+              {parsedToken}
+            </span>,
+          );
+          acc.push('');
+        } else {
+          acc.push(parsedToken);
+        }
       } else if (parsedToken.icon) {
-        const [unit, icon] = parsedToken.icon.split('/');
-        acc.push('');
+        const [unit] = parsedToken.icon.split('/');
+        if (prev !== '\n') {
+          acc.push('');
+        }
         acc.push(
           <span key={`${i}-${parsedToken.icon}`} className="inline-flex align-bottom">
             <IconDetail src={parsedToken.icon} className={(() => `${unit}-icon`)()} />
           </span>,
         );
         acc.push('');
-        acc.push(capitalize(icon));
+        acc.push(parsedToken.value);
       } else {
-        acc.push('');
+        if (prev !== '\n') {
+          acc.push('');
+        }
         acc.push(<SkillStat key={`${i}-${parsedToken.value}`} args={Args} {...parsedToken} />);
         acc.push('');
       }

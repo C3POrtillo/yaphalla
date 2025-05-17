@@ -56,8 +56,8 @@ export type HeroJSON = {
 export type HeroDetailPaths = 'factions' | 'class' | 'damage' | 'tier' | undefined;
 
 export const IconMap = {
-  '<sprite name=""spui_oldgod_icon_1"">': 'dung/spellbind',
-  '<sprite name=""spui_oldgod_icon_2"">': 'dung/curelock',
+  '<sprite name="spui_oldgod_icon_1">': 'dung/spellbind',
+  '<sprite name="spui_oldgod_icon_2">': 'dung/curelock',
   '<sprite name="spui_ntd_icon_1">': 'natsu/lightning',
   '<sprite name="spui_ntd_icon_2">': 'natsu/fire',
 } as const;

@@ -22,6 +22,9 @@ const Footer: FC = () => (
         Yaphalla is not endorsed or affiliated with Lilith Games, any of its subsidaries/affiliates, or other
         communities
       </p>
+      <p className="text-sm w-full whitespace-pre-wrap text-wrap md:text-base ">
+        © 2025 Yaphalla
+      </p>
     </footer>
   </>
 );

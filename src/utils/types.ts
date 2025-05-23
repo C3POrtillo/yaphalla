@@ -43,7 +43,7 @@ export type ImagePath =
   | `unit/${'wildcard'}`
   | `artifact/${'honor-duel' | 'pre-season' | `season-${number}`}`;
 export type ArtifactSource = 'Pre-Season' | `Season ${number}` | 'Honor Duel';
-export const CurrentSeason = 'Season 3' as const;
+export const CurrentSeason = 'Season 4' as const;
 export const Artifacts = {
   'Pre-Season': ['Awakening', 'Starshard', 'Enlightening', 'Blazing', 'Confining', 'Ironwall'],
   'Honor Duel': [

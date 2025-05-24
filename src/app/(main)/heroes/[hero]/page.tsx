@@ -9,7 +9,7 @@ import CardHero from '@/components/hero/CardHero';
 import HeroSkills from '@/components/hero/HeroSkills';
 import HeroTales from '@/components/hero/HeroTales';
 import { getHeroAllDetails } from '@/components/hero/utils';
-import { SortedHeroes, HeroSet } from '@/utils/types';
+import { HeroSet, SortedHeroes } from '@/utils/types';
 
 export const generateStaticParams = () =>
   SortedHeroes.map(({ hero }) => ({

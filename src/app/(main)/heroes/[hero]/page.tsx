@@ -21,7 +21,7 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
   const hero = decodeURIComponent((await params).hero);
   const heroDetails = await getHeroAllDetails(hero);
 
-  if (!heroDetails) {
+  if (!heroDetails || !HeroSet.has(hero)) {
     notFound();
   }
   

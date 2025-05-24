@@ -3,6 +3,7 @@ import type { FC, PropsWithChildren } from 'react';
 
 import { metadata } from '@/app/(main)/layout';
 import { getHeroAllDetails } from '@/components/hero/utils';
+import { HeroSet } from '@/utils/types';
 import { createMetadata } from '@/utils/utils';
 
 export interface HeroPageProps {
@@ -15,7 +16,7 @@ export const generateMetadata = async ({ params }: HeroPageProps): Promise<Metad
   const hero = decodeURIComponent((await params).hero);
   const heroDetails = await getHeroAllDetails(hero);
   
-  if (!heroDetails) {
+  if (!heroDetails || !HeroSet.has(hero)) {
     return metadata;
   }
 

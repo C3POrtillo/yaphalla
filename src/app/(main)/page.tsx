@@ -45,6 +45,12 @@ const Index: FC = () => (
               {' on Discord!'}
             </p>
           </div>
+          <div className="inset-secondary flex flex-col items-center w-full gap-2 whitespace-normal">
+            <p>
+              We hit the monthly limit on free page views for our icon library. 
+              Please bear with the issue as we look towards alternatives.
+            </p>
+          </div>
         </div>
         <div className="container-primary flex flex-col items-center gap-2">
           <h2 className="text-tertiary-600">About Us</h2>

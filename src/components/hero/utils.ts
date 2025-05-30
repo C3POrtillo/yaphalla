@@ -134,13 +134,14 @@ export const parseSkillToken = (token: string): string | { name?: string; value?
 export const getSkillStatValue = (value: string, args: HeroSkillArgs) => {
   const match = value.match(sArgRegExp);
   if (match) {
-    const hasPercent = !!match[2];
-    const hasS = match[3] || '';
-    const hasTrail = match[4] || '';
     const arg = args[match[1] as keyof HeroSkillArgs];
     if (!arg) {
       return null;
     }
+    const hasPercent = !!match[2];
+    const hasS = match[3] || '';
+    const hasTrail = match[4] || '';
+
     const percentValue = hasPercent ? `${(Math.abs(arg) * 100).toFixed(0)}%` : `${arg}${hasS}`;
     const formattedValue = `${percentValue}${hasTrail}`;
 

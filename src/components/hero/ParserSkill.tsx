@@ -48,8 +48,8 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, PlusArgs, prefix
         );
       } else {
         const { value, name } = parsedToken;
-        const plusValue = PlusArgs && <SkillStat key={`${i}-${value}`} args={PlusArgs} name="skill" value={value}/>;
-        push(preSpace, <SkillStat key={`${i}-${value}`} args={Args} name={name} value={value} />);
+        const plusValue = PlusArgs && <SkillStat key={`${i}-${value}`} args={PlusArgs} name="skill" value={value} />;
+        push(preSpace, <SkillStat key={`${i}-${value}`} args={Args} name={name} value={value} hasTrail={!!plusValue} />);
         if (plusValue) {
           push('+', plusValue);
         }

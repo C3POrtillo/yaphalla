@@ -10,9 +10,10 @@ interface SkillStatProps {
   name?: string;
   value?: string;
   args: HeroSkillArgs;
+  hasTrail?: boolean;
 }
 
-const SkillStat: FC<SkillStatProps> = ({ name, value, args }) => {
+const SkillStat: FC<SkillStatProps> = ({ name, value, args, hasTrail = true }) => {
   if (!value) {
     return null;
   }
@@ -24,7 +25,7 @@ const SkillStat: FC<SkillStatProps> = ({ name, value, args }) => {
   }
   const match = formattedValue.match(/^(.*?)([^\w\s%])?$/);
   const displayValue = match?.[1];
-  const hasTrail = match?.[2];
+  const trailString = match?.[2];
   const isSkill =  name && !compareStrings(name, 'skill')
 
   return (
@@ -32,7 +33,7 @@ const SkillStat: FC<SkillStatProps> = ({ name, value, args }) => {
       <div className="inline-flex items-center align-baseline whitespace-pre gap-0.25">
         {name && <IconDetail src={name} size="sm" />}{' '}
         {displayValue && <span className={isSkill ? 'text-blue-400' : 'text-green-400'}>{displayValue}</span>}
-        {hasTrail}
+        {hasTrail && trailString}
       </div>
       {stat && (
         <Tooltip className="text-xs top-0 -translate-y-full !bg-primary-950">

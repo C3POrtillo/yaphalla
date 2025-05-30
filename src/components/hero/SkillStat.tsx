@@ -19,6 +19,9 @@ const SkillStat: FC<SkillStatProps> = ({ name, value, args }) => {
 
   const stat = name && correctSrc(name);
   const formattedValue = getSkillStatValue(value, args);
+  if (!formattedValue) {
+    return null;
+  }
   const match = formattedValue.match(/^(.*?)([^\w\s%])?$/);
   const displayValue = match?.[1];
   const hasTrail = match?.[2];

@@ -26,9 +26,9 @@ const SkillStat: FC<SkillStatProps> = ({ name, value, args, hasTrail = true, slo
   const match = formattedValue.match(/^(.*?)([^\w\s%])?$/);
   const displayValue = match?.[1];
   const trailString = match?.[2];
-  const isSkill =  name && !compareStrings(name, 'skill')
-  const getPlusArgLabel = () => slot === 0 ? 'Ultimate' : "Skill"
-  const statLabel = stat && (isSkill ? `Increase in this stat with each point of ${getPlusArgLabel()} Power gained.` : `A value determined by the caster's ${stat.toLocaleUpperCase()}.`)
+  const isSkill =  name && !compareStrings(name, 'skill');
+  const getPlusArgLabel = () => slot === 0 ? 'Ultimate' : 'Skill';
+  const statLabel = stat && (isSkill ? `Increase in this stat with each point of ${getPlusArgLabel()} Power gained.` : `A value determined by the caster's ${stat.toLocaleUpperCase()}.`);
 
   return (
     <div className="relative inline-flex group justify-center align-bottom">

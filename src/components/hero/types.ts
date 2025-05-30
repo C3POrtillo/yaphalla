@@ -18,13 +18,14 @@ type HeroInfo = {
   StartMP: number;
 };
 
-export type HeroSkillArgs = Record<`${'SArg' | 'PlusRatio'}${number}`, number>;
+export type HeroSkillArgs = Record<`${'SArg' | 'PlusRatio'}${number}` | 'KnockBack', number>;
 
 export type HeroSkillLevel = {
   DisplayLevel?: number;
   UnlockLevel?: number;
   Description: string;
   Args: HeroSkillArgs;
+  PlusArgs?: HeroSkillArgs;
 };
 
 export type HeroSkill = HeroSkillLevel & {

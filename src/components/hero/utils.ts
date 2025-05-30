@@ -39,7 +39,7 @@ const getDetailPath = (src: string) => {
 export const joinTokens = (...tokens: (string | boolean)[]) => tokens.filter(Boolean).join('');
 
 const skillStatRegExp = /<([A-Za-z]+)>/;
-const sArgRegExp = /\{(SArg\d+|PlusRatio)(%)?\}(s)?([^\w\s%])?/;
+const sArgRegExp = /\{(SArg\d+|PlusRatio|KnockBack)(%)?\}(s)?([^\w\s%])?/;
 const labelRegExp = /\[\w+](.*?)\[\/]/;
 
 export const mergeLabeledTokens = (tokens: string[]): string[] => {

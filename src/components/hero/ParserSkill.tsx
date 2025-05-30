@@ -9,11 +9,12 @@ interface ParserSkillProps {
   hero: string;
   Description: string;
   Args: HeroSkillArgs;
+  PlusArgs?: HeroSkillArgs;
   prefix?: ReactNode | false;
   hasLine?: boolean;
 }
 
-const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix, hasLine }) => {
+const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, PlusArgs, prefix, hasLine }) => {
   const tokenizeDescription = () => {
     const rawTokens = Description.split(' ');
     const tokens = mergeLabeledTokens(rawTokens);
@@ -45,7 +46,11 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix, hasLine 
           parsedToken.value,
         );
       } else {
-        push(preSpace, <SkillStat key={`${i}-${parsedToken.value}`} args={Args} {...parsedToken} />, '');
+        push(preSpace, <SkillStat key={`${i}-${parsedToken.value}`} args={Args} {...parsedToken} />);
+        if (parsedToken.name && PlusArgs?.[parsedToken.name as keyof HeroSkillArgs]) {
+          push('+', <SkillStat key={`${i}-${parsedToken.value}`} args={PlusArgs} {...parsedToken} name="skill"/>)
+        }
+        push('')
       }
 
       return acc;

@@ -39,7 +39,7 @@ const getDetailPath = (src: string) => {
 export const joinTokens = (...tokens: (string | boolean)[]) => tokens.filter(Boolean).join('');
 
 const skillStatRegExp = /<([A-Za-z]+)>/;
-const sArgRegExp = /\{(SArg\d+|PlusRatio|KnockBack)(%)?\}(s)?([^\w\s%])?/;
+const sArgRegExp = /\{(SArg\d+|PlusRatio|KnockBack)(%)?\}(s|[^\w\s%])?/;
 const labelRegExp = /\[\w+](.*?)\[\/]/;
 
 export const mergeLabeledTokens = (tokens: string[]): string[] => {
@@ -139,8 +139,7 @@ export const getSkillStatValue = (value: string, args: HeroSkillArgs) => {
       return null;
     }
     const hasPercent = !!match[2];
-    const hasS = match[3] || '';
-    const hasTrail = match[4] || '';
+    const hasTrail = match[3] || '';
 
     const percentValue = hasPercent ? `${(Math.abs(arg) * 100).toFixed(0)}%` : arg;
     const formattedValue = `${percentValue}${hasTrail}`;

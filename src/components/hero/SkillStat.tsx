@@ -11,13 +11,13 @@ interface SkillStatProps {
   value?: string;
   args: HeroSkillArgs;
   hasTrail?: boolean;
+  slot?: number;
 }
 
-const SkillStat: FC<SkillStatProps> = ({ name, value, args, hasTrail = true }) => {
+const SkillStat: FC<SkillStatProps> = ({ name, value, args, hasTrail = true, slot }) => {
   if (!value) {
     return null;
   }
-
   const stat = name && correctSrc(name);
   const formattedValue = getSkillStatValue(value, args);
   if (!formattedValue) {
@@ -27,6 +27,8 @@ const SkillStat: FC<SkillStatProps> = ({ name, value, args, hasTrail = true }) =
   const displayValue = match?.[1];
   const trailString = match?.[2];
   const isSkill =  name && !compareStrings(name, 'skill')
+  const getPlusArgLabel = () => slot === 0 ? 'Ultimate' : "Skill"
+  const statLabel = stat && (isSkill ? `Increase in this stat with each point of ${getPlusArgLabel()} Power gained.` : `A value determined by the caster's ${stat.toLocaleUpperCase()}.`)
 
   return (
     <div className="relative inline-flex group justify-center align-bottom">
@@ -35,10 +37,9 @@ const SkillStat: FC<SkillStatProps> = ({ name, value, args, hasTrail = true }) =
         {displayValue && <span className={isSkill ? 'text-blue-400' : 'text-green-400'}>{displayValue}</span>}
         {hasTrail && trailString}
       </div>
-      {stat && (
+      {statLabel && (
         <Tooltip className="text-xs top-0 -translate-y-full !bg-primary-950">
-          {"A value determined by the caster's "}
-          {stat.toLocaleUpperCase()}
+          {statLabel}
         </Tooltip>
       )}
     </div>

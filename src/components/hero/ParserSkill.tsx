@@ -3,17 +3,19 @@ import type { FC, ReactNode } from 'react';
 
 import IconDetail from '@/components/hero/IconDetail';
 import SkillStat from '@/components/hero/SkillStat';
-import { mergeLabeledTokens, mergeTokens, parseSkillToken } from '@/components/hero/utils';
+import { getSkillStatValue, mergeLabeledTokens, mergeTokens, parseSkillToken } from '@/components/hero/utils';
 
 interface ParserSkillProps {
   hero: string;
   Description: string;
   Args: HeroSkillArgs;
+  PlusArgs?: HeroSkillArgs;
   prefix?: ReactNode | false;
   hasLine?: boolean;
+  DisplaySlot?: number;
 }
 
-const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix, hasLine }) => {
+const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, PlusArgs, prefix, hasLine, DisplaySlot }) => {
   const tokenizeDescription = () => {
     const rawTokens = Description.split(' ');
     const tokens = mergeLabeledTokens(rawTokens);
@@ -35,17 +37,24 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, prefix, hasLine 
           acc.push(parsedToken);
         }
       } else if (parsedToken.icon) {
+        const { icon, value } = parsedToken;
         const [unit] = parsedToken.icon.split('/');
         push(
           preSpace,
-          <span key={`${i}-${parsedToken.icon}`} className="inline-flex align-bottom">
-            <IconDetail src={parsedToken.icon} className={(() => `${unit}-icon`)()} />
+          <span key={`${i}-${icon}`} className="inline-flex align-bottom">
+            <IconDetail src={icon} className={(() => `${unit}-icon`)()} />
           </span>,
           '',
-          parsedToken.value,
+          value,
         );
       } else {
-        push(preSpace, <SkillStat key={`${i}-${parsedToken.value}`} args={Args} {...parsedToken} />, '');
+        const { value, name } = parsedToken;
+        const hasPlusArg = !!(value && PlusArgs && getSkillStatValue(value, PlusArgs));
+        push(preSpace, <SkillStat key={`${i}-${value}`} args={Args} name={name} value={value} hasTrail={!hasPlusArg} />);
+        if (hasPlusArg) {
+          push('', '+', '', <SkillStat key={`${i}-${value}`} args={PlusArgs} name="skill" value={value} slot={DisplaySlot} />);
+        }
+        push('');
       }
 
       return acc;

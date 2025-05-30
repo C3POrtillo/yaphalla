@@ -47,8 +47,9 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, PlusArgs, prefix
         );
       } else {
         push(preSpace, <SkillStat key={`${i}-${parsedToken.value}`} args={Args} {...parsedToken} />);
+        console.log(PlusArgs, PlusArgs?.[parsedToken.value as keyof HeroSkillArgs])
         if (parsedToken.value && PlusArgs?.[parsedToken.value as keyof HeroSkillArgs]) {
-          push('+', <SkillStat key={`${i}-${parsedToken.value}`} args={PlusArgs} {...parsedToken} name="skill"/>)
+          push('+', <SkillStat key={`${i}-${parsedToken.value}`} args={PlusArgs} name="skill" value={parsedToken.value}/>)
         }
         push('')
       }

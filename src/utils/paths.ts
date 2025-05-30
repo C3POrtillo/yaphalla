@@ -175,7 +175,7 @@ const paths = {
         options: [
           {
             href: '/auto-player',
-            label: 'ABD Auto Player',
+            label: 'ADB Auto Player',
           },
           {
             href: '/paragon-form',

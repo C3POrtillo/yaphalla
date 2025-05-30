@@ -23,7 +23,7 @@ const SkillStat: FC<SkillStatProps> = ({ name, value, args, hasTrail = true, slo
   if (!formattedValue) {
     return null;
   }
-  const match = formattedValue.match(/^(.*?)([^\w\s%])?$/);
+  const match = formattedValue.match(/^(.*?)(s|[^\w\s%])?$/);
   const displayValue = match?.[1];
   const trailString = match?.[2];
   const isSkill =  name && !compareStrings(name, 'skill');

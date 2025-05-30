@@ -142,7 +142,7 @@ export const getSkillStatValue = (value: string, args: HeroSkillArgs) => {
     const hasS = match[3] || '';
     const hasTrail = match[4] || '';
 
-    const percentValue = hasPercent ? `${(Math.abs(arg) * 100).toFixed(0)}%` : `${arg}${hasS}`;
+    const percentValue = hasPercent ? `${(Math.abs(arg) * 100).toFixed(0)}%` : arg;
     const formattedValue = `${percentValue}${hasTrail}`;
 
     return value.replace(sArgRegExp, formattedValue);

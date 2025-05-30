@@ -31,7 +31,7 @@ const SkillStat: FC<SkillStatProps> = ({ name, value, args }) => {
     <div className="relative inline-flex group justify-center align-bottom">
       <div className="inline-flex items-center align-baseline whitespace-pre gap-0.25">
         {name && <IconDetail src={name} size="sm" />}{' '}
-        {displayValue && <span className={isSkill ? 'text-[#3c76b5]' : 'text-[#84d28a]'}>{displayValue}</span>}
+        {displayValue && <span className={isSkill ? 'text-blue-400' : 'text-green-400'}>{displayValue}</span>}
         {hasTrail}
       </div>
       {stat && (

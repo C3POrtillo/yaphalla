@@ -3,7 +3,7 @@ import type { FC, ReactNode } from 'react';
 
 import IconDetail from '@/components/hero/IconDetail';
 import SkillStat from '@/components/hero/SkillStat';
-import { mergeLabeledTokens, mergeTokens, parseSkillToken } from '@/components/hero/utils';
+import { getSkillStatValue, mergeLabeledTokens, mergeTokens, parseSkillToken } from '@/components/hero/utils';
 
 interface ParserSkillProps {
   hero: string;
@@ -49,10 +49,10 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, PlusArgs, prefix
         );
       } else {
         const { value, name } = parsedToken;
-        const plusValue = PlusArgs && <SkillStat key={`${i}-${value}`} args={PlusArgs} name="skill" value={value} slot={DisplaySlot} />;
-        push(preSpace, <SkillStat key={`${i}-${value}`} args={Args} name={name} value={value} hasTrail={!plusValue} />);
-        if (plusValue) {
-          push('', '+', '', plusValue);
+        const hasPlusArg = !!(value && PlusArgs && getSkillStatValue(value, PlusArgs));
+        push(preSpace, <SkillStat key={`${i}-${value}`} args={Args} name={name} value={value} hasTrail={!hasPlusArg} />);
+        if (hasPlusArg) {
+          push('', '+', '', <SkillStat key={`${i}-${value}`} args={PlusArgs} name="skill" value={value} slot={DisplaySlot} />);
         }
         push('');
       }

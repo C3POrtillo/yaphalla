@@ -36,20 +36,22 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, PlusArgs, prefix
           acc.push(parsedToken);
         }
       } else if (parsedToken.icon) {
+        const { icon, value } = parsedToken
         const [unit] = parsedToken.icon.split('/');
         push(
           preSpace,
-          <span key={`${i}-${parsedToken.icon}`} className="inline-flex align-bottom">
-            <IconDetail src={parsedToken.icon} className={(() => `${unit}-icon`)()} />
+          <span key={`${i}-${icon}`} className="inline-flex align-bottom">
+            <IconDetail src={icon} className={(() => `${unit}-icon`)()} />
           </span>,
           '',
-          parsedToken.value,
+          value,
         );
       } else {
-        push(preSpace, <SkillStat key={`${i}-${parsedToken.value}`} args={Args} {...parsedToken} />);
-        console.log(PlusArgs, PlusArgs?.[parsedToken.value as keyof HeroSkillArgs])
-        if (parsedToken.value && PlusArgs?.[parsedToken.value as keyof HeroSkillArgs]) {
-          push('+', <SkillStat key={`${i}-${parsedToken.value}`} args={PlusArgs} name="skill" value={parsedToken.value}/>)
+        const { value, name } = parsedToken
+        push(preSpace, <SkillStat key={`${i}-${value}`} args={Args} name={name} value={value} />);
+        console.log(PlusArgs, parsedToken, PlusArgs?.[value as keyof HeroSkillArgs])
+        if (value && PlusArgs?.[value as keyof HeroSkillArgs]) {
+          push('+', <SkillStat key={`${i}-${value}`} args={PlusArgs} name="skill" value={value}/>)
         }
         push('')
       }

@@ -149,7 +149,7 @@ const Mauler = {
 } as ClassData;
 
 const Graveborn = {
-  Tank: ['Callan', 'Thoran'],
+  Tank: ['Callan', 'Daimon', 'Thoran'],
   Support: ['Ludovic', 'Niru'],
   Marksman: ['Bonnie', 'Cecia'],
   Mage: ['Carolina', 'Shemira', 'Viperian'],

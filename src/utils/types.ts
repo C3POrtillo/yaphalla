@@ -362,6 +362,7 @@ export const HexHeroes = (() => {
 
 export const Bosses = new Set([
   'Alpha Bear',
+  'Blightshroom',
   'Crazed Shellbrute',
   'Crystal Beetle',
   'Glyphshade',

@@ -132,7 +132,7 @@ const Lightbearer = {
 
 const Wilder = {
   Tank: ['Granny Dahnie', 'Ulmus'],
-  Support: ['Damian', 'Hewynn', 'Lorsan'],
+  Support: ['Damian', 'Hewynn', 'Lorsan', 'Velara'],
   Marksman: ['Bryon', 'Indris', 'Lyca'],
   Mage: ['Arden', 'Parisa', 'Tasi'],
   Rogue: ['Eironn', 'Faramor', 'Lenya', 'Lily May'],
@@ -163,7 +163,7 @@ const Celestial = {
   Marksman: ['Dionel'],
   Mage: ['Talene'],
   Rogue: ['Athalia'],
-  Warrior: ['Scarlita'],
+  Warrior: ['Baelran', 'Scarlita'],
 } as ClassData;
 
 const Hypogean = {

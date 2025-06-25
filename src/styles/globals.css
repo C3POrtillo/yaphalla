@@ -123,6 +123,18 @@
   }
   .hex-icon {
     aspect-ratio: 18 / 20;
+    cursor: pointer;
+    transition: transform 0.15s ease-out;
+  }
+  .hex-icon:hover {
+    cursor: grab;
+    transform: scale(1.05);
+    z-index: 1;
+  }
+  .hex-icon:active {
+    cursor: grabbing;
+    transform: scale(1);
+    z-index: 1;
   }
   .hex-overlay::after {
     @apply absolute opacity-0 inset-0 pointer-events-none disabled:bg-none;

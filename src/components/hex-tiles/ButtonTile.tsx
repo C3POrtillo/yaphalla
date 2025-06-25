@@ -1,7 +1,8 @@
 'use client';
+import { useState } from 'react';
+
 import type { HexImageProps } from '@/components/hex-tiles/HexImage';
 import type { DragEvent, FC } from 'react';
-import { useState } from 'react';
 
 import HexImage from '@/components/hex-tiles/HexImage';
 

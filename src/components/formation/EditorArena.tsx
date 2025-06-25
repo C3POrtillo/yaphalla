@@ -1,9 +1,9 @@
 import Image from 'next/image';
-import { DragEvent, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import type { TileData } from '@/components/formation/types';
 import type { Talents } from '@/utils/types';
-import type { FC } from 'react';
+import type { DragEvent, FC } from 'react';
 
 import ButtonArtifact from '@/components/formation/ButtonArtifact';
 import EditorClearButtons from '@/components/formation/EditorClearButtons';
@@ -14,7 +14,6 @@ import { getIsTopRight, getRelativeTileLabels, getTalentTiles, processTileData }
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 // import Text from '@/components/inputs/text/Text';
 import { compareStrings, joinStrings } from '@/utils/utils';
-import { useCallback } from 'react';
 
 interface EditorArena {
   id?: string;
@@ -170,7 +169,9 @@ const EditorArena: FC<EditorArena> = ({
           const { sourceIndex, hero, type } = JSON.parse(internalData);
 
           // Don't do anything if dropped on the same tile it came from
-          if (sourceIndex === tile.index) return;
+          if (sourceIndex === tile.index) {
+            return;
+          }
 
           setUnits(prev => {
             const newUnits = { ...prev };
@@ -203,7 +204,9 @@ const EditorArena: FC<EditorArena> = ({
 
         // Handle external drop (hero from grid to tile)
         const externalData = e.dataTransfer.getData('application/hero');
-        if (!externalData) return;
+        if (!externalData) {
+          return;
+        }
 
         const { hero, sameUnit } = JSON.parse(externalData);
 
@@ -219,6 +222,7 @@ const EditorArena: FC<EditorArena> = ({
             // Use the tile's state property which contains the tile type
             newUnits[tile.index] = { unit: hero, type: tile.state };
           }
+
           return newUnits;
         });
       } catch (error) {

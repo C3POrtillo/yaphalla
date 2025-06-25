@@ -1,10 +1,10 @@
 'use-client';
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import type { ArtifactFormationData, TileData, UnitFormationData } from '@/components/formation/types';
 import type { CommunityLogos } from '@/components/hex-tiles/types';
 import type { BaseHexes, ImagePath, Talents } from '@/utils/types';
-import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
+import type { Dispatch, DragEvent, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { AlwaysShowStates, ArenaPresets } from '@/components/formation/types';
 import { countUnits, determineFaction, generateCookies } from '@/components/formation/utils';
@@ -83,6 +83,9 @@ interface FormationContextType {
   };
   logo: CommunityLogos | undefined;
   setLogo: Dispatch<SetStateAction<CommunityLogos | undefined>>;
+  handleDragOver: (e: DragEvent<HTMLButtonElement>) => void;
+  handleInternalDragStart: (e: DragEvent<HTMLButtonElement>, tile: TileData) => void;
+  handleDrop: (e: DragEvent<HTMLButtonElement>, tile: TileData) => void;
 }
 
 const FormationContext = createContext<FormationContextType | undefined>(undefined);
@@ -121,6 +124,9 @@ export const FormationProvider: FC<FormationProviderProps> = ({
   const [baseHex, setBaseHex] = useState<BaseHexes | undefined>();
   const [outline, setOutline] = useState<BaseHexes | undefined>();
   const [logo, setLogo] = useState<CommunityLogos>();
+
+  const draggedTileRef = useRef<number | null>(null);
+  const validDropOccurred = useRef<boolean>(false);
 
   const updateArena = useCallback(
     (tile: TileData) =>
@@ -185,20 +191,140 @@ export const FormationProvider: FC<FormationProviderProps> = ({
       if (currentTile === undefined) {
         return;
       }
-      setUnits(prev => {
-        const copy = { ...prev };
-        if (sameUnit) {
-          delete copy[currentTile];
+
+      setUnits(prevUnits => {
+        const copy = { ...prevUnits };
+        const unitIndex = currentTile;
+
+        if (sameUnit && copy[unitIndex]) {
+          delete copy[unitIndex];
         } else {
-          copy[currentTile] = { unit, type: tileData[currentTile] };
-          setCurrentTile(undefined);
+          copy[unitIndex] = { unit, type: tileData[currentTile] };
         }
 
         return copy;
       });
+
+      setCurrentTile(undefined);
     },
-    [currentTile],
+    [currentTile, tileData],
   );
+
+  const handleDragOver = useCallback((e: DragEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  }, []);
+
+  const handleInternalDragStart = useCallback(
+    (e: DragEvent<HTMLButtonElement>, tile: TileData) => {
+      const { index } = tile;
+      const unit = units[index]?.unit;
+
+      if (unit) {
+        e.dataTransfer.setData(
+          'application/arena-hero',
+          JSON.stringify({
+            sourceIndex: index,
+            hero: unit,
+            type: units[index].type,
+          }),
+        );
+        e.dataTransfer.effectAllowed = 'move';
+
+        draggedTileRef.current = index;
+        validDropOccurred.current = false;
+      }
+    },
+    [units],
+  );
+
+  const handleDrop = useCallback(
+    (e: DragEvent<HTMLButtonElement>, tile: TileData) => {
+      e.preventDefault();
+
+      try {
+        const internalData = e.dataTransfer.getData('application/arena-hero');
+
+        if (internalData) {
+          const { sourceIndex, hero } = JSON.parse(internalData);
+          if (sourceIndex === tile.index) {
+            return;
+          }
+
+          setUnits(prev => {
+            const newUnits = { ...prev };
+
+            if (newUnits[tile.index]) {
+              const destHero = newUnits[tile.index];
+              newUnits[sourceIndex] = destHero;
+              newUnits[tile.index] = { unit: hero, type: tile.state };
+            } else {
+              delete newUnits[sourceIndex];
+              newUnits[tile.index] = { unit: hero, type: tile.state };
+            }
+
+            return newUnits;
+          });
+
+          validDropOccurred.current = true;
+          
+          return;
+        }
+
+        const externalData = e.dataTransfer.getData('application/hero');
+        if (!externalData) {
+          return;
+        }
+
+        const { hero, sameUnit } = JSON.parse(externalData);
+
+        setUnits(prev => {
+          const newUnits = { ...prev };
+          if (sameUnit) {
+            delete newUnits[tile.index];
+          } else {
+            newUnits[tile.index] = { unit: hero, type: tile.state };
+          }
+
+          return newUnits;
+        });
+      } catch (error) {
+        console.error('Error handling drop:', error);
+      }
+    },
+    [setUnits],
+  );
+
+  useEffect(() => {
+    const handleGlobalDrop = () => {
+      validDropOccurred.current = true;
+    };
+
+    const handleGlobalDragEnd = () => {
+      if (draggedTileRef.current !== null && !validDropOccurred.current) {
+        setUnits(prev => {
+          const newUnits = { ...prev };
+          const tileIndex = draggedTileRef.current;
+          if (tileIndex !== null) {
+            delete newUnits[tileIndex];
+          }
+          
+          return newUnits;
+        });
+      }
+
+      draggedTileRef.current = null;
+      validDropOccurred.current = false;
+    };
+
+    document.addEventListener('drop', handleGlobalDrop);
+    document.addEventListener('dragend', handleGlobalDragEnd);
+
+    return () => {
+      document.removeEventListener('drop', handleGlobalDrop);
+      document.removeEventListener('dragend', handleGlobalDragEnd);
+    };
+  }, [setUnits]);
 
   const setArtifact = useCallback(
     (position: number, artifact: string | boolean) => {
@@ -439,6 +565,9 @@ export const FormationProvider: FC<FormationProviderProps> = ({
         setBackground,
         logo,
         setLogo,
+        handleDragOver,
+        handleInternalDragStart,
+        handleDrop,
       }}
     >
       {children}

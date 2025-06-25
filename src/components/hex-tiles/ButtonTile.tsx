@@ -5,6 +5,7 @@ import type { HexImageProps } from '@/components/hex-tiles/HexImage';
 import type { DragEvent, FC } from 'react';
 
 import HexImage from '@/components/hex-tiles/HexImage';
+import { joinStrings } from '@/utils/utils';
 
 export interface ButtonTileProps extends HexImageProps {
   onClick: () => void;
@@ -29,7 +30,6 @@ const ButtonTile: FC<ButtonTileProps> = ({
 }) => {
   const [isDragOver, setIsDragOver] = useState(false);
 
-  // Handle standard onDragOver and add visual feedback
   const handleDragOver = (e: DragEvent<HTMLButtonElement>) => {
     if (onDragOver) {
       onDragOver(e);
@@ -39,12 +39,9 @@ const ButtonTile: FC<ButtonTileProps> = ({
     }
   };
 
-  // Handle drag leave to remove visual feedback
   const handleDragLeave = () => {
     setIsDragOver(false);
   };
-
-  // Handle drop and clear visual feedback
   const handleDrop = (e: DragEvent<HTMLButtonElement>) => {
     if (onDrop) {
       onDrop(e);
@@ -54,7 +51,15 @@ const ButtonTile: FC<ButtonTileProps> = ({
 
   return (
     <button
-      className={`cursor-pointer disabled:cursor-auto ${isDragOver ? 'scale-115 brightness-125 transition-transform duration-150 ease-out' : 'transition-all duration-200'} ${className || ''}`}
+      className={joinStrings(
+        'cursor-pointer',
+        'disabled:cursor-auto',
+        isDragOver
+          ? 'scale-115 brightness-125 transition-transform duration-150 ease-out'
+          : 'transition-all duration-200',
+        draggable ? 'transition-all duration-150 ease-out' : 'transition-all duration-200',
+        className,
+      )}
       onClick={onClick}
       disabled={disabled}
       aria-label={ariaLabel}
@@ -65,7 +70,7 @@ const ButtonTile: FC<ButtonTileProps> = ({
       onDrop={handleDrop}
       onDragEnd={() => setIsDragOver(false)}
     >
-      <HexImage disabled={disabled} {...props} />
+      <HexImage disabled={disabled} draggable={draggable} {...props} />
     </button>
   );
 };

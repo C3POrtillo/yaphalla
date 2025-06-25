@@ -7,7 +7,7 @@ import type { DragEvent, FC } from 'react';
 import HexImage from '@/components/hex-tiles/HexImage';
 import { joinStrings } from '@/utils/utils';
 
-export interface ButtonTileProps extends HexImageProps {
+interface ButtonTileProps extends HexImageProps {
   onClick: () => void;
   ariaLabel?: string;
   className?: string;

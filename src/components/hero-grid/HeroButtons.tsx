@@ -73,7 +73,7 @@ const HeroButtons: FC<HeroButtonProps> = ({
             disabledOverlay={!isValid || inAllUnits || sameUnit}
             tooltip={<HeroTooltip {...heroData} />}
             onClick={() => onClick(hero, sameUnit)}
-            draggable={!disabled && isValid && !inAllUnits}
+            draggable={isValid && !inAllUnits}
             onDragStart={e => handleDragStart(e, hero, sameUnit)}
           />
         );

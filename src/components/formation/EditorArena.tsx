@@ -166,7 +166,7 @@ const EditorArena: FC<EditorArena> = ({
 
         if (internalData) {
           // Handle internal move (from one tile to another)
-          const { sourceIndex, hero, type } = JSON.parse(internalData);
+          const { sourceIndex, hero } = JSON.parse(internalData);
 
           // Don't do anything if dropped on the same tile it came from
           if (sourceIndex === tile.index) {

@@ -64,15 +64,17 @@ const SelectArtifact: FC = () => {
   return (
     <>
       <div className="container-primary w-full flex flex-col gap-2 sm:hidden">
-        {Object.entries(Artifacts).filter(([label]) => [CurrentSeason, 'Pre-Season', 'Honor Duel'].some(key => !compareStrings(key, label))).map(([label, artifacts]) => (
-          <div key={label} className="relative h-10 w-full">
-            <Accordion label={`${label.includes('Season ') ? 'Seasonal' : label} Artifacts`} keepOpen={false}>
-              <div className="scroll-bar-left scroll-bar-auto inset-secondary !rounded-t-none flex flex-col p-2 gap-1 max-h-[360px] overflow-auto z-100">
-                {getArtifactButtons(artifacts, 'tertiary')}
-              </div>
-            </Accordion>
-          </div>
-        ))}
+        {Object.entries(Artifacts)
+          .filter(([label]) => [CurrentSeason, 'Pre-Season', 'Honor Duel'].some(valid => !compareStrings(valid, label)))
+          .map(([label, artifacts]) => (
+            <div key={label} className="relative h-10 w-full">
+              <Accordion label={`${label.includes('Season ') ? 'Seasonal' : label} Artifacts`} keepOpen={false}>
+                <div className="scroll-bar-left scroll-bar-auto inset-secondary !rounded-t-none flex flex-col p-2 gap-1 max-h-[360px] overflow-auto z-100">
+                  {getArtifactButtons(artifacts, 'tertiary')}
+                </div>
+              </Accordion>
+            </div>
+          ))}
       </div>
       <div className="container-primary hidden w-full flex-col gap-2 items-center justify-center sm:flex ">
         <div className="w-full flex flex-col gap-2">

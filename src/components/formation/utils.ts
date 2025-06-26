@@ -32,7 +32,7 @@ export const getIsTopRight = (tileData: number[]) =>
 
 export const getDrawImage = (str: string, baseHex: boolean) => {
   const label = str.toLowerCase();
-  const isUnit = !compareStrings(label, 'unit');
+  const isUnit = !compareStrings(label, 'hero');
   const path = isUnit ? ('unit' as const) : ('base' as const);
   const isPlayer = !compareStrings(label, 'player');
   const isEnemy = !compareStrings(label, 'enemy');

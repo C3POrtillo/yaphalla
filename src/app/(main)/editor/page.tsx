@@ -27,7 +27,7 @@ const Index: FC = () => {
   return (
     <>
       <Container>
-        <div className="container-primary flex flex-col gap-2 items-center">
+        <div className="container-primary flex flex-col gap-2 items-center xl:w-fit">
           <Toggle
             variant="switch"
             value="sidebar-background"
@@ -36,28 +36,46 @@ const Index: FC = () => {
               setUnique(e.target.checked);
             }}
             defaultChecked={unique}
+            tooltip={<p className="text-sm">Check for duplicate heroes across all teams</p>}
+            solidTooltip={true}
           />
-          <div className="grid grid-cols-5 w-fit gap-2">
+          <div className="grid grid-cols-5 w-fit gap-2 xl:flex xl:flex-row xl:flex-wrap xl:items-center xl:justify-center">
             {teams.map((_, i) => (
-              <Button
-                key={i}
-                onClick={() => setTeamIndex(i)}
-                hierarchy="primary"
-                selected={teamIndex === i}
-                size="sm"
-                hasActiveBorder
-              >
-                {`Team ${i + 1}`}
-              </Button>
+              <>
+                <Button
+                  key={i}
+                  onClick={() => setTeamIndex(i)}
+                  hierarchy="primary"
+                  selected={teamIndex === i}
+                  size="sm"
+                  hasActiveBorder
+                >
+                  {`Team ${i + 1}`}
+                </Button>
+                {(i - 4) % 5 === 0 && i < maxTeams - 1 && (
+                  <hr key={`${i}-divider`} className="hidden h-full border-x-1 border-primary-750 xl:block" />
+                )}
+              </>
             ))}
           </div>
         </div>
       </Container>
-      {teams.map(({ ...props }, i) => (
-        <FormationProvider key={i} id={i} currentId={teamIndex} {...props} allUnits={unique && allUnits}>
-          <FormationEditor />
-        </FormationProvider>
-      ))}
+      {teams.map(({ units, ...props }, i) => {
+        const teamUnits = new Set(Object.values(units).map(({ unit }) => unit));
+
+        return (
+          <FormationProvider
+            key={i}
+            id={i}
+            currentId={teamIndex}
+            units={units}
+            allUnits={unique ? allUnits : teamUnits}
+            {...props}
+          >
+            <FormationEditor />
+          </FormationProvider>
+        );
+      })}
     </>
   );
 };

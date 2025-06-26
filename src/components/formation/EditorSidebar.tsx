@@ -84,7 +84,7 @@ const EditorSidebar: FC = () => {
   const placeProps = (
     [
       {
-        label: 'Unit',
+        label: 'Hero',
         selected: !isEditArena,
         onClick: () => {
           setEditArena(false);
@@ -94,7 +94,7 @@ const EditorSidebar: FC = () => {
       getPlaceProps('Enemy', -1),
       getPlaceProps('Breakable', -2),
       getPlaceProps('Unbreakable', -3),
-      isDev && getPlaceProps('Unit Swap', 2),
+      isDev && getPlaceProps('Hero Swap', 2),
     ] as const
   ).filter(item => !!item);
 

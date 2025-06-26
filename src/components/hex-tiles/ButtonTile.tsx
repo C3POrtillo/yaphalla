@@ -28,7 +28,7 @@ const ButtonTile: FC<ButtonTileProps> = ({
   className,
   ...props
 }) => {
-  const [isDragOver, setIsDragOver] = useState(false);
+  const [isDragOver, setIsDragOver] = useState<boolean>(false);
 
   const handleDragOver = (e: DragEvent<HTMLButtonElement>) => {
     if (onDragOver) {

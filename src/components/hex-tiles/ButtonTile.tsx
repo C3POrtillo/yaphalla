@@ -55,7 +55,7 @@ const ButtonTile: FC<ButtonTileProps> = ({
         'cursor-pointer',
         'disabled:cursor-auto',
         isDragOver
-          ? 'scale-115 brightness-125 transition-transform duration-150 ease-out'
+          ? 'scale-105 brightness-125 transition-transform duration-150 ease-out'
           : 'transition-all duration-200',
         draggable ? 'transition-all duration-150 ease-out' : 'transition-all duration-200',
         className,

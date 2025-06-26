@@ -8,11 +8,13 @@ import Container from '@/components/container/Container';
 import FormationEditor from '@/components/formation/FormationEditor';
 import { FormationProvider } from '@/components/formation/FormationProvider';
 import Button from '@/components/inputs/button/Button';
+import Toggle from '@/components/inputs/toggle/Toggle';
 
-const maxTeams = 5;
+const maxTeams = 15;
 
 const Index: FC = () => {
   const [teamIndex, setTeamIndex] = useState<number>(0);
+  const [unique, setUnique] = useState<boolean>(false);
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const teamArray = new Array(maxTeams).fill(0).map(_ => useState<UnitFormationData>({})) as [
     UnitFormationData,
@@ -25,21 +27,34 @@ const Index: FC = () => {
   return (
     <>
       <Container>
-        <div className="container-primary flex flex-row w-fit gap-2">
-          {teams.map((_, i) => (
-            <Button
-              key={i}
-              onClick={() => setTeamIndex(i)}
-              hierarchy="primary"
-              selected={teamIndex === i}
-              size="sm"
-              hasActiveBorder
-            >{`Team ${i + 1}`}</Button>
-          ))}
+        <div className="container-primary flex flex-col gap-2 items-center">
+          <Toggle
+            variant="switch"
+            value="sidebar-background"
+            activeLabel="Check Duplicates"
+            onChange={e => {
+              setUnique(e.target.checked);
+            }}
+            defaultChecked={unique}
+          />
+          <div className="grid grid-cols-5 w-fit gap-2">
+            {teams.map((_, i) => (
+              <Button
+                key={i}
+                onClick={() => setTeamIndex(i)}
+                hierarchy="primary"
+                selected={teamIndex === i}
+                size="sm"
+                hasActiveBorder
+              >
+                {`Team ${i + 1}`}
+              </Button>
+            ))}
+          </div>
         </div>
       </Container>
       {teams.map(({ ...props }, i) => (
-        <FormationProvider key={i} id={i} currentId={teamIndex} {...props} allUnits={allUnits}>
+        <FormationProvider key={i} id={i} currentId={teamIndex} {...props} allUnits={unique && allUnits}>
           <FormationEditor />
         </FormationProvider>
       ))}

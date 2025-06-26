@@ -14,7 +14,7 @@ import { compareStrings, getCookie, setCookie } from '@/utils/utils';
 interface FormationProviderProps extends PropsWithChildren {
   id: number;
   currentId: number;
-  allUnits: Set<string>;
+  allUnits: Set<string> | false;
   units: UnitFormationData;
   setUnits: Dispatch<SetStateAction<UnitFormationData>>;
 }
@@ -22,7 +22,7 @@ interface FormationProviderProps extends PropsWithChildren {
 interface FormationContextType {
   id: number;
   currentId: number;
-  allUnits: Set<string>;
+  allUnits: Set<string> | false;
   title: string;
   setTitle: Dispatch<SetStateAction<string>>;
   units: UnitFormationData;
@@ -98,6 +98,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
   setUnits,
   children,
 }) => {
+  const [loaded, setLoaded] = useState<boolean>(false);
   const [title, setTitle] = useState<string>('');
   const [artifactData, setArtifactData] = useState<ArtifactFormationData>({
     player: [],
@@ -200,12 +201,11 @@ export const FormationProvider: FC<FormationProviderProps> = ({
           delete copy[unitIndex];
         } else {
           copy[unitIndex] = { unit, type: tileData[currentTile] };
+          setCurrentTile(undefined);
         }
 
         return copy;
       });
-
-      setCurrentTile(undefined);
     },
     [currentTile, tileData],
   );
@@ -396,54 +396,81 @@ export const FormationProvider: FC<FormationProviderProps> = ({
   );
 
   useEffect(() => {
-    document.cookie = '';
-    Object.entries({
-      hideTalents: setHideTalents,
-      hideEmpty: setHideEmpty,
-      hideEnemy: setHideEnemy,
-      hideNumbers: setHideNumbers,
-      hideEmptyArtifact: setHideEmptyArtifact,
-      background: setBackground,
-      logo: setLogo,
-      baseHex: setBaseHex,
-      outline: setOutline,
-      preset: setPreset,
-    }).forEach(([key, set]) => {
-      const cookie = getCookie(`${id}-${key}`);
-      if (cookie) {
-        if (!compareStrings(cookie, 'undefined')) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          set(undefined as any);
-        } else if (cookie.match(/0|1/)) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          set(!!Number(cookie) as any);
-        } else {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          set(cookie as any);
+    const loadCookies = async () => {
+      Object.entries({
+        hideTalents: setHideTalents,
+        hideEmpty: setHideEmpty,
+        hideEnemy: setHideEnemy,
+        hideNumbers: setHideNumbers,
+        hideEmptyArtifact: setHideEmptyArtifact,
+        background: setBackground,
+        logo: setLogo,
+        baseHex: setBaseHex,
+        outline: setOutline,
+        preset: setPreset,
+        tileData: setTileData,
+      }).forEach(([key, set]) => {
+        const cookie = getCookie(`${id}-${key}`);
+        if (cookie) {
+          if (!compareStrings(cookie, 'undefined')) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            set(undefined as any);
+            // } else if (!compareStrings(key, 'tileData')) {
+            //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            //   set(atob(cookie).split(' ') as any);
+          } else if (cookie.match(/0|1/)) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            set(!!Number(cookie) as any);
+          } else {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            set(cookie as any);
+          }
         }
-      }
-    });
+      });
+      setLoaded(true);
+    };
+    loadCookies();
   }, []);
 
   useEffect(() => {
-    generateCookies(
-      {
-        hideTalents,
-        hideEmpty,
-        hideEnemy,
-        hideNumbers,
-        hideEmptyArtifact,
-        background,
-        logo,
-        baseHex,
-        outline,
-        preset,
-      },
-      id,
-    ).forEach(cookie => {
-      setCookie(cookie);
-    });
-  }, [hideTalents, hideEmpty, hideEnemy, hideNumbers, hideEmptyArtifact, background, logo, baseHex, outline, preset]);
+    const saveCookies = async () => {
+      if (!loaded) {
+        return;
+      }
+      generateCookies(
+        {
+          hideTalents,
+          hideEmpty,
+          hideEnemy,
+          hideNumbers,
+          hideEmptyArtifact,
+          background,
+          logo,
+          baseHex,
+          outline,
+          preset,
+          // tileData: btoa(tileData.join(' ')),
+        },
+        id,
+      ).forEach(cookie => {
+        setCookie(cookie);
+      });
+    };
+    saveCookies();
+  }, [
+    loaded,
+    hideTalents,
+    hideEmpty,
+    hideEnemy,
+    hideNumbers,
+    hideEmptyArtifact,
+    background,
+    logo,
+    baseHex,
+    outline,
+    preset,
+    tileData,
+  ]);
 
   useEffect(() => {
     setEditArena(false);

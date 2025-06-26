@@ -1,3 +1,5 @@
+import { Icon } from '@iconify/react';
+
 import type { FC } from 'react';
 
 import Link from '@/components/link/Link';
@@ -12,7 +14,7 @@ const Socials: FC = () => (
         className="flex h-10 size-sm input-tertiary justify-center items-center"
         aria-label={`Yaphalla's ${site}`}
       >
-        <i className={`fab fa-${site} fa-2xl`} />
+        <Icon icon={`fa6-brands:${site}`} className="size-9" />
       </Link>
     ))}
   </div>

@@ -75,7 +75,7 @@ const Index: FC = () => {
                   {hierarchies.map(hierarchy => (
                     <Accordion
                       key={hierarchy}
-                      label={`Label${i ? '' : ' Not'} Clickable (${hierarchy})`}
+                      label={`Label${i ? ' Not' : ''} Clickable (${hierarchy})`}
                       hierarchy={hierarchy}
                       labelIsClickable={!i}
                     >

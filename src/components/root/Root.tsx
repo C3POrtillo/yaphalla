@@ -1,5 +1,4 @@
 import { Analytics } from '@vercel/analytics/react';
-import Script from 'next/script';
 import '@/styles/globals.css';
 
 import type { FC, PropsWithChildren, ReactNode } from 'react';
@@ -18,10 +17,7 @@ interface RootProps extends PropsWithChildren {
 const Root: FC<RootProps> = ({ head, children, hideBreadcrumbs }) => (
   <html lang="en">
     {/* eslint-disable-next-line @next/next/no-head-element */}
-    <head>
-      <Script src="https://kit.fontawesome.com/8a3bf2a858.js" crossOrigin="anonymous" />
-      {head}
-    </head>
+    <head>{head}</head>
     <body className="h-[100vh] snap-y">
       <div className="flex min-w-full max-w-full min-h-full">
         <main

@@ -267,7 +267,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
           });
 
           validDropOccurred.current = true;
-          
+
           return;
         }
 
@@ -308,7 +308,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
           if (tileIndex !== null) {
             delete newUnits[tileIndex];
           }
-          
+
           return newUnits;
         });
       }

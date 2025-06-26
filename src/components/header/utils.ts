@@ -1,4 +1,4 @@
-import { brandIcon, solidIcon } from '@/utils/utils';
+import { brandIcon } from '@/utils/utils';
 
 export const processPaths = (paths: string[], slug: string[] | undefined) => {
   let slugIndex = 0;
@@ -28,13 +28,13 @@ const sheetSlugs = new Set(['/primal-lord', '/battle-drills', 'Leaderboards']);
 const formSlugs = new Set(['/paragon-form']);
 
 const staticSlugs: Record<string, string> = {
-  Other: solidIcon('list'),
-  Communities: solidIcon('user-group'),
-  '/creators': solidIcon('tv'),
-  '/auto-player': solidIcon('robot'),
-  'https://afk-journey.fandom.com': solidIcon('book'),
-  '/heroes': solidIcon('user'),
-  '/bosses': solidIcon('skull'),
+  Other: 'fa6-solid:list',
+  Communities: 'mdi:user-group',
+  '/creators': 'mdi:tv-classic',
+  '/auto-player': 'fa6-solid:robot',
+  'https://afk-journey.fandom.com': 'fa-solid:book',
+  '/heroes': 'fa6-solid:user',
+  '/bosses': 'fa6-solid:skull',
 };
 
 const staticSets = (href: string) => {
@@ -42,19 +42,19 @@ const staticSets = (href: string) => {
     return brandIcon('discord');
   }
   if (sheetSlugs.has(href)) {
-    return solidIcon('table');
+    return 'fa6-solid:table-list';
   }
   if (formSlugs.has(href)) {
-    return solidIcon('square-poll-horizontal');
+    return 'fa6-solid:square-poll-horizontal';
   }
 };
 
 const matchRegExp = (href: string) => {
   if (href.match(/^https:\/\/www\.prydwen\.gg\/.*/)) {
-    return solidIcon('sailboat');
+    return 'fa6-solid:sailboat';
   }
   if (href.match(/^\/editor(?:\/|$)/)) {
-    return solidIcon('wrench');
+    return 'fa6-solid:wrench';
   }
 };
 

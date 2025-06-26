@@ -1,4 +1,5 @@
 'use client';
+import { Icon } from '@iconify/react';
 import { Fragment, useEffect, useState } from 'react';
 
 import type { FC } from 'react';
@@ -14,7 +15,7 @@ import LogoLink from '@/components/link/Logo';
 import Socials from '@/components/socials/Socials';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { navigation } from '@/utils/paths';
-import { generateCookie, getCookie, joinStrings, setCookie, solidIcon } from '@/utils/utils';
+import { generateCookie, getCookie, joinStrings, setCookie } from '@/utils/utils';
 
 const Header: FC = () => {
   const [isSticky, setSticky] = useState<boolean>(true);
@@ -24,7 +25,7 @@ const Header: FC = () => {
     if (!slug) {
       rootIconName = getLinkIcon(title);
     }
-    const rootIcon = !!rootIconName && <i className={joinStrings('!text-base w-5', rootIconName)} />;
+    const rootIcon = !!rootIconName && <Icon icon={rootIconName} className="size-5" />;
     const isCol = rootOptions?.every(({ options }) => options && options?.length <= 4);
     const tooltip = rootOptions && (
       <div className={joinStrings('flex flex-col gap-2 overflow-auto', !isCol && 'lg:flex-row')}>
@@ -124,12 +125,12 @@ const Header: FC = () => {
         <div className="flex flex-row items-center gap-6">
           <Socials />
           <Button
-            className="block right-2 text-xs size-8 2xl:absolute"
+            className="block right-2 text-xs 2xl:absolute"
             size="sm"
             hierarchy="secondary"
             onClick={() => setSticky(!isSticky)}
           >
-            <i className={solidIcon(isSticky ? 'thumbtack' : 'thumbtack-slash')} />
+            <Icon icon={`mdi:${isSticky ? 'lock-outline' : 'unlocked-variant-outline'}`} className="size-8" />
           </Button>
         </div>
       </div>

@@ -1,3 +1,5 @@
+import { Icon } from '@iconify/react';
+
 import type { PathType } from '@/utils/paths';
 import type { FC, ReactNode } from 'react';
 
@@ -25,7 +27,7 @@ const SubLinks: FC<SubLinksProps> = ({ className, href: slug, options, rootIcon,
           return null;
         }
         const iconName = getLinkIcon(href);
-        const icon = !!iconName && <i className={joinStrings('!text-base w-5', iconName)} />;
+        const icon = !!iconName && <Icon icon={iconName} className="size-5" />;
 
         return (
           <Link

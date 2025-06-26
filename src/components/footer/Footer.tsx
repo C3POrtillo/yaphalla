@@ -1,3 +1,5 @@
+import { Icon } from '@iconify/react';
+
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
@@ -14,17 +16,16 @@ const Footer: FC = () => (
         <Socials />
       </div>
       <span>Credits to: The Yaphalla Community</span>
-      <div className="flex flex-row gap-1 items-center">
-        <span>Developed by: </span>
-        <i className="fab fa-discord" /> <span>{discordNames.map(name => name)}</span>
-      </div>
+      <span className="inline-flex gap-1">
+        Developed by:
+        <Icon icon="fa6-brands:discord" className="size-6" />
+        <span>{discordNames.map(name => name)}</span>
+      </span>
       <p className="text-sm w-full whitespace-pre-wrap text-wrap md:text-base ">
         Yaphalla is not endorsed or affiliated with Lilith Games, any of its subsidaries/affiliates, or other
         communities
       </p>
-      <p className="text-sm w-full whitespace-pre-wrap text-wrap md:text-base ">
-        © 2025 Yaphalla
-      </p>
+      <p className="text-sm w-full whitespace-pre-wrap text-wrap md:text-base ">© 2025 Yaphalla</p>
     </footer>
   </>
 );

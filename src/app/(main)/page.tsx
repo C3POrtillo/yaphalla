@@ -1,3 +1,5 @@
+import { Icon } from '@iconify/react';
+
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
@@ -47,8 +49,8 @@ const Index: FC = () => (
           </div>
           <div className="inset-secondary flex flex-col items-center w-full gap-2 whitespace-normal">
             <p>
-              We hit the monthly limit on free page views for our icon library. 
-              Please bear with the issue as we look towards alternatives.
+              We hit the monthly limit on free page views for our icon library. Please bear with the issue as we look
+              towards alternatives.
             </p>
           </div>
         </div>
@@ -71,7 +73,7 @@ const Index: FC = () => (
               href={href}
               className="w-full bg-primary input-primary size-base gap-2 text-lg md:text-xl justify-center"
             >
-              <i className={`fab fa-${site} fa-lg`} />
+              <Icon icon={`fa6-brands:${site}`} />
               {label}
             </Link>
           ))}

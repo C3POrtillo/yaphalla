@@ -6,6 +6,7 @@ import SkillStat from '@/components/hero/SkillStat';
 import { getSkillStatValue, mergeLabeledTokens, mergeTokens, parseSkillToken } from '@/components/hero/utils';
 
 interface ParserSkillProps {
+  /* eslint-disable-next-line react/no-unused-prop-types */
   hero: string;
   Description: string;
   Args: HeroSkillArgs;
@@ -50,9 +51,17 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, PlusArgs, prefix
       } else {
         const { value, name } = parsedToken;
         const hasPlusArg = !!(value && PlusArgs && getSkillStatValue(value, PlusArgs));
-        push(preSpace, <SkillStat key={`${i}-${value}`} args={Args} name={name} value={value} hasTrail={!hasPlusArg} />);
+        push(
+          preSpace,
+          <SkillStat key={`${i}-${value}`} args={Args} name={name} value={value} hasTrail={!hasPlusArg} />,
+        );
         if (hasPlusArg) {
-          push('', '+', '', <SkillStat key={`${i}-${value}`} args={PlusArgs} name="skill" value={value} slot={DisplaySlot} />);
+          push(
+            '',
+            '+',
+            '',
+            <SkillStat key={`${i}-${value}`} args={PlusArgs} name="skill" value={value} slot={DisplaySlot} />,
+          );
         }
         push('');
       }

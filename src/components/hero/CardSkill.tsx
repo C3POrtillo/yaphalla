@@ -27,7 +27,7 @@ const CardSkill: FC<CardSkillProps> = ({
 }) => {
   const [isFull, setFull] = useState<boolean>(true);
   const hasLabel = !isNPC && Label.has(DisplaySlot);
-  const slot = isNPC ? undefined : DisplaySlot
+  const slot = isNPC ? undefined : DisplaySlot;
   const { baseUnlock, classUnlock } = getBaseUnlock(DisplaySlot, UnlockLevel || 1);
   const heroLabel = hasLabel && <span className="text-tertiary-600">{SkillMap[DisplaySlot - 1]}</span>;
   const bossLabel = isNPC && (
@@ -81,7 +81,7 @@ const CardSkill: FC<CardSkillProps> = ({
       )}
       <div>
         {isFull ? (
-          <ParserSkill hero={hero} hasLine={!!Levels?.length} {...props} DisplaySlot={slot}/>
+          <ParserSkill hero={hero} hasLine={!!Levels?.length} {...props} DisplaySlot={slot} />
         ) : (
           <p className="flex flex-col my-1 input-secondary size-sm !cursor-auto !text-white text-base lg:text-lg">
             {SimpleDescription}

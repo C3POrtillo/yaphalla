@@ -23,7 +23,7 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
   if (!heroDetails) {
     notFound();
   }
-  
+
   const { Info, Skills } = heroDetails;
   const { Description, UnitRace, UnitJob, DamageType } = Info;
 

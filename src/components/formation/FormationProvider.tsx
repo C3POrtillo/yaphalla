@@ -288,6 +288,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
 
           return newUnits;
         });
+        setCurrentTile(undefined);
       } catch (error) {
         console.error('Error handling drop:', error);
       }

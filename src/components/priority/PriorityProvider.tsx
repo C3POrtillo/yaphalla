@@ -129,6 +129,7 @@ export const PriorityProvider: FC<PropsWithChildren> = ({ children }) => {
           return newUnits;
         });
       }
+      setCurrentTile(undefined);
     } catch (error) {
       console.error('Error parsing drag data:', error);
     }

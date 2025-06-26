@@ -1,4 +1,5 @@
 'use client';
+import { Icon } from '@iconify/react';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 
@@ -10,7 +11,7 @@ import EditorGroup from '@/components/priority/EditorGroup';
 import { usePriority } from '@/components/priority/PriorityProvider';
 import { maxGroups } from '@/components/priority/types';
 import { getGap, getValidCount } from '@/components/priority/utils';
-import { isDevMode, joinStrings, solidIcon } from '@/utils/utils';
+import { isDevMode, joinStrings } from '@/utils/utils';
 
 const EditorMain: FC = () => {
   const searchParams = useSearchParams();
@@ -60,7 +61,7 @@ const EditorMain: FC = () => {
   const buttons = [
     {
       label: 'Clear Units',
-      icon: 'user-slash',
+      icon: 'tabler:user-x',
       hierarchy: 'warning',
       onClick: () => {
         setUnits({});
@@ -70,7 +71,7 @@ const EditorMain: FC = () => {
     .filter(item => !!item)
     .map(({ onClick, label, icon, ...props }) => (
       <Button key={label} size="sm" className={buttonClass} onClick={onClick} {...props}>
-        <i className={solidIcon(icon)} aria-hidden="true" />
+        <Icon icon={icon} className="size-6" />
         {label}
       </Button>
     ));

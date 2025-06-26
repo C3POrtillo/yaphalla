@@ -24,7 +24,7 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
   if (!heroDetails || !HeroSet.has(hero)) {
     notFound();
   }
-  
+
   const { Info, Story, Skills } = heroDetails;
   const { DisplayTitle, Description, UnitRace, UnitJob, UnitRarity, DamageType } = Info;
 

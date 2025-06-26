@@ -13,7 +13,7 @@ import Button from '@/components/inputs/button/Button';
 import { isDevMode } from '@/utils/utils';
 
 export interface HeroGridProps {
-  allUnits?: Set<string>;
+  allUnits?: Set<string> | false;
   currentUnit: string | false | undefined;
   disabled?: boolean;
   onClick: (unit: string, sameUnit: boolean) => void;

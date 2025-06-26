@@ -15,7 +15,7 @@ export interface HeroPageProps {
 export const generateMetadata = async ({ params }: HeroPageProps): Promise<Metadata> => {
   const hero = decodeURIComponent((await params).hero);
   const heroDetails = await getHeroAllDetails(hero);
-  
+
   if (!heroDetails || !HeroSet.has(hero)) {
     return metadata;
   }

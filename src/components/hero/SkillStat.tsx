@@ -26,9 +26,13 @@ const SkillStat: FC<SkillStatProps> = ({ name, value, args, hasTrail = true, slo
   const match = formattedValue.match(/^(.*?)(s(?:[^\w\s%])?|[^\w\s%])?$/);
   const displayValue = match?.[1];
   const trailString = match?.[2];
-  const isSkill =  name && !compareStrings(name, 'skill');
-  const getPlusArgLabel = () => slot === 1 ? 'Ultimate' : 'Skill';
-  const statLabel = stat && (isSkill ? `Increase in this stat with each point of ${getPlusArgLabel()} Power gained.` : `A value determined by the caster's ${stat.toLocaleUpperCase()}.`);
+  const isSkill = name && !compareStrings(name, 'skill');
+  const getPlusArgLabel = () => (slot === 1 ? 'Ultimate' : 'Skill');
+  const statLabel =
+    stat &&
+    (isSkill
+      ? `Increase in this stat with each point of ${getPlusArgLabel()} Power gained.`
+      : `A value determined by the caster's ${stat.toLocaleUpperCase()}.`);
 
   return (
     <div className="relative inline-flex group justify-center align-bottom">
@@ -37,11 +41,7 @@ const SkillStat: FC<SkillStatProps> = ({ name, value, args, hasTrail = true, slo
         {displayValue && <span className={isSkill ? 'text-[#3c76b5]' : 'text-green-400'}>{displayValue}</span>}
         {hasTrail && trailString}
       </div>
-      {statLabel && (
-        <Tooltip className="text-xs top-0 -translate-y-full !bg-primary-950">
-          {statLabel}
-        </Tooltip>
-      )}
+      {statLabel && <Tooltip className="text-xs top-0 -translate-y-full !bg-primary-950">{statLabel}</Tooltip>}
     </div>
   );
 };

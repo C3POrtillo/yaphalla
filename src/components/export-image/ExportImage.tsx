@@ -1,9 +1,11 @@
+import { Icon } from '@iconify/react';
+
 import type { ButtonProps } from '@/components/inputs/button/Button';
 import type { FC } from 'react';
 
 import { copy, exportToPNG } from '@/components/export-image/utils';
 import Button from '@/components/inputs/button/Button';
-import { joinStrings, solidIcon } from '@/utils/utils';
+import { joinStrings } from '@/utils/utils';
 
 interface ExportImageProps extends ButtonProps {
   fileName?: string;
@@ -31,7 +33,7 @@ const ExportImage: FC<ExportImageProps> = ({
   const buttons = [
     {
       label: 'Copy to Clipboard',
-      icon: 'copy',
+      icon: 'content-copy',
       onClick: () => {
         handleClick(copy);
       },
@@ -62,7 +64,7 @@ const ExportImage: FC<ExportImageProps> = ({
           hasActiveBorder
           {...props}
         >
-          <i className={solidIcon(icon)} aria-hidden="true" />
+          <Icon icon={`material-symbols:${icon}`} className="size-6" />
           {label}
         </Button>
       ))}

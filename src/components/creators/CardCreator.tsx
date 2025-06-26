@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react';
 import Image from 'next/image';
 
 import type { CreatorData } from '@/utils/pathsCreators';
@@ -20,7 +21,7 @@ const CardCreator: FC<CreatorData> = async ({ label, language, image, ...props }
       ([site, href]) =>
         site && (
           <Link key={site} href={href} className="bg-secondary input-secondary size-sm inline-flex gap-2">
-            <i className={joinStrings('fab', `fa-${getIcon(site)}`)} />
+            <Icon icon={`fa6-brands:${getIcon(site)}`} className="size-6" />
             {site}
             {['YouTube', 'Bilibili'].some(test => !compareStrings(site, test)) && !!language && (
               <span className={`fi fi-${language} flag-icon-squared rounded-sm`} />

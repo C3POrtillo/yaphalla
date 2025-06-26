@@ -1,3 +1,5 @@
+import { Icon } from '@iconify/react';
+
 import type { FC, ReactNode } from 'react';
 
 import { useFormation } from '@/components/formation/FormationProvider';
@@ -73,7 +75,7 @@ const SelectBackgroundHex: FC = () => {
     <h2 className="relative flex flex-row justify-center items-center gap-2 text-center border-b-2 pb-1">
       {title}
       <span className="group text-white hover:text-tertiary-400">
-        <i className="fa fa-question-circle-o" />
+        <Icon icon="mdi:question-mark-circle-outline" />
         <Tooltip className="text-left font-medium text-base bottom-0 translate-y-full left-1/2 -translate-x-1/2">
           <span className="text-lg underline">{'How to have transparent tiles\n'}</span>
           1. Select <span className="text-tertiary-600">{containers[1].title}</span>

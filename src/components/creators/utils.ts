@@ -75,7 +75,7 @@ export const sortCreators = (a: [string, CreatorData], b: [string, CreatorData])
   return fallbackSort;
 };
 
-export const fetchPicture = async (url: string, regExp: RegExp): Promise<string | null> => {
+const fetchPicture = async (url: string, regExp: RegExp): Promise<string | null> => {
   try {
     if (!url) {
       throw new Error('No URL provided');

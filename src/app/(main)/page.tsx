@@ -49,8 +49,20 @@ const Index: FC = () => (
           </div>
           <div className="inset-secondary flex flex-col items-center w-full gap-2 whitespace-normal">
             <p>
-              We hit the monthly limit on free page views for our icon library. Please bear with the issue as we look
-              towards alternatives.
+              {'We are currently experimenting with additional teams and settings for '}
+              <Link href="/editor" className="input-link inline">
+                YapBuilder
+              </Link>
+            </p>
+            <p>
+              {'\nPlease submit feedback or report issues to '}
+              <Link
+                href="https://discord.com/channels/1332082220013322240/1332814583781523529"
+                className="input-link inline"
+              >
+                #feature-requests
+              </Link>
+              {' on Discord!'}
             </p>
           </div>
         </div>

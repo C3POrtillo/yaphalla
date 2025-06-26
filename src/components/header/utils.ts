@@ -29,12 +29,12 @@ const formSlugs = new Set(['/paragon-form']);
 
 const staticSlugs: Record<string, string> = {
   Other: 'fa6-solid:list',
-  Communities: 'mdi:user-group',
+  Communities: 'heroicons:user-group-16-solid',
   '/creators': 'mdi:tv-classic',
   '/auto-player': 'fa6-solid:robot',
   'https://afk-journey.fandom.com': 'fa-solid:book',
-  '/heroes': 'fa6-solid:user',
-  '/bosses': 'fa6-solid:skull',
+  '/heroes': 'heroicons:user-16-solid',
+  '/bosses': 'fa6-solid:book-skull',
 };
 
 const staticSets = (href: string) => {
@@ -54,7 +54,7 @@ const matchRegExp = (href: string) => {
     return 'fa6-solid:sailboat';
   }
   if (href.match(/^\/editor(?:\/|$)/)) {
-    return 'fa6-solid:wrench';
+    return 'mynaui:wrench-solid';
   }
 };
 

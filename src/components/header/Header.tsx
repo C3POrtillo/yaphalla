@@ -139,7 +139,7 @@ const Header: FC = () => {
           className="header"
           label={<LogoLink />}
           hierarchy="tertiary"
-          icon="bars"
+          icon="menu"
           ariaLabel="Toggle Navigation Menu"
           labelIsClickable={false}
         >

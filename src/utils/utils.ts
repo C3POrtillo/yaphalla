@@ -120,7 +120,6 @@ export const internalLinkFilter = ({ href }: { href?: string }) => href === unde
 export const getHref = ({ href }: { href?: string }) => href;
 
 export const brandIcon = (string: string) => `fa6-brands:${string}` as const;
-export const solidIcon = (string: string) => `fa-solid fa-${string}` as const;
 
 export const generateCookie = (key: string, value: string, age: number = 31536000) =>
   `${key}=${value}; path=/; max-age=${age}` as Cookie;

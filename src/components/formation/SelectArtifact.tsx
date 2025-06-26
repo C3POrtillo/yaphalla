@@ -10,7 +10,8 @@ import { getArtifacts } from '@/components/formation/utils';
 import HexImage from '@/components/hex-tiles/HexImage';
 import { getArtifactPath } from '@/components/hex-tiles/utils';
 import Button from '@/components/inputs/button/Button';
-import { Artifacts } from '@/utils/types';
+import { Artifacts, CurrentSeason } from '@/utils/types';
+import { compareStrings } from '@/utils/utils';
 
 const SelectArtifact: FC = () => {
   const [tab, setTab] = useState<number>(0);
@@ -63,7 +64,7 @@ const SelectArtifact: FC = () => {
   return (
     <>
       <div className="container-primary w-full flex flex-col gap-2 sm:hidden">
-        {Object.entries(Artifacts).map(([label, artifacts]) => (
+        {Object.entries(Artifacts).filter(([label]) => [CurrentSeason, 'Pre-Season', 'Honor Duel'].some(key => !compareStrings(key, label))).map(([label, artifacts]) => (
           <div key={label} className="relative h-10 w-full">
             <Accordion label={`${label.includes('Season ') ? 'Seasonal' : label} Artifacts`} keepOpen={false}>
               <div className="scroll-bar-left scroll-bar-auto inset-secondary !rounded-t-none flex flex-col p-2 gap-1 max-h-[360px] overflow-auto z-100">

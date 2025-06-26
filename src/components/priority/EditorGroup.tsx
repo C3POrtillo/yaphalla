@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 
-import type { FC } from 'react';
+import type { DragEvent, FC } from 'react';
 
 import { exclusionClasses } from '@/components/export-image/types';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
@@ -20,7 +20,8 @@ interface EditorGroupProps {
 }
 
 const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty, isDev }) => {
-  const { units, currentTile, getTileImage, updateUnit } = usePriority();
+  const { units, currentTile, getTileImage, updateUnit, handleDragOver, handleDrop, handleInternalDragStart } =
+    usePriority();
   const [count, setCount] = useState<string>('10');
   const [label, setLabel] = useState<string>('');
   const [offset, setOffset] = useState<boolean>(true);
@@ -102,6 +103,10 @@ const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty, isDev 
                       selected={!!currentTile && !compareStrings(thisTile, currentTile)}
                       hideImage={hideEmpty && isEmpty}
                       onClick={() => updateUnit(thisTile)}
+                      draggable={!isEmpty}
+                      onDragStart={(e: DragEvent<HTMLButtonElement>) => handleInternalDragStart(e, thisTile, src)}
+                      onDragOver={handleDragOver}
+                      onDrop={(e: DragEvent<HTMLButtonElement>) => handleDrop(e, thisTile)}
                     />
                   </div>
                 );

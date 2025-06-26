@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react';
 
 import type { TileData } from '@/components/formation/types';
 import type { Talents } from '@/utils/types';
-import type { FC } from 'react';
+import type { DragEvent, FC } from 'react';
 
 import ButtonArtifact from '@/components/formation/ButtonArtifact';
 import EditorClearButtons from '@/components/formation/EditorClearButtons';
@@ -127,6 +127,8 @@ const EditorArena: FC<EditorArena> = ({
     return { disableGrid, disableEnemy, disabled };
   };
 
+  const { handleDragOver, handleInternalDragStart, handleDrop } = useFormation();
+
   const tileDivs = formattedTiles.map(({ tiles, offset, reverse }, row) => {
     if (shouldHideRow(row)) {
       return null;
@@ -180,6 +182,10 @@ const EditorArena: FC<EditorArena> = ({
               onClick={() => {
                 onClick(tile);
               }}
+              draggable={!disabled && showUnit}
+              onDragStart={showUnit ? e => handleInternalDragStart(e, tile) : undefined}
+              onDragOver={handleDragOver}
+              onDrop={(e: DragEvent<HTMLButtonElement>) => handleDrop(e, tile)}
             />
           );
         })}

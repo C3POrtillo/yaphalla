@@ -25,6 +25,7 @@ export interface HexImageProps {
   size?: 'md' | 'sm' | 'xs' | '2xs';
   tooltip?: ReactNode;
   exportIgnore?: boolean;
+  draggable?: boolean;
 }
 
 const HexImage: FC<HexImageProps> = ({
@@ -43,6 +44,7 @@ const HexImage: FC<HexImageProps> = ({
   tooltip,
   forceOutline,
   exportIgnore,
+  draggable = false,
 }) => {
   const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
     imageSrc,
@@ -80,6 +82,9 @@ const HexImage: FC<HexImageProps> = ({
         !disabled && 'hex-overlay',
         disabledOverlay && 'disabled-overlay',
         getSizeClass(size),
+        draggable && 'transition-all duration-150 ease-out',
+        draggable && 'hover:scale-105 hover:z-[1] hover:cursor-grab hover:brightness-110',
+        draggable && 'active:scale-100 active:z-[1] active:cursor-grabbing',
       )}
     >
       {!hideLabel && label && (

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import type { HeroGridProps } from '@/components/hero-grid/HeroGrid';
 import type { UnitDivData } from '@/components/hero-grid/types';
 import type { Faction, HeroClass } from '@/utils/types';
-import type { FC } from 'react';
+import type { DragEvent, FC } from 'react';
 
 import { filterHero } from '@/components/hero-filter/utils';
 import HeroTooltip from '@/components/hero-grid/HeroTooltip';
@@ -42,6 +42,11 @@ const HeroButtons: FC<HeroButtonProps> = ({
     [regexClass, regexFaction, regexSearch],
   );
 
+  const handleDragStart = (e: DragEvent<HTMLButtonElement>, hero: string, sameUnit: boolean) => {
+    e.dataTransfer.setData('application/hero', JSON.stringify({ hero, sameUnit }));
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
   return formattedUnits.map(({ offset, tiles }, i) => (
     <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>
       {tiles.map(heroData => {
@@ -61,12 +66,15 @@ const HeroButtons: FC<HeroButtonProps> = ({
             key={hero}
             src={hero}
             ariaLabel={hero}
+            selected={sameUnit}
             path={path}
             size="sm"
             disabled={disabled}
             disabledOverlay={!isValid || inAllUnits || sameUnit}
             tooltip={<HeroTooltip {...heroData} />}
             onClick={() => onClick(hero, sameUnit)}
+            draggable={isValid && !inAllUnits}
+            onDragStart={e => handleDragStart(e, hero, sameUnit)}
           />
         );
       })}

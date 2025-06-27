@@ -107,9 +107,11 @@ export const PriorityProvider: FC<PropsWithChildren> = ({ children }) => {
             const targetHero = newUnits[index];
             newUnits[sourceIndex] = targetHero;
             newUnits[index] = hero;
+            setCurrentTile(undefined);
           } else {
             delete newUnits[sourceIndex];
             newUnits[index] = hero;
+            setCurrentTile(undefined);
           }
 
           return newUnits;
@@ -125,6 +127,7 @@ export const PriorityProvider: FC<PropsWithChildren> = ({ children }) => {
         setUnits(prevUnits => {
           const newUnits = { ...prevUnits };
           newUnits[index] = hero;
+          setCurrentTile(undefined);
 
           return newUnits;
         });

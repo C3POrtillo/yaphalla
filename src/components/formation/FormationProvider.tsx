@@ -258,9 +258,11 @@ export const FormationProvider: FC<FormationProviderProps> = ({
               const destHero = newUnits[tile.index];
               newUnits[sourceIndex] = destHero;
               newUnits[tile.index] = { unit: hero, type: tile.state };
+              setCurrentTile(undefined);
             } else {
               delete newUnits[sourceIndex];
               newUnits[tile.index] = { unit: hero, type: tile.state };
+              setCurrentTile(undefined);
             }
 
             return newUnits;
@@ -282,13 +284,14 @@ export const FormationProvider: FC<FormationProviderProps> = ({
           const newUnits = { ...prev };
           if (sameUnit) {
             delete newUnits[tile.index];
+            setCurrentTile(undefined);
           } else {
             newUnits[tile.index] = { unit: hero, type: tile.state };
+            setCurrentTile(undefined);
           }
 
           return newUnits;
         });
-        setCurrentTile(undefined);
       } catch (error) {
         console.error('Error handling drop:', error);
       }

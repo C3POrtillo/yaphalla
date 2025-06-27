@@ -1,11 +1,10 @@
 import Image from 'next/image';
 
 import type { BaseHexes, ImagePath } from '@/utils/types';
-import type { FC, ReactNode } from 'react';
+import type { FC } from 'react';
 
 import { exclusionClasses } from '@/components/export-image/types';
 import { getPath, getSizeClass } from '@/components/hex-tiles/utils';
-import Tooltip from '@/components/tooltip/Tooltip';
 import { HexPath, LogoRegExp } from '@/utils/types';
 import { compareStrings, joinStrings, testRegExp } from '@/utils/utils';
 
@@ -23,7 +22,6 @@ export interface HexImageProps {
   isTalent?: boolean;
   forceOutline?: BaseHexes | false;
   size?: 'md' | 'sm' | 'xs' | '2xs';
-  tooltip?: ReactNode;
   exportIgnore?: boolean;
   draggable?: boolean;
 }
@@ -41,7 +39,6 @@ const HexImage: FC<HexImageProps> = ({
   isSwap,
   isTalent,
   size = 'md',
-  tooltip,
   forceOutline,
   exportIgnore,
   draggable = false,
@@ -78,7 +75,7 @@ const HexImage: FC<HexImageProps> = ({
   return (
     <div
       className={joinStrings(
-        'hex-icon relative group flex flex-row justify-center',
+        'hex-icon relative',
         !disabled && 'hex-overlay',
         disabledOverlay && 'disabled-overlay',
         getSizeClass(size),
@@ -100,11 +97,6 @@ const HexImage: FC<HexImageProps> = ({
           zIndex={layer ? `z-${layer}` : undefined}
         />
       ))}
-      {tooltip && (
-        <Tooltip className="text-xs bottom-0 translate-y-2/3" preWrapText={false}>
-          {tooltip}
-        </Tooltip>
-      )}
     </div>
   );
 };

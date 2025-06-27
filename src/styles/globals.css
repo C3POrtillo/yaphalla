@@ -121,6 +121,19 @@
     @apply h-12;
     aspect-ratio: 1735 / 577;
   }
+  .hex-button {
+    clip-path: polygon(
+      50% 0%,    /* top center */
+      100% 25%,  /* top right */
+      100% 75%,  /* bottom right */
+      50% 100%,  /* bottom center */
+      0% 75%,    /* bottom left */
+      0% 25%     /* top left */
+    );
+    -webkit-clip-path: polygon(
+      50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%
+    );
+  }
   .hex-icon {
     aspect-ratio: 18 / 20;
   }

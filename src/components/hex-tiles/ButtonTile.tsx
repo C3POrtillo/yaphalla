@@ -50,8 +50,8 @@ const ButtonTile: FC<ButtonTileProps> = ({
 
     requestAnimationFrame(() => {
       document.body.removeChild(clone);
-    })
-  }
+    });
+  };
 
   const handleDragOver = (e: DragEvent<HTMLButtonElement>) => {
     if (onDragOver) {
@@ -73,7 +73,7 @@ const ButtonTile: FC<ButtonTileProps> = ({
   };
 
   return (
-    <div className='flex flex-row justify-center relative group'>
+    <div className="flex flex-row justify-center relative group">
       <button
         ref={ref}
         className={joinStrings(

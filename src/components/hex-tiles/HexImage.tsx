@@ -1,10 +1,11 @@
 import Image from 'next/image';
 
 import type { BaseHexes, ImagePath } from '@/utils/types';
-import type { FC } from 'react';
+import type { FC, ReactNode } from 'react';
 
 import { exclusionClasses } from '@/components/export-image/types';
 import { getPath, getSizeClass } from '@/components/hex-tiles/utils';
+import Tooltip from '@/components/tooltip/Tooltip';
 import { HexPath, LogoRegExp } from '@/utils/types';
 import { compareStrings, joinStrings, testRegExp } from '@/utils/utils';
 
@@ -23,6 +24,7 @@ export interface HexImageProps {
   forceOutline?: BaseHexes | false;
   size?: 'md' | 'sm' | 'xs' | '2xs';
   exportIgnore?: boolean;
+  tooltip?: ReactNode;
   draggable?: boolean;
 }
 
@@ -41,7 +43,8 @@ const HexImage: FC<HexImageProps> = ({
   size = 'md',
   forceOutline,
   exportIgnore,
-  draggable = false,
+  tooltip,
+  draggable,
 }) => {
   const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
     imageSrc,
@@ -75,13 +78,13 @@ const HexImage: FC<HexImageProps> = ({
   return (
     <div
       className={joinStrings(
-        'hex-icon relative',
-        !disabled && 'hex-overlay',
+        'hex-icon relative group',
+        (!disabled || draggable) && 'hex-overlay',
         disabledOverlay && 'disabled-overlay',
         getSizeClass(size),
         draggable && 'transition-all duration-150 ease-out',
-        draggable && 'hover:scale-105 hover:z-[1] hover:cursor-grab hover:brightness-110',
-        draggable && 'active:scale-100 active:z-[1] active:cursor-grabbing',
+        draggable && 'hover:z-[1] hover:cursor-grab',
+        draggable && 'active:z-[1] active:cursor-grabbing',
       )}
     >
       {!hideLabel && label && (
@@ -97,6 +100,11 @@ const HexImage: FC<HexImageProps> = ({
           zIndex={layer ? `z-${layer}` : undefined}
         />
       ))}
+      {tooltip && (
+        <Tooltip className="text-xs bottom-0 translate-y-2/3" preWrapText={false}>
+          {tooltip}
+        </Tooltip>
+      )}
     </div>
   );
 };

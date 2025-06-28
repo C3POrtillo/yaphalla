@@ -69,6 +69,7 @@ export const PriorityProvider: FC<PropsWithChildren> = ({ children }) => {
   const handleDragOver = useCallback((e: DragEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
+    setCurrentTile(undefined);
   }, []);
 
   const handleInternalDragStart = useCallback((e: DragEvent<HTMLButtonElement>, index: string, unit: string) => {

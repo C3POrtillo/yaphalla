@@ -11,7 +11,7 @@ interface TooltipProps extends PropsWithChildren {
 const Tooltip: FC<TooltipProps> = ({ className, pointerEvents = false, preWrapText = true, children }) => (
   <div
     className={joinStrings(
-      'container-primary !p-1 hidden absolute w-fit z-10 !text-white group-hover:block group-active:block',
+      'container-primary !p-1 hidden absolute w-fit z-10 !text-white group-hover:block group-active:block peer-hover:block peer-active:block',
       preWrapText && 'whitespace-pre',
       !pointerEvents && 'pointer-events-none',
       className,

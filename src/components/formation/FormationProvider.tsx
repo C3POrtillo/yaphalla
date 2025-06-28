@@ -213,6 +213,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
   const handleDragOver = useCallback((e: DragEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
+    setCurrentTile(undefined);
   }, []);
 
   const handleInternalDragStart = useCallback(

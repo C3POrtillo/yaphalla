@@ -29,6 +29,7 @@ const ButtonTile: FC<ButtonTileProps> = ({
   onDrop,
   className,
   tooltip,
+  selected,
   ...props
 }) => {
   const ref = useRef<HTMLButtonElement>(null);
@@ -73,15 +74,13 @@ const ButtonTile: FC<ButtonTileProps> = ({
   };
 
   return (
-    <div className="flex flex-row justify-center relative group">
+    <div className="flex justify-center relative pointer-events-none">
       <button
         ref={ref}
         className={joinStrings(
-          'hex-button cursor-pointer disabled:cursor-auto',
-          isDragOver
-            ? 'scale-105 brightness-125 transition-transform duration-150 ease-out'
-            : 'transition-all duration-200',
-          draggable ? 'transition-all duration-150 ease-out' : 'transition-all duration-200',
+          'hex-button cursor-pointer peer pointer-events-auto disabled:cursor-auto ',
+          isDragOver && 'scale-105',
+          draggable && 'hover:scale-105',
           className,
         )}
         onClick={onClick}
@@ -94,10 +93,10 @@ const ButtonTile: FC<ButtonTileProps> = ({
         onDrop={handleDrop}
         onDragEnd={() => setIsDragOver(false)}
       >
-        <HexImage disabled={disabled} draggable={draggable} {...props} />
+        <HexImage disabled={disabled} draggable={draggable} selected={selected || isDragOver} {...props} />
       </button>
       {tooltip && (
-        <Tooltip className="text-xs bottom-0 translate-y-2/3" preWrapText={false}>
+        <Tooltip className="text-xs bottom-0 translate-y-2/3 text-center" preWrapText={false}>
           {tooltip}
         </Tooltip>
       )}

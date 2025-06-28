@@ -1,4 +1,5 @@
 import type { ImagePath } from '@/utils/types';
+import type { DragEvent } from 'react';
 
 import {
   ArtifactHexSet,
@@ -89,4 +90,26 @@ export const getPath = (unit: string): ImagePath => {
   }
 
   return getUnitPath(unit);
+};
+
+export const createDragClone = (e: DragEvent<HTMLButtonElement>, options?: { width: `${number}rem` }) => {
+  const clone = (e.currentTarget.cloneNode(true) as HTMLElement).querySelector('.hex-icon') as HTMLElement;
+  clone.querySelectorAll('.drag-ignore').forEach(el => {
+    el.remove();
+  });
+  clone.style.position = 'absolute';
+  clone.style.top = '-9999px';
+  clone.style.left = '-9999px';
+  clone.style.zIndex = '9999';
+  if (options) {
+    clone.style.minWidth = options?.width;
+    clone.style.maxWidth = options?.width;
+  }
+  document.body.appendChild(clone);
+
+  e.dataTransfer.setDragImage(clone, clone.offsetWidth / 2, clone.offsetHeight / 2);
+
+  requestAnimationFrame(() => {
+    document.body.removeChild(clone);
+  });
 };

@@ -5,6 +5,7 @@ import type { HexImageProps } from '@/components/hex-tiles/HexImage';
 import type { DragEvent, FC, ReactNode } from 'react';
 
 import HexImage from '@/components/hex-tiles/HexImage';
+import { createDragClone } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { joinStrings } from '@/utils/utils';
 
@@ -20,6 +21,7 @@ interface ButtonTileProps extends HexImageProps {
 }
 
 const ButtonTile: FC<ButtonTileProps> = ({
+  src,
   ariaLabel,
   disabled,
   onClick,
@@ -29,7 +31,6 @@ const ButtonTile: FC<ButtonTileProps> = ({
   onDrop,
   className,
   tooltip,
-  selected,
   ...props
 }) => {
   const ref = useRef<HTMLButtonElement>(null);
@@ -40,32 +41,28 @@ const ButtonTile: FC<ButtonTileProps> = ({
       onDragStart(e);
     }
 
-    const clone = e.currentTarget.cloneNode(true) as HTMLElement;
-    clone.style.position = 'absolute';
-    clone.style.top = '-9999px';
-    clone.style.left = '-9999px';
-    clone.style.zIndex = '9999';
-    document.body.appendChild(clone);
-
-    e.dataTransfer.setDragImage(clone, clone.offsetWidth / 2, clone.offsetHeight / 2);
-
-    requestAnimationFrame(() => {
-      document.body.removeChild(clone);
-    });
+    createDragClone(e, { width: '4rem' });
   };
 
   const handleDragOver = (e: DragEvent<HTMLButtonElement>) => {
     if (onDragOver) {
       onDragOver(e);
     }
-    if (!disabled) {
+
+    const types = e.dataTransfer.types;
+
+    const isValid = types.includes('application/arena-hero') || types.includes('application/hero');
+    if (!disabled && isValid) {
       setIsDragOver(true);
+    } else {
+      setIsDragOver(false);
     }
   };
 
   const handleDragLeave = () => {
     setIsDragOver(false);
   };
+
   const handleDrop = (e: DragEvent<HTMLButtonElement>) => {
     if (onDrop) {
       onDrop(e);
@@ -79,7 +76,7 @@ const ButtonTile: FC<ButtonTileProps> = ({
         ref={ref}
         className={joinStrings(
           'hex-button cursor-pointer peer pointer-events-auto disabled:cursor-auto ',
-          isDragOver && 'scale-105',
+          isDragOver && 'drag-overlay scale-105',
           draggable && 'hover:scale-105',
           className,
         )}
@@ -91,9 +88,9 @@ const ButtonTile: FC<ButtonTileProps> = ({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        onDragEnd={() => setIsDragOver(false)}
+        onDragEnd={handleDragLeave}
       >
-        <HexImage disabled={disabled} draggable={draggable} selected={selected || isDragOver} {...props} />
+        <HexImage src={src} disabled={disabled} draggable={draggable} {...props} />
       </button>
       {tooltip && (
         <Tooltip className="text-xs bottom-0 translate-y-2/3 text-center" preWrapText={false}>

@@ -44,7 +44,7 @@ const HexImage: FC<HexImageProps> = ({
   forceOutline,
   exportIgnore,
   tooltip,
-  draggable,
+  draggable = false,
 }) => {
   const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
     imageSrc,
@@ -95,7 +95,7 @@ const HexImage: FC<HexImageProps> = ({
       {assetSrcs.map((imageSrc, layer) => (
         <Asset
           key={`${imageSrc}-${layer}`}
-          className={exportIgnore ? exclusionClasses[0] : undefined}
+          className={joinStrings(exportIgnore && exclusionClasses[0], layer > 0 && 'drag-ignore')}
           imageSrc={imageSrc}
           zIndex={layer ? `z-${layer}` : undefined}
         />

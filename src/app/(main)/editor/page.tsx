@@ -1,4 +1,5 @@
 'use client';
+import { Icon } from '@iconify/react/dist/iconify.js';
 import { useState } from 'react';
 
 import type { UnitFormationData } from '@/components/formation/types';
@@ -9,6 +10,7 @@ import FormationEditor from '@/components/formation/FormationEditor';
 import { FormationProvider } from '@/components/formation/FormationProvider';
 import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';
+import { ArtifactSet } from '@/utils/types';
 
 const maxTeams = 15;
 
@@ -28,17 +30,35 @@ const Index: FC = () => {
     <>
       <Container>
         <div className="container-primary flex flex-col gap-2 items-center xl:w-fit">
-          <Toggle
-            variant="switch"
-            value="sidebar-background"
-            activeLabel="Check Duplicates"
-            onChange={e => {
-              setUnique(e.target.checked);
-            }}
-            defaultChecked={unique}
-            tooltip={<p className="text-sm">Check for duplicate heroes across all teams</p>}
-            solidTooltip={true}
-          />
+          <div className="flex flex-row gap-2 w-full justify-center">
+            <Toggle
+              variant="switch"
+              value="sidebar-background"
+              activeLabel="Check ALL Duplicates"
+              onChange={e => {
+                setUnique(e.target.checked);
+              }}
+              defaultChecked={unique}
+              tooltip={<p className="text-sm">Check for duplicate heroes across all teams</p>}
+              solidTooltip={true}
+            />
+            <Button
+              className="inline-flex gap-1 justify-center items-center"
+              size="sm"
+              hierarchy="warning"
+              onClick={() => {
+                teamArray.forEach(([, setUnits]) => {
+                  setUnits(prevUnits =>
+                    Object.fromEntries(Object.entries(prevUnits).filter(([, data]) => ArtifactSet.has(data.unit))),
+                  );
+                });
+              }}
+            >
+              <Icon icon="tabler:user-x" className="size-6" />
+              {'Clear ALL Units'}
+            </Button>
+          </div>
+
           <div className="grid grid-cols-5 w-fit gap-2 xl:flex xl:flex-row xl:flex-wrap xl:items-center xl:justify-center">
             {teams.map((_, i) => (
               <>

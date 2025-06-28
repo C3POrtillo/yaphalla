@@ -1,12 +1,12 @@
 'use client';
 
 import type { CommunityLogos } from '@/components/hex-tiles/types';
-import type { FC } from 'react';
+import type { DragEvent, FC } from 'react';
 
 import { useFormation } from '@/components/formation/FormationProvider';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Logo from '@/components/hex-tiles/Logo';
-import { getArtifactPath } from '@/components/hex-tiles/utils';
+import { createDragClone, getArtifactPath } from '@/components/hex-tiles/utils';
 
 interface ButtonArtifactProps {
   index: number;
@@ -35,10 +35,18 @@ const ButtonArtifact: FC<ButtonArtifactProps> = ({
   const isArtifactDisabled = () => hideArtifacts || disableArtifacts || (hideEmptyArtifact && !artifact);
   const logoHex = <Logo logo={logo} hideLogo={hideLogo} />;
 
+  const handleDragStart = (e: DragEvent<HTMLButtonElement>) => {
+    createDragClone(e);
+  };
+
   return (
     <>
       {isReverse && logoHex}
-      <button className="cursor-pointer disabled:cursor-auto" onClick={() => setArtifact(index, artifact)}>
+      <button
+        className="cursor-pointer disabled:cursor-auto"
+        onClick={() => setArtifact(index, artifact)}
+        onDragStart={handleDragStart}
+      >
         <HexImage
           src={artifact || 'Artifact-Hex'}
           selected={currentArtifact === index && !hideArtifacts}

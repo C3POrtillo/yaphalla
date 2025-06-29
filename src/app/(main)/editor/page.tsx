@@ -32,8 +32,9 @@ const Index: FC = () => {
         <div className="container-primary flex flex-col gap-2 items-center xl:w-fit">
           <div className="flex flex-row gap-2 w-full justify-center">
             <Toggle
+              id=
               variant="switch"
-              value="sidebar-background"
+              value="all-duplicates"
               activeLabel="Check ALL Duplicates"
               onChange={e => {
                 setUnique(e.target.checked);

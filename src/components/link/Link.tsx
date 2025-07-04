@@ -15,6 +15,7 @@ interface LinkProps extends PathType, PropsWithChildren {
   disabled?: boolean;
   tooltip?: ReactNode;
   hideMobileTooltip?: boolean;
+  target?: '_blank' | '_self' | '_parent' | '_top';
 }
 
 const Link: FC<LinkProps> = ({ href, label, className, disabled, children, tooltip, hideMobileTooltip, ...props }) => {

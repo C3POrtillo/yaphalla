@@ -1,6 +1,6 @@
 import type { Damage, Faction, HeroClass, Tier } from '@/utils/types';
 
-type HeroInfo = {
+export type HeroInfo = {
   ID: number;
   Name: string;
   DamageType: Damage;

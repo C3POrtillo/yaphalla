@@ -102,7 +102,6 @@ const EditorSidebar: FC = () => {
     {
       label: 'Arena Presets',
       hierarchy: 'primary',
-      selected: subMenu === 0,
       onClick: () => {
         setSubMenu(0);
       },
@@ -110,7 +109,6 @@ const EditorSidebar: FC = () => {
     {
       label: 'Customize Player',
       hierarchy: 'primary',
-      selected: subMenu === 1,
       onClick: () => {
         setEditArena(false);
         setSubMenu(1);
@@ -199,8 +197,16 @@ const EditorSidebar: FC = () => {
 
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
       {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Menu Tab</h2>}
-      {subMenuProps.map(({ onClick, label, ...props }) => (
-        <Button key={label} className="w-full" size="sm" onClick={onClick} hasActiveBorder {...props}>
+      {subMenuProps.map(({ onClick, label, ...props }, i) => (
+        <Button
+          key={label}
+          className="w-full"
+          size="sm"
+          onClick={onClick}
+          selected={subMenu === i}
+          hasActiveBorder
+          {...props}
+        >
           {label}
         </Button>
       ))}

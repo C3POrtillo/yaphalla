@@ -53,7 +53,7 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, PlusArgs, prefix
         const hasPlusArg = !!(value && PlusArgs && getSkillStatValue(value, PlusArgs));
         push(
           preSpace,
-          <SkillStat key={`${i}-${value}`} args={Args} name={name} value={value} hasTrail={!hasPlusArg} />,
+          <SkillStat key={`${name}-${i}-${value}`} args={Args} name={name} value={value} hasTrail={!hasPlusArg} />,
         );
         if (hasPlusArg) {
           push(

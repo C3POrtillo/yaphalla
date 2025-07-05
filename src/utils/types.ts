@@ -33,6 +33,9 @@ export type Hero = {
   damage?: Damage;
 };
 
+export const Difficulties = ['Common', 'Hard', 'Epic', 'Hell', 'Endless'] as const;
+export type Difficulties = (typeof Difficulties)[number];
+
 // .replaceAll('.png', '').split(/\s\s+|\n/)
 export type ImagePath =
   | 'base'
@@ -360,24 +363,41 @@ export const HexHeroes = (() => {
   return formattedHeroes;
 })();
 
-export const Bosses = new Set([
+// Remove from Set as guides get uploaded
+const UnusedBosses = new Set([
   'Alpha Bear',
-  'Blightshroom',
-  'Crazed Shellbrute',
-  'Crystal Beetle',
-  'Glyphshade',
-  'Illucia',
   'King Croaker',
   'Lone Gaze',
   'Mirage Frostspike',
-  'Necrodrakon',
-  'Nocturne Judicator',
   'Novik',
   'Orson',
-  'Plague Creeper',
   'Setsahara',
-  'Sigmund',
   'Skyclops',
   'Snow Stomper',
-  'Thalassa',
+]);
+// Add Bosses to Set as guides begin to Exist
+export const DreamRealmBosses = {
+  'Season 4': new Set([
+    'Sigmund',
+    'Nocturne Judicator',
+    'Plague Creeper',
+    'Thalassa',
+    'Crystal Beetle',
+    'Illucia',
+    'Crazed Shellbrute',
+    'Necrodrakon',
+  ] as const),
+};
+
+export const PrimalLordBosses = new Set(['Blightshroom'] as const);
+
+export const RavagedRealmBosses = new Set([] as const);
+
+export const GuildSupremacyBosses = new Set(['Glyphshade'] as const);
+export const Bosses = new Set([
+  ...Object.values(DreamRealmBosses).flatMap(bosses => [...bosses]),
+  ...GuildSupremacyBosses,
+  ...PrimalLordBosses,
+  ...RavagedRealmBosses,
+  ...UnusedBosses,
 ]);

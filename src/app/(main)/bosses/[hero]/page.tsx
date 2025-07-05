@@ -4,9 +4,8 @@ import { connection } from 'next/server';
 import type { HeroPageProps } from '@/app/(main)/heroes/[hero]/layout';
 import type { FC } from 'react';
 
-import Container from '@/components/container/Container';
-import CardHero from '@/components/hero/CardHero';
-import HeroSkills from '@/components/hero/HeroSkills';
+import ClientBoss from '@/components/boss/ClientBoss';
+import { getGuideImages } from '@/components/boss/lib/getGuideImages';
 import { getHeroAllDetails } from '@/components/hero/utils';
 import { SortedHeroes } from '@/utils/types';
 
@@ -24,19 +23,9 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
     notFound();
   }
 
-  const { Info, Skills } = heroDetails;
-  const { Description, UnitRace, UnitJob, DamageType } = Info;
+  const guides = getGuideImages(hero);
 
-  return (
-    <>
-      <Container className="mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">
-        <CardHero hero={hero} description={Description} faction={UnitRace} heroClass={UnitJob} damage={DamageType} />
-      </Container>
-      <Container className="mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">
-        <HeroSkills hero={hero} skills={Skills} isNPC />
-      </Container>
-    </>
-  );
+  return <ClientBoss hero={hero} guides={guides} {...heroDetails} />;
 };
 
 export default Index;

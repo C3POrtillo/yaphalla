@@ -7,7 +7,7 @@ import type { ReactNode } from 'react';
 
 import { IconMap } from '@/components/hero/types';
 import { BossPaths, HeroPaths, UnitOverride } from '@/utils/pathsHeroes';
-import { Damage, Faction, HeroClass, HeroSet, Tier } from '@/utils/types';
+import { Damage, Difficulties, Faction, HeroClass, HeroSet, Tier } from '@/utils/types';
 import { cleanString, compareStrings } from '@/utils/utils';
 
 export const getDetailIconSize = (size: InputSizeTypes) => {
@@ -20,6 +20,9 @@ export const getDetailIconSize = (size: InputSizeTypes) => {
 };
 
 const getDetailPath = (src: string) => {
+  if (Difficulties.includes(src as Difficulties)) {
+    return 'difficulty';
+  }
   if (Damage.includes(src as Damage)) {
     return 'damage';
   }

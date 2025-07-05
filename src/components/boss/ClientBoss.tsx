@@ -1,4 +1,6 @@
 'use client';
+import { useEffect, useState } from 'react';
+
 import type { HeroJSON } from '@/components/hero/types';
 import type { FC } from 'react';
 
@@ -10,10 +12,19 @@ export interface ClientBossProps extends HeroJSON {
   guides: Record<string, string[]>;
 }
 
-const ClientBoss: FC<ClientBossProps> = ({ hero, guides, ...props }) => (
-  <BossProvider boss={hero} guides={guides}>
-    <PageBoss hero={hero} {...props} />
-  </BossProvider>
-);
+const ClientBoss: FC<ClientBossProps> = ({ hero, guides, ...props }) => {
+  const [hasGuidesHash, setHasGuidesHash] = useState(false);
+
+  useEffect(() => {
+    const hash = window.location.hash;
+    setHasGuidesHash(hash.toLowerCase() === '#guides');
+  }, []);
+
+  return (
+    <BossProvider boss={hero} guides={guides} initialTab={hasGuidesHash ? 1 : 0}>
+      <PageBoss hero={hero} {...props} />
+    </BossProvider>
+  );
+};
 
 export default ClientBoss;

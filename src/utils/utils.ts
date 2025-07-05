@@ -116,6 +116,8 @@ export const testRegExp = (str: string, regExp?: RegExp | false) =>
 export const isDevMode = (searchParams: ReadonlyURLSearchParams) =>
   !compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev');
 
+export const getParamTab = (searchParams: ReadonlyURLSearchParams) => searchParams.get('tab')?.toLocaleLowerCase();
+
 export const internalLinkFilter = ({ href }: { href?: string }) => href === undefined || href[0] === '/';
 export const getHref = ({ href }: { href?: string }) => href;
 

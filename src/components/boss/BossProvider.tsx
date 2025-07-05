@@ -7,6 +7,7 @@ import { CurrentSeason } from '@/utils/types';
 interface BossProviderProps extends PropsWithChildren {
   boss: string;
   guides: Record<string, string[]>;
+  initialTab?: number;
 }
 
 interface BossContextType {
@@ -20,8 +21,8 @@ interface BossContextType {
 
 const BossContext = createContext<BossContextType | undefined>(undefined);
 
-export const BossProvider: FC<BossProviderProps> = ({ children, ...props }) => {
-  const [tab, setTab] = useState<number>(0);
+export const BossProvider: FC<BossProviderProps> = ({ children, initialTab, ...props }) => {
+  const [tab, setTab] = useState<number>(initialTab || 0);
   const [season, setSeason] = useState<string>(CurrentSeason);
 
   return (

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import type { HeroJSON } from '@/components/hero/types';
 import type { FC } from 'react';
@@ -14,9 +14,10 @@ export interface ClientBossProps extends HeroJSON {
 
 const ClientBoss: FC<ClientBossProps> = ({ hero, guides, ...props }) => {
   const initialTab = useMemo(() => {
-  if (typeof window === 'undefined') return 0; // SSR-safe default
-  return window.location.hash.toLowerCase() === '#guides' ? 1 : 0;
-}, []);
+    if (typeof window === 'undefined') {return 0;} // SSR-safe default
+    
+    return window.location.hash.toLowerCase() === '#guides' ? 1 : 0;
+  }, []);
 
   return (
     <BossProvider boss={hero} guides={guides} initialTab={initialTab}>

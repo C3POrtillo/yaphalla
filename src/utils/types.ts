@@ -33,6 +33,9 @@ export type Hero = {
   damage?: Damage;
 };
 
+export const Difficulties = ['Common', 'Hard', 'Epic', 'Hell', 'Endless'] as const;
+export type Difficulties = (typeof Difficulties)[number];
+
 // .replaceAll('.png', '').split(/\s\s+|\n/)
 export type ImagePath =
   | 'base'

@@ -23,7 +23,7 @@ const CardGuide: FC<CardGuideProps> = ({ src, ...props }) => (
       {Object.values(props).join(' - ')}
     </h2>
     <div className="relative size-64 group-hover:brightness-125">
-      <Image src={src} alt={src} fill={true} objectFit="cover" objectPosition='top left'/>
+      <Image src={src} alt={src} fill={true} objectFit="cover" objectPosition="top left" />
     </div>
   </Link>
 );

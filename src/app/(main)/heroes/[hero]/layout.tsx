@@ -22,15 +22,13 @@ export const generateMetadata = async ({ params }: HeroPageProps): Promise<Metad
 
   const { Info } = heroDetails;
   const { DisplayTitle, Description } = Info;
-  const newMetadata = createMetadata(
+
+  return createMetadata(
     `${hero} | ${DisplayTitle}`,
     Description,
     'Yaphalla',
     `/assets/images/hexes/unit/${encodeURIComponent(hero)}.png`,
-  )
-  console.log(newMetadata)
-
-  return newMetadata;
+  );;
 };
 
 const Layout: FC<PropsWithChildren> = ({ children }) => <>{children}</>;

@@ -1,4 +1,4 @@
-import { Bosses, SortedHeroes } from '@/utils/types';
+import { BossesSet, SortedHeroes } from '@/utils/types';
 
 export const UnitOverride = {
   Smokey: 'Smokey & Meerky',
@@ -27,7 +27,7 @@ export const HeroPaths = [...HeroSet].map(unit => ({
   href: `/heroes/${encodeURIComponent(unit)}` as const,
 }));
 
-export const BossPaths = [...Bosses].map(unit => ({
+export const BossPaths = [...BossesSet].map(unit => ({
   label: unit,
   href: `/bosses/${encodeURIComponent(unit)}` as const,
 }));

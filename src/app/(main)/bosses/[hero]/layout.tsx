@@ -3,7 +3,8 @@ import type { FC, PropsWithChildren } from 'react';
 
 import { metadata } from '@/app/(main)/layout';
 import { getHeroAllDetails } from '@/components/hero/utils';
-import { createMetadata } from '@/utils/utils';
+import { BossesSet } from '@/utils/types';
+import { createMetadata, sanitizeUnit } from '@/utils/utils';
 
 export interface HeroPageProps {
   params: Promise<{
@@ -12,22 +13,17 @@ export interface HeroPageProps {
 }
 
 export const generateMetadata = async ({ params }: HeroPageProps): Promise<Metadata> => {
-  const hero = decodeURIComponent((await params).hero);
+  const hero = sanitizeUnit(decodeURIComponent((await params).hero));
   const heroDetails = await getHeroAllDetails(hero);
 
-  if (!heroDetails) {
+  if (!heroDetails || !BossesSet.has(hero)) {
     return metadata;
   }
 
   const { Info } = heroDetails;
   const { Description } = Info;
 
-  return createMetadata(
-    hero,
-    Description,
-    'Yaphalla',
-    `https://www.yaphalla.com/assets/images/hexes/boss/${encodeURIComponent(hero)}.png`,
-  );
+  return createMetadata(hero, Description, 'Yaphalla', `https://www.yaphalla.com/assets/images/hexes/boss/${hero}.png`);
 };
 
 const Layout: FC<PropsWithChildren> = ({ children }) => <>{children}</>;

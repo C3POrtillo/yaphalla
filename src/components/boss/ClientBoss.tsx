@@ -21,7 +21,7 @@ const ClientBoss: FC<ClientBossProps> = ({ hero, guides, ...props }) => {
   }, []);
 
   return (
-    <BossProvider boss={hero} guides={guides} initialTab={hasGuidesHash ? 1 : 0}>
+    <BossProvider boss={hero} guides={guides} initialTab={hasGuidesHash ? 1 : undefined}>
       <PageBoss hero={hero} {...props} />
     </BossProvider>
   );

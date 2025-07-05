@@ -22,7 +22,7 @@ interface BossContextType {
 const BossContext = createContext<BossContextType | undefined>(undefined);
 
 export const BossProvider: FC<BossProviderProps> = ({ children, initialTab, ...props }) => {
-  const [tab, setTab] = useState<number>(initialTab || 0);
+  const [tab, setTab] = useState<number>(initialTab ?? 0);
   const [season, setSeason] = useState<string>(CurrentSeason);
 
   return (

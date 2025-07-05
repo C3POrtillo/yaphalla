@@ -5,7 +5,7 @@ import {
   ArtifactHexSet,
   ArtifactSet,
   BaseSet,
-  Bosses,
+  BossesSet,
   CurrentSeason,
   FactionHexSet,
   HeroClass,
@@ -73,7 +73,7 @@ export const getUnitPath = (unit: string): ImagePath => {
   if (wildcardSet.has(unit.split(' ')[1])) {
     return 'unit/wildcard';
   }
-  if (Bosses.has(unit)) {
+  if (BossesSet.has(unit)) {
     return 'boss';
   }
 

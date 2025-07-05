@@ -394,7 +394,7 @@ export const PrimalLordBosses = new Set(['Blightshroom'] as const);
 export const RavagedRealmBosses = new Set([] as const);
 
 export const GuildSupremacyBosses = new Set(['Glyphshade'] as const);
-export const Bosses = new Set([
+export const BossesSet = new Set([
   ...Object.values(DreamRealmBosses).flatMap(bosses => [...bosses]),
   ...GuildSupremacyBosses,
   ...PrimalLordBosses,

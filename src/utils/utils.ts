@@ -1,3 +1,5 @@
+import { capitalize } from 'lodash';
+
 import type { Cookie } from '@/utils/siteTypes';
 import type { Metadata } from 'next';
 import type { ReadonlyURLSearchParams } from 'next/navigation';
@@ -134,3 +136,10 @@ export const getCookie = (key: string): string | undefined => {
 export const setCookie = (cookie: Cookie) => {
   document.cookie = cookie;
 };
+
+export const sanitizeUnit = (unit: string) =>
+  unit
+    .replaceAll('-', ' ')
+    .split(' ')
+    .map(word => capitalize(word))
+    .join(' ');

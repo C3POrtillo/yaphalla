@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { connection } from 'next/server';
 
 import type { HeroPageProps } from '@/app/(main)/heroes/[hero]/layout';
@@ -9,7 +9,8 @@ import CardHero from '@/components/hero/CardHero';
 import HeroSkills from '@/components/hero/HeroSkills';
 import HeroTales from '@/components/hero/HeroTales';
 import { getHeroAllDetails } from '@/components/hero/utils';
-import { HeroSet, SortedHeroes } from '@/utils/types';
+import { BossesSet, HeroSet, SortedHeroes } from '@/utils/types';
+import { compareStrings, sanitizeUnit } from '@/utils/utils';
 
 export const generateStaticParams = () =>
   SortedHeroes.map(({ hero }) => ({
@@ -19,6 +20,13 @@ export const generateStaticParams = () =>
 const Index: FC<HeroPageProps> = async ({ params }) => {
   await connection();
   const hero = decodeURIComponent((await params).hero);
+  const sanitizedUnit = sanitizeUnit(hero);
+  if (compareStrings(hero, sanitizedUnit)) {
+    redirect(`/heroes/${sanitizedUnit}`);
+  }
+  if (BossesSet.has(sanitizedUnit)) {
+    redirect(`/bosses/${sanitizedUnit}`);
+  }
   const heroDetails = await getHeroAllDetails(hero);
 
   if (!heroDetails || !HeroSet.has(hero)) {

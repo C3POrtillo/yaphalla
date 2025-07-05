@@ -4,7 +4,7 @@ import type { FC, PropsWithChildren } from 'react';
 import { metadata } from '@/app/(main)/layout';
 import { getHeroAllDetails } from '@/components/hero/utils';
 import { HeroSet } from '@/utils/types';
-import { createMetadata } from '@/utils/utils';
+import { createMetadata, sanitizeUnit } from '@/utils/utils';
 
 export interface HeroPageProps {
   params: Promise<{
@@ -13,7 +13,7 @@ export interface HeroPageProps {
 }
 
 export const generateMetadata = async ({ params }: HeroPageProps): Promise<Metadata> => {
-  const hero = decodeURIComponent((await params).hero);
+  const hero = sanitizeUnit(decodeURIComponent((await params).hero));
   const heroDetails = await getHeroAllDetails(hero);
 
   if (!heroDetails || !HeroSet.has(hero)) {
@@ -23,12 +23,7 @@ export const generateMetadata = async ({ params }: HeroPageProps): Promise<Metad
   const { Info } = heroDetails;
   const { DisplayTitle, Description } = Info;
 
-  return createMetadata(
-    `${hero} | ${DisplayTitle}`,
-    Description,
-    'Yaphalla',
-    `/assets/images/hexes/unit/${encodeURIComponent(hero)}.png`,
-  );;
+  return createMetadata(`${hero} | ${DisplayTitle}`, Description, 'Yaphalla', `/assets/images/hexes/unit/${hero}.png`);
 };
 
 const Layout: FC<PropsWithChildren> = ({ children }) => <>{children}</>;

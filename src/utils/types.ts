@@ -389,7 +389,7 @@ export const DreamRealmBosses = {
   ] as const),
 };
 
-export const PrimalLordBosses = new Set(['Blightshroom'] as const);
+export const PrimalLordBosses = new Set(['Magmazard', 'Blightshroom'] as const);
 
 export const RavagedRealmBosses = new Set([] as const);
 

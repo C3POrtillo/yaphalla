@@ -134,7 +134,7 @@ const Lightbearer = {
 } as ClassData;
 
 const Wilder = {
-  Tank: ['Granny Dahnie', 'Ulmus'],
+  Tank: ['Granny Dahnie', 'Thador', 'Ulmus'],
   Support: ['Damian', 'Hewynn', 'Lorsan', 'Velara'],
   Marksman: ['Bryon', 'Indris', 'Lyca'],
   Mage: ['Arden', 'Parisa', 'Tasi'],

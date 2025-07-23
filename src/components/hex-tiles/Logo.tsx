@@ -13,7 +13,7 @@ interface LogoProps {
 }
 
 const Logo: FC<LogoProps> = ({ logo = 'dog', hideLogo, size = 'md' }) => (
-  <div className={joinStrings('hex-icon relative', getSizeClass(size))}>
+  <div className={joinStrings('hex-button hex-icon relative', getSizeClass(size))}>
     {!hideLogo && (
       <Image
         src={`/assets/images/hexes/unit/Hex ${CommunityLogos[logo] || 'Yaphalla Dog'}.png`}

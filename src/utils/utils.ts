@@ -125,7 +125,7 @@ export const getHref = ({ href }: { href?: string }) => href;
 
 export const brandIcon = (string: string) => `fa6-brands:${string}` as const;
 
-export const generateCookie = (key: string, value: string, age: number = 31536000) =>
+export const generateCookie = (key: string, value: string | number, age: number = 31536000) =>
   `${key}=${value}; path=/; max-age=${age}` as Cookie;
 
 export const getCookie = (key: string): string | undefined => {

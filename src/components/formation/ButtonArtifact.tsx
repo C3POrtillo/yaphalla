@@ -43,7 +43,7 @@ const ButtonArtifact: FC<ButtonArtifactProps> = ({
     <>
       {isReverse && logoHex}
       <button
-        className="cursor-pointer disabled:cursor-auto"
+        className="hex-button cursor-pointer disabled:cursor-auto"
         onClick={() => setArtifact(index, artifact)}
         onDragStart={handleDragStart}
       >

@@ -88,7 +88,7 @@ const HexImage: FC<HexImageProps> = ({
       )}
     >
       {!hideLabel && label && (
-        <div className="absolute text-outline inset-0 z-10 flex size-full rotate-[30deg] items-center justify-center text-center text-3xl">
+        <div className="select-none absolute text-outline inset-0 z-10 flex size-full rotate-[30deg] items-center justify-center text-center text-3xl">
           {label}
         </div>
       )}

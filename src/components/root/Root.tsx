@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import '@/styles/globals.css';
 
 import type { FC, PropsWithChildren, ReactNode } from 'react';
@@ -32,6 +33,7 @@ const Root: FC<RootProps> = ({ head, children, hideBreadcrumbs }) => (
           <Footer />
           <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_auto] -z-10 opacity-20"></div>
           <Analytics />
+          <SpeedInsights />
         </main>
       </div>
     </body>

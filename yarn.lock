@@ -131,13 +131,6 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.1.tgz#9a96ce501bc62df46c4031fbd970e3cc6b10f07b"
   integrity sha512-c7hNEllBlenFTHBky65mhq8WD2kbN9Q6gk0bTk8lSBvc554jpXSkST1iePudpt7+A/AQvuHs9EMqjHDXMY1lrA==
 
-"@iconify-icon/react@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@iconify-icon/react/-/react-3.0.0.tgz#4fd19e7ecb6a5cc3b74f17f699ebbc5fbce339f9"
-  integrity sha512-TOyzGUIfOFbmRQflMbf8k8bBGbeVAVCnvJ/rKz2SgBOV6VZLv7E9gzLvkPzfkZ2HZL+GbRtLNX/GJq2EI54OFQ==
-  dependencies:
-    iconify-icon "^3.0.0"
-
 "@iconify/react@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@iconify/react/-/react-6.0.0.tgz#8e7ed943792746a0401cc49b9b4e9a5bd5f09b1a"
@@ -837,6 +830,11 @@
     "@neondatabase/serverless" "^0.9.3"
     bufferutil "^4.0.8"
     ws "^8.17.1"
+
+"@vercel/speed-insights@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@vercel/speed-insights/-/speed-insights-1.2.0.tgz#1656c3596d4ec02d93d301ca45944c1b9b245186"
+  integrity sha512-y9GVzrUJ2xmgtQlzFP2KhVRoCglwfRQgjyfY607aU0hh0Un6d0OUyrJkjuAlsV18qR4zfoFPs/BiIj9YDS6Wzw==
 
 abbrev@^2.0.0:
   version "2.0.0"
@@ -2213,13 +2211,6 @@ hyphenate-style-name@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/hyphenate-style-name/-/hyphenate-style-name-1.1.0.tgz#1797bf50369588b47b72ca6d5e65374607cf4436"
   integrity sha512-WDC/ui2VVRrz3jOVi+XtjqkDjiVjTtFaAGiW37k6b+ohyQ5wYDOGkvCZa8+H0nx3gyvv0+BST9xuOgIyGQ00gw==
-
-iconify-icon@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/iconify-icon/-/iconify-icon-3.0.0.tgz#7af27e97c9abac709a92380e387d1cea6bf1bf15"
-  integrity sha512-yPcnpkn8HUEUckrxxJBOer3jbGv3bqozHsLMLBRxhk3As1X76BgV2mS2a1HTNOIagR8nUs30H3qAd9GLe8Mnlg==
-  dependencies:
-    "@iconify/types" "^2.0.0"
 
 ignore@^5.2.0, ignore@^5.3.1:
   version "5.3.2"

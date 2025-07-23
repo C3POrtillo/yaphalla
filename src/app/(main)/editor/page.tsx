@@ -1,6 +1,6 @@
 'use client';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import type { UnitFormationData } from '@/components/formation/types';
 import type { Dispatch, FC, SetStateAction } from 'react';
@@ -8,13 +8,16 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import Container from '@/components/container/Container';
 import FormationEditor from '@/components/formation/FormationEditor';
 import { FormationProvider } from '@/components/formation/FormationProvider';
+import { generateCookies } from '@/components/formation/utils';
 import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';
 import { ArtifactSet } from '@/utils/types';
+import { compareStrings, getCookie, setCookie } from '@/utils/utils';
 
 const maxTeams = 15;
 
 const Index: FC = () => {
+  const [loaded, setLoaded] = useState<boolean>(false);
   const [teamIndex, setTeamIndex] = useState<number>(0);
   const [unique, setUnique] = useState<boolean>(false);
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -25,6 +28,52 @@ const Index: FC = () => {
 
   const teams = teamArray.map(([units, setUnits]) => ({ units, setUnits }));
   const allUnits = new Set(teams.flatMap(({ units }) => Object.values(units)).map(({ unit }) => unit));
+
+  useEffect(() => {
+    const loadCookies = async () => {
+      Object.entries({
+        unique: setUnique,
+        teamIndex: setTeamIndex,
+      }).forEach(([key, set]) => {
+        const cookie = getCookie(`yapbuilder-${key}`);
+        if (cookie) {
+          if (!compareStrings(cookie, 'undefined')) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            set(undefined as any);
+          } else if (!compareStrings(key, 'unique')) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            set(!!Number(cookie) as any);
+          } else if (cookie.match(/[0-9]+/)) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            set(Number(cookie) as any);
+          } else {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            set(cookie as any);
+          }
+        }
+      });
+      setLoaded(true);
+    };
+    loadCookies();
+  }, []);
+
+  useEffect(() => {
+    const saveCookies = async () => {
+      if (!loaded) {
+        return;
+      }
+      generateCookies(
+        {
+          unique,
+          teamIndex,
+        },
+        'yapbuilder',
+      ).forEach(cookie => {
+        setCookie(cookie);
+      });
+    };
+    saveCookies();
+  }, [unique, teamIndex]);
 
   return (
     <>
@@ -58,12 +107,10 @@ const Index: FC = () => {
               {'Clear ALL Units'}
             </Button>
           </div>
-
           <div className="grid grid-cols-5 w-fit gap-2 xl:flex xl:flex-row xl:flex-wrap xl:items-center xl:justify-center">
             {teams.map((_, i) => (
-              <>
+              <Fragment key={i}>
                 <Button
-                  key={i}
                   onClick={() => setTeamIndex(i)}
                   hierarchy="primary"
                   selected={teamIndex === i}
@@ -75,7 +122,7 @@ const Index: FC = () => {
                 {(i - 4) % 5 === 0 && i < maxTeams - 1 && (
                   <hr key={`${i}-divider`} className="hidden h-full border-x-1 border-primary-750 xl:block" />
                 )}
-              </>
+              </Fragment>
             ))}
           </div>
         </div>

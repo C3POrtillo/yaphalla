@@ -190,7 +190,7 @@ export const getArtifacts = (i: number) => {
   }
 };
 
-const parseValue = (value: boolean | string | undefined) => {
+const parseValue = (value: number | boolean | string | undefined) => {
   switch (typeof value) {
     case 'undefined':
       return 'undefined';
@@ -201,5 +201,7 @@ const parseValue = (value: boolean | string | undefined) => {
   }
 };
 
-export const generateCookies = (data: Record<string, boolean | string | BaseHexes | undefined>, id: number) =>
-  Object.entries(data).map(([key, value]) => generateCookie(`${id}-${key}`, parseValue(value)));
+export const generateCookies = (
+  data: Record<string, number | boolean | string | BaseHexes | undefined>,
+  id: number | string,
+) => Object.entries(data).map(([key, value]) => generateCookie(`${id}-${key}`, parseValue(value)));

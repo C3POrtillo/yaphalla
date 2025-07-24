@@ -22,12 +22,12 @@ export const HeroSet = (() => {
   return units;
 })();
 
-export const HeroPaths = [...HeroSet].map(unit => ({
+export const HeroPaths = Array.from(HeroSet, unit => ({
   label: unit,
   href: `/heroes/${encodeURIComponent(unit)}` as const,
 }));
 
-export const BossPaths = [...BossesSet].map(unit => ({
+export const BossPaths = Array.from(BossesSet, unit => ({
   label: unit,
   href: `/bosses/${encodeURIComponent(unit)}` as const,
 }));

@@ -274,7 +274,7 @@ export const DevHeroes = (() => {
   return formattedHeroes;
 })();
 
-export const ArtifactHeroes = [...ArtifactSet].map(artifact => ({
+export const ArtifactHeroes = Array.from(ArtifactSet, artifact => ({
   hero: artifact,
   faction: '',
   heroClass: '',
@@ -364,7 +364,7 @@ export const BaseSet = new Set<string>([
 ]);
 
 export const HexHeroes = (() => {
-  const formattedHeroes = [...BaseSet].map(hero => ({
+  const formattedHeroes = Array.from(BaseSet, hero => ({
     hero,
     faction: '',
     heroClass: '',

@@ -13,7 +13,7 @@ export interface HeroDetailProps extends PropsWithChildren {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const HeroDetail: FC<HeroDetailProps> = ({ hero, children, ...props }) => {
-  const details = [...Object.values(props)].map(src => !!src && <IconDetail key={src} src={src} />);
+  const details = Object.values(props).map(src => !!src && <IconDetail key={src} src={src} />);
 
   return (
     <div className="flex flex-row justify-between">

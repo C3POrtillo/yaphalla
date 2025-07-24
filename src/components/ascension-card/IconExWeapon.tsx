@@ -26,7 +26,6 @@ const IconExWeapon: FC<IconExWeaponProps> = ({ src, type, hasAlt, size, classNam
         alt={hasAlt ? src : ''}
         fill
         objectFit="cover"
-        objectPosition="top left"
       />
     </div>
   );

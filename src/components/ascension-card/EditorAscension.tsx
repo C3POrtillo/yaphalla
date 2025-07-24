@@ -1,6 +1,6 @@
 'use client';
 import type { CardAscensionProps } from '@/components/ascension-card/CardAscension';
-import type { HeroDetailProps } from '@/components/hero/HeroDetail';
+import type { Hero } from '@/utils/types';
 import type { FC } from 'react';
 
 import CardDeckAscension from '@/components/ascension-card/CardDeckAscension';
@@ -8,7 +8,7 @@ import CardDeckAscension from '@/components/ascension-card/CardDeckAscension';
 interface EditorAscensionProps extends CardAscensionProps {
   teams?: Set<string>[];
   hasLabel?: boolean;
-  heroes?: HeroDetailProps[];
+  heroes?: Hero[];
 }
 
 const EditorAscension: FC<EditorAscensionProps> = ({ teams, styleType, hasLabel, heroes }) => (

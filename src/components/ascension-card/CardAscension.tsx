@@ -11,9 +11,10 @@ import IconAscension from '@/components/ascension-card/IconAscension';
 import IconExWeapon from '@/components/ascension-card/IconExWeapon';
 import { AscensionCardType, CardIcons, ExWeapon } from '@/components/ascension-card/types';
 import ExportImage from '@/components/export-image/ExportImage';
+import IconDetail from '@/components/hero/IconDetail';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Dropdown from '@/components/inputs/dropdown/Dropdown';
-import { Ascension } from '@/utils/types';
+import { Ascension, UnitsByClass, UnitsByFaction } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
 export interface CardAscensionProps {
@@ -26,7 +27,8 @@ const CardAscension: FC<CardAscensionProps> = ({ styleType = 'container', cardCl
     useHeroData();
   const ascensionIsNone = !compareStrings(ascension, 'None');
   const exWeaponIsNone = !compareStrings(exWeapon, 'None');
-
+  const faction = UnitsByFaction[hero];
+  const heroClass = UnitsByClass[hero];
   const dropdowns = [
     {
       label: (
@@ -88,12 +90,19 @@ const CardAscension: FC<CardAscensionProps> = ({ styleType = 'container', cardCl
         cardClassName,
       )}
     >
-      <span className="flex flex-row items-center gap-2 border-b-2 border-tertiary-600 w-full items-center pb-2 mb-1">
-        <span className="inline-flex flex-row align-middle">
-          <HexImage src={hero} path="unit" size="xs" disabled />
-        </span>
-        <span className="text-lg">{hero}</span>
-      </span>
+      <div className="flex flex-row items-center gap-2 border-b-2 border-primary-750 w-full justify-between pb-2">
+        <div className="inline-flex items-center gap-2">
+          <span className="inline-flex flex-row align-middle">
+            <HexImage src={hero} path="unit" size="xs" disabled />
+          </span>
+          <h2 className="text-lg">{hero}</h2>
+        </div>
+
+        <div className="inline-flex align-base gap-2">
+          <IconDetail src={faction} />
+          <IconDetail src={heroClass} />
+        </div>
+      </div>
       <div className="flex flex-row gap-2 items-center grow">
         <div className="flex flex-col gap-1 min-w-40">
           {dropdowns.map(({ ...props }, i) => (

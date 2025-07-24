@@ -155,7 +155,7 @@ const Wilder = {
   Marksman: ['Bryon', 'Indris', 'Lyca'],
   Mage: ['Arden', 'Parisa', 'Tasi'],
   Rogue: ['Eironn', 'Faramor', 'Lenya', 'Lily May'],
-  Warrior: ['Florabelle', 'Kafra'],
+  Warrior: ['Florabelle', 'Kafra', 'Pang'],
 } as ClassData;
 
 const Mauler = {
@@ -164,7 +164,7 @@ const Mauler = {
   Marksman: ['Odie', 'Rhys'],
   Mage: ['Alsa', 'Satrana'],
   Rogue: ['Seth', 'Shakir', 'Soren'],
-  Warrior: ['Brutus', 'Kruger'],
+  Warrior: ['Brutus', 'Kruger', 'Zandrok'],
 } as ClassData;
 
 const Graveborn = {
@@ -190,13 +190,13 @@ const Hypogean = {
   Support: ['Reinier'],
   Marksman: ['Kulu'],
   Mage: ['Cryonaia'],
-  Rogue: ['Berial'],
+  Rogue: ['Berial', 'Saida'],
   Warrior: ['Harak'],
 } as ClassData;
 
 const Dimensional = {
   Tank: [],
-  Support: [],
+  Support: ['Pandora'],
   Marksman: [],
   Mage: ['Lucy'],
   Rogue: [],
@@ -286,12 +286,20 @@ export const ArtifactHeroes = Array.from(ArtifactSet, artifact => ({
   heroClass: '',
 })) as Hero[];
 
+export const UnitsByClass = Object.fromEntries(
+  [...SortedHeroes, ...OtherHeroes].map(({ hero, heroClass }) => [hero, heroClass as HeroClass]),
+);
+
 export const UnitsByFaction = Object.fromEntries(
-  [...SortedHeroes, ...OtherHeroes].map(({ hero: unit, faction }) => {
+  [...SortedHeroes, ...OtherHeroes].map(({ hero, faction }) => [hero, faction as Faction]),
+);
+
+export const UnitsByTalent = Object.fromEntries(
+  Object.entries(UnitsByFaction).map(([hero, faction]) => {
     const isCeleHypo = ['Celestial', 'Hypogean'].some(check => !compareStrings(faction || '', check));
     const factionName = isCeleHypo ? 'Celestial-Hypogean' : (faction as Talents);
 
-    return [unit, factionName];
+    return [hero, factionName];
   }),
 );
 

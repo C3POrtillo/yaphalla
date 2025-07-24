@@ -3,7 +3,7 @@ import Image from 'next/image';
 import type { Ascension } from '@/utils/types';
 import type { FC } from 'react';
 
-import { joinStrings } from '@/utils/utils';
+import { compareStrings, joinStrings } from '@/utils/utils';
 
 interface IconAscensionProps {
   src: Ascension;
@@ -11,16 +11,22 @@ interface IconAscensionProps {
   size: `w-${number | 'full'}` | `h-${number | 'full'}`;
 }
 
-const IconAscension: FC<IconAscensionProps> = ({ src, hasAlt, size }) => (
-  <div className={joinStrings('ascension-icon relative', size)}>
-    <Image
-      src={`/assets/images/ascension/icon/${src.toLowerCase()}.png`}
-      alt={hasAlt ? src : ''}
-      fill
-      objectFit="cover"
-      objectPosition="top left"
-    />
-  </div>
-);
+const IconAscension: FC<IconAscensionProps> = ({ src, hasAlt, size }) => {
+  if (!compareStrings(src, 'None')) {
+    return null;
+  }
+
+  return (
+    <div className={joinStrings('ascension-icon relative', size)}>
+      <Image
+        src={`/assets/images/ascension/icon/${src.toLowerCase()}.png`}
+        alt={hasAlt ? src : ''}
+        fill
+        objectFit="cover"
+        objectPosition="top left"
+      />
+    </div>
+  );
+};
 
 export default IconAscension;

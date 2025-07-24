@@ -1,6 +1,11 @@
 export const AscensionCardType = ['Hex', 'Card'] as const;
 export type AscensionCardType = (typeof AscensionCardType)[number];
-export const ExWeapon = ['+0', '+5', '+10', '+15', '+20', '+25'] as const;
+export const ExWeapon = [
+  'None',
+  ...Array(6)
+    .fill(null)
+    .map((_, i) => `+${25 - 5 * i}` as `+${number}`),
+] as const;
 export type ExWeapon = (typeof ExWeapon)[number];
 export type StyleTypes = 'container' | 'inset';
 export const FrameSet = new Set([

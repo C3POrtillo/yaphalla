@@ -24,11 +24,14 @@ export interface CardAscensionProps {
 const CardAscension: FC<CardAscensionProps> = ({ styleType = 'container', cardClassName }) => {
   const { hero, type, setType, ascension, setAscension, exWeapon, setExWeapon, isExport, setExport, exportId, hasEx } =
     useHeroData();
+  const ascensionIsNone = !compareStrings(ascension, 'None');
+  const exWeaponIsNone = !compareStrings(exWeapon, 'None');
+
   const dropdowns = [
     {
       label: (
         <span className="flex flex-row items-center gap-2">
-          <span key={type} className="flex w-4 justify-center">
+          <span key={type} className="flex w-3 justify-center">
             <Icon icon={CardIcons[type]} />
           </span>
           {type}
@@ -36,38 +39,42 @@ const CardAscension: FC<CardAscensionProps> = ({ styleType = 'container', cardCl
       ),
       options: AscensionCardType,
       optionIcons: AscensionCardType.map(cardType => (
-        <span key={cardType} className="flex w-4 justify-center">
+        <span key={cardType} className="flex w-3 justify-center">
           <Icon icon={CardIcons[cardType]} />
         </span>
       )),
-      callback: (option: string | number) => setType(option as AscensionCardType),
+      callback: (option: string | number | boolean) => setType(option as AscensionCardType),
     } as const,
     {
       label: (
-        <span className="flex flex-row items-center gap-2">
-          <span className="inline-flex flex-row align-middle">
-            <IconAscension src={ascension} size="w-3" />
-          </span>
-          {ascension}
+        <span className="flex flex-row items-center gap-2 min-h-7">
+          {!ascensionIsNone && (
+            <span className="inline-flex flex-row align-middle">
+              <IconAscension src={ascension} size="h-7.5" />
+            </span>
+          )}
+          <span className="pl-1">{ascension}</span>
         </span>
       ),
       options: Ascension,
-      optionIcons: Ascension.map((src, i) => <IconAscension key={`${src}-${i}`} src={src} size="w-3" />),
-      callback: (option: string | number) => setAscension(option as Ascension),
+      optionIcons: Ascension.map((src, i) => <IconAscension key={`${src}-${i}`} src={src} size="h-7.5" />),
+      callback: (option: string | number | boolean) => setAscension(option as Ascension),
       filterId: `${exportId}-ascension-search`,
     } as const,
     {
       label: (
         <span className="flex flex-row items-center gap-2">
-          <span className="min-w-7 text-right">{exWeapon}</span>
-          <span className="inline-flex flex-row align-middle">
-            <IconExWeapon src={exWeapon} type={type} size="h-6" />
-          </span>
+          <span className="min-w-7 text-right pl-1">{exWeapon}</span>
+          {!exWeaponIsNone && (
+            <span className="inline-flex flex-row align-middle">
+              <IconExWeapon src={exWeapon} type={type} size="h-6" />
+            </span>
+          )}
         </span>
       ),
       options: ExWeapon,
       optionIcons: ExWeapon.map((src, i) => <IconExWeapon key={`${src}-${i}`} src={src} type={type} size="h-6" />),
-      callback: (option: string | number) => setExWeapon(option as ExWeapon),
+      callback: (option: string | number | boolean) => setExWeapon(option as ExWeapon),
       optionIconPosition: 'right',
       disabled: !hasEx,
     } as const,

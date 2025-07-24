@@ -5,10 +5,11 @@ import type { FC } from 'react';
 import { useHeroData } from '@/components/ascension-card/HeroDataProvider';
 import IconExWeapon from '@/components/ascension-card/IconExWeapon';
 import { FrameSet } from '@/components/ascension-card/types';
-import { joinStrings } from '@/utils/utils';
+import { compareStrings, joinStrings } from '@/utils/utils';
 
 const AscensionPortrait: FC = () => {
   const { exportId, hero, ascension, exWeapon, hasEx } = useHeroData();
+  const isValid = !!compareStrings(ascension, 'None');
   const ascensionSrc = ascension.toLowerCase();
   const isInFrameSet = FrameSet.has(ascensionSrc as FrameSet);
   const backgroundSrc = () => {
@@ -36,17 +37,21 @@ const AscensionPortrait: FC = () => {
         )}
       >
         <div className="card-frame absolute w-24 flex justify-center overflow-hidden rounded-lg">
-          <div className="card-frame absolute w-full">
-            <Image src={`/assets/images/ascension/background/${backgroundSrc()}.png`} alt="" fill />
-          </div>
+          {isValid && (
+            <div className="card-frame absolute w-full">
+              <Image src={`/assets/images/ascension/background/${backgroundSrc()}.png`} alt="" fill />
+            </div>
+          )}
           <div className="hero-portrait absolute -bottom-6 w-33">
             <Image src={`/assets/images/portraits/${hero}.png`} alt="" fill />
           </div>
           {hasEx && <IconExWeapon src={exWeapon} type="Card" size="w-24" className="!absolute z-10 top-0.25" />}
         </div>
-        <div className={joinStrings(isInFrameSet ? 'crown-frame' : 'card-frame', 'w-full absolute')}>
-          <Image src={`/assets/images/ascension/frame/${frameSrc()}.png`} alt="" fill />
-        </div>
+        {isValid && (
+          <div className={joinStrings(isInFrameSet ? 'crown-frame' : 'card-frame', 'w-full absolute')}>
+            <Image src={`/assets/images/ascension/frame/${frameSrc()}.png`} alt="" fill />
+          </div>
+        )}
       </div>
     </div>
   );

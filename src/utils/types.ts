@@ -17,6 +17,7 @@ type Rarity = (typeof Rarity)[number];
 const baseAscension = [...Rarity, 'Supreme'] as const;
 type baseAscension = (typeof baseAscension)[number];
 export const Ascension = [
+  'None',
   'Crown',
   ...(Array(4)
     .fill(null)

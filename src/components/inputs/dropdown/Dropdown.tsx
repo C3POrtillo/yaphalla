@@ -10,11 +10,11 @@ import { cleanString, compareStrings, joinStrings, testRegExp } from '@/utils/ut
 
 interface DropdownProps {
   label: string | number | ReactNode;
-  options: (string | number)[] | readonly (string | number)[];
+  options: (string | number | boolean)[] | readonly (string | number | boolean)[];
   optionIcons?: ReactNode[] | readonly ReactNode[];
   optionIconPosition?: 'left' | 'right';
   hierarchy?: HierarchyTypes;
-  callback: (data: string | number) => void;
+  callback: (data: string | number | boolean) => void;
   filterId?: string;
   disabled?: boolean;
 }

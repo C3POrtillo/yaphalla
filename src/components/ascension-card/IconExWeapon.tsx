@@ -3,7 +3,7 @@ import Image from 'next/image';
 import type { AscensionCardType, ExWeapon } from '@/components/ascension-card/types';
 import type { FC } from 'react';
 
-import { joinStrings } from '@/utils/utils';
+import { compareStrings, joinStrings } from '@/utils/utils';
 
 interface IconExWeaponProps {
   src: ExWeapon;
@@ -15,6 +15,9 @@ interface IconExWeaponProps {
 
 const IconExWeapon: FC<IconExWeaponProps> = ({ src, type, hasAlt, size, className }) => {
   const path = type.toLowerCase();
+  if (!compareStrings(src, 'None')) {
+    return null;
+  }
 
   return (
     <div className={joinStrings(`${path}-ex-weapon`, 'relative', size, className)}>

@@ -64,6 +64,10 @@ const paths = {
             href: '/editor/priority',
             label: 'New Priority List',
           },
+          {
+            href: '/editor/ascension',
+            label: 'Edit All Ascensions',
+          },
         ],
       },
     ],

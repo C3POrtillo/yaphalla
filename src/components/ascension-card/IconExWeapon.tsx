@@ -21,7 +21,7 @@ const IconExWeapon: FC<IconExWeaponProps> = ({ src, type, hasAlt, size, classNam
       <Image
         src={`/assets/images/ex-weapon/${path}/${src.toLowerCase()}.png`}
         alt={hasAlt ? src : ''}
-        fill={true}
+        fill
         objectFit="cover"
         objectPosition="top left"
       />

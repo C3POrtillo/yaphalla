@@ -1,12 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
-import { generateCookies } from '@/components/formation/utils';
-
 import type { AscensionCardType, ExWeapon } from '@/components/ascension-card/types';
 import type { Ascension } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { enableEx } from '@/components/ascension-card/utils';
+import { generateCookies } from '@/components/formation/utils';
 import { compareStrings, getCookie, setCookie } from '@/utils/utils';
 
 interface HeroDataProviderProps extends PropsWithChildren {

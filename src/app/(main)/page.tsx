@@ -28,13 +28,17 @@ const Index: FC = () => (
               <Link href="/editor/priority" className="bg-primary input-primary size-base text-tertiary-600">
                 YapPriority
               </Link>
+              {' | '}
+              <Link href="/editor/ascension" className="bg-primary input-primary size-base text-tertiary-600">
+                YapAscend
+              </Link>
             </h3>
             <p>
               {'Use '}
-              <Link href="/editor/priority" className="input-link inline">
-                YapPriority
+              <Link href="/editor/ascension" className="input-link inline">
+                YapAscend
               </Link>
-              {' to create your own priority recommendations or lists!'}
+              {' to create custom hero investment cards or hexes!'}
             </p>
             <p>
               {'Please report any issues to '}

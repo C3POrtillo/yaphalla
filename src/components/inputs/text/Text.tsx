@@ -95,6 +95,7 @@ const Text: FC<TextProps> = ({
         onChange={handleChange}
         required={required}
         placeholder={placeholder || (labelHidden ? `${label}${required && '*'}` : placeholder)}
+        autoComplete="off"
         {...props}
       />
     </div>

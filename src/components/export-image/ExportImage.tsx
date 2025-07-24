@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react';
 import type { ButtonProps } from '@/components/inputs/button/Button';
 import type { FC } from 'react';
 
+import { labels } from '@/components/export-image/types';
 import { copy, exportToPNG } from '@/components/export-image/utils';
 import Button from '@/components/inputs/button/Button';
 import { joinStrings } from '@/utils/utils';
@@ -12,6 +13,7 @@ interface ExportImageProps extends ButtonProps {
   getImage: () => Promise<string | false>;
   onClick: () => void;
   hasContainer?: boolean;
+  size?: 'sm' | 'base';
 }
 
 const ExportImage: FC<ExportImageProps> = ({
@@ -20,6 +22,7 @@ const ExportImage: FC<ExportImageProps> = ({
   onClick: callback,
   hasContainer = true,
   selected,
+  size = 'base',
 }) => {
   const handleClick = async (action: (image: string, file: string | undefined) => Promise<void>) => {
     const image = await getImage();
@@ -32,14 +35,14 @@ const ExportImage: FC<ExportImageProps> = ({
 
   const buttons = [
     {
-      label: 'Copy to Clipboard',
+      label: labels[size].copy,
       icon: 'content-copy',
       onClick: () => {
         handleClick(copy);
       },
     },
     {
-      label: 'Export to PNG',
+      label: labels[size].export,
       icon: 'download',
       onClick: () => {
         handleClick(exportToPNG);

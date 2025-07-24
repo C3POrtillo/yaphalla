@@ -14,6 +14,21 @@ export const Faction = [
 const Talents = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celestial-Hypogean'] as const;
 const Rarity = ['Rare', 'Elite', 'Epic', 'Legendary', 'Mythic'] as const;
 type Rarity = (typeof Rarity)[number];
+const baseAscension = [...Rarity, 'Supreme'] as const;
+type baseAscension = (typeof baseAscension)[number];
+export const Ascension = [
+  'Crown',
+  ...(Array(4)
+    .fill(null)
+    .map((_, i) => `Paragon ${4 - i}`) as [`Paragon ${number}`]),
+  ...(baseAscension
+    .slice(1)
+    .reverse()
+    .flatMap(ascension => [`${ascension}+`, ascension]) as [baseAscension | `${baseAscension}+`]),
+
+  'Rare',
+] as const;
+export type Ascension = (typeof Ascension)[number];
 export const Tier = ['R', 'A', 'S'] as const;
 export type Tier = (typeof Tier)[number];
 export const Damage = ['Physical', 'Magic'] as const;
@@ -264,7 +279,7 @@ export const DevHeroes = (() => {
   return formattedHeroes;
 })();
 
-export const ArtifactHeroes = [...ArtifactSet].map(artifact => ({
+export const ArtifactHeroes = Array.from(ArtifactSet, artifact => ({
   hero: artifact,
   faction: '',
   heroClass: '',
@@ -354,7 +369,7 @@ export const BaseSet = new Set<string>([
 ]);
 
 export const HexHeroes = (() => {
-  const formattedHeroes = [...BaseSet].map(hero => ({
+  const formattedHeroes = Array.from(BaseSet, hero => ({
     hero,
     faction: '',
     heroClass: '',

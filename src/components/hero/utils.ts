@@ -281,7 +281,13 @@ const getHeroMiniDetails = async (hero: string, isNPC = false) => {
     const { Info } = (await res.json()) as HeroJSON;
     const { DamageType, UnitRace, UnitJob, UnitRarity = isNPC ? null : 'R' } = Info;
 
-    return { hero, tier: UnitRarity, heroClass: UnitJob, faction: UnitRace, damage: DamageType };
+    return {
+      hero,
+      tier: UnitRarity,
+      heroClass: !compareStrings(UnitJob.toLowerCase(), 'marksmen') ? 'Marksman' : UnitJob,
+      faction: UnitRace,
+      damage: DamageType,
+    };
   } catch {
     return null;
   }

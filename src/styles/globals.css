@@ -63,7 +63,6 @@
   --font-langar: 'Langar', cursive;
 }
 
-
 @layer base {
   html {
     @apply text-white font-semibold font-sans snap-y lg:text-lg min-h-max;
@@ -398,5 +397,23 @@
   .natsu-icon {
     @apply h-6;
     aspect-ratio: 74 / 85;
+  }
+  .ascension-icon {
+    aspect-ratio: 102 / 255;
+  };
+  .card-ex-weapon {
+    aspect-ratio: 508 / 133;
+  }
+  .hex-ex-weapon {
+    aspect-ratio: 392 / 133;
+  }
+  .card-frame {
+    aspect-ratio: 232 / 328;
+  }
+  .crown-frame {
+    aspect-ratio: 275 / 396;
+  }
+  .hero-portrait {
+    aspect-ratio: 180 / 248;
   }
 }

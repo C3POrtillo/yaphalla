@@ -17,14 +17,16 @@ type Rarity = (typeof Rarity)[number];
 const baseAscension = [...Rarity, 'Supreme'] as const;
 type baseAscension = (typeof baseAscension)[number];
 export const Ascension = [
-  'Rare',
-  ...(baseAscension.slice(1).flatMap(ascension => [ascension, `${ascension}+`]) as [
-    baseAscension | `${baseAscension}+`,
-  ]),
+  'Crown',
   ...(Array(4)
     .fill(null)
-    .map((_, i) => `Paragon ${i + 1}`) as [`Paragon ${number}`]),
-  'Crown',
+    .map((_, i) => `Paragon ${4 - i}`) as [`Paragon ${number}`]),
+  ...(baseAscension
+    .slice(1)
+    .reverse()
+    .flatMap(ascension => [`${ascension}+`, ascension]) as [baseAscension | `${baseAscension}+`]),
+
+  'Rare',
 ] as const;
 export type Ascension = (typeof Ascension)[number];
 export const Tier = ['R', 'A', 'S'] as const;

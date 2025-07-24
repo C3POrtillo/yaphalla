@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react/dist/iconify.js';
 import * as htmlToImage from 'html-to-image';
 
 import type { StyleTypes } from '@/components/ascension-card/types';
@@ -8,7 +9,7 @@ import AscensionPortrait from '@/components/ascension-card/AscensionPortrait';
 import { useHeroData } from '@/components/ascension-card/HeroDataProvider';
 import IconAscension from '@/components/ascension-card/IconAscension';
 import IconExWeapon from '@/components/ascension-card/IconExWeapon';
-import { AscensionCardType, ExWeapon } from '@/components/ascension-card/types';
+import { AscensionCardType, CardIcons, ExWeapon } from '@/components/ascension-card/types';
 import ExportImage from '@/components/export-image/ExportImage';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Dropdown from '@/components/inputs/dropdown/Dropdown';
@@ -25,8 +26,20 @@ const CardAscension: FC<CardAscensionProps> = ({ styleType = 'container', cardCl
     useHeroData();
   const dropdowns = [
     {
-      label: `Layout: ${type}`,
+      label: (
+        <span className="flex flex-row items-center gap-2">
+          <span key={type} className="flex w-4 justify-center">
+            <Icon icon={CardIcons[type]} />
+          </span>
+          {type}
+        </span>
+      ),
       options: AscensionCardType,
+      optionIcons: AscensionCardType.map(cardType => (
+        <span key={cardType} className="flex w-4 justify-center">
+          <Icon icon={CardIcons[cardType]} />
+        </span>
+      )),
       callback: (option: string | number) => setType(option as AscensionCardType),
     } as const,
     {
@@ -41,6 +54,7 @@ const CardAscension: FC<CardAscensionProps> = ({ styleType = 'container', cardCl
       options: Ascension,
       optionIcons: Ascension.map((src, i) => <IconAscension key={`${src}-${i}`} src={src} size="w-3" />),
       callback: (option: string | number) => setAscension(option as Ascension),
+      filterId: `${exportId}-ascension-search`,
     } as const,
     {
       label: (

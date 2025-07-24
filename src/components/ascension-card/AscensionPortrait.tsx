@@ -39,10 +39,10 @@ const AscensionPortrait: FC = () => {
           <div className="card-frame absolute w-full">
             <Image src={`/assets/images/ascension/background/${backgroundSrc()}.png`} alt="" fill />
           </div>
-          <div className="hero-portrait absolute -bottom-6 w-31">
+          <div className="hero-portrait absolute -bottom-6 w-33">
             <Image src={`/assets/images/portraits/${hero}.png`} alt="" fill />
           </div>
-          <IconExWeapon src={exWeapon} type="Card" size="w-24" className="!absolute z-10" />
+          <IconExWeapon src={exWeapon} type="Card" size="w-24" className="!absolute z-10 top-0.25" />
         </div>
         <div className={joinStrings(isInFrameSet ? 'crown-frame' : 'card-frame', 'w-full absolute')}>
           <Image src={`/assets/images/ascension/frame/${frameSrc()}.png`} alt="" fill />

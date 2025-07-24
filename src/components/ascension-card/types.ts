@@ -11,3 +11,7 @@ export const FrameSet = new Set([
   'crown',
 ] as const);
 export type FrameSet = typeof FrameSet extends Set<infer T> ? T : never;
+export const CardIcons = {
+  Hex: 'akar-icons:hexagon-fill',
+  Card: 'fa-solid:id-badge',
+} as const;

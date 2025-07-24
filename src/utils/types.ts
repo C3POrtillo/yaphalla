@@ -14,6 +14,16 @@ export const Faction = [
 const Talents = ['Lightbearer', 'Wilder', 'Mauler', 'Graveborn', 'Celestial-Hypogean'] as const;
 const Rarity = ['Rare', 'Elite', 'Epic', 'Legendary', 'Mythic'] as const;
 type Rarity = (typeof Rarity)[number];
+const baseAscension = [...Rarity, 'Supreme'] as const;
+type baseAscension = (typeof baseAscension)[number];
+export const Ascension = [
+  ...baseAscension,
+  ...(baseAscension.map(ascension => `${ascension}+`) as [`${baseAscension}+`]),
+  ...(Array(4)
+    .fill(null)
+    .map((_, i) => `Paragon ${i + 1}`) as [`Paragon ${number}`]),
+] as const;
+export type Ascension = (typeof Ascension)[number];
 export const Tier = ['R', 'A', 'S'] as const;
 export type Tier = (typeof Tier)[number];
 export const Damage = ['Physical', 'Magic'] as const;

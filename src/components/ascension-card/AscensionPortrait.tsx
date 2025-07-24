@@ -42,7 +42,7 @@ const AscensionPortrait: FC = () => {
               <Image src={`/assets/images/ascension/background/${backgroundSrc()}.png`} alt="" fill />
             </div>
           )}
-          <div className="hero-portrait absolute -bottom-6 w-33">
+          <div className="hero-portrait absolute -bottom-7 w-38">
             <Image src={`/assets/images/portraits/${hero}.png`} alt="" fill />
           </div>
           {hasEx && <IconExWeapon src={exWeapon} type="Card" size="w-24" className="!absolute z-10 top-0.25" />}

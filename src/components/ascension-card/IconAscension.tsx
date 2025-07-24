@@ -23,7 +23,6 @@ const IconAscension: FC<IconAscensionProps> = ({ src, hasAlt, size }) => {
         alt={hasAlt ? src : ''}
         fill
         objectFit="cover"
-        objectPosition="top left"
       />
     </div>
   );

@@ -2,7 +2,7 @@ import type { TileDivData, UnitFormationData } from '@/components/formation/type
 import type { BaseHexes, Talents } from '@/utils/types';
 
 import { TalentLocations, TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/formation/types';
-import { Artifacts, CurrentSeason, HeroPairs, PairSet, UnitsByFaction } from '@/utils/types';
+import { Artifacts, CurrentSeason, HeroPairs, PairSet, UnitsByTalent } from '@/utils/types';
 import { compareStrings, generateCookie, sortData } from '@/utils/utils';
 
 export const getRelativeTileLabels = (tiles: number[]) => {
@@ -78,7 +78,7 @@ export const countUnits = (
   const unitCount = {} as Record<string, number>;
 
   Object.entries(units).forEach(([_, { unit, type }]) => {
-    if (type !== validType || !UnitsByFaction[unit] || !UnitsByFaction[unit].length) {
+    if (type !== validType || !UnitsByTalent[unit] || !UnitsByTalent[unit].length) {
       return;
     }
 
@@ -87,7 +87,7 @@ export const countUnits = (
       unitCount[unit] ??= 0;
       unitCount[unit]++;
     } else {
-      updateFactionCount(count, UnitsByFaction[unit], 1, setCurrentFaction);
+      updateFactionCount(count, UnitsByTalent[unit], 1, setCurrentFaction);
     }
   });
 
@@ -98,7 +98,7 @@ export const countUnits = (
       return;
     }
 
-    updateFactionCount(count, UnitsByFaction[pairs[0]], maxPairs, setCurrentFaction);
+    updateFactionCount(count, UnitsByTalent[pairs[0]], maxPairs, setCurrentFaction);
   });
 };
 

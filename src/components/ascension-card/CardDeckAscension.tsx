@@ -2,8 +2,7 @@
 import { useMemo, useState } from 'react';
 
 import type { CardAscensionProps } from '@/components/ascension-card/CardAscension';
-import type { HeroDetailProps } from '@/components/hero/HeroDetail';
-import type { Faction, HeroClass } from '@/utils/types';
+import type { Faction, Hero, HeroClass } from '@/utils/types';
 import type { FC, PropsWithChildren } from 'react';
 
 import CardAscension from '@/components/ascension-card/CardAscension';
@@ -14,7 +13,7 @@ import { cleanString, compareStrings, joinStrings, kebabCase } from '@/utils/uti
 
 interface CardDeckAscensionProps extends PropsWithChildren, CardAscensionProps {
   label?: string;
-  heroes?: HeroDetailProps[];
+  heroes?: Hero[];
   units?: Set<string>;
   hasLabel?: boolean;
 }
@@ -61,7 +60,7 @@ const CardDeckAscension: FC<CardDeckAscensionProps> = ({ heroes, units, hasLabel
       {hasLabel && <h2 className="text-lg w-full text-center">{label}</h2>}
       <div className="flex flex-row flex-wrap gap-2 justify-center size-full">
         {heroes?.map((heroData, i) => {
-          const { hero: unit } = heroData;
+          const { hero } = heroData;
           const { matchesClass, matchesDamage, matchesFaction, matchesTier, validSearch } = filterHero(
             heroData,
             filters,
@@ -72,14 +71,14 @@ const CardDeckAscension: FC<CardDeckAscensionProps> = ({ heroes, units, hasLabel
           const showCard = noFilter ? validSearch : withFilter;
 
           return (
-            <HeroDataProvider key={`${unit}-${i}`} id={i} hero={unit}>
+            <HeroDataProvider key={`${hero}-${i}`} id={i} hero={hero} save>
               <CardAscension styleType={styleType} cardClassName={!showCard && 'hidden'} />
             </HeroDataProvider>
           );
         })}
         {!!units?.size &&
-          Array.from(units, (unit, i) => (
-            <HeroDataProvider key={`${unit}-${i}`} id={i} hero={unit}>
+          Array.from(units, (hero, i) => (
+            <HeroDataProvider key={`${hero}-${i}`} id={i} hero={hero}>
               <CardAscension styleType={styleType} />
             </HeroDataProvider>
           ))}

@@ -17,7 +17,10 @@ const IconDetail: FC<IconDetail> = ({ src, size = 'base', className }) => {
 
   return (
     <div
-      className={joinStrings('group relative flex justify-center items-center', className || getDetailIconSize(size))}
+      className={joinStrings(
+        'aspect-square group relative flex justify-center items-center',
+        className || getDetailIconSize(size),
+      )}
     >
       <Image key={formattedSrc} src={formattedSrc} alt={formattedSrc} fill sizes="64px" unoptimized priority />
     </div>

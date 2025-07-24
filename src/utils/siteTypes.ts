@@ -20,3 +20,22 @@ export type InputSizeTypes = 'sm' | 'base';
 export const themeColor = '#1a387b';
 
 export type Cookie = `${string}=${string}; path=/; max-age=${number}`;
+
+export const robots = {
+  index: false,
+  follow: false,
+  nosnippet: true,
+  noarchive: true,
+  nocache: true,
+  noimageindex: true,
+  nositelinkssearchbox: true,
+  googleBot: {
+    index: false,
+    follow: false,
+    noimageindex: true,
+    nocache: true,
+    noarchive: true,
+    nosnippet: true,
+    nositelinkssearchbox: true,
+  },
+};

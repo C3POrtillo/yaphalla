@@ -60,7 +60,11 @@ const CardAscension: FC<CardAscensionProps> = ({ styleType = 'container', cardCl
 
   return (
     <div
-      className={joinStrings(`${styleType}-primary`, 'flex flex-col gap-1 justify-start items-center', cardClassName)}
+      className={joinStrings(
+        `${styleType}-primary`,
+        'relative flex flex-col gap-1 justify-start items-center',
+        cardClassName,
+      )}
     >
       <span className="flex flex-row items-center gap-2 border-b-2 border-tertiary-600 w-full items-center pb-2 mb-1">
         <span className="inline-flex flex-row align-middle">

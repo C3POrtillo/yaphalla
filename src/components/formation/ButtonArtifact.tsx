@@ -1,5 +1,4 @@
 'use client';
-
 import type { CommunityLogos } from '@/components/hex-tiles/types';
 import type { DragEvent, FC } from 'react';
 

@@ -1,5 +1,4 @@
 'use client';
-
 import type { CardAscensionProps } from '@/components/ascension-card/CardAscension';
 import type { HeroDetailProps } from '@/components/hero/HeroDetail';
 import type { FC } from 'react';

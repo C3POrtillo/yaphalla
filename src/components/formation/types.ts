@@ -137,3 +137,5 @@ export const TalentLocations = {
   Graveborn: false,
   'Celestial-Hypogean': false,
 } as const;
+
+export const SubmenuId = 'editor-submenu';

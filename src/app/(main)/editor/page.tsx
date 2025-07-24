@@ -42,7 +42,25 @@ const Index: FC = () => {
   const isFormation = tab === 0;
   const teamButtons = teams.map((_, i) => (
     <Fragment key={i}>
-      <Button onClick={() => setTeamIndex(i)} hierarchy="primary" selected={teamIndex === i} size="sm" hasActiveBorder>
+      <Button
+        onClick={() => {
+          if (isFormation) {
+            setTeamIndex(i);
+          } else {
+            const target = document.getElementById(`team-${i}`);
+            if (!target) {
+              return;
+            }
+
+            const top = target.getBoundingClientRect().top + window.scrollY + 264;
+            window.scrollTo({ top, behavior: 'smooth' });
+          }
+        }}
+        hierarchy="primary"
+        selected={isFormation && teamIndex === i}
+        size="sm"
+        hasActiveBorder
+      >
         {`Team ${i + 1}`}
       </Button>
       {(i - 4) % 5 === 0 && i < maxTeams - 1 && (
@@ -172,11 +190,9 @@ const Index: FC = () => {
               </Button>
             </div>
           </div>
-          {isFormation && (
-            <div className="container-primary grid grid-cols-5 w-fit gap-2 2xl:flex 2xl:flex-row 2xl:flex-wrap 2xl:w-full 2xl:items-center 2xl:justify-between">
-              {teamButtons}
-            </div>
-          )}
+          <div className="container-primary grid grid-cols-5 w-fit gap-2 2xl:flex 2xl:flex-row 2xl:flex-wrap 2xl:w-full 2xl:items-center 2xl:justify-between">
+            {teamButtons}
+          </div>
         </div>
       </Container>
       {formations}

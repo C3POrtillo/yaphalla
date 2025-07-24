@@ -1,6 +1,5 @@
 import { Icon } from '@iconify/react';
 
-
 import type { ButtonProps } from '@/components/inputs/button/Button';
 import type { FC } from 'react';
 

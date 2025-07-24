@@ -63,7 +63,6 @@
   --font-langar: 'Langar', cursive;
 }
 
-
 @layer base {
   html {
     @apply text-white font-semibold font-sans snap-y lg:text-lg min-h-max;

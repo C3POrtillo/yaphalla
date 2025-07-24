@@ -1,3 +1,5 @@
+'use client';
+import { Icon } from '@iconify/react/dist/iconify.js';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import '@/styles/globals.css';
@@ -7,6 +9,7 @@ import type { FC, PropsWithChildren, ReactNode } from 'react';
 import Footer from '@/components/footer/Footer';
 import Breadcrumbs from '@/components/header/Breadcrumbs';
 import Header from '@/components/header/Header';
+import Button from '@/components/inputs/button/Button';
 import { font } from '@/utils/siteTypes';
 import { joinStrings } from '@/utils/utils';
 
@@ -32,6 +35,14 @@ const Root: FC<RootProps> = ({ head, children, hideBreadcrumbs }) => (
           {children}
           <Footer />
           <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_auto] -z-10 opacity-20"></div>
+          <Button
+            className="block right-2 bottom-2 text-base fixed"
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
+            <Icon icon="mdi:chevron-up" />
+          </Button>
           <Analytics />
           <SpeedInsights />
         </main>

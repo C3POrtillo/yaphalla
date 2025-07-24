@@ -10,7 +10,7 @@ import CardAscension from '@/components/ascension-card/CardAscension';
 import { HeroDataProvider } from '@/components/ascension-card/HeroDataProvider';
 import HeroFilter from '@/components/hero-filter/HeroFilter';
 import { filterHero } from '@/components/hero-filter/utils';
-import { cleanString, compareStrings, joinStrings } from '@/utils/utils';
+import { cleanString, compareStrings, joinStrings, kebabCase } from '@/utils/utils';
 
 interface CardDeckAscensionProps extends PropsWithChildren, CardAscensionProps {
   label?: string;
@@ -46,6 +46,7 @@ const CardDeckAscension: FC<CardDeckAscensionProps> = ({ heroes, units, hasLabel
 
   return (
     <div
+      id={label ? kebabCase(label) : undefined}
       className={joinStrings(
         !compareStrings(styleType || '', 'inset') && 'container-primary',
         'flex flex-col gap-1 items-center justify-start mx-4',
@@ -56,7 +57,8 @@ const CardDeckAscension: FC<CardDeckAscensionProps> = ({ heroes, units, hasLabel
           <HeroFilter {...filterProps} />
         </div>
       )}
-      {hasLabel && <h2 className="text-lg w-full text-center border-b-2 border-primary-750 pb-1 mb-1">{label}</h2>}
+
+      {hasLabel && <h2 className="text-lg w-full text-center">{label}</h2>}
       <div className="flex flex-row flex-wrap gap-2 justify-center size-full">
         {heroes?.map((heroData, i) => {
           const { hero: unit } = heroData;

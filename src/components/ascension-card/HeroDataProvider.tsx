@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 
 import type { AscensionCardType, ExWeapon } from '@/components/ascension-card/types';
+import { enableEx } from '@/components/ascension-card/utils';
 import type { Ascension } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
@@ -21,6 +22,7 @@ interface HeroDataContextType {
   setExWeapon: Dispatch<SetStateAction<ExWeapon>>;
   isExport: boolean;
   setExport: Dispatch<SetStateAction<boolean>>;
+  hasEx: boolean;
 }
 
 const HeroDataContext = createContext<HeroDataContextType | undefined>(undefined);
@@ -30,6 +32,7 @@ export const HeroDataProvider: FC<HeroDataProviderProps> = ({ id, hero, children
   const [type, setType] = useState<AscensionCardType>('Hex');
   const [ascension, setAscension] = useState<Ascension>('Supreme+');
   const [exWeapon, setExWeapon] = useState<ExWeapon>('+5');
+  const hasEx = enableEx(ascension);
   const exportId = `${hero}-${id}`;
 
   return (
@@ -46,6 +49,7 @@ export const HeroDataProvider: FC<HeroDataProviderProps> = ({ id, hero, children
         setExWeapon,
         isExport,
         setExport,
+        hasEx,
       }}
     >
       {children}

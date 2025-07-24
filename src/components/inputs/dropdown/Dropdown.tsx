@@ -16,6 +16,7 @@ interface DropdownProps {
   hierarchy?: HierarchyTypes;
   callback: (data: string | number) => void;
   filterId?: string;
+  disabled?: boolean;
 }
 
 const Dropdown: FC<DropdownProps> = ({
@@ -26,6 +27,7 @@ const Dropdown: FC<DropdownProps> = ({
   hierarchy,
   callback,
   filterId,
+  disabled,
 }) => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [filterSearch, setFilterSearch] = useState<string>('');
@@ -65,6 +67,7 @@ const Dropdown: FC<DropdownProps> = ({
         hierarchy={hierarchy}
         size="sm"
         onClick={() => toggleDropdown()}
+        disabled={disabled}
         hasActiveBorder
       >
         {label}

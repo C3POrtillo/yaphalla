@@ -22,7 +22,7 @@ export interface CardAscensionProps {
 }
 
 const CardAscension: FC<CardAscensionProps> = ({ styleType = 'container', cardClassName }) => {
-  const { hero, type, setType, ascension, setAscension, exWeapon, setExWeapon, isExport, setExport, exportId } =
+  const { hero, type, setType, ascension, setAscension, exWeapon, setExWeapon, isExport, setExport, exportId, hasEx } =
     useHeroData();
   const dropdowns = [
     {
@@ -69,6 +69,7 @@ const CardAscension: FC<CardAscensionProps> = ({ styleType = 'container', cardCl
       optionIcons: ExWeapon.map((src, i) => <IconExWeapon key={`${src}-${i}`} src={src} type={type} size="h-6" />),
       callback: (option: string | number) => setExWeapon(option as ExWeapon),
       optionIconPosition: 'right',
+      disabled: !hasEx,
     } as const,
   ];
 

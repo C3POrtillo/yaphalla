@@ -1,9 +1,10 @@
 import { createContext, useContext, useState } from 'react';
 
 import type { AscensionCardType, ExWeapon } from '@/components/ascension-card/types';
-import { enableEx } from '@/components/ascension-card/utils';
 import type { Ascension } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
+
+import { enableEx } from '@/components/ascension-card/utils';
 
 interface HeroDataProviderProps extends PropsWithChildren {
   id: number;

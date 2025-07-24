@@ -16,7 +16,7 @@ const IconAscension: FC<IconAscensionProps> = ({ src, hasAlt, size }) => (
     <Image
       src={`/assets/images/ascension/icon/${src.toLowerCase()}.png`}
       alt={hasAlt ? src : ''}
-      fill={true}
+      fill
       objectFit="cover"
       objectPosition="top left"
     />

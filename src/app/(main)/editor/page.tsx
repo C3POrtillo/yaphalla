@@ -1,5 +1,6 @@
 'use client';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 
 import type { UnitFormationData } from '@/components/formation/types';
@@ -13,7 +14,7 @@ import { FormationProvider } from '@/components/formation/FormationProvider';
 import { generateCookies } from '@/components/formation/utils';
 import Button from '@/components/inputs/button/Button';
 import Toggle from '@/components/inputs/toggle/Toggle';
-import { ArtifactSet } from '@/utils/types';
+import { ArtifactSet, SortedHeroes } from '@/utils/types';
 import { compareStrings, getCookie, joinStrings, setCookie } from '@/utils/utils';
 
 const maxTeams = 15;
@@ -23,6 +24,7 @@ const Index: FC = () => {
   const [tab, setTab] = useState<number>(0);
   const [teamIndex, setTeamIndex] = useState<number>(0);
   const [unique, setUnique] = useState<boolean>(false);
+  const searchParams = useSearchParams();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const teamArray = new Array(maxTeams).fill(0).map(_ => useState<UnitFormationData>({})) as [
     UnitFormationData,
@@ -120,6 +122,49 @@ const Index: FC = () => {
     };
     loadCookies();
   }, []);
+
+  // Contributor code
+  // preset is a hex string of unit indices and tile indices
+  useEffect(() => {
+    // get preset from url
+    const preset = searchParams.get('preset');
+    if (!preset || preset.length % 4 !== 0) {
+      return;
+    }
+
+    // parse preset
+    const newUnits: UnitFormationData = {};
+    try {
+      for (let i = 0; i < preset.length; i += 4) {
+        const unitHex = preset.substring(i, i + 2);
+        const tileHex = preset.substring(i + 2, i + 4);
+
+        const unitIdx = parseInt(unitHex, 16);
+        if (isNaN(unitIdx)) {
+          continue;
+        }
+
+        const heroName = SortedHeroes[unitIdx]?.hero;
+        if (!heroName) {
+          continue;
+        }
+
+        const tile = parseInt(tileHex, 16);
+        if (isNaN(tile)) {
+          continue;
+        }
+
+        newUnits[tile] = { unit: heroName, type: 1 };
+      }
+      if (Object.keys(newUnits).length > 0) {
+        // prefill team 1
+        teamArray[0][1](newUnits);
+      }
+    } catch (e) {
+      // Ignore? But linter doesn't like it
+      console.error(e);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const saveCookies = async () => {

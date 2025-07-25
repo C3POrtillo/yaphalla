@@ -60,6 +60,6 @@ export const filterExWeapons = (exWeapon: ExWeapon, ascension: Ascension) => {
   }
 
   const [maxEx, exNumber] = [limitExWeapon(ascension), exWeapon].map(Number);
-  
+
   return exNumber <= maxEx;
 };

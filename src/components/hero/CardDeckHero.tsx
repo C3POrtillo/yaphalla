@@ -1,15 +1,12 @@
 'use client';
-import { useMemo, useState } from 'react';
-
 import type { HeroDetailProps } from '@/components/hero/HeroDetail';
-import type { Damage, Faction, HeroClass, Tier } from '@/utils/types';
 import type { FC } from 'react';
 
 import Container from '@/components/container/Container';
 import CardHero from '@/components/hero/CardHero';
 import HeroFilter from '@/components/hero-filter/HeroFilter';
 import { filterHero } from '@/components/hero-filter/utils';
-import { cleanString } from '@/utils/utils';
+import useHeroFilters from '@/utils/useHeroFilters';
 
 interface CardDeckHeroProps {
   heroes: HeroDetailProps[];
@@ -18,40 +15,10 @@ interface CardDeckHeroProps {
 }
 
 const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes, hasFilters = true, path = 'heroes' }) => {
-  const [filterClass, setFilterClass] = useState<HeroClass>();
-  const [filterDamage, setFilterDamage] = useState<Damage>();
-  const [filterFaction, setFilterFaction] = useState<Faction>();
-  const [filterTier, setFilterTier] = useState<Tier>();
-  const [filterSearch, setFilterSearch] = useState<string>('');
-  const regexClass = useMemo(() => filterClass && new RegExp(cleanString(filterClass), 'i'), [filterClass]);
-  const regexDamage = useMemo(() => filterDamage && new RegExp(cleanString(filterDamage), 'i'), [filterDamage]);
-  const regexFaction = useMemo(() => filterFaction && new RegExp(cleanString(filterFaction), 'i'), [filterFaction]);
-  const regexTier = useMemo(() => filterTier && new RegExp(cleanString(filterTier), 'i'), [filterTier]);
-  const regexSearch = useMemo(() => !!filterSearch && new RegExp(cleanString(filterSearch), 'i'), [filterSearch]);
+  const { filters, ...filterProps } = useHeroFilters({ allFilters: true });
 
-  const filters = useMemo(
-    () => ({
-      regexClass,
-      regexDamage,
-      regexFaction,
-      regexTier,
-      regexSearch,
-    }),
-    [regexClass, regexDamage, regexFaction, regexTier, regexSearch],
-  );
-
-  const filterProps = {
-    filterClass,
-    filterDamage,
-    filterFaction,
-    filterSearch,
-    filterTier,
-    setFilterClass,
-    setFilterDamage,
-    setFilterFaction,
-    setFilterSearch,
-    setFilterTier,
-  } as const;
+  const { filterClass, filterDamage, filterFaction, filterTier } = filterProps;
+  const { regexSearch } = filters;
 
   return (
     <Container className="flex-col mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">

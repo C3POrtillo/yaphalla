@@ -1,8 +1,5 @@
 'use client';
-import { useMemo, useState } from 'react';
-
 import type { CardAscensionProps } from '@/components/ascension-card/CardAscension';
-import type { Faction, HeroClass } from '@/utils/types';
 import type { FC, PropsWithChildren } from 'react';
 
 import CardAscension from '@/components/ascension-card/CardAscension';
@@ -11,7 +8,8 @@ import { filterPairs } from '@/components/ascension-card/utils';
 import HeroFilter from '@/components/hero-filter/HeroFilter';
 import { filterHero } from '@/components/hero-filter/utils';
 import { SortedHeroes } from '@/utils/types';
-import { cleanString, compareStrings, joinStrings, kebabCase } from '@/utils/utils';
+import useHeroFilters from '@/utils/useHeroFilters';
+import { compareStrings, joinStrings, kebabCase } from '@/utils/utils';
 
 interface CardDeckAscensionProps extends PropsWithChildren, CardAscensionProps {
   label?: string;
@@ -20,30 +18,9 @@ interface CardDeckAscensionProps extends PropsWithChildren, CardAscensionProps {
 }
 
 const CardDeckAscension: FC<CardDeckAscensionProps> = ({ units, hasLabel, label, styleType }) => {
-  const [filterClass, setFilterClass] = useState<HeroClass>();
-  const [filterFaction, setFilterFaction] = useState<Faction>();
-  const [filterSearch, setFilterSearch] = useState<string>('');
-  const regexClass = useMemo(() => filterClass && new RegExp(cleanString(filterClass), 'i'), [filterClass]);
-  const regexFaction = useMemo(() => filterFaction && new RegExp(cleanString(filterFaction), 'i'), [filterFaction]);
-  const regexSearch = useMemo(() => !!filterSearch && new RegExp(cleanString(filterSearch), 'i'), [filterSearch]);
-  const filters = useMemo(
-    () => ({
-      regexClass,
-      regexFaction,
-      regexSearch,
-    }),
-    [regexClass, regexFaction, regexSearch],
-  );
-
-  const filterProps = {
-    filterClass,
-    filterFaction,
-    filterSearch,
-    setFilterClass,
-    setFilterFaction,
-    setFilterSearch,
-  } as const;
-
+  const { filters, ...filterProps } = useHeroFilters();
+  const { regexSearch } = filters;
+  const { filterClass, filterFaction } = filterProps;
   const isTeam = !!units?.size;
 
   return (

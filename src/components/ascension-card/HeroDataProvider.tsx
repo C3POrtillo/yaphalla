@@ -4,7 +4,7 @@ import type { AscensionCardType, ExWeapon } from '@/components/ascension-card/ty
 import type { Ascension } from '@/utils/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { enableEx } from '@/components/ascension-card/utils';
+import { enableExWeapon, forceExWeapon } from '@/components/ascension-card/utils';
 import { generateCookies } from '@/components/formation/utils';
 import { compareStrings, getCookie, setCookie } from '@/utils/utils';
 
@@ -37,8 +37,12 @@ export const HeroDataProvider: FC<HeroDataProviderProps> = ({ id, hero, children
   const [type, setType] = useState<AscensionCardType>('Card');
   const [ascension, setAscension] = useState<Ascension>('Supreme+');
   const [exWeapon, setExWeapon] = useState<ExWeapon>('+5');
-  const hasEx = enableEx(ascension);
+  const hasEx = enableExWeapon(ascension);
   const exportId = `${hero}-${id}`;
+
+  useEffect(() => {
+    setExWeapon(forceExWeapon(exWeapon, ascension));
+  }, [ascension]);
 
   useEffect(() => {
     if (!save) {

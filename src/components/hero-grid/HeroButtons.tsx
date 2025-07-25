@@ -1,8 +1,7 @@
-import { useMemo } from 'react';
-
 import type { HeroGridProps } from '@/components/hero-grid/HeroGrid';
 import type { UnitDivData } from '@/components/hero-grid/types';
 import type { Faction, HeroClass } from '@/utils/types';
+import type { Filters } from '@/utils/useHeroFilters';
 import type { DragEvent, FC } from 'react';
 
 import { filterHero } from '@/components/hero-filter/utils';
@@ -10,10 +9,11 @@ import HeroTooltip from '@/components/hero-grid/HeroTooltip';
 import { hasUnit } from '@/components/hero-grid/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import { getPath } from '@/components/hex-tiles/utils';
-import { cleanString, joinStrings } from '@/utils/utils';
+import { joinStrings } from '@/utils/utils';
 
 interface HeroButtonProps extends HeroGridProps {
   formattedUnits: UnitDivData[];
+  filters: Filters;
   filterFaction: Faction | undefined;
   filterClass: HeroClass | undefined;
   filterSearch: string;
@@ -23,25 +23,13 @@ const HeroButtons: FC<HeroButtonProps> = ({
   formattedUnits,
   filterFaction,
   filterClass,
-  filterSearch,
+  filters,
   allUnits,
   currentUnit,
   disabled,
   onClick,
 }) => {
-  const regexFaction = useMemo(() => filterFaction && new RegExp(cleanString(filterFaction), 'i'), [filterFaction]);
-  const regexClass = useMemo(() => filterClass && new RegExp(cleanString(filterClass), 'i'), [filterClass]);
-  const regexSearch = useMemo(() => !!filterSearch && new RegExp(cleanString(filterSearch), 'i'), [filterSearch]);
-
-  const filters = useMemo(
-    () => ({
-      regexClass,
-      regexFaction,
-      regexSearch,
-    }),
-    [regexClass, regexFaction, regexSearch],
-  );
-
+  const { regexSearch } = filters;
   const handleDragStart = (e: DragEvent<HTMLButtonElement>, hero: string, sameUnit: boolean) => {
     e.dataTransfer.setData('application/hero', JSON.stringify({ hero, sameUnit }));
     e.dataTransfer.effectAllowed = 'move';

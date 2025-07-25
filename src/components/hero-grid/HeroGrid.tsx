@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 import type { UnitDivData } from '@/components/hero-grid/types';
-import type { Faction, HeroClass } from '@/utils/types';
 import type { FC } from 'react';
 
 import HeroFilter from '@/components/hero-filter/HeroFilter';
 import HeroButtons from '@/components/hero-grid/HeroButtons';
 import { getFormattedUnits } from '@/components/hero-grid/utils';
 import Button from '@/components/inputs/button/Button';
+import useHeroFilters from '@/utils/useHeroFilters';
 import { isDevMode } from '@/utils/utils';
 
 export interface HeroGridProps {
@@ -26,9 +26,7 @@ const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
   const isXlScreen = useMediaQuery({ query: '(min-width: 1280px)' });
   const [variant, setVariant] = useState<number>(0);
   const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);
-  const [filterFaction, setFilterFaction] = useState<Faction>();
-  const [filterClass, setFilterClass] = useState<HeroClass>();
-  const [filterSearch, setFilterSearch] = useState<string>('');
+  const filterProps = useHeroFilters();
 
   useEffect(() => {
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen }, variant));
@@ -51,26 +49,10 @@ const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
 
   return (
     <div className="container-primary w-full flex flex-col grow gap-2 p-2">
-      <HeroFilter
-        filterClass={filterClass}
-        filterFaction={filterFaction}
-        filterSearch={filterSearch}
-        setFilterClass={setFilterClass}
-        setFilterFaction={setFilterFaction}
-        setFilterSearch={setFilterSearch}
-      >
-        {unitOptions}
-      </HeroFilter>
+      <HeroFilter {...filterProps}>{unitOptions}</HeroFilter>
       <div className="inset-secondary relative flex grow flex-row justify-center min-h-[42rem]">
         <div className="z-10 flex flex-col p-4 pt-8">
-          <HeroButtons
-            disabled={disabled}
-            formattedUnits={formattedUnits}
-            filterFaction={filterFaction}
-            filterClass={filterClass}
-            filterSearch={filterSearch}
-            {...props}
-          />
+          <HeroButtons disabled={disabled} formattedUnits={formattedUnits} {...filterProps} {...props} />
         </div>
       </div>
     </div>

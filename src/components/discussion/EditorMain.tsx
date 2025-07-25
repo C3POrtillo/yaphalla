@@ -26,7 +26,7 @@ const EditorMain: FC = () => {
     if (i === values.length - 1) {
       return values[0];
     }
-    
+
     return values[i + 1];
   };
 

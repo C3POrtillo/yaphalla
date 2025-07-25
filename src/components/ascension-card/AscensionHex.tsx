@@ -9,7 +9,7 @@ const AscensionHex: FC = () => {
   const { exportId, hero, ascension, exWeapon, hasEx } = useHeroData();
 
   return (
-    <div className="crown-frame flex flex-row items-center justify-center w-30">
+    <div className="crown-frame flex flex-row items-center justify-center w-29">
       <div id={exportId} className="flex flex-row justify-center items-end">
         <IconAscension src={ascension} size="h-22" />
         <div className="flex flex-col">

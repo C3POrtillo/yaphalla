@@ -34,7 +34,7 @@ const HeroDataContext = createContext<HeroDataContextType | undefined>(undefined
 export const HeroDataProvider: FC<HeroDataProviderProps> = ({ id, hero, children, save }) => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [isExport, setExport] = useState<boolean>(false);
-  const [type, setType] = useState<AscensionCardType>('Hex');
+  const [type, setType] = useState<AscensionCardType>('Card');
   const [ascension, setAscension] = useState<Ascension>('Supreme+');
   const [exWeapon, setExWeapon] = useState<ExWeapon>('+5');
   const hasEx = enableEx(ascension);

@@ -3,12 +3,12 @@ import { Ascension } from '@/utils/types';
 export const filterPairs = (unit: string) => {
   switch (unit) {
     case 'Phraesto Clone':
-      return 'Phraesto';
+      return false;
     case 'Elijah':
     case 'Lailah':
-      return 'Elijah & Lailah';
+      return false;
     default:
-      return unit;
+      return true;
   }
 };
 

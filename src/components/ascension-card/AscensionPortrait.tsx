@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 import { useHeroData } from '@/components/ascension-card/HeroDataProvider';
 import IconExWeapon from '@/components/ascension-card/IconExWeapon';
-import { FrameSet } from '@/components/ascension-card/types';
+import { FrameSet, ManualAdjustments } from '@/components/ascension-card/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
 const AscensionPortrait: FC = () => {
@@ -26,13 +26,14 @@ const AscensionPortrait: FC = () => {
       return ascensionSrc;
     }
   };
+  const adjustments = ManualAdjustments[hero as keyof typeof ManualAdjustments];
 
   return (
-    <div className="crown-frame flex justify-center items-center w-30">
+    <div className="crown-frame flex justify-center items-center w-29">
       <div
         id={exportId}
         className={joinStrings(
-          isInFrameSet ? 'crown-frame w-30' : 'card-frame w-24',
+          isInFrameSet ? 'crown-frame w-29' : 'card-frame w-24',
           'relative flex justify-center items-center',
         )}
       >
@@ -42,7 +43,13 @@ const AscensionPortrait: FC = () => {
               <Image src={`/assets/images/ascension/background/${backgroundSrc()}.png`} alt="" fill />
             </div>
           )}
-          <div className="hero-portrait absolute -bottom-7 w-38">
+          <div
+            className={joinStrings(
+              'hero-portrait absolute',
+              adjustments?.bottom || '-bottom-6',
+              adjustments?.size || 'w-35',
+            )}
+          >
             <Image src={`/assets/images/portraits/${hero}.png`} alt="" fill />
           </div>
           {hasEx && <IconExWeapon src={exWeapon} type="Card" size="w-24" className="!absolute z-10 top-0.25" />}

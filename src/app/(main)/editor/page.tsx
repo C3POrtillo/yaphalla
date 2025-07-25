@@ -87,7 +87,14 @@ const Index: FC = () => {
 
   const ascensionEditor = (
     <EditorAscension
-      teams={teams.map(({ units }) => new Set(Object.values(units).map(({ unit }) => filterPairs(unit))))}
+      teams={teams.map(
+        ({ units }) =>
+          new Set(
+            Object.values(units)
+              .filter(({ unit }) => filterPairs(unit))
+              .map(({ unit }) => unit),
+          ),
+      )}
       styleType="inset"
       hasLabel
     />

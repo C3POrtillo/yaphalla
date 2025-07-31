@@ -171,16 +171,16 @@ const discords = {
   //   themeColor: '#fed2a8',
   //   image: getLogo('trolley'),
   // } as RedirectType,
-  // '/vn': {
-  //   redirect: '/vn',
-  //   label: 'Discord',
-  //   href: 'https://discord.com/invite/afkjvietnam',
-  //   title: 'Join the Vietnam Community for AFKJ!',
-  //   site: 'Discord',
-  //   themeColor: '#da251d',
-  //   keywords: createDiscordKeywords('Vietnam'),
-  //   image: getLogo('vn-logo'),
-  // } as RedirectType,
+  '/vn': {
+    redirect: '/vn',
+    label: 'Discord',
+    href: 'https://discord.gg/kWE4wKe7tQ',
+    title: 'Join the Vietnam Community for AFKJ!',
+    site: 'Discord',
+    themeColor: '#da251d',
+    keywords: createDiscordKeywords('Vietnam'),
+    image: getLogo('vn-logo'),
+  } as RedirectType,
   '/official': {
     redirect: '/official',
     label: 'Discord',
@@ -211,16 +211,16 @@ const discords = {
     keywords: createDiscordKeywords('Honor Duel HQ'),
     image: getLogo('honor-duel-hq'),
   } as RedirectType,
-  '/weirdos-club': {
-    redirect: '/weirdos-club',
-    label: 'Discord',
-    href: 'https://discord.com/invite/cheetosfff',
-    title: "Join Weirdo's Club!",
-    site: 'Discord',
-    themeColor: '#f6405b',
-    keywords: createDiscordKeywords("Weirdo's Club"),
-    image: getLogo('weirdos-club'),
-  } as RedirectType,
+  // '/weirdos-club': {
+  //   redirect: '/weirdos-club',
+  //   label: 'Discord',
+  //   href: 'https://discord.com/invite/cheetosfff',
+  //   title: "Join Weirdo's Club!",
+  //   site: 'Discord',
+  //   themeColor: '#f6405b',
+  //   keywords: createDiscordKeywords("Weirdo's Club"),
+  //   image: getLogo('weirdos-club'),
+  // } as RedirectType,
 };
 
 const creatorDiscords = Object.fromEntries(

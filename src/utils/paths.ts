@@ -196,7 +196,15 @@ const paths = {
         options: [
           {
             href: '/emotes',
-            label: 'Units',
+            label: 'CeleHypo/Dimensional',
+          },
+          {
+            href: '/emotes-2',
+            label: 'Lightbearer/Wilder',
+          },
+          {
+            href: '/emotes-3',
+            label: 'Graveborn/Mauler',
           },
           {
             href: '/emotes-artifacts',
@@ -213,6 +221,10 @@ const paths = {
           {
             href: '/emotes-base',
             label: 'Base Hexes',
+          },
+          {
+            href: '/emotes-range',
+            label: 'Range Icons',
           },
         ],
       },

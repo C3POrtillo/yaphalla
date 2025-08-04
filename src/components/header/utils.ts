@@ -23,7 +23,7 @@ export const getLgCols = (length: number) => {
   return null;
 };
 
-const discordSlugs = new Set(['/emotes', '/emotes-hd', '/emotes-artifacts', '/emotes-charms', '/emotes-base']);
+const discordSlugs = /^\/emotes/;
 const sheetSlugs = new Set(['/primal-lord', '/battle-drills', 'Leaderboards']);
 const formSlugs = new Set(['/paragon-form']);
 
@@ -38,7 +38,7 @@ const staticSlugs: Record<string, string> = {
 };
 
 const staticSets = (href: string) => {
-  if (discordSlugs.has(href)) {
+  if (discordSlugs.test(href)) {
     return brandIcon('discord');
   }
   if (sheetSlugs.has(href)) {

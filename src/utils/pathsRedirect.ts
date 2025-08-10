@@ -319,6 +319,7 @@ const misc = {
     label: 'itch.io',
     href: 'https://sumraa.itch.io/homestead-deck-evaluation',
     title: 'Homestead Deck Evaluation by Sumraa',
+    description: 'Test deck combinations for Homestead recipes',
     site: 'itch.io',
     themeColor: '#5CB38F',
     keywords: ['Homestead Deck Calculator', 'Homestead Deck Optimizer']

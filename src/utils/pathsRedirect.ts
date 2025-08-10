@@ -261,6 +261,16 @@ const discords = {
   //   keywords: createDiscordKeywords("Weirdo's Club"),
   //   image: getLogo('weirdos-club'),
   // } as RedirectType,
+  '/drills-archive': {
+    redirect: '/drills-archive',
+    label: 'Discord',
+    href: 'https://discord.com/invite/hVnBdx5Mkk',
+    title: 'Join Drills Archive!',
+    site: 'Discord',
+    themeColor: '#5CB38F',
+    keywords: createDiscordKeywords('Drills Archive'),
+    image: getLogo('drills-archive'),
+  } as RedirectType,
 };
 
 const creatorDiscords = Object.fromEntries(
@@ -303,6 +313,15 @@ const misc = {
     href: 'https://www.prydwen.gg/afk-journey/',
     site: 'Prydwen',
     card: 'summary_large_image',
+  } as RedirectType,
+  '/hs-deck-calc': {
+    redirect: '/hs-deck-calc',
+    label: 'itch.io',
+    href: 'https://sumraa.itch.io/homestead-deck-evaluation',
+    title: 'Homestead Deck Evaluation by Sumraa',
+    site: 'itch.io',
+    themeColor: '#5CB38F',
+    keywords: ['Homestead Deck Calculator', 'Homestead Deck Optimizer']
   } as RedirectType,
 };
 

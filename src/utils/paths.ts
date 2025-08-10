@@ -135,6 +135,10 @@ const paths = {
             href: redirects['/honor-duel-hq'].href,
             label: 'Honor Duel HQ',
           },
+          {
+            href: redirects['/drills-archive'].href,
+            label: 'Drills Archive',
+          },
           // {
           //   href: redirects['/weirdos-club'].href,
           //   label: "Weirdo's Club",
@@ -182,9 +186,13 @@ const paths = {
             label: 'ADB Auto Player',
           },
           {
-            href: '/paragon-form',
-            label: 'Paragon Form',
+            href: '/hs-deck-calc',
+            label: 'Homestead Deck Calculator',
           },
+          // {
+          //   href: '/paragon-form',
+          //   label: 'Paragon Form',
+          // },
           {
             href: 'https://afk-journey.fandom.com',
             label: 'AFKJ Wiki',

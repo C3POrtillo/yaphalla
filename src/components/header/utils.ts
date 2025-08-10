@@ -32,6 +32,7 @@ const staticSlugs: Record<string, string> = {
   Communities: 'heroicons:user-group-16-solid',
   '/creators': 'mdi:tv-classic',
   '/auto-player': 'fa6-solid:robot',
+  '/hs-deck-calc': 'mdi:calculator-variant',
   'https://afk-journey.fandom.com': 'fa-solid:book',
   '/heroes': 'heroicons:user-16-solid',
   '/bosses': 'fa6-solid:book-skull',

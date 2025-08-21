@@ -33,9 +33,11 @@ const staticSlugs: Record<string, string> = {
   '/creators': 'mdi:tv-classic',
   '/auto-player': 'fa6-solid:robot',
   '/hs-deck-calc': 'mdi:calculator-variant',
+  '/camelossus': 'mdi:calculator-variant',
   'https://afk-journey.fandom.com': 'fa-solid:book',
   '/heroes': 'heroicons:user-16-solid',
   '/bosses': 'fa6-solid:book-skull',
+  '/arena-sim': 'mdi:sword-cross'
 };
 
 const staticSets = (href: string) => {

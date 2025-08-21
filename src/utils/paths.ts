@@ -189,14 +189,6 @@ const paths = {
             href: '/arena-sim',
             label: 'Stargazer - Arena Simulator'
           },
-          {
-            href: '/camelossus',
-            label: 'Camelossus - Homestead Optimizer'
-          },
-          {
-            href: '/hs-deck-calc',
-            label: 'Homestead Deck Calculator',
-          },
           // {
           //   href: '/paragon-form',
           //   label: 'Paragon Form',
@@ -206,6 +198,19 @@ const paths = {
             label: 'AFKJ Wiki',
           },
         ],
+      },
+      {
+        label: 'Homestead',
+        options: [
+          {
+            href: '/camelossus',
+            label: 'Camelossus'
+          },
+          {
+            href: '/hs-deck-calc',
+            label: 'Deck Calculator',
+          },
+        ]
       },
       {
         label: 'Yapmojis',

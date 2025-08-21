@@ -341,7 +341,7 @@ const misc = {
     description: 'Optimize deck combinations for Homesteade recipes',
     themeColor: '#5CB38F',
     keywords: ['Homestead Deck Calculator', 'Homestead Deck Optimizer']
-  }
+  } as RedirectType,
 };
 
 export const redirects = {

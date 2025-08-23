@@ -37,7 +37,7 @@ const staticSlugs: Record<string, string> = {
   'https://afk-journey.fandom.com': 'fa-solid:book',
   '/heroes': 'heroicons:user-16-solid',
   '/bosses': 'fa6-solid:book-skull',
-  '/arena-sim': 'mdi:sword-cross'
+  '/arena-sim': 'mdi:sword-cross',
 };
 
 const staticSets = (href: string) => {

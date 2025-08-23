@@ -322,16 +322,17 @@ const misc = {
     description: 'Test deck combinations for Homestead recipes',
     site: 'itch.io',
     themeColor: '#5CB38F',
-    keywords: ['Homestead Deck Calculator', 'Homestead Deck Optimizer']
+    keywords: ['Homestead Deck Calculator', 'Homestead Deck Optimizer'],
   } as RedirectType,
   '/arena-sim': {
     redirect: '/arena-sim',
     label: 'Stargazer',
     href: 'https://stargazer.tmdict.com/',
     title: 'AFK Journey Arena Simulator by Unii',
-    description: 'Plan and simulate AFK Journey arena battles. Test hero formations, visualize skill targeting, and share team compositions.',
+    description:
+      'Plan and simulate AFK Journey arena battles. Test hero formations, visualize skill targeting, and share team compositions.',
     image: 'https://stargazer.tmdict.com/stellarcrystal.png',
-    keywords: ['AFK Journey Arena Simulator']
+    keywords: ['AFK Journey Arena Simulator'],
   } as RedirectType,
   '/camelossus': {
     redirect: '/camelossus',
@@ -340,7 +341,7 @@ const misc = {
     title: 'Homestead Deck Optimizer by Toobles',
     description: 'Optimize deck combinations for Homesteade recipes',
     themeColor: '#5CB38F',
-    keywords: ['Homestead Deck Calculator', 'Homestead Deck Optimizer']
+    keywords: ['Homestead Deck Calculator', 'Homestead Deck Optimizer'],
   } as RedirectType,
 };
 

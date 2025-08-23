@@ -8,7 +8,7 @@ export const CommunityLogos = {
   'fight-club': 'Fight Club',
   vn: 'VN',
   'the-eight': 'TheEight',
-  'bloodletter': 'Bloodletter',
+  bloodletter: 'Bloodletter',
 } as const;
 
 export type CommunityLogos = keyof typeof CommunityLogos;

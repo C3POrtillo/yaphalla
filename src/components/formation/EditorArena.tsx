@@ -102,9 +102,15 @@ const EditorArena: FC<EditorArena> = ({
       ? relativeIndex < tiles.findIndex(a => AlwaysShowStates.has(a.state))
       : relativeIndex > tiles.findLastIndex(a => AlwaysShowStates.has(a.state));
 
-    const showFirstHex =
-      tiles.every(a => a.state === 0 || a.state === -1 || ObstacleStates.has(state)) &&
-      (isTopRight ? relativeIndex === tiles.length - 1 : relativeIndex === 0);
+    const validRow = tiles.every(tile => {
+      const isGrid = tile.state === 0;
+      const isEnemy = tile.state === -1;
+      const isObstacle = ObstacleStates.has(tile.state);
+
+      return isGrid || isEnemy || isObstacle;
+    });
+
+    const showFirstHex = validRow && (isTopRight ? relativeIndex === tiles.length - 1 : relativeIndex === 0);
 
     const omit = (state !== 1 && tiles.some(a => a.state === 1) && omitDirection) || tiles.every(a => a.state !== 1);
 
@@ -114,8 +120,9 @@ const EditorArena: FC<EditorArena> = ({
   const shouldHideRow = (i: number) => {
     const beforeFirst = firstPlayerRow !== undefined && i < firstPlayerRow;
     const afterLast = lastPlayerRow !== undefined && i > lastPlayerRow;
+    const hideRow = hideEmpty && hideEnemy && (beforeFirst || afterLast);
 
-    return hideEmpty && hideEnemy && (beforeFirst || afterLast);
+    return hideRow;
   };
 
   const getDisabledProps = (state: number) => {

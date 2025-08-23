@@ -27,16 +27,15 @@ export const getRelativeTileLabels = (tiles: number[]) => {
   };
 };
 
-const bottomLeftIndexes = [28, 38, 39, 34]
-const topRightIndexes = [1, 5, 6, 10]
+const bottomLeftIndexes = [28, 38, 39, 34];
+const topRightIndexes = [1, 5, 6, 10];
 
 export const getIsTopRight = (tileData: number[]) => {
-  const isNotBottomLeft = bottomLeftIndexes.some(i => tileData[i] !== 1)
-  const isTopRight = topRightIndexes.some(i => tileData[i] === 1)
+  const isNotBottomLeft = bottomLeftIndexes.some(i => tileData[i] !== 1);
+  const isTopRight = topRightIndexes.some(i => tileData[i] === 1);
 
   return isNotBottomLeft && isTopRight;
-
-}
+};
 
 export const getDrawImage = (str: string, baseHex: boolean) => {
   const label = str.toLowerCase();

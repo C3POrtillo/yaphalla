@@ -30,7 +30,7 @@ const HeroTooltip: FC<HeroTooltipProps> = ({ hero, faction, heroClass }) => {
   return (
     <div className="flex flex-row gap-1 items-center">
       {imageFaction || imageClass}
-      <p className="text-xs w-max max-w-16">
+      <p className="text-xs w-max max-w-18">
         {formattedText.startsWith('Hex') ? formattedText.replace('Hex ', '') : formattedText}
       </p>
       {imageClass || imageFaction}

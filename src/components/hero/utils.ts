@@ -167,6 +167,9 @@ export const correctSrc = (src: string) => {
 };
 
 export const getDetailSrc = (src: string) => {
+  if (!src) {
+    return null;
+  }
   const correctedSrc = correctSrc(src);
   const path = getDetailPath(correctedSrc);
 

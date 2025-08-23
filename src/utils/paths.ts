@@ -187,7 +187,7 @@ const paths = {
           },
           {
             href: '/arena-sim',
-            label: 'Stargazer - Arena Simulator'
+            label: 'Stargazer - Arena Simulator',
           },
           // {
           //   href: '/paragon-form',
@@ -204,13 +204,13 @@ const paths = {
         options: [
           {
             href: '/camelossus',
-            label: 'Camelossus'
+            label: 'Camelossus',
           },
           {
             href: '/hs-deck-calc',
             label: 'Deck Calculator',
           },
-        ]
+        ],
       },
       {
         label: 'Yapmojis',

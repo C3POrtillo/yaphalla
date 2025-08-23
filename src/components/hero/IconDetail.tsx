@@ -15,6 +15,10 @@ interface IconDetail {
 const IconDetail: FC<IconDetail> = ({ src, size = 'base', className }) => {
   const formattedSrc = getDetailSrc(src);
 
+  if (!formattedSrc) {
+    return;
+  }
+
   return (
     <div
       className={joinStrings(

@@ -1,5 +1,5 @@
 import { CommunityLogos } from '@/components/hex-tiles/types';
-import { compareStrings, sortData } from '@/utils/utils';
+import { compareStrings, encodeIndex, hashHeroName, sortData, toBase62 } from '@/utils/utils';
 
 export const HeroClass = ['Tank', 'Support', 'Marksman', 'Mage', 'Rogue', 'Warrior'] as const;
 export const Faction = [
@@ -233,6 +233,17 @@ export const SortedHeroes = Object.entries(Heroes).flatMap(([faction, classData]
 ) as Hero[];
 
 export const HeroSet = new Set(SortedHeroes.map(({ hero }) => hero));
+
+export const HeroIds = Object.fromEntries(
+  SortedHeroes.map(({ hero, faction, heroClass }) => {
+    const prefix =
+      encodeIndex(Faction.indexOf(faction as Faction)) + encodeIndex(HeroClass.indexOf(heroClass as HeroClass));
+    const nameHash = toBase62(hashHeroName(hero)).slice(0, 3);
+
+    return [hero, `${prefix}${nameHash}`];
+  }),
+);
+
 export const WildcardSet = new Set([...Faction, ...Talents]);
 
 export const OtherHeroes = (() => {
@@ -413,7 +424,7 @@ export const DreamRealmBosses = {
   ] as const),
 };
 
-export const PrimalLordBosses = new Set(['Magmazard', 'Blightshroom'] as const);
+export const PrimalLordBosses = new Set(['Crystal Crawler', 'Magmazard', 'Blightshroom'] as const);
 
 export const RavagedRealmBosses = new Set([] as const);
 

@@ -1,0 +1,16 @@
+### Response Example: /api/heroes/[hero] 
+{
+  `id`:  `string`,
+  `name`: `string`,
+  `title`: `string`,
+  `description`: ``,
+  `faction`: `Lightbearer | Wilder | Mauler | Graveborn | Celestial | Hypogean`,
+  `class`: `Mage | Marksman | Rogue | Support | Tank | Warrior`,
+  `damageType`: `Magic | Physical`,
+  `gender`: `female | male`,
+  `hexImage`: `yaphalla.com/assets/images/hexes/unit/{heroName}.png`,
+  `portraitImage`: `yaphalla.com/assets/images/portraits/{heroName}.png`,
+  `factionImage`: `yaphalla.com/assets/images/factions/{lightbearer | wilder | mauler | graveborn | celestial | hypogean}.png`,
+  `classImage`: `yaphalla.com/assets/images/class/{mage | marksman | rogue | support | tank | warrior}.png`,
+  `damageTypeImage`: `yaphalla.com/assets/images/damage/{magic | physical}.png`
+}

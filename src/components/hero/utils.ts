@@ -312,41 +312,38 @@ const imagePath = 'yaphalla.com/assets/images/';
 
 export const formatApiData = async (hero: string, id: string) => {
   const heroData = await getHeroAllDetails(hero);
+  const faction = UnitsByFaction[hero];
+  const heroClass = UnitsByClass[hero];
+  const staticData = {
+    id,
+    faction,
+    class: heroClass,
+    name: hero,
+  }
+  const images = {
+    hexImage: `yaphalla.com/assets/images/hexes/unit/${hero}.png`,
+    portraitImage: `yaphalla.com/assets/images/portraits/${hero}.png`,
+    factionImage: `${imagePath}factions/${faction.toLocaleLowerCase()}.png`,
+    classImage: `${imagePath}class/${heroClass.toLocaleLowerCase()}.png`,
+  }
   if (!heroData) {
-    const faction = UnitsByFaction[hero];
-    const heroClass = UnitsByClass[hero];
-
     return [
       hero,
-      {
-        id,
-        name: hero,
-        faction,
-        class: heroClass,
-        hexURL: `${imagePath}hexes/unit/${hero}.png`,
-        factionImage: `${imagePath}factions/${faction.toLocaleLowerCase()}.png`,
-        classImage: `${imagePath}class/${heroClass.toLocaleLowerCase()}.png`,
-      },
+      {...staticData, ...images}
     ];
   }
 
-  const { UnitJob, DamageType, DisplayTitle, UnitRace, Description } = heroData.Info;
-
+  const { DamageType, DisplayTitle, Description } = heroData.Info;
   return [
     hero,
-    {
-      id,
-      name: hero,
+    { 
+      ...staticData,
       title: DisplayTitle,
       description: Description,
-      faction: UnitRace,
-      class: UnitJob,
       damageType: DamageType,
-      hexImage: `yaphalla.com/assets/images/hexes/unit/${hero}.png`,
-      portraitImage: `yaphalla.com/assets/images/portraits/${hero}.png`,
-      factionImage: `yaphalla.com/assets/images/factions/${UnitRace.toLocaleLowerCase()}.png`,
-      classImage: `yaphalla.com/assets/images/class/${correctSrc(UnitJob).toLocaleLowerCase()}.png`,
+      ...images,
       damageTypeImage: `yaphalla.com/assets/images/damage/${DamageType.toLocaleLowerCase()}.png`,
+
     },
   ];
 };

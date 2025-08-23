@@ -2,11 +2,11 @@
 {
   `heroName`: {
     `id`:  `string`,
-    `name`: `string`,
-    `title`?: `string`,
-    `description`?: ``,
     `faction`: `Lightbearer | Wilder | Mauler | Graveborn | Celestial | Hypogean`,
     `class`: `Mage | Marksman | Rogue | Support | Tank | Warrior`,
+    `name`: `string`,
+    `title`?: `string`,
+    `description`?: `string`,
     `damageType`?: `Magic | Physical`,
     `hexImage`: `yaphalla.com/assets/images/hexes/unit/{heroName}.png`,
     `portraitImage`?: `yaphalla.com/assets/images/portraits/{heroName}.png`,

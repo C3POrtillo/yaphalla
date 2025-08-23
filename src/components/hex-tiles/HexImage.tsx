@@ -70,7 +70,7 @@ const HexImage: FC<HexImageProps> = ({
       !testRegExp(src, LogoRegExp) &&
       'base/Enemy-Overlay',
     !hideImage && !isEnemy && forceOutline && `${getPath(forceOutline)}/${forceOutline}`,
-    isTalent && 'base/Talent-Selected',
+    !disabled && isTalent && 'base/Talent-Selected',
     !disabled && selected && 'base/Select-Outline',
     isSwap && 'base/Swap-Overlay',
   ].filter(Boolean) as string[];

@@ -143,3 +143,26 @@ export const sanitizeUnit = (unit: string) =>
     .split(' ')
     .map(word => capitalize(word))
     .join(' ');
+
+const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+export const encodeIndex = (index: number) => ALPHABET[index];
+
+export const hashHeroName = (unit: string) => {
+  let hash = 0;
+  for (let i = 0; i < unit.length; i++) {
+    hash = (hash * 31 + unit.charCodeAt(i)) >>> 0;
+  }
+
+  return hash;
+};
+
+export const toBase62 = (number: number) => {
+  let s = '';
+  do {
+    s = ALPHABET[number % 62] + s;
+    number = Math.floor(number / 62);
+  } while (number > 0);
+
+  return s;
+};

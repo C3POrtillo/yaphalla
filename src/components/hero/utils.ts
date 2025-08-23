@@ -7,7 +7,7 @@ import type { ReactNode } from 'react';
 
 import { IconMap } from '@/components/hero/types';
 import { BossPaths, HeroPaths, UnitOverride } from '@/utils/pathsHeroes';
-import { Damage, Difficulties, Faction, HeroClass, HeroSet, Tier } from '@/utils/types';
+import { Damage, Difficulties, Faction, HeroClass, HeroSet, Tier, UnitsByClass, UnitsByFaction } from '@/utils/types';
 import { cleanString, compareStrings } from '@/utils/utils';
 
 export const getDetailIconSize = (size: InputSizeTypes) => {
@@ -268,8 +268,8 @@ export const getHeroAllDetails = async (hero: string) => {
   if (!hero) {
     return null;
   }
-
   const res = await fetchAPI(hero);
+
   if (res.status !== 200) {
     return null;
   }
@@ -307,3 +307,46 @@ export const getAllHeroMiniDetails = async (path: keyof typeof pathMap = 'heroes
       pathMap[path].map(async ({ label }) => getHeroMiniDetails(label, !!compareStrings(path, 'heroes'))),
     )
   ).filter(Boolean) as HeroDetailProps[];
+
+const imagePath = 'yaphalla.com/assets/images/'
+
+export const formatApiData = async (hero: string, id: string) => {
+  const heroData = await getHeroAllDetails(hero);
+  if (!heroData) {
+    const faction = UnitsByFaction[hero];
+    const heroClass = UnitsByClass[hero];
+
+    return [
+      hero,
+      {
+        id,
+        name: hero,
+        faction,
+        class: heroClass,
+        hexURL: `${imagePath}hexes/unit/${hero}.png`,
+        factionImage: `${imagePath}factions/${faction.toLocaleLowerCase()}.png`,
+        classImage: `${imagePath}class/${heroClass.toLocaleLowerCase()}.png`,
+      },
+    ];
+  }
+
+  const { UnitJob, DamageType, DisplayTitle, UnitRace, Description } = heroData.Info;
+
+  return [
+    hero,
+    {
+      id,
+      name: hero,
+      title: DisplayTitle,
+      description: Description,
+      faction: UnitRace,
+      class: UnitJob,
+      damageType: DamageType,
+      hexImage: `yaphalla.com/assets/images/hexes/unit/${hero}.png`,
+      portraitImage: `yaphalla.com/assets/images/portraits/${hero}.png`,
+      factionImage: `yaphalla.com/assets/images/factions/${UnitRace.toLocaleLowerCase()}.png`,
+      classImage: `yaphalla.com/assets/images/class/${correctSrc(UnitJob).toLocaleLowerCase()}.png`,
+      damageTypeImage: `yaphalla.com/assets/images/damage/${DamageType.toLocaleLowerCase()}.png`,
+    },
+  ];
+};

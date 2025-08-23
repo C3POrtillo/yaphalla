@@ -10,9 +10,9 @@ export const GET = async (request: Request, { params }: { params: Promise<{ hero
   const apiData = await formatApiData(hero, id);
 
   return new Response(JSON.stringify(apiData[1]), {
-    headers: {
-      'Content-Type': 'application/json',
-      ...HeroRouteHeaders,
-    },
+    headers: HeroRouteHeaders,
   });
 };
+
+export const OPTIONS = () => new Response(null, { headers: HeroRouteHeaders });
+

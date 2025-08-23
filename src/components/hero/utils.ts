@@ -319,31 +319,28 @@ export const formatApiData = async (hero: string, id: string) => {
     faction,
     class: heroClass,
     name: hero,
-  }
+  };
   const images = {
     hexImage: `yaphalla.com/assets/images/hexes/unit/${hero}.png`,
     portraitImage: `yaphalla.com/assets/images/portraits/${hero}.png`,
     factionImage: `${imagePath}factions/${faction.toLocaleLowerCase()}.png`,
     classImage: `${imagePath}class/${heroClass.toLocaleLowerCase()}.png`,
-  }
+  };
   if (!heroData) {
-    return [
-      hero,
-      {...staticData, ...images}
-    ];
+    return [hero, { ...staticData, ...images }];
   }
 
   const { DamageType, DisplayTitle, Description } = heroData.Info;
+  
   return [
     hero,
-    { 
+    {
       ...staticData,
       title: DisplayTitle,
       description: Description,
       damageType: DamageType,
       ...images,
       damageTypeImage: `yaphalla.com/assets/images/damage/${DamageType.toLocaleLowerCase()}.png`,
-
     },
   ];
 };

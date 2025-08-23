@@ -234,7 +234,7 @@ export const SortedHeroes = Object.entries(Heroes).flatMap(([faction, classData]
 
 export const HeroSet = new Set(SortedHeroes.map(({ hero }) => hero));
 
-export const HeroIds = Object.fromEntries(
+export const HeroesById = Object.fromEntries(
   SortedHeroes.map(({ hero, faction, heroClass }) => {
     const prefix =
       encodeIndex(Faction.indexOf(faction as Faction)) + encodeIndex(HeroClass.indexOf(heroClass as HeroClass));
@@ -243,6 +243,8 @@ export const HeroIds = Object.fromEntries(
     return [hero, `${prefix}${nameHash}`];
   }),
 );
+
+export const IdsByHero = Object.fromEntries(Object.entries(HeroesById).map(([hero, id]) => [id, hero]));
 
 export const WildcardSet = new Set([...Faction, ...Talents]);
 

@@ -1,5 +1,5 @@
 import { formatApiData } from '@/components/hero/utils';
-import { HeroIds } from '@/utils/types';
+import { HeroesById } from '@/utils/types';
 
 export const dynamic = 'force-static';
 
@@ -11,7 +11,7 @@ export const HeroRouteHeaders = {
 };
 
 export const GET = async () => {
-  const apiData = await Promise.all(Object.entries(HeroIds).map(async ([hero, id]) => formatApiData(hero, id)));
+  const apiData = await Promise.all(Object.entries(HeroesById).map(async ([hero, id]) => formatApiData(hero, id)));
   const allData = Object.fromEntries(apiData);
 
   return new Response(JSON.stringify(allData), {

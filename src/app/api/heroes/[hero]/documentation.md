@@ -1,4 +1,5 @@
-### Response Example: /api/heroes/[hero] 
+### Response Example: /api/heroes/[hero]
+-# [hero] = any valid slug from /heroes/[hero] or its `id`
 {
   `id`:  `string`,
   `faction`: `Lightbearer | Wilder | Mauler | Graveborn | Celestial | Hypogean`,

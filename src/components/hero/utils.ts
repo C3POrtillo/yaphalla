@@ -308,7 +308,7 @@ export const getAllHeroMiniDetails = async (path: keyof typeof pathMap = 'heroes
     )
   ).filter(Boolean) as HeroDetailProps[];
 
-const imagePath = 'yaphalla.com/assets/images/'
+const imagePath = 'yaphalla.com/assets/images/';
 
 export const formatApiData = async (hero: string, id: string) => {
   const heroData = await getHeroAllDetails(hero);

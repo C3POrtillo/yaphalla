@@ -6,12 +6,16 @@ export type FilterValues = HeroClass | Faction | Tier | Damage;
 const twins = ['twins'];
 const phraesto = ['pesto'];
 const hamster = ['hamster'];
+const dog = ['dog', 'good', 'boi', 'wolf'];
+const zanie = ['zanie', 'laser', 'lazer', 'turret'];
 
 export const Aliases = {
   Alsa: ['salsa'],
+  Bryon: ['byron'],
   Chippy: hamster,
   Damian: ['damien'],
   Dunlingr: ['dung', 'duolingo', 'dungbeetle'],
+  Faramor: dog,
   Hammie: hamster,
   Harak: ['sharkboy', 'shark'],
   Hodgkin: ['speedo', 'hodge'],
@@ -22,7 +26,11 @@ export const Aliases = {
   Phraesto: phraesto,
   'Phraesto Clone': phraesto,
   Salazer: ['salezar'],
+  Shakir: dog,
   Talene: ['kfc', 'fried', 'chicken'],
+  Zandrok: ['horse'],
+  Zanie: zanie,
+  'Zanie Turret': zanie,
 } as const;
 
 type Filter = RegExp | undefined | false;

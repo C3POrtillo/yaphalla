@@ -143,7 +143,7 @@ export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet, ...HonorDuelS
 const Lightbearer = {
   Tank: ['Chippy', 'Lucca', 'Lucius', 'Temesia'],
   Support: ['Fay', 'Hugin', 'Rowan'],
-  Marksman: ['Atalanta', 'Marilee', 'Zanie'],
+  Marksman: ['Atalanta', 'Marilee', 'Zanie', 'Zanie Turret'],
   Mage: ['Cassadee', 'Hammie', 'Mirael', 'Cyran'],
   Rogue: ['Sinbad', 'Vala', 'Walker'],
   Warrior: ['Korin', 'Sonja', 'Valen'],
@@ -319,6 +319,7 @@ export const UnitsByTalent = Object.fromEntries(
 export const HexPath = '/assets/images/hexes/';
 export const HeroPairs = [['Phraesto', 'Phraesto Clone'], ['Elijah', 'Lailah'], ['Elijah & Lailah']] as const;
 export const PairSet = new Set(HeroPairs.flatMap(pairs => pairs));
+export const IgnoreTalents = new Set(['Zanie Turret'] as const);
 
 export const LogoRegExp = new RegExp('Cat|Dog');
 

@@ -2,7 +2,7 @@ import type { TileDivData, UnitFormationData } from '@/components/formation/type
 import type { BaseHexes, Talents } from '@/utils/types';
 
 import { TalentLocations, TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/formation/types';
-import { Artifacts, CurrentSeason, HeroPairs, PairSet, UnitsByTalent } from '@/utils/types';
+import { Artifacts, CurrentSeason, HeroPairs, IgnoreTalents, PairSet, UnitsByTalent } from '@/utils/types';
 import { compareStrings, generateCookie, sortData } from '@/utils/utils';
 
 export const getRelativeTileLabels = (tiles: number[]) => {
@@ -85,7 +85,8 @@ export const countUnits = (
   const unitCount = {} as Record<string, number>;
 
   Object.entries(units).forEach(([_, { unit, type }]) => {
-    if (type !== validType || !UnitsByTalent[unit] || !UnitsByTalent[unit].length) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (type !== validType || !UnitsByTalent[unit] || !UnitsByTalent[unit].length || IgnoreTalents.has(unit as any)) {
       return;
     }
 

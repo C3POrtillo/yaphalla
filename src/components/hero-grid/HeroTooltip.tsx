@@ -3,6 +3,8 @@ import Image from 'next/image';
 import type { Faction, HeroClass, Talents } from '@/utils/types';
 import type { FC } from 'react';
 
+import { DisplayOverride } from '@/components/hero-grid/types';
+
 interface HeroTooltipProps {
   faction?: Faction | Talents | '';
   hero: string;
@@ -22,10 +24,10 @@ const HeroTooltip: FC<HeroTooltipProps> = ({ hero, faction, heroClass }) => {
       />
     </div>
   );
-
+  const override = DisplayOverride[hero as keyof typeof DisplayOverride];
   const imageFaction = !!faction && createImage(faction, 'factions');
-  const imageClass = !!heroClass && createImage(heroClass, 'class');
-  const formattedText = hero.replaceAll('-', ' ');
+  const imageClass = !!heroClass && createImage(override?.heroClass || heroClass, 'class');
+  const formattedText = override?.name || hero.replaceAll('-', ' ');
 
   return (
     <div className="flex flex-row gap-1 items-center">

@@ -331,7 +331,7 @@ export const formatApiData = async (hero: string, id: string) => {
   }
 
   const { DamageType, DisplayTitle, Description } = heroData.Info;
-  
+
   return [
     hero,
     {

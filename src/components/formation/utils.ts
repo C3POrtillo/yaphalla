@@ -116,7 +116,7 @@ const talentPositions = {
     front: [0, 2],
   },
   'Ravaged Realm S4': {
-    rear: [-3, -1],
+    rear: [-4, -3],
     front: [0, 2],
   }
 } as const

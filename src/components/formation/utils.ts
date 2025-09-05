@@ -110,10 +110,22 @@ export const countUnits = (
   });
 };
 
-export const getTalentTiles = (tiles: number[], faction: Talents, type: number) => {
-  const talentTiles = type === -1 ? tiles.toReversed() : tiles;
+const talentPositions = {
+  base: {
+    rear: [-3, -1],
+    front: [0, 2],
+  },
+  'Ravaged Realm S4': {
+    rear: [-3, -1],
+    front: [0, 2],
+  }
+} as const
 
-  return new Set<number>(TalentLocations[faction] ? talentTiles.slice(-3, -1) : talentTiles.slice(0, 2));
+export const getTalentTiles = (tiles: number[], faction: Talents, type: number, preset: string) => {
+  const talentTiles = type === -1 ? tiles.toReversed() : tiles;
+  const positions = talentPositions[(preset.localeCompare('Ravaged Realm S4') ? 'base' : preset) as keyof typeof talentPositions]
+
+  return new Set<number>(TalentLocations[faction] ? talentTiles.slice(...positions.rear) : talentTiles.slice(...positions.front));
 };
 
 export const processTileData = (

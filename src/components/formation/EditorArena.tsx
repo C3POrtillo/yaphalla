@@ -74,7 +74,7 @@ const EditorArena: FC<EditorArena> = ({
   });
 
   const getTalents = (key: 'player' | 'enemy', faction: Talents | undefined, type: number) =>
-    !hideTalents && !!faction && getTalentTiles(relativeTileLabel[key], faction, type);
+    !hideTalents && !!faction && getTalentTiles(relativeTileLabel[key], faction, type, preset);
   const playerTalents = getTalents('player', playerFaction, isTopRight ? -1 : 1);
   const enemyTalents = getTalents('enemy', enemyFaction, isTopRight ? 1 : -1);
 

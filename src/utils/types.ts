@@ -146,7 +146,7 @@ const Lightbearer = {
   Marksman: ['Atalanta', 'Marilee', 'Zanie', 'Zanie Turret'],
   Mage: ['Cassadee', 'Hammie', 'Mirael', 'Cyran'],
   Rogue: ['Sinbad', 'Vala', 'Walker'],
-  Warrior: ['Korin', 'Sonja', 'Valen'],
+  Warrior: ['Korin', 'Perseus', 'Sonja', 'Valen'],
 } as ClassData;
 
 const Wilder = {
@@ -161,7 +161,7 @@ const Wilder = {
 const Mauler = {
   Tank: ['Antandra', 'Gerda', 'Lumont'],
   Support: ['Koko', 'Mikola', 'Smokey & Meerky'],
-  Marksman: ['Odie', 'Rhys'],
+  Marksman: ['Nazrik', 'Odie', 'Rhys'],
   Mage: ['Alsa', 'Satrana'],
   Rogue: ['Seth', 'Shakir', 'Soren'],
   Warrior: ['Brutus', 'Kruger', 'Zandrok'],
@@ -169,7 +169,7 @@ const Mauler = {
 
 const Graveborn = {
   Tank: ['Callan', 'Daimon', 'Thoran'],
-  Support: ['Ludovic', 'Niru'],
+  Support: ['Isabella', 'Ludovic', 'Niru'],
   Marksman: ['Bonnie', 'Cecia'],
   Mage: ['Carolina', 'Shemira', 'Viperian'],
   Rogue: ['Nara', 'Salazer', 'Silvina'],
@@ -179,7 +179,7 @@ const Graveborn = {
 const Celestial = {
   Tank: ['Dunlingr'],
   Support: ['Elijah & Lailah', 'Elijah', 'Lailah'],
-  Marksman: ['Dionel'],
+  Marksman: ['Aliceth', 'Dionel'],
   Mage: ['Talene'],
   Rogue: ['Athalia'],
   Warrior: ['Baelran', 'Scarlita'],

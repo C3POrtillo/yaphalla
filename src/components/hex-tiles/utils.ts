@@ -11,6 +11,7 @@ import {
   HeroClass,
   HonorDuelSet,
   ModeHexSet,
+  PhantimalSet,
   PreSeasonSet,
   RarityHexSet,
   SeasonSet,
@@ -70,7 +71,10 @@ const getBasePath = (unit: string): ImagePath => {
 const wildcardSet = new Set([...HeroClass, 'Wildcard']);
 
 export const getUnitPath = (unit: string): ImagePath => {
-  if (wildcardSet.has(unit.split(' ')[1])) {
+  if (PhantimalSet.has(unit)) {
+    return 'unit/phantimal';
+  }
+  if (wildcardSet.has(unit.split(' ')[1]) || compareStrings(unit, 'Wildcard') === 0) {
     return 'unit/wildcard';
   }
   if (BossesSet.has(unit)) {

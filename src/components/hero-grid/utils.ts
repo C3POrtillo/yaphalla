@@ -1,6 +1,15 @@
 import type { UnitDivData } from '@/components/hero-grid/types';
+import type { Phantimal } from '@/utils/types';
 
-import { ArtifactHeroes, DevHeroes, HexHeroes, OtherHeroes, SortedHeroes } from '@/utils/types';
+import {
+  ArtifactHeroes,
+  CurrentSeason,
+  DevHeroes,
+  HexHeroes,
+  OtherHeroes,
+  Phantimals,
+  SortedHeroes,
+} from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 
 const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {
@@ -14,6 +23,15 @@ const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {
   return 7;
 };
 
+export const getSeasonalPhantimals = () =>
+  Object.entries(Phantimals[CurrentSeason]).map(
+    ([faction, phantimal]) =>
+      ({
+        ...phantimal,
+        faction,
+      }) as Phantimal,
+  );
+
 export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant = 0) => {
   const data = (() => {
     switch (variant) {
@@ -22,7 +40,7 @@ export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant
       case 2:
         return ArtifactHeroes;
       case 1:
-        return OtherHeroes;
+        return [...OtherHeroes, ...getSeasonalPhantimals()];
       default:
         return SortedHeroes;
     }

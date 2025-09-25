@@ -5,7 +5,7 @@ import Toggle from '@/components/inputs/toggle/Toggle';
 
 const EditorToggles: FC = () => {
   const {
-    hideTalents,
+    // hideTalents,
     hideEmpty,
     hideEnemy,
     hideNumbers,
@@ -14,7 +14,7 @@ const EditorToggles: FC = () => {
     setHideEmpty,
     setHideNumbers,
     setHideEmptyArtifact,
-    setHideTalents,
+    // setHideTalents,
     isEditArena,
   } = useFormation();
 
@@ -30,14 +30,14 @@ const EditorToggles: FC = () => {
   const spanArtifact = <span className="text-primary-400">Artifact Tiles</span>;
 
   const unitControls = [
-    {
-      name: 'talentToggle',
-      defaultChecked: !hideTalents,
-      value: 'Talents',
-      disabled: isEditArena,
-      onChange: setHideTalents,
-      tooltip: <p className="text-sm">{spanToggle} Faction Talents tiles</p>,
-    },
+    // {
+    //   name: 'talentToggle',
+    //   defaultChecked: !hideTalents,
+    //   value: 'Talents',
+    //   disabled: isEditArena,
+    //   onChange: setHideTalents,
+    //   tooltip: <p className="text-sm">{spanToggle} Faction Talents tiles</p>,
+    // },
     {
       name: 'emptyToggle',
       defaultChecked: !hideEmpty,
@@ -113,7 +113,7 @@ const EditorToggles: FC = () => {
       {controlDivs.map(({ label, hideLabel, divs }) => (
         <div key={label} className="w-full flex flex-row gap-2 items-center">
           {!hideLabel && <span>{label}</span>}
-          <div className="w-full flex flex-row gap-1 flex-wrap">{divs}</div>
+          <div className="w-full flex flex-row gap-1 flex-wrap justify-center">{divs}</div>
         </div>
       ))}
     </div>

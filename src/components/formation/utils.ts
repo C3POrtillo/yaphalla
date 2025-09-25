@@ -118,14 +118,17 @@ const talentPositions = {
   'Ravaged Realm S4': {
     rear: [-4, -3],
     front: [0, 2],
-  }
-} as const
+  },
+} as const;
 
 export const getTalentTiles = (tiles: number[], faction: Talents, type: number, preset: string) => {
   const talentTiles = type === -1 ? tiles.toReversed() : tiles;
-  const positions = talentPositions[(preset.localeCompare('Ravaged Realm S4') ? 'base' : preset) as keyof typeof talentPositions]
+  const positions =
+    talentPositions[(preset.localeCompare('Ravaged Realm S4') ? 'base' : preset) as keyof typeof talentPositions];
 
-  return new Set<number>(TalentLocations[faction] ? talentTiles.slice(...positions.rear) : talentTiles.slice(...positions.front));
+  return new Set<number>(
+    TalentLocations[faction] ? talentTiles.slice(...positions.rear) : talentTiles.slice(...positions.front),
+  );
 };
 
 export const processTileData = (

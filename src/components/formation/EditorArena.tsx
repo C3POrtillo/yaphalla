@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
 import type { TileData } from '@/components/formation/types';
-import type { Talents } from '@/utils/types';
+// import type { Talents } from '@/utils/types';
 import type { DragEvent, FC } from 'react';
 
 import ButtonArtifact from '@/components/formation/ButtonArtifact';
@@ -10,7 +10,7 @@ import EditorClearButtons from '@/components/formation/EditorClearButtons';
 import EditorToggles from '@/components/formation/EditorToggles';
 import { useFormation } from '@/components/formation/FormationProvider';
 import { AlwaysShowStates, ObstacleStates, TileIndexToPosition } from '@/components/formation/types';
-import { getIsTopRight, getRelativeTileLabels, getTalentTiles, processTileData } from '@/components/formation/utils';
+import { getIsTopRight, getRelativeTileLabels, processTileData } from '@/components/formation/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 // import Text from '@/components/inputs/text/Text';
 import { compareStrings, joinStrings } from '@/utils/utils';
@@ -42,7 +42,7 @@ const EditorArena: FC<EditorArena> = ({
   disableArtifacts,
   hideUnits,
   hideEmptyArtifact,
-  hideTalents,
+  // hideTalents,
   disableObstacles,
   onClick,
 }) => {
@@ -52,14 +52,14 @@ const EditorArena: FC<EditorArena> = ({
     tileData,
     currentTile,
     units,
-    playerFaction,
-    enemyFaction,
+    // playerFaction,
+    // enemyFaction,
     getTileImage,
     outline,
     hideLogo,
     logo,
-    background,
-    baseHex,
+    // background,
+    // baseHex,
   } = useFormation();
   const [firstPlayerRow, setFirstPlayerRow] = useState<number>();
   const [lastPlayerRow, setLastPlayerRow] = useState<number>();
@@ -73,10 +73,10 @@ const EditorArena: FC<EditorArena> = ({
     hideEmptyArtifact,
   });
 
-  const getTalents = (key: 'player' | 'enemy', faction: Talents | undefined, type: number) =>
-    !hideTalents && !!faction && getTalentTiles(relativeTileLabel[key], faction, type, preset);
-  const playerTalents = getTalents('player', playerFaction, isTopRight ? -1 : 1);
-  const enemyTalents = getTalents('enemy', enemyFaction, isTopRight ? 1 : -1);
+  // const getTalents = (key: 'player' | 'enemy', faction: Talents | undefined, type: number) =>
+  //   !hideTalents && !!faction && getTalentTiles(relativeTileLabel[key], faction, type, preset);
+  // const playerTalents = getTalents('player', playerFaction, isTopRight ? -1 : 1);
+  // const enemyTalents = getTalents('enemy', enemyFaction, isTopRight ? 1 : -1);
 
   const getTileLabel = (state: number, index: number) => {
     const absolutePosition = TileIndexToPosition[index];
@@ -161,13 +161,13 @@ const EditorArena: FC<EditorArena> = ({
             return null;
           }
 
-          const talents = state === 1 ? playerTalents : enemyTalents;
+          const talents = false; // state === 1 ? playerTalents : enemyTalents;
           const unit = units[index]?.unit;
           const tileLabel = getTileLabel(state, index);
           const showUnit = !hideUnits && !!unit;
           const { disableGrid, disableEnemy, disabled } = getDisabledProps(state);
           const { src, path } = getTileImage(unit, state, !!talents, hideUnits, hideEnemy);
-          const talentOutline = talents && (!baseHex || state === -1) && background && 'Grid-Outline';
+          const talentOutline = false; // talents && (!baseHex || state === -1) && background && 'Grid-Outline';
           const forceOutline = !unit && ((state === 1 && outline) || talentOutline);
           const hideNonPlayerLabel = disableGrid || (!disableEnemy && !!unit);
 
@@ -182,7 +182,7 @@ const EditorArena: FC<EditorArena> = ({
               hideImage={disableGrid || (state === 100 && hideLogo)}
               isEnemy={state === -1 && showUnit && !hideEnemy}
               isSwap={state === 2 && showUnit}
-              isTalent={talents && talents.has(TileIndexToPosition[index])}
+              // isTalent={talents && talents.has(TileIndexToPosition[index])}
               disabled={disabled || (!hideUnits && state === 100)}
               path={path}
               forceOutline={forceOutline}

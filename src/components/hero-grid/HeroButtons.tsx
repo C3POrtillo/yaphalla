@@ -1,6 +1,5 @@
 import type { HeroGridProps } from '@/components/hero-grid/HeroGrid';
 import type { UnitDivData } from '@/components/hero-grid/types';
-import type { Faction, HeroClass } from '@/utils/types';
 import type { Filters } from '@/utils/useHeroFilters';
 import type { DragEvent, FC } from 'react';
 
@@ -9,6 +8,7 @@ import HeroTooltip from '@/components/hero-grid/HeroTooltip';
 import { hasUnit } from '@/components/hero-grid/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import { getPath } from '@/components/hex-tiles/utils';
+import { type Faction, type HeroClass } from '@/utils/types';
 import { joinStrings } from '@/utils/utils';
 
 interface HeroButtonProps extends HeroGridProps {

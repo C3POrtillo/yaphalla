@@ -49,6 +49,12 @@ export type Hero = {
   damage?: Damage;
 };
 
+export type Phantimal = {
+  hero: string;
+  heroClass?: HeroClass;
+  faction?: Talents;
+};
+
 export const Difficulties = ['Common', 'Hard', 'Epic', 'Hell', 'Endless'] as const;
 export type Difficulties = (typeof Difficulties)[number];
 
@@ -59,10 +65,10 @@ export type ImagePath =
   | 'boss'
   | 'artifact'
   | `base/${'artifact' | 'faction' | 'rarity' | 'mode'}`
-  | `unit/${'wildcard'}`
+  | `unit/${'wildcard' | 'phantimal'}`
   | `artifact/${'honor-duel' | 'pre-season' | `season-${number}`}`;
 export type ArtifactSource = 'Pre-Season' | `Season ${number}` | 'Honor Duel';
-export const CurrentSeason = 'Season 4' as const;
+export const CurrentSeason = 'Season 5' as const;
 export const Artifacts = {
   'Pre-Season': ['Awakening', 'Starshard', 'Enlightening', 'Blazing', 'Confining', 'Ironwall'],
   'Honor Duel': [
@@ -132,6 +138,20 @@ export const Artifacts = {
     'Shieldnova',
     'Stormlash',
     'Vilespring',
+  ],
+  'Season 5': [
+    'Arrowstorm',
+    'Bloodmoon',
+    'Divinefavor',
+    'Grovetrap',
+    'Impaling',
+    'Pactbond',
+    'Phalanxrush',
+    'Raycage',
+    'Seismic',
+    'Sootherain',
+    'Starbless',
+    'Swordward',
   ],
 } as Record<ArtifactSource, string[]>;
 
@@ -212,6 +232,31 @@ const Other = {
   Warrior: ['Hogan', 'Midnight Hunter'],
 } as ClassData;
 
+export const Phantimals = {
+  'Season 5': {
+    Lightbearer: {
+      hero: 'Tesio',
+      heroClass: 'Support',
+    },
+    Wilder: {
+      hero: 'Snow Stomper',
+      heroClass: 'Marksman',
+    },
+    Mauler: {
+      hero: 'Lone Gaze',
+      heroClass: 'Rogue',
+    },
+    Graveborn: {
+      hero: 'Grim Executioner',
+      heroClass: 'Tank',
+    },
+    'Celestial-Hypogean': {
+      hero: 'Illucia',
+      heroClass: 'Mage',
+    },
+  },
+} as Record<`Season ${number}`, Record<Talents, Phantimal>>;
+
 const Heroes = {
   Lightbearer,
   Wilder,
@@ -268,6 +313,12 @@ export const OtherHeroes = (() => {
         heroClass,
       });
     });
+  });
+
+  formattedHeroes.push({
+    hero: 'Wildcard',
+    faction: '',
+    heroClass: '',
   });
 
   Object.entries(Other).forEach(([heroClass, units]) => {
@@ -404,7 +455,8 @@ export const HexHeroes = (() => {
 // Remove from Set as guides get uploaded
 const UnusedBosses = new Set([
   'Alpha Bear',
-  'King Croaker',
+  'Azkarion’Sol',
+  'Crystal Crawler',
   'Lone Gaze',
   'Mirage Frostspike',
   'Novik',
@@ -415,6 +467,16 @@ const UnusedBosses = new Set([
 ]);
 // Add Bosses to Set as guides begin to Exist
 export const DreamRealmBosses = {
+  'Season 5': new Set([
+    'King Croaker',
+    'Necrodrakon',
+    'Thalassa',
+    'Nocturne Judicator',
+    'Sigmund',
+    'Mirage Frostspike',
+    'Magmazard',
+    'Blightshroom',
+  ] as const),
   'Season 4': new Set([
     'Sigmund',
     'Nocturne Judicator',
@@ -427,7 +489,7 @@ export const DreamRealmBosses = {
   ] as const),
 };
 
-export const PrimalLordBosses = new Set(['Crystal Crawler', 'Magmazard', 'Blightshroom'] as const);
+export const PrimalLordBosses = new Set([] as const);
 
 export const RavagedRealmBosses = new Set([] as const);
 
@@ -439,3 +501,5 @@ export const BossesSet = new Set([
   ...RavagedRealmBosses,
   ...UnusedBosses,
 ]);
+
+export const PhantimalSet = new Set(Object.values(Phantimals[CurrentSeason]).map(phantimal => phantimal.hero));

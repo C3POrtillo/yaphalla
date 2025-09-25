@@ -9,6 +9,7 @@ import type { Dispatch, DragEvent, FC, PropsWithChildren, SetStateAction } from 
 import { AlwaysShowStates, ArenaPresets } from '@/components/formation/types';
 import { countUnits, determineFaction, generateCookies } from '@/components/formation/utils';
 import { getPath } from '@/components/hex-tiles/utils';
+import { CurrentSeason, PhantimalSet, Phantimals } from '@/utils/types';
 import { compareStrings, getCookie, setCookie } from '@/utils/utils';
 
 interface FormationProviderProps extends PropsWithChildren {
@@ -539,6 +540,24 @@ export const FormationProvider: FC<FormationProviderProps> = ({
     setPlayerFaction(determineFaction(countPlayer, currentPlayer ?? playerFaction));
     setHideEnemyFaction(determineFaction(countEnemy, currentEnemy ?? enemyFaction));
   }, [units]);
+
+  useEffect(() => {
+    setUnits(prev => {
+      const newUnits = { ...prev };
+      Object.entries(newUnits).forEach(([tile, hero]) => {
+        if (!PhantimalSet.has(hero.unit) || playerFaction === undefined) {
+          return;
+        }
+        const index = tile as unknown as number;
+        newUnits[index] = {
+          unit: Phantimals[CurrentSeason][playerFaction].hero,
+          type: newUnits[index].type,
+        };
+      });
+
+      return newUnits;
+    });
+  }, [playerFaction]);
 
   return (
     <FormationContext.Provider

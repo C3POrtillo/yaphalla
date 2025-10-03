@@ -29,7 +29,7 @@ const CardDeckBossGuide: FC = () => {
       <div className="flex flex-row flex-wrap gap-2 items-center justify-center">
         {guides[season].map(src => {
           const [, , , difficulty, filename] = src.split('/');
-          const label = filename.match(/(week-\d+)/)![0] || filename.split("_")[0];
+          const label = filename.match(/(week-\d+)/)![0] || filename.split('_')[0];
           const capitalizedLabel = capitalize(label.replace('-', ' '));
 
           return <CardGuide key={src} src={src} label={capitalizedLabel} difficulty={difficulty} />;

@@ -55,7 +55,7 @@ export type Phantimal = {
   faction?: Talents;
 };
 
-export const Difficulties = ['Common', 'Hard', 'Epic', 'Hell', 'Endless'] as const;
+export const Difficulties = ['Ravaged Realm', 'Primal Lord', 'Common', 'Hard', 'Epic', 'Hell', 'Endless'] as const;
 export type Difficulties = (typeof Difficulties)[number];
 
 // .replaceAll('.png', '').split(/\s\s+|\n/)

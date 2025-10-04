@@ -62,3 +62,10 @@ export const IconMap = {
   '<sprite name="spui_ntd_icon_1">': 'natsu/lightning',
   '<sprite name="spui_ntd_icon_2">': 'natsu/fire',
 } as const;
+
+export const RavagedRealmMap = {
+  Aurora: 'Lightbearer',
+  Dauntless: 'Mauler',
+  Immortal: 'Graveborn',
+  Sylvan: 'Wilder',
+} as const;

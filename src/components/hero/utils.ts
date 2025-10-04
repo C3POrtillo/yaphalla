@@ -5,7 +5,7 @@ import type { HeroJSON, HeroSkillArgs } from '@/components/hero/types';
 import type { InputSizeTypes } from '@/utils/siteTypes';
 import type { ReactNode } from 'react';
 
-import { IconMap } from '@/components/hero/types';
+import { IconMap, RavagedRealmMap } from '@/components/hero/types';
 import { BossPaths, HeroPaths, UnitOverride } from '@/utils/pathsHeroes';
 import { Damage, Difficulties, Faction, HeroClass, HeroSet, Tier, UnitsByClass, UnitsByFaction } from '@/utils/types';
 import { cleanString, compareStrings } from '@/utils/utils';
@@ -157,6 +157,10 @@ export const correctSrc = (src: string) => {
   const match = src.match(skillStatRegExp);
   if (match) {
     return match[1];
+  }
+  const ravagedRealmFaction = RavagedRealmMap[src as keyof typeof RavagedRealmMap];
+  if (ravagedRealmFaction) {
+    return ravagedRealmFaction;
   }
   switch (src) {
     case 'Marksmen':

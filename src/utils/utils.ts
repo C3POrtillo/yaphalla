@@ -1,5 +1,3 @@
-import { capitalize } from 'lodash';
-
 import type { Cookie } from '@/utils/siteTypes';
 import type { Metadata } from 'next';
 import type { ReadonlyURLSearchParams } from 'next/navigation';
@@ -137,12 +135,20 @@ export const setCookie = (cookie: Cookie) => {
   document.cookie = cookie;
 };
 
-export const sanitizeUnit = (unit: string) =>
-  unit
-    .replaceAll('-', ' ')
-    .split(' ')
-    .map(word => capitalize(word))
-    .join(' ');
+const splitNameAndCapitalize = (name: string, character: string) =>
+  name
+    .split(character)
+    .map(word => word[0].toUpperCase() + word.slice(1))
+    .join(character);
+
+export const sanitizeUnit = (unit: string) => {
+  let sanitized = unit.replaceAll('-', ' ');
+  for (const character of [' ', "'"]) {
+    sanitized = splitNameAndCapitalize(sanitized, character);
+  }
+
+  return sanitized;
+};
 
 const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 

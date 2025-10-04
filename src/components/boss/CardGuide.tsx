@@ -20,10 +20,10 @@ const CardGuide: FC<CardGuideProps> = ({ src, ...props }) => (
   >
     <h2 className="w-full inline-flex gap-2 items-center justify-center text-base p-1 border-b-1 border-tertiary-600">
       <IconDetail src={props.difficulty} size="sm" />
-      {Object.values(props).join(' - ')}
+      {Object.values(props).filter(Boolean).join(' - ')}
     </h2>
     <div className="relative size-64 group-hover:brightness-125">
-      <Image src={src} alt={src} fill objectFit="cover" objectPosition="top left" />
+      <Image src={src} alt={src} fill objectFit="cover" objectPosition="top" />
     </div>
   </Link>
 );

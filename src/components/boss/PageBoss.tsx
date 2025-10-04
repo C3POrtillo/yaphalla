@@ -8,12 +8,12 @@ import Container from '@/components/container/Container';
 import CardHero from '@/components/hero/CardHero';
 import HeroSkills from '@/components/hero/HeroSkills';
 import Button from '@/components/inputs/button/Button';
-import { CurrentSeason, DreamRealmBosses } from '@/utils/types';
+import { GuideSet } from '@/utils/types';
 
 const PageBoss: FC<Omit<ClientBossProps, 'guides'>> = ({ hero, Info, Skills }) => {
-  const { tab, setTab } = useBoss();
+  const { tab, setTab, guides } = useBoss();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const hasGuides = DreamRealmBosses[CurrentSeason].has(hero as any);
+  const hasGuides = GuideSet.has(hero as any) || !!Object.entries(guides).length;
   const { DisplayName, Description, UnitRace, UnitJob, DamageType } = Info;
   const tabProps = [
     {

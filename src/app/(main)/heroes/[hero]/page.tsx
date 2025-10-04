@@ -9,7 +9,7 @@ import CardHero from '@/components/hero/CardHero';
 import HeroSkills from '@/components/hero/HeroSkills';
 import HeroTales from '@/components/hero/HeroTales';
 import { getHeroAllDetails } from '@/components/hero/utils';
-import { BossesSet, HeroSet, SortedHeroes } from '@/utils/types';
+import { AllBossesSet, HeroSet, SortedHeroes } from '@/utils/types';
 import { compareStrings, sanitizeUnit } from '@/utils/utils';
 
 export const generateStaticParams = () =>
@@ -24,7 +24,7 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
   if (compareStrings(hero, sanitizedUnit)) {
     redirect(`/heroes/${sanitizedUnit}`);
   }
-  if (BossesSet.has(sanitizedUnit)) {
+  if (AllBossesSet.has(sanitizedUnit)) {
     redirect(`/bosses/${sanitizedUnit}`);
   }
   const heroDetails = await getHeroAllDetails(hero);

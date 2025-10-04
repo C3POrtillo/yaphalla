@@ -2,10 +2,10 @@ import type { ImagePath } from '@/utils/types';
 import type { DragEvent } from 'react';
 
 import {
+  AllBossesSet,
   ArtifactHexSet,
   ArtifactSet,
   BaseSet,
-  BossesSet,
   CurrentSeason,
   FactionHexSet,
   HeroClass,
@@ -77,7 +77,7 @@ export const getUnitPath = (unit: string): ImagePath => {
   if (wildcardSet.has(unit.split(' ')[1]) || compareStrings(unit, 'Wildcard') === 0) {
     return 'unit/wildcard';
   }
-  if (BossesSet.has(unit)) {
+  if (AllBossesSet.has(unit)) {
     return 'boss';
   }
 

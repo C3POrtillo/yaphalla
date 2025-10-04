@@ -16,7 +16,7 @@ const ClientBoss: FC<ClientBossProps> = ({ hero, guides, ...props }) => {
   const initialTab = useMemo(() => {
     if (typeof window === 'undefined') {
       return 0;
-    } // SSR-safe default
+    }
 
     return window.location.hash.toLowerCase() === '#guides' ? 1 : 0;
   }, []);

@@ -7,12 +7,12 @@ import type { FC } from 'react';
 import ClientBoss from '@/components/boss/ClientBoss';
 import { getGuideImages } from '@/components/boss/lib/getGuideImages';
 import { getHeroAllDetails } from '@/components/hero/utils';
-import { HeroSet, SortedHeroes } from '@/utils/types';
+import { AllBossesSet, HeroSet } from '@/utils/types';
 import { compareStrings, sanitizeUnit } from '@/utils/utils';
 
 export const generateStaticParams = () =>
-  SortedHeroes.map(({ hero }) => ({
-    hero: encodeURIComponent(hero),
+  [...AllBossesSet].map(boss => ({
+    hero: encodeURIComponent(boss),
   }));
 
 const Index: FC<HeroPageProps> = async ({ params }) => {

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
@@ -21,9 +21,16 @@ interface BossContextType {
 
 const BossContext = createContext<BossContextType | undefined>(undefined);
 
-export const BossProvider: FC<BossProviderProps> = ({ children, initialTab, ...props }) => {
+export const BossProvider: FC<BossProviderProps> = ({ children, initialTab, guides, ...props }) => {
   const [tab, setTab] = useState<number>(initialTab ?? 0);
   const [season, setSeason] = useState<string>(CurrentSeason);
+
+  useEffect(() => {
+    if (!guides[season]) {
+      const defaultKey = Object.keys(guides)[0];
+      setSeason(defaultKey);
+    }
+  }, []);
 
   return (
     <BossContext.Provider
@@ -32,6 +39,7 @@ export const BossProvider: FC<BossProviderProps> = ({ children, initialTab, ...p
         setTab,
         season,
         setSeason,
+        guides,
         ...props,
       }}
     >

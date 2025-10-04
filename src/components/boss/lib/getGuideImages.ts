@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { Difficulties } from '@/utils/types';
-import { kebabCase } from '@/utils/utils';
+import { compareStrings, kebabCase } from '@/utils/utils';
 
 export const getGuideImages = (name: string): Record<string, string[]> => {
   const baseGuidesPath = path.join(process.cwd(), 'public/guides');
@@ -25,11 +25,21 @@ export const getGuideImages = (name: string): Record<string, string[]> => {
         continue;
       }
       const files = fs.readdirSync(difficultyPath);
-      for (const file of files) {
-        if (file.endsWith('.webp') && file.includes(`_${kebabCase(name)}_`)) {
-          const publicUrl = `/guides/${season.name}/${difficulty}/${file}`;
-          seasonFiles.push(publicUrl);
-        }
+      const sortedFiles = files
+        .filter(file => file.endsWith('.webp') && file.includes(`_${kebabCase(name)}_`))
+        .sort((a, b) => {
+          const weekA = a.match(/week-(\d+)_/)?.[1] || 0;
+          const weekB = b.match(/week-(\d+)_/)?.[1] || 0;
+          if (weekA && weekB) {
+            return Number(weekA) - Number(weekB);
+          }
+
+          return compareStrings(b, a);
+        });
+
+      for (const file of sortedFiles) {
+        const publicUrl = `/guides/${season.name}/${difficulty}/${file}`;
+        seasonFiles.push(publicUrl);
       }
     }
     if (seasonFiles.length > 0) {

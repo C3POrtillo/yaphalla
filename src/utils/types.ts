@@ -55,7 +55,16 @@ export type Phantimal = {
   faction?: Talents;
 };
 
-export const Difficulties = ['Ravaged Realm', 'Primal Lord', 'Common', 'Hard', 'Epic', 'Hell', 'Endless'] as const;
+export const Difficulties = [
+  'Ravaged Realm',
+  'Primal Lord',
+  'Guild Supremacy',
+  'Common',
+  'Hard',
+  'Epic',
+  'Hell',
+  'Endless',
+] as const;
 export type Difficulties = (typeof Difficulties)[number];
 
 // .replaceAll('.png', '').split(/\s\s+|\n/)
@@ -453,18 +462,7 @@ export const HexHeroes = (() => {
 })();
 
 // Remove from Set as guides get uploaded
-const UnusedBosses = new Set([
-  'Alpha Bear',
-  'Azkarion’Sol',
-  'Crystal Crawler',
-  'Lone Gaze',
-  'Mirage Frostspike',
-  'Novik',
-  'Orson',
-  'Setsahara',
-  'Skyclops',
-  'Snow Stomper',
-]);
+const UnusedBosses = new Set(['Alpha Bear', 'Lone Gaze', 'Orson', 'Setsahara', 'Skyclops', 'Snow Stomper']);
 // Add Bosses to Set as guides begin to Exist
 export const DreamRealmBosses = {
   'Season 5': new Set([
@@ -489,17 +487,33 @@ export const DreamRealmBosses = {
   ] as const),
 };
 
-export const PrimalLordBosses = new Set([] as const);
+export const PrimalLordBosses = new Set([
+  'Crystal Crawler',
+  'Magmazard',
+  'Blightshroom',
+  'Nocturne Judicator',
+  'Mirage Frostspike',
+] as const);
 
-export const RavagedRealmBosses = new Set([] as const);
+export const RavagedRealmBosses = new Set(["Azkarion'Sol", 'Novik'] as const);
 
 export const GuildSupremacyBosses = new Set(['Glyphshade'] as const);
-export const BossesSet = new Set([
+
+export const GuideSet = new Set([
   ...Object.values(DreamRealmBosses).flatMap(bosses => [...bosses]),
   ...GuildSupremacyBosses,
   ...PrimalLordBosses,
   ...RavagedRealmBosses,
-  ...UnusedBosses,
 ]);
 
+export const AllBossesSet = new Set([...GuideSet, ...UnusedBosses]);
+
 export const PhantimalSet = new Set(Object.values(Phantimals[CurrentSeason]).map(phantimal => phantimal.hero));
+
+export const SeasonNames = {
+  'Season 1': 'Song of Strife',
+  'Season 2': 'Waves of Intrigue',
+  'Season 3': 'Chains of Eternity',
+  'Season 4': 'Echoes of Dissent',
+  'Season 5': 'Thorns of Devotion',
+} as const;

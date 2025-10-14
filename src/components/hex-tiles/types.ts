@@ -9,6 +9,7 @@ export const CommunityLogos = {
   vn: 'VN',
   'the-eight': 'TheEight',
   bloodletter: 'Bloodletter',
+  sabs: 'Sabs',
 } as const;
 
 export type CommunityLogos = keyof typeof CommunityLogos;

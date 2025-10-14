@@ -97,22 +97,24 @@ const EditorArena: FC<EditorArena> = ({
     [preset, isPreset, tileData],
   );
 
-  const shouldOmitHex = (state: number, relativeIndex: number, tiles: TileData[]) => {
+  const shouldOmitHex = (currentState: number, relativeIndex: number, tiles: TileData[]) => {
     const omitDirection = isTopRight
       ? relativeIndex < tiles.findIndex(a => AlwaysShowStates.has(a.state))
       : relativeIndex > tiles.findLastIndex(a => AlwaysShowStates.has(a.state));
 
-    const validRow = tiles.every(tile => {
-      const isGrid = tile.state === 0;
-      const isEnemy = tile.state === -1;
-      const isObstacle = ObstacleStates.has(tile.state);
+    const validRow = tiles.every(({ state }) => {
+      const isGrid = state === 0;
+      const isEnemy = state === -1;
+      const isObstacle = ObstacleStates.has(state);
 
       return isGrid || isEnemy || isObstacle;
     });
 
     const showFirstHex = validRow && (isTopRight ? relativeIndex === tiles.length - 1 : relativeIndex === 0);
 
-    const omit = (state !== 1 && tiles.some(a => a.state === 1) && omitDirection) || tiles.every(a => a.state !== 1);
+    const omit =
+      (currentState !== 1 && tiles.some(({ state }) => AlwaysShowStates.has(state)) && omitDirection) ||
+      tiles.every(({ state }) => !AlwaysShowStates.has(state));
 
     return hideEnemy && hideEmpty && omit && !showFirstHex;
   };

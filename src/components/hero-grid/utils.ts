@@ -23,14 +23,14 @@ const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {
   return 7;
 };
 
-export const getSeasonalPhantimals = () =>
+export const SeasonalPhantimals = (() =>
   Object.entries(Phantimals[CurrentSeason]).map(
     ([faction, phantimal]) =>
       ({
         ...phantimal,
         faction,
       }) as Phantimal,
-  );
+  ))();
 
 export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant = 0) => {
   const data = (() => {
@@ -40,9 +40,9 @@ export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant
       case 2:
         return ArtifactHeroes;
       case 1:
-        return [...OtherHeroes, ...getSeasonalPhantimals()];
+        return [...OtherHeroes, ...SeasonalPhantimals];
       default:
-        return SortedHeroes;
+        return [...SortedHeroes, ...SeasonalPhantimals];
     }
   })();
 

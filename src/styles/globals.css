@@ -288,6 +288,7 @@
     scrollbar-width: thin;
   }
   .scroll-bar-auto {
+    scrollbar-gutter: stable both-edges;
     scrollbar-color: #212E50 #090E1F;
   }
   .sticky-header {

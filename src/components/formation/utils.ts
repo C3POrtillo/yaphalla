@@ -1,7 +1,13 @@
 import type { TileDivData, UnitFormationData } from '@/components/formation/types';
 import type { BaseHexes, Talents } from '@/utils/types';
 
-import { TalentLocations, TalentRequiredUnits, TileIndexToPosition, TileLayout } from '@/components/formation/types';
+import {
+  AlwaysShowStates,
+  TalentLocations,
+  TalentRequiredUnits,
+  TileIndexToPosition,
+  TileLayout,
+} from '@/components/formation/types';
 import { Artifacts, CurrentSeason, HeroPairs, IgnoreTalents, PairSet, UnitsByTalent } from '@/utils/types';
 import { compareStrings, generateCookie, sortData } from '@/utils/utils';
 
@@ -151,7 +157,7 @@ export const processTileData = (
       }
 
       const tileSlice = tileData.slice(index, index + length);
-      const hasPlayer = tileSlice.includes(1);
+      const hasPlayer = tileSlice.some(tile => AlwaysShowStates.has(tile));
       const tiles = tileSlice.map((tile, i) => ({ state: tile, index: index + i }));
 
       result.push({ offset: isPreview ? preview : offset, tiles, reverse });

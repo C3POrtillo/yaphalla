@@ -15,4 +15,3 @@ const LogoLink: FC<LogoLinkProps> = ({ alt }) => (
 );
 
 export default LogoLink;
-          

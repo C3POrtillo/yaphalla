@@ -343,6 +343,14 @@ const misc = {
     themeColor: '#5CB38F',
     keywords: ['Homestead Deck Calculator', 'Homestead Deck Optimizer'],
   } as RedirectType,
+  '/figma-guide': {
+    redirect: '/figma-guide',
+    label: 'Figma Guide',
+    href: 'https://www.notion.so/Yaphalla-Figma-Guide-2921ae5f78cf80fdb6f7eb8d7ca7318a?source=copy_link',
+    title: 'Yaphalla Figma Guide',
+    description: 'How to use the Yaphalla Figma',
+    noIndex: true,
+  } as RedirectType,
 };
 
 export const redirects = {

@@ -218,7 +218,7 @@ const Hypogean = {
   Tank: ['Phraesto', 'Phraesto Clone'],
   Support: ['Reinier'],
   Marksman: ['Kulu'],
-  Mage: ['Cryonaia'],
+  Mage: ['Cryonaia', 'Mehira'],
   Rogue: ['Berial', 'Saida'],
   Warrior: ['Harak'],
 } as ClassData;

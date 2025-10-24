@@ -90,7 +90,7 @@ const google = {
 };
 
 const getLogo = (name: string) => `https://www.yaphalla.com/assets/images/logos/${name}.png`;
-const getCatLogo = (color: string) => getLogo(`yaphalla-cat-${color}`);
+const getCatLogo = (color?: string) => (color ? getLogo(`yaphalla-cat-${color}`) : getLogo('yaphalla-cat'));
 
 const discords = {
   '/discord': {
@@ -180,6 +180,16 @@ const discords = {
     themeColor: '#9368ab',
     keywords: ['Yaphalla Hex Emote Discord', 'Hex Emotes', 'Hex Emojis'],
     image: getCatLogo('light-purple'),
+  } as RedirectType,
+  '/emotes-wildcards': {
+    redirect: '/emotes-wildcards',
+    label: 'Discord',
+    href: 'https://discord.com/invite/4ayAsyJAEX',
+    title: 'Wildcard Yapmojis',
+    site: 'Discord',
+    themeColor: '#e9b560',
+    keywords: ['Yaphalla Hex Emote Discord', 'Hex Emotes', 'Hex Emojis'],
+    image: getCatLogo(),
   } as RedirectType,
   '/fight-club': {
     redirect: '/fight-club',

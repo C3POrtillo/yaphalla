@@ -286,6 +286,6 @@ export const navigation = [
   paths['Heroes'],
   paths['Creators'],
   paths['Communities'],
-  paths['Leaderboards'],
+  // paths['Leaderboards'],
   paths['Other'],
 ] as PathType[];

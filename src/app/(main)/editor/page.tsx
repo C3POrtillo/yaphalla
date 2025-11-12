@@ -23,7 +23,7 @@ const Index: FC = () => {
   const [tab, setTab] = useState<number>(0);
   const [teamIndex, setTeamIndex] = useState<number>(0);
   const [unique, setUnique] = useState<boolean>(false);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+
   const teamArray = new Array(maxTeams).fill(0).map(_ => useState<UnitFormationData>({})) as [
     UnitFormationData,
     Dispatch<SetStateAction<UnitFormationData>>,
@@ -109,16 +109,12 @@ const Index: FC = () => {
         const cookie = getCookie(`yapbuilder-${key}`);
         if (cookie) {
           if (!compareStrings(cookie, 'undefined')) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             set(undefined as any);
           } else if (!compareStrings(key, 'unique')) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             set(!!Number(cookie) as any);
           } else if (cookie.match(/[0-9]+/)) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             set(Number(cookie) as any);
           } else {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             set(cookie as any);
           }
         }

@@ -9,6 +9,13 @@ module.exports = {
       },
     ]
   },
+  redirects: async () => [
+    {
+      source: '/resume',
+      destination: '/resume.pdf',
+      permanent: true,
+    },
+  ],
   i18n: {
     locales: ['en'],
     defaultLocale: 'en',

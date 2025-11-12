@@ -12,7 +12,7 @@ import { GuideSet } from '@/utils/types';
 
 const PageBoss: FC<Omit<ClientBossProps, 'guides'>> = ({ hero, Info, Skills }) => {
   const { tab, setTab, guides } = useBoss();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const hasGuides = GuideSet.has(hero as any) || !!Object.entries(guides).length;
   const { DisplayName, Description, UnitRace, UnitJob, DamageType } = Info;
   const tabProps = [

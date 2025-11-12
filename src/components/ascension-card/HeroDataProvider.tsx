@@ -57,10 +57,8 @@ export const HeroDataProvider: FC<HeroDataProviderProps> = ({ id, hero, children
         const cookie = getCookie(`${exportId}-${key}`);
         if (cookie) {
           if (!compareStrings(cookie, 'undefined')) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             set(undefined as any);
           } else {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             set(cookie as any);
           }
         }

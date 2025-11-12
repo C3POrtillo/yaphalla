@@ -22,7 +22,6 @@ const FilterCategory: FC<FilterCategoryProps> = ({ items, filter, setFilter, pat
         key={item}
         src={item}
         path={path}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onClick={() => setFilter(filter === item ? undefined : (item as any))}
         selected={filter === item}
       />

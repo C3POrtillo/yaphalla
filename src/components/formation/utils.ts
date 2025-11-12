@@ -91,12 +91,10 @@ export const countUnits = (
   const unitCount = {} as Record<string, number>;
 
   Object.entries(units).forEach(([_, { unit, type }]) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (type !== validType || !UnitsByTalent[unit] || !UnitsByTalent[unit].length || IgnoreTalents.has(unit as any)) {
       return;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (PairSet.has(unit as any)) {
       unitCount[unit] ??= 0;
       unitCount[unit]++;

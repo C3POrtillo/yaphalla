@@ -20,7 +20,7 @@ interface RootProps extends PropsWithChildren {
 
 const Root: FC<RootProps> = ({ head, children, hideBreadcrumbs }) => (
   <html lang="en">
-    {/* eslint-disable-next-line @next/next/no-head-element */}
+    {}
     <head>{head}</head>
     <body className="h-[100vh] snap-y">
       <div className="flex min-w-full max-w-full min-h-full">

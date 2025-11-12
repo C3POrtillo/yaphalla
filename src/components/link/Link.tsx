@@ -23,7 +23,6 @@ const Link: FC<LinkProps> = ({ href, label, className, disabled, children, toolt
   const { href: parsedHref, isInternal, ...linkData } = parseUrl(href);
   const activeClass = (disabled ?? currentPath === parsedHref) && 'active-link';
   const invalidLinkClass =
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     !href || (!tooltip && isInternal && parsedHref && !validHrefs.has(parsedHref as any) && 'pointer-events-none');
 
   const link = (

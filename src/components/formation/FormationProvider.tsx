@@ -419,16 +419,13 @@ export const FormationProvider: FC<FormationProviderProps> = ({
         const cookie = getCookie(`${id}-${key}`);
         if (cookie) {
           if (!compareStrings(cookie, 'undefined')) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             set(undefined as any);
             // } else if (!compareStrings(key, 'tileData')) {
             //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
             //   set(atob(cookie).split(' ') as any);
           } else if (cookie.match(/0|1/)) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             set(!!Number(cookie) as any);
           } else {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             set(cookie as any);
           }
         }

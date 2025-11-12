@@ -13,13 +13,18 @@
 /.next/
 /out/
 
+# sanity
+.sanity/*
+
 # production
 /build
+/dist
 .env
 
 # misc
 .DS_Store
 *.pem
+.vscode/
 
 # debug
 npm-debug.log*
@@ -36,5 +41,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# files
-/src/components/editor/EditorForm.tsx
+# deprecated
+/deprecated/*

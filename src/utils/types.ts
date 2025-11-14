@@ -201,7 +201,7 @@ const Graveborn = {
   Support: ['Isabella', 'Ludovic', 'Niru'],
   Marksman: ['Bonnie', 'Cecia'],
   Mage: ['Carolina', 'Shemira', 'Viperian'],
-  Rogue: ['Nara', 'Salazer', 'Silvina'],
+  Rogue: ['Nara', 'Salazer', 'Silvina', 'Shadewing'],
   Warrior: ['Hodgkin', 'Igor', 'Valka'],
 } as ClassData;
 
@@ -493,6 +493,8 @@ export const PrimalLordBosses = new Set([
   'Blightshroom',
   'Nocturne Judicator',
   'Mirage Frostspike',
+  'Cinderwings',
+  'Gloommaw'
 ] as const);
 
 export const RavagedRealmBosses = new Set(["Azkarion'Sol", 'Novik'] as const);

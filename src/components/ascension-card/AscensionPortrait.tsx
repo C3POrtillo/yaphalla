@@ -48,6 +48,7 @@ const AscensionPortrait: FC = () => {
               'hero-portrait absolute',
               adjustments?.bottom || '-bottom-6',
               adjustments?.size || 'w-35',
+              adjustments?.left,
             )}
           >
             <Image src={`/assets/images/portraits/${hero}.png`} alt="" fill />

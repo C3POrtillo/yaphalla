@@ -26,6 +26,12 @@ export const CardIcons = {
   Card: 'fa-solid:id-badge',
 } as const;
 
+type Adjustment = {
+  bottom?: string;
+  left?: string;
+  size?: string;
+}
+
 export const ManualAdjustments = {
   Temesia: {
     bottom: '-bottom-2',
@@ -43,4 +49,7 @@ export const ManualAdjustments = {
     bottom: 'bottom-1',
     size: 'w-28',
   },
-} as const;
+  Phraesto: {
+    left: '-left-6',
+  } 
+} as Record<string, Adjustment>;

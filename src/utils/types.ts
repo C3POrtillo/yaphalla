@@ -227,9 +227,9 @@ const Dimensional = {
   Tank: [],
   Support: ['Pandora'],
   Marksman: [],
-  Mage: ['Lucy'],
+  Mage: ['Lucy', 'Marcille'],
   Rogue: [],
-  Warrior: ['Natsu'],
+  Warrior: ['Laios','Natsu'],
 };
 
 const Other = {

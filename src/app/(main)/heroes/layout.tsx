@@ -3,7 +3,8 @@ import type { FC, PropsWithChildren } from 'react';
 
 import { createMetadata } from '@/utils/utils';
 
-export const generateMetadata = (): Metadata => createMetadata('Heroes | Yaphalla', 'AFK Journey Heroes');
+export const generateMetadata = (): Metadata =>
+  createMetadata({ title: 'Heroes | Yaphalla', description: 'AFK Journey Heroes' });
 
 const Layout: FC<PropsWithChildren> = ({ children }) => <>{children}</>;
 

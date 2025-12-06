@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
-import { metadata } from '@/app/(main)/layout';
-import { getHeroAllDetails } from '@/components/hero/utils';
-import { HeroSet } from '@/utils/types';
+import { builder } from '@/sanity/client';
+import { getAllHeroDetails } from '@/utils/hero-data/utils';
 import { createMetadata, sanitizeUnit } from '@/utils/utils';
 
 export interface HeroPageProps {
@@ -14,16 +13,16 @@ export interface HeroPageProps {
 
 export const generateMetadata = async ({ params }: HeroPageProps): Promise<Metadata> => {
   const hero = sanitizeUnit(decodeURIComponent((await params).hero));
-  const heroDetails = await getHeroAllDetails(hero);
+  const heroDetails = (await getAllHeroDetails())[hero];
 
-  if (!heroDetails || !HeroSet.has(hero)) {
-    return metadata;
+  if (!heroDetails) {
+    return createMetadata({});
   }
 
-  const { Info } = heroDetails;
-  const { DisplayTitle, Description } = Info;
+  const { title, description, hex } = heroDetails;
+  const image = builder.image(hex!).fit('min').width(200).quality(100).format('webp').url();
 
-  return createMetadata(`${hero} | ${DisplayTitle}`, Description, 'Yaphalla', `/assets/images/hexes/unit/${hero}.png`);
+  return createMetadata({ title: `${hero} | ${title}`, description, image });
 };
 
 const Layout: FC<PropsWithChildren> = ({ children }) => <>{children}</>;

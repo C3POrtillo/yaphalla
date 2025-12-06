@@ -191,7 +191,7 @@ const Mauler = {
   Tank: ['Antandra', 'Gerda', 'Lumont'],
   Support: ['Koko', 'Mikola', 'Smokey & Meerky'],
   Marksman: ['Nazrik', 'Odie', 'Rhys'],
-  Mage: ['Alsa', 'Satrana'],
+  Mage: ['Alsa', 'Gala', 'Satrana'],
   Rogue: ['Seth', 'Shakir', 'Soren'],
   Warrior: ['Brutus', 'Kruger', 'Zandrok'],
 } as ClassData;

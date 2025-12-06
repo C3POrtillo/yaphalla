@@ -1,0 +1,92 @@
+import type { HeroSkillArgs } from '@/utils/hero-data/types';
+import type { FC, ReactNode } from 'react';
+
+import IconDetail from '@/components/unit-data/IconDetail';
+import SkillStat from '@/components/unit-data/SkillStat';
+import {
+  getIconSrc,
+  getSkillStatValue,
+  mergeLabeledTokens,
+  mergeTokens,
+  parseSkillToken,
+} from '@/components/unit-data/utils';
+
+interface ParserSkillProps {
+  /* eslint-disable-next-line react/no-unused-prop-types */
+  hero: string;
+  Description: string;
+  Args: HeroSkillArgs;
+  PlusArgs?: HeroSkillArgs;
+  prefix?: ReactNode | false;
+  hasLine?: boolean;
+  DisplaySlot?: number;
+}
+
+const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, PlusArgs, prefix, hasLine, DisplaySlot }) => {
+  const tokenizeDescription = () => {
+    const rawTokens = Description.split(' ');
+    const tokens = mergeLabeledTokens(rawTokens);
+
+    return tokens.reduce<(string | ReactNode)[]>((acc, token, i) => {
+      const parsedToken = parseSkillToken(token);
+      const preSpace = acc[acc.length - 1] !== '\n' && '';
+      const push = (...items: (string | ReactNode)[]) => acc.push(...items.filter(item => item !== false));
+
+      if (typeof parsedToken === 'string') {
+        if (/^(Active|Passive)\.$/.test(parsedToken)) {
+          acc.push(
+            <span key={`${i}-${parsedToken}`} className="text-tertiary-400">
+              {parsedToken}
+            </span>,
+            '',
+          );
+        } else {
+          acc.push(parsedToken);
+        }
+      } else if (parsedToken.icon) {
+        const { icon, value } = parsedToken;
+        const [unit] = parsedToken.icon.split('/');
+        push(
+          preSpace,
+          <span key={`${i}-${icon}`} className="inline-flex align-bottom">
+            <IconDetail icon={getIconSrc(icon)} className={(() => `${unit}-icon`)()} />
+          </span>,
+          '',
+          value,
+        );
+      } else {
+        const { value, name } = parsedToken;
+        const hasPlusArg = !!(value && PlusArgs && getSkillStatValue(value, PlusArgs));
+        push(
+          preSpace,
+          <SkillStat key={`${name}-${i}-${value}`} args={Args} name={name} value={value} hasTrail={!hasPlusArg} />,
+        );
+        if (hasPlusArg) {
+          push(
+            '',
+            '+',
+            '',
+            <SkillStat key={`${i}-${value}`} args={PlusArgs} name="skill" value={value} slot={DisplaySlot} />,
+          );
+        }
+        push('');
+      }
+
+      return acc;
+    }, []);
+  };
+
+  const skill = mergeTokens(tokenizeDescription());
+
+  return (
+    <>
+      <div className="flex flex-col my-1 input-secondary size-sm !cursor-auto !text-white">
+        {prefix}
+        <div className="inline-block text-base whitespace-pre-wrap lg:text-lg">{skill}</div>
+      </div>
+      {hasLine && <hr className="w-full border-b-1 border-primary-750" />}
+    </>
+  );
+};
+
+export default ParserSkill;

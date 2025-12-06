@@ -34,7 +34,7 @@ const Root: FC<RootProps> = ({ head, children, hideBreadcrumbs }) => (
           {!hideBreadcrumbs && <Breadcrumbs />}
           {children}
           <Footer />
-          <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_full] -z-10 opacity-20"></div>
+          {/* <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_full] -z-10 opacity-20"></div> */}
           <Button
             className="block right-2 bottom-2 text-base fixed"
             onClick={() => {

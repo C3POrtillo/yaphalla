@@ -184,7 +184,7 @@ const Wilder = {
   Marksman: ['Bryon', 'Indris', 'Lyca'],
   Mage: ['Arden', 'Parisa', 'Tasi'],
   Rogue: ['Eironn', 'Faramor', 'Lenya', 'Lily May', 'Ravion'],
-  Warrior: ['Florabelle', 'Kafra', 'Pang'],
+  Warrior: ['Florabelle', 'Kafra', 'Pang', 'Tilaya'],
 } as ClassData;
 
 const Mauler = {
@@ -193,7 +193,7 @@ const Mauler = {
   Marksman: ['Nazrik', 'Odie', 'Rhys'],
   Mage: ['Alsa', 'Gala', 'Satrana'],
   Rogue: ['Seth', 'Shakir', 'Soren'],
-  Warrior: ['Brutus', 'Kruger', 'Zandrok'],
+  Warrior: ['Brutus', 'Kordan', 'Kruger', 'Zandrok'],
 } as ClassData;
 
 const Graveborn = {
@@ -206,7 +206,7 @@ const Graveborn = {
 } as ClassData;
 
 const Celestial = {
-  Tank: ['Dunlingr'],
+  Tank: ['Alna', 'Dunlingr'],
   Support: ['Elijah & Lailah', 'Elijah', 'Lailah'],
   Marksman: ['Aliceth', 'Dionel'],
   Mage: ['Talene'],
@@ -497,7 +497,7 @@ export const PrimalLordBosses = new Set([
   'Gloommaw'
 ] as const);
 
-export const RavagedRealmBosses = new Set(["Azkarion'Sol", 'Novik'] as const);
+export const RavagedRealmBosses = new Set(['Hunting Goddess', "Azkarion'Sol", 'Novik'] as const);
 
 export const GuildSupremacyBosses = new Set(['Glyphshade'] as const);
 

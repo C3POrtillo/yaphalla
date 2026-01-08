@@ -497,7 +497,7 @@ export const PrimalLordBosses = new Set([
   'Gloommaw'
 ] as const);
 
-export const RavagedRealmBosses = new Set(['Hunting Goddess', "Azkarion'Sol", 'Novik'] as const);
+export const RavagedRealmBosses = new Set(['Azora', "Azkarion'Sol", 'Novik'] as const);
 
 export const GuildSupremacyBosses = new Set(['Glyphshade'] as const);
 

@@ -7,7 +7,7 @@ import { structure } from './src/sanity/structure';
 export default defineConfig({
   name: 'default',
   title: 'yaphalla',
-  projectId: 'm1przkyj',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: 'production',
   plugins: [structureTool({structure}), visionTool()],
   schema: {

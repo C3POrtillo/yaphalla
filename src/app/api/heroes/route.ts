@@ -1,5 +1,5 @@
-import { formatApiData } from '@/components/hero/utils';
-import { HeroesById } from '@/utils/types';
+import { formatApiData } from '@/components/unit-data/utils';
+import { HeroesById } from '@/utils/hero-data/types';
 
 export const dynamic = 'force-static';
 

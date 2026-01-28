@@ -1,6 +1,6 @@
 import { HeroRouteHeaders } from '@/app/api/heroes/route';
-import { formatApiData } from '@/components/hero/utils';
-import { HeroesById, IdsByHero, SortedHeroes } from '@/utils/types';
+import { formatApiData } from '@/components/unit-data/utils';
+import { HeroesById, IdsByHero, SortedHeroes } from '@/utils/hero-data/types';
 import { sanitizeUnit } from '@/utils/utils';
 
 export const generateStaticParams = () => [

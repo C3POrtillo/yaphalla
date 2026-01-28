@@ -26,7 +26,7 @@ export const generateStaticParams = async () => {
 const Index: FC<HeroPageProps> = async ({ params }) => {
   await connection();
   const hero = decodeURIComponent((await params).hero);
-  const allHeroDetails = await getAllHeroDetails()
+  const allHeroDetails = await getAllHeroDetails();
   const heroSet = await getHeroSet();
   const sanitizedUnit = sanitizeUnit(hero);
   const heroDetails = allHeroDetails[sanitizedUnit];
@@ -40,6 +40,7 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
   }
 
   const { skills, story, title, description, tier, faction, heroClass, damage, hex } = heroDetails;
+  
   return (
     <Root>
       <Container className="items-center justify-center mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">
@@ -58,7 +59,7 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
         <HeroSkills hero={hero} skills={skills} />
       </Container>
       <Container className="mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">
-        <HeroTales hero={hero} tales={story} heroSet={heroSet} allHeroes={allHeroDetails}/>
+        <HeroTales hero={hero} tales={story} heroSet={heroSet} allHeroes={allHeroDetails} />
       </Container>
     </Root>
   );

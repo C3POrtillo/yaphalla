@@ -1,102 +1,114 @@
-import { Icon } from '@iconify/react';
+import { notFound } from 'next/navigation';
 
 import type { FC } from 'react';
 
-import Container from '@/components/container/Container';
-import Link from '@/components/link/Link';
-import Logo from '@/components/link/Logo';
-import { socials } from '@/utils/paths';
+import ComponentParser from '@/components/componentParser/ComponentParser';
+import { fetchPage } from '@/components/componentParser/utils';
+import Root from '@/components/root/Root';
 
-const Index: FC = () => (
-  <>
-    <Container className="container-primary my-4 flex flex-col !p-4 items-center w-fit">
-      <h1 className="flex flex-row gap-2 items-center text-tertiary-600">
-        Welcome to
-        <Logo alt="Yaphalla" />
-      </h1>
-    </Container>
-    <Container className="my-4 flex flex-col sm:flex-row items-start w-full max-w-11/12 lg:max-w-2/3 4xl:max-w-2/5">
-      <div className="flex flex-col gap-4 w-full">
-        <div className="container-primary flex flex-col items-center gap-2 text-center">
-          <h2 className="text-tertiary-600">Announcements</h2>
-          <div className="inset-secondary flex flex-col items-center w-full gap-2 whitespace-normal">
-            <h3 className="flex flex-row whitespace-pre-wrap items-center wrap gap-2">
-              <Link href="/editor" className="bg-primary input-primary size-base text-tertiary-600">
-                YapBuilder
-              </Link>
-              {' | '}
-              <Link href="/editor/priority" className="bg-primary input-primary size-base text-tertiary-600">
-                YapPriority
-              </Link>
-              {' | '}
-              <Link href="/editor/ascension" className="bg-primary input-primary size-base text-tertiary-600">
-                YapAscend
-              </Link>
-            </h3>
-            <p>
-              {'Use '}
-              <Link href="/editor/ascension" className="input-link inline">
-                YapAscend
-              </Link>
-              {' to create custom hero investment cards or hexes!'}
-            </p>
-            <p>
-              {'Please report any issues to '}
-              <Link
-                href="https://discord.com/channels/1332082220013322240/1332814583781523529"
-                className="input-link inline"
-              >
-                #feature-requests
-              </Link>
-              {' on Discord!'}
-            </p>
-          </div>
-          <div className="inset-secondary flex flex-col items-center w-full gap-2 whitespace-normal">
-            <p>
-              {'We are currently experimenting with additional teams and settings for '}
-              <Link href="/editor" className="input-link inline">
-                YapBuilder
-              </Link>
-            </p>
-            <p>
-              {'\nPlease submit feedback or report issues to '}
-              <Link
-                href="https://discord.com/channels/1332082220013322240/1332814583781523529"
-                className="input-link inline"
-              >
-                #feature-requests
-              </Link>
-              {' on Discord!'}
-            </p>
-          </div>
-        </div>
-        <div className="container-primary flex flex-col items-center gap-2">
-          <h2 className="text-tertiary-600">About Us</h2>
-          <div className="inset-secondary flex flex-col items-center w-full text-center">
-            <p>
-              Yaphalla is a community focused on creating high quality, accurate PVE AFK Journey content, and of course
-              yapping about all things AFK Journey!
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="container-primary flex flex-col gap-2 items-center w-full sm:w-fit">
-        <h2 className="text-tertiary-600">Join us on:</h2>
-        <div className="flex flex-row sm:flex-col gap-2">
-          {Object.entries(socials).map(([label, { site, href }]) => (
-            <Link
-              key={label}
-              href={href}
-              className="w-full bg-primary input-primary size-base gap-2 text-lg md:text-xl justify-center"
-            >
-              <Icon icon={`fa6-brands:${site}`} />
-              {label}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </Container>
-  </>
-);
+const Index: FC = async () => {
+  const { content, isFile } = (await fetchPage('home')).data?.[0] || {};
+  // if (!content) {
+  //   notFound();
+  // }
+
+  return (
+    <Root>
+      <ComponentParser content={content} />
+    </Root>
+  );
+};
+
+//   (
+//   <>
+//     <Container className="container-primary my-4 flex flex-col !p-4 items-center w-fit">
+//       <h1 className="flex flex-row gap-2 items-center text-tertiary-600">
+//         Welcome to
+//         <Logo alt="Yaphalla" />
+//       </h1>
+//     </Container>
+//     <Container className="my-4 flex flex-col sm:flex-row items-start w-full max-w-11/12 lg:max-w-2/3 4xl:max-w-2/5">
+//       <div className="flex flex-col gap-4 w-full">
+//         <div className="container-primary flex flex-col items-center gap-2 text-center">
+//           <h2 className="text-tertiary-600">Announcements</h2>
+//           <div className="inset-secondary flex flex-col items-center w-full gap-2 whitespace-normal">
+//             <h3 className="flex flex-row whitespace-pre-wrap items-center wrap gap-2">
+//               <Link href="/editor" className="bg-primary input-primary size-base text-tertiary-600">
+//                 YapBuilder
+//               </Link>
+//               {' | '}
+//               <Link href="/editor/priority" className="bg-primary input-primary size-base text-tertiary-600">
+//                 YapPriority
+//               </Link>
+//               {' | '}
+//               <Link href="/editor/ascension" className="bg-primary input-primary size-base text-tertiary-600">
+//                 YapAscend
+//               </Link>
+//             </h3>
+//             <p>
+//               {'Use '}
+//               <Link href="/editor/ascension" className="input-link inline">
+//                 YapAscend
+//               </Link>
+//               {' to create custom hero investment cards or hexes!'}
+//             </p>
+//             <p>
+//               {'Please report any issues to '}
+//               <Link
+//                 href="https://discord.com/channels/1332082220013322240/1332814583781523529"
+//                 className="input-link inline"
+//               >
+//                 #feature-requests
+//               </Link>
+//               {' on Discord!'}
+//             </p>
+//           </div>
+//           <div className="inset-secondary flex flex-col items-center w-full gap-2 whitespace-normal">
+//             <p>
+//               {'We are currently experimenting with additional teams and settings for '}
+//               <Link href="/editor" className="input-link inline">
+//                 YapBuilder
+//               </Link>
+//             </p>
+//             <p>
+//               {'\nPlease submit feedback or report issues to '}
+//               <Link
+//                 href="https://discord.com/channels/1332082220013322240/1332814583781523529"
+//                 className="input-link inline"
+//               >
+//                 #feature-requests
+//               </Link>
+//               {' on Discord!'}
+//             </p>
+//           </div>
+//         </div>
+//         <div className="container-primary flex flex-col items-center gap-2">
+//           <h2 className="text-tertiary-600">About Us</h2>
+//           <div className="inset-secondary flex flex-col items-center w-full text-center">
+//             <p>
+//               Yaphalla is a community focused on creating high quality, accurate PVE AFK Journey content, and of course
+//               yapping about all things AFK Journey!
+//             </p>
+//           </div>
+//         </div>
+//       </div>
+//       <div className="container-primary flex flex-col gap-2 items-center w-full sm:w-fit">
+//         <h2 className="text-tertiary-600">Join us on:</h2>
+//         <div className="flex flex-row sm:flex-col gap-2">
+//           {Object.entries(socials).map(([label, { site, href }]) => (
+//             <Link
+//               key={label}
+//               href={href}
+//               className="w-full bg-primary input-primary size-base gap-2 text-lg md:text-xl justify-center"
+//             >
+//               <Icon icon={`fa6-brands:${site}`} />
+//               {label}
+//             </Link>
+//           ))}
+//         </div>
+//       </div>
+//     </Container>
+//   </>
+// );
 
 export default Index;

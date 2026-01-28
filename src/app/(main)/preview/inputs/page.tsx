@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import Accordion from '@/components/accordion/Accordion';
 import Container from '@/components/container/Container';
 import Button from '@/components/inputs/button/Button';
-import MarkdownEditor from '@/components/inputs/markdown/MarkdownEditor';
+// import MarkdownEditor from '@/components/inputs/markdown/MarkdownEditor';
 import Text from '@/components/inputs/text/Text';
 import Toggle from '@/components/inputs/toggle/Toggle';
 
@@ -63,9 +63,9 @@ const Index: FC = () => {
                 )),
               )}
           </div>
-          <div className="w-full h-[500px] flex flex-col">
+          {/* <div className="w-full h-[500px] flex flex-col">
             <MarkdownEditor label="Markdown Editor" value={md} onChange={setMd} />
-          </div>
+          </div> */}
           <div className="h-min flex flex-col bg-primary-950/80 justify-center items-center rounded-lg p-4 gap-4">
             <h2>Accordions</h2>
             {Array(2)

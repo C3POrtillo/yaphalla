@@ -13,7 +13,7 @@ export const PAGE_QUERY = defineQuery(`*[_type == "page" && slug.current == $slu
   isFile,
 }`);
 
-export const LOGO_QUERY = defineQuery(`*[_type == "brand" && brand == "Cam"]{
+export const LOGO_QUERY = defineQuery(`*[_type == "brand" && brand == "Yaphalla"]{
   _id,
   brand,
   fullLogo,
@@ -62,4 +62,115 @@ export const HEADER_QUERY = defineQuery(`*[_type == "header"]{
       }
     }
   }
+}`);
+
+export const ALL_HERO_QUERY = defineQuery(`*[_type == "unit" && type == "hero"]{
+  _id,
+  name,
+  faction->{
+    _id,
+    "name": faction,
+    image
+  },
+  class->{
+    _id,
+    "name": class,
+    image
+  },
+  hex,
+  portrait,
+} | order(
+  faction.faction asc, 
+  class.class asc, 
+  name asc
+)`);
+
+export const ALL_WILDCARD_QUERY = defineQuery(`*[_type == "unit" && type == "wildcard"]{
+  _id,
+  name,
+  faction->{
+    _id,
+    "name": faction,
+    image
+  },
+  class->{
+    _id,
+    "name": class,
+    image
+  },
+  hex,
+} | order(
+  faction.faction asc, 
+  class.class asc, 
+  name asc
+)`);
+
+export const ALL_MISC_QUERY = defineQuery(`*[_type == "unit" && type == "misc"]{
+  _id,
+  name,
+  class->{
+    _id,
+    "name": class,
+    image
+  },
+  hex,
+} | order(
+  class.class asc, 
+  name asc
+)`);
+
+export const ALL_PHANTIMAL_QUERY = defineQuery(`*[_type == "unit" && type == "phantimal"]{
+  _id,
+  name,
+  faction->{
+    _id,
+    "name": faction,
+    image
+  },
+  class->{
+    _id,
+    "name": class,
+    image
+  },
+  hex,
+} | order(
+  faction.faction asc, 
+  name asc
+)`);
+
+export const ALL_BOSS_QUERY = defineQuery(`*[_type == "unit" && type == "boss"]{
+  _id,
+  name,
+  class->{
+    _id,
+    "name": class,
+    image
+  },
+  hex,
+} | order(
+  name asc
+)`);
+
+export const ALL_CLASS_QUERY = defineQuery(`*[_type == "class"]{
+  _id,
+  "name": class,
+  image,
+}`);
+
+export const ALL_FACTION_QUERY = defineQuery(`*[_type == "faction"]{
+  _id,
+  "name": faction,
+  image,
+}`);
+
+export const ALL_TIER_QUERY = defineQuery(`*[_type == "tier"]{
+  _id,
+  "name": tier,
+  image,
+}`);
+
+export const ALL_DAMAGE_QUERY = defineQuery(`*[_type == "damage"]{
+  _id,
+  "name": damage,
+  image,
 }`);

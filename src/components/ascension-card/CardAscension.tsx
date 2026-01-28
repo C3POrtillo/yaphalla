@@ -8,10 +8,10 @@ import AscensionPortrait from '@/components/ascension-card/AscensionPortrait';
 import DropdownMenu from '@/components/ascension-card/DropdownMenu';
 import { useHeroData } from '@/components/ascension-card/HeroDataProvider';
 import ExportImage from '@/components/export-image/ExportImage';
-import IconDetail from '@/components/hero/IconDetail';
 import HexImage from '@/components/hex-tiles/HexImage';
-import { UnitsByClass, UnitsByFaction } from '@/utils/types';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import IconDetail from '@/components/unit-data/IconDetail';
+import { UnitsByClass, UnitsByFaction } from '@/utils/hero-data/types';
+import { classMerge, compareStrings } from '@/utils/utils';
 
 export interface CardAscensionProps {
   styleType?: StyleTypes;
@@ -26,7 +26,7 @@ const CardAscension: FC<CardAscensionProps> = ({ styleType = 'container', cardCl
 
   return (
     <div
-      className={joinStrings(
+      className={classMerge(
         `${styleType}-primary`,
         'relative flex flex-col gap-1 justify-start items-center',
         cardClassName,

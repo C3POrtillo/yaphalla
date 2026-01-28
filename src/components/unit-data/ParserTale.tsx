@@ -33,19 +33,20 @@ const ParserTale: FC<ParserTaleProps> = ({ hero, StoryID, Story, IsDefaultUnlock
         className: classMerge('input-link !inline-flex align-middle', !isOpen && 'pointer-events-none'),
         href: `/heroes/${encodeURIComponent(unitToken)}`,
       };
-      const hex = (allHeroes[unitToken] || allHeroes[UnitOverride[unitToken]])?.hex
+      const hex = (allHeroes[unitToken] || allHeroes[UnitOverride[unitToken]])?.hex;
       const unitSpan = (
         <span key={`${i}-${token}`} className={linkProps ? 'inline' : 'inline-flex align-middle'}>
           <HexImage src={hex} manualSrc={UnitOverride[unitToken]} disabled size="2xs" />
         </span>
       );
 
-      const getLink = ({ key, label }: Record<string, string>) => linkProps && (
-        <Link key={key} {...linkProps}>
-          {unitSpan}
-          <span className="pb-1.25">{label}</span>
-        </Link>
-      );
+      const getLink = ({ key, label }: Record<string, string>) =>
+        linkProps && (
+          <Link key={key} {...linkProps}>
+            {unitSpan}
+            <span className="pb-1.25">{label}</span>
+          </Link>
+        );
 
       if (!compareStrings(unitToken, token)) {
         if (linkProps) {

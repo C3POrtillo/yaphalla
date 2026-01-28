@@ -1,7 +1,7 @@
 import { domain } from '@/utils/paths';
 
 const parseUrl = (href?: string) => {
-  if (!href) {
+  if (!href || href.includes('undefined')) {
     return {
       href: '',
     } as const;

@@ -5,7 +5,7 @@ import { useFormation } from '@/components/formation/FormationProvider';
 import PreviewArena from '@/components/formation/PreviewArena';
 import { ArenaPresets } from '@/components/formation/types';
 import Button from '@/components/inputs/button/Button';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { classMerge, compareStrings } from '@/utils/utils';
 
 interface SelectArenaPresetProps {
   variant?: 'sm' | 'base';
@@ -41,7 +41,7 @@ const SelectArenaPreset: FC<SelectArenaPresetProps> = ({ variant = 'base' }) => 
           </Accordion>
         </div>
       </div>
-      <div className={joinStrings('container-primary p-2 gap-2 justify-center hidden', displayClasses)}>
+      <div className={classMerge('container-primary p-2 gap-2 justify-center hidden', displayClasses)}>
         {Object.entries(ArenaPresets)
           .slice(1)
           .map(([label, data]) => (

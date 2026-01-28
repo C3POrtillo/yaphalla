@@ -1,9 +1,9 @@
 import Image from 'next/image';
 
-import type { Ascension } from '@/utils/types';
+import type { Ascension } from '@/utils/hero-data/types';
 import type { FC } from 'react';
 
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { classMerge, compareStrings } from '@/utils/utils';
 
 interface IconAscensionProps {
   src: Ascension;
@@ -17,7 +17,7 @@ const IconAscension: FC<IconAscensionProps> = ({ src, hasAlt, size }) => {
   }
 
   return (
-    <div className={joinStrings('ascension-icon relative', size)}>
+    <div className={classMerge('ascension-icon relative', size)}>
       <Image
         src={`/assets/images/ascension/icon/${src.toLowerCase()}.png`}
         alt={hasAlt ? src : ''}

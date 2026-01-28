@@ -3,13 +3,13 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState } f
 
 import type { ArtifactFormationData, TileData, UnitFormationData } from '@/components/formation/types';
 import type { CommunityLogos } from '@/components/hex-tiles/types';
-import type { BaseHexes, ImagePath, Talents } from '@/utils/types';
+import type { BaseHexes, ImagePath, Talents } from '@/utils/hero-data/types';
 import type { Dispatch, DragEvent, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { AlwaysShowStates, ArenaPresets } from '@/components/formation/types';
 import { countUnits, determineFaction, generateCookies } from '@/components/formation/utils';
 import { getPath } from '@/components/hex-tiles/utils';
-import { CurrentSeason, PhantimalSet, Phantimals } from '@/utils/types';
+import { CurrentSeason, PhantimalSet, Phantimals } from '@/utils/hero-data/types';
 import { compareStrings, getCookie, setCookie } from '@/utils/utils';
 
 interface FormationProviderProps extends PropsWithChildren {
@@ -191,7 +191,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
   const addUnit = useCallback(
     (unit: string, sameUnit: boolean) => {
       if (currentTile === undefined) {
-        return;
+        return null;
       }
 
       setUnits(prevUnits => {
@@ -250,7 +250,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
         if (internalData) {
           const { sourceIndex, hero } = JSON.parse(internalData);
           if (sourceIndex === tile.index) {
-            return;
+            return null;
           }
 
           setUnits(prev => {
@@ -272,12 +272,12 @@ export const FormationProvider: FC<FormationProviderProps> = ({
 
           validDropOccurred.current = true;
 
-          return;
+          return null;
         }
 
         const externalData = e.dataTransfer.getData('application/hero');
         if (!externalData) {
-          return;
+          return null;
         }
 
         const { hero, sameUnit } = JSON.parse(externalData);
@@ -438,7 +438,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
   useEffect(() => {
     const saveCookies = async () => {
       if (!loaded) {
-        return;
+        return null;
       }
       generateCookies(
         {
@@ -483,7 +483,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
 
   useEffect(() => {
     if (['Custom', 'Double Artifacts'].some(check => !compareStrings(preset, check))) {
-      return;
+      return null;
     }
 
     setUnits({});
@@ -543,7 +543,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
       const newUnits = { ...prev };
       Object.entries(newUnits).forEach(([tile, hero]) => {
         if (!PhantimalSet.has(hero.unit) || playerFaction === undefined) {
-          return;
+          return null;
         }
         const index = tile as unknown as number;
         newUnits[index] = {

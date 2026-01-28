@@ -7,8 +7,8 @@ import { getGroupIndex } from '@/components/formation/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import { getPath } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
-import { BaseHexData } from '@/utils/types';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { BaseHexData } from '@/utils/hero-data/types';
+import { classMerge, compareStrings } from '@/utils/utils';
 
 const SelectBackgroundHex: FC = () => {
   const { baseHex, setBaseHex, outline: selectedOutline, setOutline } = useFormation();
@@ -51,7 +51,7 @@ const SelectBackgroundHex: FC = () => {
           const shouldOverlap = i !== 0 && isOdd !== isPrevOdd;
 
           return (
-            <div key={i} className={joinStrings('flex gap-0.5', shouldOverlap && '-mt-4')}>
+            <div key={i} className={classMerge('flex gap-0.5', shouldOverlap && '-mt-4')}>
               {group}
             </div>
           );

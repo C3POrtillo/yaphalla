@@ -1,4 +1,4 @@
-import type { Hero } from '@/utils/types';
+import type { Hero } from '@/utils/hero-data/types';
 
 export type UnitDivData = {
   tiles: Hero[];

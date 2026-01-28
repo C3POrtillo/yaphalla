@@ -10,7 +10,7 @@ import { getArtifacts } from '@/components/formation/utils';
 import HexImage from '@/components/hex-tiles/HexImage';
 import { getArtifactPath } from '@/components/hex-tiles/utils';
 import Button from '@/components/inputs/button/Button';
-import { Artifacts, CurrentSeason } from '@/utils/types';
+import { Artifacts, CurrentSeason } from '@/utils/hero-data/types';
 import { compareStrings } from '@/utils/utils';
 
 const SelectArtifact: FC = () => {

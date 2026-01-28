@@ -3,7 +3,7 @@ import Image from 'next/image';
 import type { AscensionCardType, ExWeapon } from '@/components/ascension-card/types';
 import type { FC } from 'react';
 
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { classMerge, compareStrings } from '@/utils/utils';
 
 interface IconExWeaponProps {
   src: ExWeapon;
@@ -20,7 +20,7 @@ const IconExWeapon: FC<IconExWeaponProps> = ({ src, type, hasAlt, size, classNam
   }
 
   return (
-    <div className={joinStrings(`${path}-ex-weapon`, 'relative', size, className)}>
+    <div className={classMerge(`${path}-ex-weapon`, 'relative', size, className)}>
       <Image
         src={`/assets/images/ex-weapon/${path}/${src.toLowerCase()}.png`}
         alt={hasAlt ? src : ''}

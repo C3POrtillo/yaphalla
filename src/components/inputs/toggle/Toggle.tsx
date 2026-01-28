@@ -5,7 +5,7 @@ import type { HierarchyTypes } from '@/utils/siteTypes';
 import type { ChangeEvent, FC, InputHTMLAttributes, ReactNode } from 'react';
 
 import Tooltip from '@/components/tooltip/Tooltip';
-import { compareStrings, joinStrings, kebabCase } from '@/utils/utils';
+import { classMerge, compareStrings, kebabCase } from '@/utils/utils';
 
 interface ToggleProps extends InputHTMLAttributes<HTMLInputElement> {
   variant?: 'checkbox' | 'switch';
@@ -50,7 +50,7 @@ const Toggle: FC<ToggleProps> = ({
   return (
     <label
       htmlFor={id}
-      className={joinStrings(
+      className={classMerge(
         !!tooltip && 'group relative lg:justify-center',
         'size-sm !pr-2 flex flex-row items-center gap-2',
         !!disableLabel && '!pl-2',
@@ -74,14 +74,14 @@ const Toggle: FC<ToggleProps> = ({
           <>
             {disableLabel && <span>{disableLabel}</span>}
             <div
-              className={joinStrings(
+              className={classMerge(
                 'inset slider ease-in-out',
                 !disabled && (isChecked ? 'bg-primary-400' : 'bg-white'),
                 disabled && 'bg-neutral-500',
               )}
             >
               <div
-                className={joinStrings(
+                className={classMerge(
                   'slider-ball ease-in-out',
                   !disabled && (isChecked ? 'bg-white' : 'bg-primary-400'),
                   disabled && 'bg-neutral-400',
@@ -94,7 +94,7 @@ const Toggle: FC<ToggleProps> = ({
         <span>{activeLabel || value}</span>
       </div>
       {tooltip && (
-        <Tooltip className={joinStrings('top-full text-center z-20', solidTooltip && '!bg-primary-950')}>
+        <Tooltip className={classMerge('top-full text-center z-20', solidTooltip && '!bg-primary-950')}>
           {tooltip}
         </Tooltip>
       )}

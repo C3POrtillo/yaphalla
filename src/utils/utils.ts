@@ -1,6 +1,12 @@
+import { twMerge } from 'tailwind-merge';
+
+
 import type { Cookie } from '@/utils/siteTypes';
 import type { Metadata } from 'next';
 import type { ReadonlyURLSearchParams } from 'next/navigation';
+import type { ClassNameValue } from 'tailwind-merge';
+
+import { TITLE } from '@/utils/types';
 
 const wordSeparators = /[-_\\.+\s]+/g;
 const notAlphaNumericOrSpace = /[^ a-zA-Z0-9]+/g;
@@ -66,17 +72,12 @@ export const delimitNumber = (number: number) => Number(number.toFixed(0)).toLoc
 
 export const roundToHundreth = (number: number) => number.toFixed(2);
 
-export const joinStrings = (...strings: (string | number | boolean | undefined | null)[]) =>
-  strings.filter(Boolean).join(' ');
+export const classMerge = (...strings: (ClassNameValue | boolean)[]) =>
+  twMerge(...(strings.filter(Boolean) as ClassNameValue[]));
 
 const imageURL = 'https://www.yaphalla.com/assets/images/yaphalla-dog.png';
 
-export const createMetadata = (
-  title: string,
-  description: string,
-  siteName = 'Yaphalla',
-  image = imageURL,
-): Metadata => ({
+export const createMetadata = ({ title = TITLE, description = '', siteName = TITLE, image = imageURL }): Metadata => ({
   title,
   description,
   keywords: ['Yaphalla', 'AFKJ', 'AFKJourney', 'AFK Journey', 'AFKJ Guides', 'AFKJourney Guides', 'AFK Journey Guides'],
@@ -110,8 +111,8 @@ export const createMetadata = (
 
 export const discordInviteAPI = (invite = 'yaphalla') => `https://discord.com/api/invites/${invite}?with_counts=true`;
 
-export const testRegExp = (str: string, regExp?: RegExp | false) =>
-  regExp === undefined || regExp === false || regExp?.test(str);
+export const testRegExp = (str: string | undefined, regExp?: RegExp | false) =>
+  regExp === undefined || regExp === false || str === undefined || regExp?.test(str);
 
 export const isDevMode = (searchParams: ReadonlyURLSearchParams) =>
   !compareStrings(searchParams.get('mode')?.toLocaleLowerCase() || '', 'dev');
@@ -146,6 +147,8 @@ export const sanitizeUnit = (unit: string) => {
   for (const character of [' ', "'"]) {
     sanitized = splitNameAndCapitalize(sanitized, character);
   }
+  sanitized = sanitized.replaceAll('undefined', '');
+  sanitized = sanitized.replaceAll('Undefined', '');
 
   return sanitized;
 };

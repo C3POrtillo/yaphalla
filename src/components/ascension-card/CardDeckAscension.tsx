@@ -7,9 +7,9 @@ import { HeroDataProvider } from '@/components/ascension-card/HeroDataProvider';
 import { filterPairs } from '@/components/ascension-card/utils';
 import HeroFilter from '@/components/hero-filter/HeroFilter';
 import { filterHero } from '@/components/hero-filter/utils';
-import { SortedHeroes } from '@/utils/types';
+import { SortedHeroes } from '@/utils/hero-data/types';
 import useHeroFilters from '@/utils/useHeroFilters';
-import { compareStrings, joinStrings, kebabCase } from '@/utils/utils';
+import { classMerge, compareStrings, kebabCase } from '@/utils/utils';
 
 interface CardDeckAscensionProps extends PropsWithChildren, CardAscensionProps {
   label?: string;
@@ -26,7 +26,7 @@ const CardDeckAscension: FC<CardDeckAscensionProps> = ({ units, hasLabel, label,
   return (
     <div
       id={label ? kebabCase(label) : undefined}
-      className={joinStrings(
+      className={classMerge(
         !compareStrings(styleType || '', 'inset') && 'container-primary',
         'flex flex-col gap-2 items-center justify-start mx-4',
       )}

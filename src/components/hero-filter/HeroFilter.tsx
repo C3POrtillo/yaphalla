@@ -1,54 +1,40 @@
+import type { FilterCategories } from '@/utils/useHeroFilters';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import FilterCategory from '@/components/hero-filter/FilterCategory';
 import Text from '@/components/inputs/text/Text';
-import { Damage, Faction, HeroClass, Tier } from '@/utils/types';
 
 interface HeroFilterProps extends PropsWithChildren {
-  filterClass?: HeroClass;
-  filterDamage?: Damage;
-  filterFaction?: Faction;
-  filterSearch: string;
-  filterTier?: Tier;
-  setFilterClass: Dispatch<SetStateAction<HeroClass | undefined>>;
-  setFilterDamage?: Dispatch<SetStateAction<Damage | undefined>>;
-  setFilterFaction: Dispatch<SetStateAction<Faction | undefined>>;
-  setFilterSearch: Dispatch<SetStateAction<string>>;
-  setFilterTier?: Dispatch<SetStateAction<Tier | undefined>>;
+  categories?: FilterCategories;
+  hasTier?: boolean;
+  hasDamage?: boolean;
 }
 
-const HeroFilter: FC<HeroFilterProps> = ({
-  filterClass,
-  filterDamage,
-  filterFaction,
-  filterSearch,
-  filterTier,
-  setFilterClass,
-  setFilterDamage,
-  setFilterFaction,
-  setFilterSearch,
-  setFilterTier,
-  children,
-}) => (
-  <div className="flex w-full flex-row flex-wrap gap-2 items-end">
-    <div className="inset-secondary flex flex-col gap-2 p-2">
-      <FilterCategory items={HeroClass} filter={filterClass} setFilter={setFilterClass} path="class" />
-      <FilterCategory items={Faction} filter={filterFaction} setFilter={setFilterFaction} path="factions" />
-    </div>
-    {(setFilterTier || setFilterDamage) && (
+const HeroFilter: FC<HeroFilterProps> = ({ categories, children, hasTier, hasDamage }) => (
+  categories && (
+    <div className="flex w-full flex-row flex-wrap gap-2 items-end">
       <div className="inset-secondary flex flex-col gap-2 p-2">
-        {setFilterTier && <FilterCategory items={Tier} filter={filterTier} setFilter={setFilterTier} path="tier" />}
-        {setFilterDamage && (
-          <FilterCategory items={Damage} filter={filterDamage} setFilter={setFilterDamage} path="damage" />
-        )}
+        <FilterCategory {...categories.class} />
+        <FilterCategory {...categories.faction} />
       </div>
-    )}
-    <div className="flex grow">
-      <Text label="Search" setState={setFilterSearch} placeholder="Name/Faction/Class" value={filterSearch}>
-        {children}
-      </Text>
+      {(hasTier || hasDamage) && (
+        <div className="inset-secondary flex flex-col gap-2 p-2">
+          {hasTier && <FilterCategory {...categories.tier} />}
+          {hasDamage && <FilterCategory {...categories.damage} />}
+        </div>
+      )}
+      <div className="flex grow">
+        <Text
+          label="Search"
+          setState={categories.search.setFilter as Dispatch<SetStateAction<string>>}
+          placeholder="Name/Faction/Class"
+          value={categories.search.filter}
+        >
+          {children}
+        </Text>
+      </div>
     </div>
-  </div>
+  )
 );
 
 export default HeroFilter;

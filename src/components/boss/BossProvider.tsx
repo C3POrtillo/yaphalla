@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { CurrentSeason } from '@/utils/types';
+import { CurrentSeason } from '@/utils/hero-data/types';
 
 interface BossProviderProps extends PropsWithChildren {
   boss: string;

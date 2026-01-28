@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 import type { FC } from 'react';
 
-import IconDetail from '@/components/hero/IconDetail';
-import { RavagedRealmMap } from '@/components/hero/types';
+import IconDetail from '@/components/unit-data/IconDetail';
+import { RavagedRealmMap } from '@/utils/hero-data/types';
 
 interface CardGuideProps {
   src: string;

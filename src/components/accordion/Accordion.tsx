@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { HierarchyTypes } from '@/utils/siteTypes';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 
-import { joinStrings } from '@/utils/utils';
+import { classMerge } from '@/utils/utils';
 
 interface AccordionProps extends PropsWithChildren {
   className?: string;
@@ -69,7 +69,7 @@ const Accordion: FC<AccordionProps> = ({
     <div ref={accordionRef} className="flex w-full flex-col">
       {label && (
         <div
-          className={joinStrings(
+          className={classMerge(
             className,
             'flex w-full flex-row items-center justify-between ease-in-out',
             isClickable ? 'size-base' : 'shadow-sm p-1 rounded-lg',
@@ -81,7 +81,7 @@ const Accordion: FC<AccordionProps> = ({
           {!isClickable && <div className="pl-1 w-full">{label}</div>}
           <button
             onClick={toggleDropdown}
-            className={joinStrings(
+            className={classMerge(
               'cursor-pointer inline-flex flex-row items-center justify-between gap-2',
               isClickable && 'w-full',
               !isClickable && hierarchy && `input-${hierarchy}`,
@@ -92,14 +92,14 @@ const Accordion: FC<AccordionProps> = ({
             {isClickable && label}
             <Icon
               icon={`mdi:${accordionIcon}`}
-              className={joinStrings('self-center size-8', !isClickable && 'mx-auto')}
+              className={classMerge('self-center size-8', !isClickable && 'mx-auto')}
             />
           </button>
         </div>
       )}
       <div
         ref={panelRef}
-        className={joinStrings('accordion-panel ease-in-out rounded-b-lg overflow-hidden')}
+        className={classMerge('accordion-panel ease-in-out rounded-b-lg overflow-hidden')}
         style={{ maxHeight }}
       >
         {children}

@@ -19,7 +19,17 @@ const HeroTales: FC<HeroTalesProps> = ({ hero, tales, heroSet, allHeroes }) =>
         .sort(({ StoryID: a }, { StoryID: b }) => sortData(a, b))
         .map(
           ({ Story, StoryID, ...props }) =>
-            Story && <ParserTale hero={hero} key={StoryID} Story={Story} StoryID={StoryID} heroSet={heroSet} allHeroes={allHeroes} {...props} />,
+            Story && (
+              <ParserTale
+                hero={hero}
+                key={StoryID}
+                Story={Story}
+                StoryID={StoryID}
+                heroSet={heroSet}
+                allHeroes={allHeroes}
+                {...props}
+              />
+            ),
         )}
     </div>
   );

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Difficulties } from '@/utils/types';
+import { Difficulties } from '@/utils/hero-data/types';
 import { compareStrings, kebabCase } from '@/utils/utils';
 
 export const getGuideImages = (name: string): Record<string, string[]> => {

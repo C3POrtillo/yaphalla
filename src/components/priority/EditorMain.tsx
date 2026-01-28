@@ -11,7 +11,7 @@ import EditorGroup from '@/components/priority/EditorGroup';
 import { usePriority } from '@/components/priority/PriorityProvider';
 import { maxGroups } from '@/components/priority/types';
 import { getGap, getValidCount } from '@/components/priority/utils';
-import { isDevMode, joinStrings } from '@/utils/utils';
+import { classMerge, isDevMode } from '@/utils/utils';
 
 const EditorMain: FC = () => {
   const searchParams = useSearchParams();
@@ -91,7 +91,7 @@ const EditorMain: FC = () => {
         <div className="inset-black flex justify-center size-full !p-4">
           <div
             id="unit-grid"
-            className={joinStrings(
+            className={classMerge(
               'flex flex-row justify-center size-min',
               !offset && getValidCount(groups, maxGroups) < maxGroups && getGap(gap),
             )}

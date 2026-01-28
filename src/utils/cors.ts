@@ -28,7 +28,7 @@ export const corsMiddleware = (handler: Handler) => async (req: NextApiRequest, 
   if (req.method === 'OPTIONS') {
     res.status(200).end();
 
-    return;
+    return null;
   }
 
   return handler(req, res);

@@ -5,8 +5,8 @@ import type { FC } from 'react';
 import { useFormation } from '@/components/formation/FormationProvider';
 import { ArenaPresets } from '@/components/formation/types';
 import Button from '@/components/inputs/button/Button';
-import { ArtifactSet, PhantimalSet } from '@/utils/types';
-import { joinStrings } from '@/utils/utils';
+import { ArtifactSet, PhantimalSet } from '@/utils/hero-data/types';
+import { classMerge } from '@/utils/utils';
 
 interface EditorClearButtonsProps {
   isRow?: boolean;
@@ -52,7 +52,7 @@ const EditorClearButtons: FC<EditorClearButtonsProps> = ({ isRow }) => {
   ] as const;
 
   return (
-    <div className={joinStrings('w-full flex gap-2 items-center', isRow ? 'flex-row' : 'flex-col')}>
+    <div className={classMerge('w-full flex gap-2 items-center', isRow ? 'flex-row' : 'flex-col')}>
       {buttons.map(({ onClick, label, icon, ...props }) => (
         <Button
           key={label}

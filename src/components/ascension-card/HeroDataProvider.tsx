@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
 import type { AscensionCardType, ExWeapon } from '@/components/ascension-card/types';
-import type { Ascension } from '@/utils/types';
+import type { Ascension } from '@/utils/hero-data/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { enableExWeapon, forceExWeapon } from '@/components/ascension-card/utils';
@@ -46,7 +46,7 @@ export const HeroDataProvider: FC<HeroDataProviderProps> = ({ id, hero, children
 
   useEffect(() => {
     if (!save) {
-      return;
+      return null;
     }
     const loadCookies = async () => {
       Object.entries({
@@ -70,11 +70,11 @@ export const HeroDataProvider: FC<HeroDataProviderProps> = ({ id, hero, children
 
   useEffect(() => {
     if (!save) {
-      return;
+      return null;
     }
     const saveCookies = async () => {
       if (!loaded) {
-        return;
+        return null;
       }
       generateCookies(
         {

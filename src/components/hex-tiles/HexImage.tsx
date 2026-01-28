@@ -1,17 +1,17 @@
 import Image from 'next/image';
 
-import type { BaseHexes, ImagePath } from '@/utils/types';
+import type { HexAsset } from '@/sanity/types';
+import type { SanityAsset } from '@sanity/image-url/lib/types/types';
 import type { FC, ReactNode } from 'react';
 
 import { exclusionClasses } from '@/components/export-image/types';
-import { getPath, getSizeClass } from '@/components/hex-tiles/utils';
+import { getHexUrl, getSizeClass } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
-import { HexPath, LogoRegExp } from '@/utils/types';
-import { compareStrings, joinStrings, testRegExp } from '@/utils/utils';
+import { classMerge } from '@/utils/utils';
 
 export interface HexImageProps {
-  src: string;
-  path?: ImagePath;
+  src: HexAsset | SanityAsset | undefined;
+  manualSrc?: string;
   selected?: boolean;
   label?: string | number;
   hideLabel?: boolean;
@@ -21,7 +21,7 @@ export interface HexImageProps {
   isEnemy?: boolean;
   isSwap?: boolean;
   isTalent?: boolean;
-  forceOutline?: BaseHexes | false;
+  forceOutline?: HexAsset | SanityAsset | false;
   size?: 'md' | 'sm' | 'xs' | '2xs';
   exportIgnore?: boolean;
   tooltip?: ReactNode;
@@ -30,7 +30,7 @@ export interface HexImageProps {
 
 const HexImage: FC<HexImageProps> = ({
   src,
-  path = 'base',
+  manualSrc,
   selected,
   label,
   hideLabel,
@@ -46,30 +46,43 @@ const HexImage: FC<HexImageProps> = ({
   tooltip,
   draggable = false,
 }) => {
-  const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
+  if (!src && !manualSrc) {
+    return;
+  }
+
+  const Asset: FC<{ imageSrc: SanityAsset | string; zIndex?: `z-${number}`; className?: string }> = ({
     imageSrc,
     zIndex,
     className,
-  }) => (
-    <Image
-      key={imageSrc}
-      className={joinStrings(className, zIndex)}
-      src={`${HexPath}${imageSrc}.png`}
-      alt=""
-      fill
-      sizes="256px"
-      unoptimized
-      priority
-    />
-  );
+  }) => {
+    const isString = typeof imageSrc === 'string';
+    const key = isString ? imageSrc : imageSrc._id;
 
+    return (
+      <Image
+        key={key}
+        className={classMerge(className, zIndex)}
+        src={isString ? `/assets/images/hexes/${imageSrc}.png` : getHexUrl(imageSrc)}
+        alt=""
+        fill
+        sizes="256px"
+        unoptimized
+        priority
+      />
+    );
+  };
+  const isHexAsset = src?._type === 'hexAsset';
+  let hexSrc = src || (manualSrc && `unit/${manualSrc}`);
+  if (isHexAsset) {
+    const { image } = src as HexAsset;
+    if (image) {
+      hexSrc = image;
+    }
+  }
   const assetSrcs = [
-    !hideImage && `${path}/${src}`,
-    isEnemy &&
-      ['unit', 'base'].some(test => compareStrings(path, test)) &&
-      !testRegExp(src, LogoRegExp) &&
-      'base/Enemy-Overlay',
-    !hideImage && !isEnemy && forceOutline && `${getPath(forceOutline)}/${forceOutline}`,
+    !hideImage && hexSrc,
+    isEnemy && !isHexAsset && 'base/Enemy-Overlay',
+    // !hideImage && !isEnemy && forceOutline && `${getPath(forceOutline)}/${forceOutline}`,
     !disabled && isTalent && 'base/Talent-Selected',
     !disabled && selected && 'base/Select-Outline',
     isSwap && 'base/Swap-Overlay',
@@ -77,7 +90,7 @@ const HexImage: FC<HexImageProps> = ({
 
   return (
     <div
-      className={joinStrings(
+      className={classMerge(
         'hex-icon relative group',
         (!disabled || draggable) && 'hex-overlay',
         disabledOverlay && 'disabled-overlay',
@@ -95,7 +108,7 @@ const HexImage: FC<HexImageProps> = ({
       {assetSrcs.map((imageSrc, layer) => (
         <Asset
           key={`${imageSrc}-${layer}`}
-          className={joinStrings(exportIgnore && exclusionClasses[0], layer > 0 && 'drag-ignore')}
+          className={classMerge(exportIgnore && exclusionClasses[0], layer > 0 && 'drag-ignore')}
           imageSrc={imageSrc}
           zIndex={layer ? `z-${layer}` : undefined}
         />

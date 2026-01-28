@@ -22,7 +22,10 @@ const CardHero: FC<CardHeroProps> = ({
   hasDetails = true,
   href,
   children,
-  ...props
+  heroClass,
+  faction,
+  tier,
+  damage,
 }) => {
   const label = name || hero;
   const card = (
@@ -33,7 +36,7 @@ const CardHero: FC<CardHeroProps> = ({
           <h2 className="w-full border-tertiary-600 border-b-2 pb-1">
             {hasDetails && title ? `${hero} - ${title}` : label}
           </h2>
-          <HeroDetail hero={hero} {...props}>
+          <HeroDetail hero={hero} heroClass={heroClass} faction={faction} tier={tier} damage={damage}>
             {children}
           </HeroDetail>
         </div>

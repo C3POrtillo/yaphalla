@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import { labels } from '@/components/export-image/types';
 import { copy, exportToPNG } from '@/components/export-image/utils';
 import Button from '@/components/inputs/button/Button';
-import { joinStrings } from '@/utils/utils';
+import { classMerge } from '@/utils/utils';
 
 interface ExportImageProps extends ButtonProps {
   fileName?: string;
@@ -27,7 +27,7 @@ const ExportImage: FC<ExportImageProps> = ({
   const handleClick = async (action: (image: string, file: string | undefined) => Promise<void>) => {
     const image = await getImage();
     if (!image) {
-      return;
+      return null;
     }
     await action(image, fileName);
     callback();
@@ -52,7 +52,7 @@ const ExportImage: FC<ExportImageProps> = ({
 
   return (
     <div
-      className={joinStrings(
+      className={classMerge(
         hasContainer && 'container-primary',
         'w-full flex flex-col grow gap-2 items-center lg:flex-row',
       )}

@@ -13,7 +13,7 @@ import { AlwaysShowStates, ObstacleStates, TileIndexToPosition } from '@/compone
 import { getIsTopRight, getRelativeTileLabels, processTileData } from '@/components/formation/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 // import Text from '@/components/inputs/text/Text';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { classMerge, compareStrings } from '@/utils/utils';
 
 interface EditorArena {
   id?: string;
@@ -82,7 +82,7 @@ const EditorArena: FC<EditorArena> = ({
     const absolutePosition = TileIndexToPosition[index];
     if (hideEmpty) {
       if (state === 0) {
-        return;
+        return null;
       }
       const relativePosition = relativeTileLabel[hideEnemy ? 'player' : 'all'].indexOf(absolutePosition);
 
@@ -149,7 +149,7 @@ const EditorArena: FC<EditorArena> = ({
     return (
       <div
         key={row}
-        className={joinStrings(
+        className={classMerge(
           'flex flex-row',
           row && !relativeFirstRow && '-mt-5',
           hideEnemy && hideEmpty && isTopRight ? reverse : offset,

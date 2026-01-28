@@ -8,7 +8,7 @@ import IconExWeapon from '@/components/ascension-card/IconExWeapon';
 import { AscensionCardType, CardIcons, ExWeapon } from '@/components/ascension-card/types';
 import { filterExWeapons, forceExWeapon } from '@/components/ascension-card/utils';
 import Dropdown from '@/components/inputs/dropdown/Dropdown';
-import { Ascension } from '@/utils/types';
+import { Ascension } from '@/utils/hero-data/types';
 import { compareStrings } from '@/utils/utils';
 
 const DropdownMenu: FC = () => {

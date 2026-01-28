@@ -20,7 +20,7 @@ const SelectHero: FC = () => {
 
   const onClick = (unit: string, sameUnit: boolean) => {
     if (disabled) {
-      return;
+      return null;
     }
     setUnits(prev => {
       const copy = { ...prev };

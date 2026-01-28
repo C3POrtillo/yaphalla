@@ -5,7 +5,7 @@ import type { FC } from 'react';
 import { useHeroData } from '@/components/ascension-card/HeroDataProvider';
 import IconExWeapon from '@/components/ascension-card/IconExWeapon';
 import { FrameSet, ManualAdjustments } from '@/components/ascension-card/types';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { classMerge, compareStrings } from '@/utils/utils';
 
 const AscensionPortrait: FC = () => {
   const { exportId, hero, ascension, exWeapon, hasEx } = useHeroData();
@@ -32,7 +32,7 @@ const AscensionPortrait: FC = () => {
     <div className="crown-frame flex justify-center items-center w-29">
       <div
         id={exportId}
-        className={joinStrings(
+        className={classMerge(
           isInFrameSet ? 'crown-frame w-29' : 'card-frame w-24',
           'relative flex justify-center items-center',
         )}
@@ -44,7 +44,7 @@ const AscensionPortrait: FC = () => {
             </div>
           )}
           <div
-            className={joinStrings(
+            className={classMerge(
               'hero-portrait absolute',
               adjustments?.bottom || '-bottom-6',
               adjustments?.size || 'w-35',
@@ -55,7 +55,7 @@ const AscensionPortrait: FC = () => {
           {hasEx && <IconExWeapon src={exWeapon} type="Card" size="w-24" className="!absolute z-10 top-0.25" />}
         </div>
         {isValid && (
-          <div className={joinStrings(isInFrameSet ? 'crown-frame' : 'card-frame', 'w-full absolute')}>
+          <div className={classMerge(isInFrameSet ? 'crown-frame' : 'card-frame', 'w-full absolute')}>
             <Image src={`/assets/images/ascension/frame/${frameSrc()}.png`} alt="" fill />
           </div>
         )}

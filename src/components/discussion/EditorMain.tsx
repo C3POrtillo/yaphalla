@@ -6,10 +6,10 @@ import type { FC } from 'react';
 import { useDiscussion } from '@/components/discussion/DiscussionProvider';
 import { DiscussionId } from '@/components/discussion/types';
 import ExportImage from '@/components/export-image/ExportImage';
-import IconDetail from '@/components/hero/IconDetail';
 import HexImage from '@/components/hex-tiles/HexImage';
 import { getPath } from '@/components/hex-tiles/utils';
-import { Damage, Tier } from '@/utils/types';
+import IconDetail from '@/components/unit-data/IconDetail';
+import { Damage, Tier } from '@/utils/hero-data/types';
 
 const EditorMain: FC = () => {
   const { hero, tier, damage, heroClass, faction, setTier, setDamage } = useDiscussion();

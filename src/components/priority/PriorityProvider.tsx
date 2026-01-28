@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import type { GroupUnitData } from '@/components/priority/types';
-import type { ImagePath } from '@/utils/types';
+import type { ImagePath } from '@/utils/hero-data/types';
 import type { Dispatch, DragEvent, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { getPath } from '@/components/hex-tiles/utils';
@@ -118,7 +118,7 @@ export const PriorityProvider: FC<PropsWithChildren> = ({ children }) => {
           return newUnits;
         });
 
-        return;
+        return null;
       }
 
       data = e.dataTransfer.getData('application/hero');

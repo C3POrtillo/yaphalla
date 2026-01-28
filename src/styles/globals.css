@@ -87,10 +87,10 @@
     @apply min-h-[100vh]; 
   }
   main {
-    @apply bg-gradient-to-b from-primary-900 via-primary-950 to-black;
+    @apply bg-gradient-to-r from-black from-[-100%] via-primary-900 to-[200%] to-black;
   }
   .header {
-    @apply w-full bg-gradient-to-b from-black to-primary-800 shadow-black relative flex flex-col place-items-center justify-center text-center shadow-sm shadow-black lg:py-3;
+    @apply w-full bg-gradient-to-b from-black to-primary-800 shadow-black relative flex flex-col place-items-center justify-center text-center shadow-sm shadow-black;
     box-shadow: 0px 4px -4px 0px rgba(0, 0, 0, 0.50);
   }
   .footer {
@@ -121,7 +121,7 @@
     }
   }
   .logo {
-    @apply h-12;
+    @apply h-10;
     aspect-ratio: 1735 / 577;
   }
   .hex-button {

@@ -1,5 +1,5 @@
 import type { TileDivData, UnitFormationData } from '@/components/formation/types';
-import type { BaseHexes, Talents } from '@/utils/types';
+import type { BaseHexes, Talents } from '@/utils/hero-data/types';
 
 import {
   AlwaysShowStates,
@@ -8,7 +8,7 @@ import {
   TileIndexToPosition,
   TileLayout,
 } from '@/components/formation/types';
-import { Artifacts, CurrentSeason, HeroPairs, IgnoreTalents, PairSet, UnitsByTalent } from '@/utils/types';
+import { Artifacts, CurrentSeason, HeroPairs, IgnoreTalents, PairSet, UnitsByTalent } from '@/utils/hero-data/types';
 import { compareStrings, generateCookie, sortData } from '@/utils/utils';
 
 export const getRelativeTileLabels = (tiles: number[]) => {
@@ -92,7 +92,7 @@ export const countUnits = (
 
   Object.entries(units).forEach(([_, { unit, type }]) => {
     if (type !== validType || !UnitsByTalent[unit] || !UnitsByTalent[unit].length || IgnoreTalents.has(unit as any)) {
-      return;
+      return null;
     }
 
     if (PairSet.has(unit as any)) {
@@ -107,7 +107,7 @@ export const countUnits = (
     const pairCounts = Math.min(...pairs.map(unit => unitCount[unit] || 0));
     const maxPairs = pairs.length === 1 ? pairCounts / 2 : pairCounts;
     if (!maxPairs) {
-      return;
+      return null;
     }
 
     updateFactionCount(count, UnitsByTalent[pairs[0]], maxPairs, setCurrentFaction);

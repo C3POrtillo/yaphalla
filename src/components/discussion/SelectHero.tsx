@@ -10,7 +10,7 @@ const SelectHero: FC = () => {
 
   const addUnit = (unit: string, sameUnit: boolean) => {
     if (sameUnit) {
-      return;
+      return null;
     }
     setHero(unit);
   };

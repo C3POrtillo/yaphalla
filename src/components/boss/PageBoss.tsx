@@ -5,10 +5,10 @@ import type { FC } from 'react';
 import { useBoss } from '@/components/boss/BossProvider';
 import CardDeckBossGuide from '@/components/boss/CardDeckBossGuide';
 import Container from '@/components/container/Container';
-import CardHero from '@/components/hero/CardHero';
-import HeroSkills from '@/components/hero/HeroSkills';
 import Button from '@/components/inputs/button/Button';
-import { GuideSet } from '@/utils/types';
+import CardHero from '@/components/unit-data/CardHero';
+import HeroSkills from '@/components/unit-data/HeroSkills';
+import { GuideSet } from '@/utils/hero-data/types';
 
 const PageBoss: FC<Omit<ClientBossProps, 'guides'>> = ({ hero, Info, Skills }) => {
   const { tab, setTab, guides } = useBoss();

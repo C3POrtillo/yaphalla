@@ -1,10 +1,10 @@
 'use client';
 import { createContext, useContext, useState } from 'react';
 
-import type { Damage, Faction, HeroClass, Tier } from '@/utils/types';
+import type { Damage, Faction, HeroClass, Tier } from '@/utils/hero-data/types';
 import type { Dispatch, FC, PropsWithChildren, SetStateAction } from 'react';
 
-import { UnitsByClass, UnitsByFaction } from '@/utils/types';
+import { UnitsByClass, UnitsByFaction } from '@/utils/hero-data/types';
 
 interface DiscussionContextType {
   hero?: string;

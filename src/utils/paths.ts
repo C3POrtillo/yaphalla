@@ -1,7 +1,6 @@
 import type { CreatorData } from '@/utils/pathsCreators';
 
 import { creators } from '@/utils/pathsCreators';
-import { BossPaths, HeroPaths } from '@/utils/pathsHeroes';
 import { redirects } from '@/utils/pathsRedirect';
 import { compareStrings, getHref, internalLinkFilter, sortData } from '@/utils/utils';
 
@@ -266,7 +265,7 @@ const previews = {
 
 export const validHrefs = new Set([
   ...(
-    [...Object.values(paths), ...Object.values(previews), ...HeroPaths, ...BossPaths]
+    [...Object.values(paths), ...Object.values(previews)]
       .filter(internalLinkFilter)
       .flatMap(({ href, options: root }: PathType) => [
         href,

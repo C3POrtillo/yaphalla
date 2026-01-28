@@ -7,7 +7,7 @@ import type { DragEvent, FC, ReactNode } from 'react';
 import HexImage from '@/components/hex-tiles/HexImage';
 import { createDragClone } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
-import { joinStrings } from '@/utils/utils';
+import { classMerge } from '@/utils/utils';
 
 interface ButtonTileProps extends HexImageProps {
   onClick: () => void;
@@ -74,7 +74,7 @@ const ButtonTile: FC<ButtonTileProps> = ({
     <div className="flex justify-center relative pointer-events-none">
       <button
         ref={ref}
-        className={joinStrings(
+        className={classMerge(
           'hex-button cursor-pointer peer pointer-events-auto disabled:cursor-auto ',
           isDragOver && 'drag-overlay scale-105',
           draggable && 'hover:scale-105',

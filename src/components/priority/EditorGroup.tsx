@@ -10,7 +10,7 @@ import Toggle from '@/components/inputs/toggle/Toggle';
 import { usePriority } from '@/components/priority/PriorityProvider';
 import { maxItems, maxLabel } from '@/components/priority/types';
 import { getId, getValidCount, validateCount } from '@/components/priority/utils';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { classMerge, compareStrings } from '@/utils/utils';
 
 interface EditorGroupProps {
   group: number;
@@ -35,13 +35,13 @@ const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty, isDev 
   return (
     <div className="relative flex flex-col gap-4 items-center">
       <div
-        className={joinStrings(
+        className={classMerge(
           'absolute container-primary flex flex-col gap-1 !p-1 z-20 bottom-full -translate-y-7/15',
           exclusionClasses[0],
         )}
       >
         <Text
-          label={joinStrings('Group', group + 1, maxItems && `(Max: ${maxItems})`)}
+          label={classMerge('Group', group + 1, maxItems && `(Max: ${maxItems})`)}
           value={count}
           setState={setCount}
           type="number"
@@ -72,15 +72,15 @@ const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty, isDev 
       <div className="flex flex-col text-center">
         {!offsetRow && label && (
           <div className="h-13 flex justify-center items-center p-1">
-            <h2 className={joinStrings('text-2xl text-outline truncate max-w-[189px]')}>{label}</h2>{' '}
+            <h2 className={classMerge('text-2xl text-outline truncate max-w-[189px]')}>{label}</h2>{' '}
           </div>
         )}
 
-        <div className={joinStrings('flex flex-row', isOffset && 'gap-2')}>
+        <div className={classMerge('flex flex-row', isOffset && 'gap-2')}>
           {columns.map((item, base) => (
             <div
               key={base}
-              className={joinStrings('flex flex-col', isOffset ? 'gap-4' : 'gap-1', isOffset && base === 1 && 'pt-13')}
+              className={classMerge('flex flex-col', isOffset ? 'gap-4' : 'gap-1', isOffset && base === 1 && 'pt-13')}
             >
               {item.map((_, i) => {
                 const index = base + i * 2;
@@ -95,7 +95,7 @@ const EditorGroup: FC<EditorGroupProps> = ({ group, offsetRow, hideEmpty, isDev 
                 return (
                   <div
                     key={index}
-                    className={joinStrings('flex', offsetRowBase, offsetRowNegativeY, offsetRowNegativeX)}
+                    className={classMerge('flex', offsetRowBase, offsetRowNegativeY, offsetRowNegativeX)}
                   >
                     <ButtonTile
                       src={src}

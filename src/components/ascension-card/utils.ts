@@ -1,6 +1,6 @@
 import type { ExWeapon } from '@/components/ascension-card/types';
 
-import { Ascension } from '@/utils/types';
+import { Ascension } from '@/utils/hero-data/types';
 import { compareStrings } from '@/utils/utils';
 
 export const filterPairs = (unit: string) => {

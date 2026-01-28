@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import type { Faction, HeroClass, Talents } from '@/utils/types';
+import type { Faction, HeroClass, Talents } from '@/utils/hero-data/types';
 import type { FC } from 'react';
 
 import { DisplayOverride } from '@/components/hero-grid/types';

@@ -1,52 +1,35 @@
-'use client';
-import { Icon } from '@iconify/react/dist/iconify.js';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import '@/styles/globals.css';
 
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 
 import Footer from '@/components/footer/Footer';
-import Breadcrumbs from '@/components/header/Breadcrumbs';
 import Header from '@/components/header/Header';
-import Button from '@/components/inputs/button/Button';
-import { font } from '@/utils/siteTypes';
-import { joinStrings } from '@/utils/utils';
+import RootClient from '@/components/root/RootClient';
 
 interface RootProps extends PropsWithChildren {
   head?: ReactNode;
-  hideBreadcrumbs?: boolean;
+  isFile?: boolean | null;
 }
 
-const Root: FC<RootProps> = ({ head, children, hideBreadcrumbs }) => (
-  <html lang="en">
-    {}
-    <head>{head}</head>
-    <body className="h-[100vh] snap-y">
-      <div className="flex min-w-full max-w-full min-h-full">
-        <main
-          className={joinStrings(
-            font.variable,
-            'font-sans flex grow flex-col items-center justify-between relative z-0',
-          )}
-        >
-          <Header />
-          {!hideBreadcrumbs && <Breadcrumbs />}
-          {children}
-          <Footer />
-          <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_full] -z-10 opacity-20"></div>
-          <Button
-            className="block right-2 bottom-2 text-base fixed"
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-          >
-            <Icon icon="mdi:chevron-up" />
-          </Button>
-          <Analytics />
-          <SpeedInsights />
-        </main>
-      </div>
+const Root: FC<RootProps> = ({ head, children, isFile }) => (
+  <html lang="en" className="h-full">
+    {head && <head>{head}</head>}
+    <body className="flex flex-col overflow-y-auto min-h-full">
+      <main className="font-sans flex flex-col flex-1 items-center justify-between size-full">
+        {isFile ? (
+          children
+        ) : (
+          <>
+            <Header />
+            <RootClient>{children}</RootClient>
+            {/* <div className="size-full absolute bg-[url(/assets/images/page-bg.png)] bg-no-repeat bg-[100%_full] -z-10 opacity-20"></div> */}
+            <Footer />
+          </>
+        )}
+        <Analytics />
+        <SpeedInsights />
+      </main>
     </body>
   </html>
 );

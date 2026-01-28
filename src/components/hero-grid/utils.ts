@@ -1,5 +1,5 @@
 import type { UnitDivData } from '@/components/hero-grid/types';
-import type { Phantimal } from '@/utils/types';
+import type { Phantimal } from '@/utils/hero-data/types';
 
 import {
   ArtifactHeroes,
@@ -9,7 +9,7 @@ import {
   OtherHeroes,
   Phantimals,
   SortedHeroes,
-} from '@/utils/types';
+} from '@/utils/hero-data/types';
 import { compareStrings } from '@/utils/utils';
 
 const getRowCount = ({ isXlScreen, isMdScreen }: Record<string, boolean>) => {

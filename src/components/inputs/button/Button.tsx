@@ -2,7 +2,7 @@ import type { HierarchyTypes, InputSizeTypes } from '@/utils/siteTypes';
 import type { ButtonHTMLAttributes, FC, ReactNode } from 'react';
 
 import Tooltip from '@/components/tooltip/Tooltip';
-import { joinStrings } from '@/utils/utils';
+import { classMerge } from '@/utils/utils';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   selected?: boolean;
@@ -26,7 +26,7 @@ const Button: FC<ButtonProps> = ({
   ...props
 }) => (
   <button
-    className={joinStrings(
+    className={classMerge(
       !!tooltip && 'group relative',
       `border-1 border-transparent size-${size} bg-${hierarchy} input-${hierarchy}`,
       className,
@@ -38,7 +38,7 @@ const Button: FC<ButtonProps> = ({
     {...props}
   >
     {children}
-    {tooltip && <Tooltip className={joinStrings('top-full', solidTooltip && '!bg-primary-950')}>{tooltip}</Tooltip>}
+    {tooltip && <Tooltip className={classMerge('top-full', solidTooltip && '!bg-primary-950')}>{tooltip}</Tooltip>}
   </button>
 );
 

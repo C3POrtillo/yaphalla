@@ -6,7 +6,7 @@ import type { FC } from 'react';
 
 import { fetchYouTubePicture, getFontSize, getIcon, getPriority } from '@/components/creators/utils';
 import Link from '@/components/link/Link';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { classMerge, compareStrings } from '@/utils/utils';
 
 const CardCreator: FC<CreatorData> = async ({ label, language, image, ...props }) => {
   const { YouTube } = props;
@@ -41,7 +41,7 @@ const CardCreator: FC<CreatorData> = async ({ label, language, image, ...props }
           </div>
         )}
         <div className="flex flex-row w-full text-tertiary-600 border-b-2 pb-1 mb-1">
-          <h2 className={joinStrings('w-full', getFontSize(label.length))}>{label}</h2>
+          <h2 className={classMerge('w-full', getFontSize(label.length))}>{label}</h2>
         </div>
       </div>
       <div className="w-full flex flex-col gap-1 h-min">{links}</div>

@@ -250,6 +250,48 @@ export type Unit = {
   };
 };
 
+export type Damage = {
+  _id: string;
+  _type: 'damage';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  damage?: 'physical' | 'magic';
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+};
+
+export type Tier = {
+  _id: string;
+  _type: 'tier';
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  tier?: 's' | 'a' | 'r';
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  };
+};
+
 export type Faction = {
   _id: string;
   _type: 'faction';
@@ -542,6 +584,8 @@ export type AllSanitySchemaTypes =
   | SeasonalData
   | Artifact
   | Unit
+  | Damage
+  | Tier
   | Faction
   | Class
   | Page
@@ -679,6 +723,344 @@ export type HEADER_QUERYResult = Array<{
     }> | null;
   }> | null;
 }>;
+// Variable: ALL_HERO_QUERY
+// Query: *[_type == "unit" && type == "hero"]{  _id,  name,  faction->{    _id,    "name": faction,    image  },  class->{    _id,    "name": class,    image  },  hex,  portrait,} | order(  faction.faction asc,   class.class asc,   name asc)
+export type ALL_HERO_QUERYResult = Array<{
+  _id: string;
+  name: string | null;
+  faction: {
+    _id: string;
+    name:
+      | 'celestial-hypogean'
+      | 'celestial'
+      | 'dimensional'
+      | 'graveborn'
+      | 'hypogean'
+      | 'lightbearer'
+      | 'mauler'
+      | 'wilder'
+      | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    } | null;
+  } | null;
+  class: {
+    _id: string;
+    name: 'mage' | 'marksman' | 'rogue' | 'support' | 'tank' | 'warrior' | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    } | null;
+  } | null;
+  hex: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+  portrait: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+}>;
+// Variable: ALL_WILDCARD_QUERY
+// Query: *[_type == "unit" && type == "wildcard"]{  _id,  name,  faction->{    _id,    "name": faction,    image  },  class->{    _id,    "name": class,    image  },  hex,} | order(  faction.faction asc,   class.class asc,   name asc)
+export type ALL_WILDCARD_QUERYResult = Array<{
+  _id: string;
+  name: string | null;
+  faction: {
+    _id: string;
+    name:
+      | 'celestial-hypogean'
+      | 'celestial'
+      | 'dimensional'
+      | 'graveborn'
+      | 'hypogean'
+      | 'lightbearer'
+      | 'mauler'
+      | 'wilder'
+      | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    } | null;
+  } | null;
+  class: {
+    _id: string;
+    name: 'mage' | 'marksman' | 'rogue' | 'support' | 'tank' | 'warrior' | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    } | null;
+  } | null;
+  hex: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+}>;
+// Variable: ALL_MISC_QUERY
+// Query: *[_type == "unit" && type == "misc"]{  _id,  name,  class->{    _id,    "name": class,    image  },  hex,} | order(  class.class asc,   name asc)
+export type ALL_MISC_QUERYResult = Array<{
+  _id: string;
+  name: string | null;
+  class: {
+    _id: string;
+    name: 'mage' | 'marksman' | 'rogue' | 'support' | 'tank' | 'warrior' | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    } | null;
+  } | null;
+  hex: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+}>;
+// Variable: ALL_PHANTIMAL_QUERY
+// Query: *[_type == "unit" && type == "phantimal"]{  _id,  name,  faction->{    _id,    "name": faction,    image  },  class->{    _id,    "name": class,    image  },  hex,} | order(  faction.faction asc,   name asc)
+export type ALL_PHANTIMAL_QUERYResult = Array<{
+  _id: string;
+  name: string | null;
+  faction: {
+    _id: string;
+    name:
+      | 'celestial-hypogean'
+      | 'celestial'
+      | 'dimensional'
+      | 'graveborn'
+      | 'hypogean'
+      | 'lightbearer'
+      | 'mauler'
+      | 'wilder'
+      | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    } | null;
+  } | null;
+  class: {
+    _id: string;
+    name: 'mage' | 'marksman' | 'rogue' | 'support' | 'tank' | 'warrior' | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    } | null;
+  } | null;
+  hex: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+}>;
+// Variable: ALL_BOSS_QUERY
+// Query: *[_type == "unit" && type == "boss"]{  _id,  name,  class->{    _id,    "name": class,    image  },  hex,} | order(  name asc)
+export type ALL_BOSS_QUERYResult = Array<{
+  _id: string;
+  name: string | null;
+  class: {
+    _id: string;
+    name: 'mage' | 'marksman' | 'rogue' | 'support' | 'tank' | 'warrior' | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: 'reference';
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: 'image';
+    } | null;
+  } | null;
+  hex: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+}>;
+// Variable: ALL_CLASS_QUERY
+// Query: *[_type == "class"]{  _id,  "name": class,  image,}
+export type ALL_CLASS_QUERYResult = Array<{
+  _id: string;
+  name: 'mage' | 'marksman' | 'rogue' | 'support' | 'tank' | 'warrior' | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+}>;
+// Variable: ALL_FACTION_QUERY
+// Query: *[_type == "faction"]{  _id,  "name": faction,  image,}
+export type ALL_FACTION_QUERYResult = Array<{
+  _id: string;
+  name:
+    | 'celestial-hypogean'
+    | 'celestial'
+    | 'dimensional'
+    | 'graveborn'
+    | 'hypogean'
+    | 'lightbearer'
+    | 'mauler'
+    | 'wilder'
+    | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+}>;
+// Variable: ALL_TIER_QUERY
+// Query: *[_type == "tier"]{  _id,  "name": tier,  image,}
+export type ALL_TIER_QUERYResult = Array<{
+  _id: string;
+  name: 'a' | 'r' | 's' | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+}>;
+// Variable: ALL_DAMAGE_QUERY
+// Query: *[_type == "damage"]{  _id,  "name": damage,  image,}
+export type ALL_DAMAGE_QUERYResult = Array<{
+  _id: string;
+  name: 'magic' | 'physical' | null;
+  image: {
+    asset?: {
+      _ref: string;
+      _type: 'reference';
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset';
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: 'image';
+  } | null;
+}>;
 
 // Query TypeMap
 import '@sanity/client';
@@ -691,5 +1073,14 @@ declare module '@sanity/client' {
     '*[_type == "cta"]{\n  _id,\n  label,\n  link,\n  hierarchy,\n  image,\n  icon,\n}': CTA_QUERYResult;
     '*[_type == "skill"]{\n  _id,\n  skill,\n  image,\n}': TAGS_QUERYResult;
     '*[_type == "header"]{\n  navigation[]{\n    _key, \n    ...@->{\n      _id,\n      label,\n      link,\n      image,\n      sublinks[]{\n        _key,\n        ...@->{\n          _id,\n          label,\n          link,\n          image,\n        }\n      }\n    }\n  }\n}': HEADER_QUERYResult;
+    '*[_type == "unit" && type == "hero"]{\n  _id,\n  name,\n  faction->{\n    _id,\n    "name": faction,\n    image\n  },\n  class->{\n    _id,\n    "name": class,\n    image\n  },\n  hex,\n  portrait,\n} | order(\n  faction.faction asc, \n  class.class asc, \n  name asc\n)': ALL_HERO_QUERYResult;
+    '*[_type == "unit" && type == "wildcard"]{\n  _id,\n  name,\n  faction->{\n    _id,\n    "name": faction,\n    image\n  },\n  class->{\n    _id,\n    "name": class,\n    image\n  },\n  hex,\n} | order(\n  faction.faction asc, \n  class.class asc, \n  name asc\n)': ALL_WILDCARD_QUERYResult;
+    '*[_type == "unit" && type == "misc"]{\n  _id,\n  name,\n  class->{\n    _id,\n    "name": class,\n    image\n  },\n  hex,\n} | order(\n  class.class asc, \n  name asc\n)': ALL_MISC_QUERYResult;
+    '*[_type == "unit" && type == "phantimal"]{\n  _id,\n  name,\n  faction->{\n    _id,\n    "name": faction,\n    image\n  },\n  class->{\n    _id,\n    "name": class,\n    image\n  },\n  hex,\n} | order(\n  faction.faction asc, \n  name asc\n)': ALL_PHANTIMAL_QUERYResult;
+    '*[_type == "unit" && type == "boss"]{\n  _id,\n  name,\n  class->{\n    _id,\n    "name": class,\n    image\n  },\n  hex,\n} | order(\n  name asc\n)': ALL_BOSS_QUERYResult;
+    '*[_type == "class"]{\n  _id,\n  "name": class,\n  image,\n}': ALL_CLASS_QUERYResult;
+    '*[_type == "faction"]{\n  _id,\n  "name": faction,\n  image,\n}': ALL_FACTION_QUERYResult;
+    '*[_type == "tier"]{\n  _id,\n  "name": tier,\n  image,\n}': ALL_TIER_QUERYResult;
+    '*[_type == "damage"]{\n  _id,\n  "name": damage,\n  image,\n}': ALL_DAMAGE_QUERYResult;
   }
 }

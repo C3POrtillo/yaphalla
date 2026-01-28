@@ -8,8 +8,8 @@ import HeroTooltip from '@/components/hero-grid/HeroTooltip';
 import { hasUnit } from '@/components/hero-grid/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import { getPath } from '@/components/hex-tiles/utils';
-import { type Faction, type HeroClass } from '@/utils/types';
-import { joinStrings } from '@/utils/utils';
+import { type Faction, type HeroClass } from '@/utils/hero-data/types';
+import { classMerge } from '@/utils/utils';
 
 interface HeroButtonProps extends HeroGridProps {
   formattedUnits: UnitDivData[];
@@ -36,7 +36,7 @@ const HeroButtons: FC<HeroButtonProps> = ({
   };
 
   return formattedUnits.map(({ offset, tiles }, i) => (
-    <div key={i} className={joinStrings('-mt-4 flex flex-row', offset)}>
+    <div key={i} className={classMerge('-mt-4 flex flex-row', offset)}>
       {tiles.map(heroData => {
         const { hero } = heroData;
         const { matchesClass, matchesFaction, validSearch } = filterHero(heroData, filters);

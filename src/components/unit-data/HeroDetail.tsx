@@ -12,7 +12,6 @@ export interface HeroDetailProps extends PropsWithChildren {
   damage?: Damage | null;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const HeroDetail: FC<HeroDetailProps> = ({ hero, children, ...props }) => {
   const details = Object.values(props)
     .map((src, i) => !!src && <IconDetail key={src._id + i} asset={src} />)

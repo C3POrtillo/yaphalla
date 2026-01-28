@@ -6,7 +6,7 @@ import { useFormation } from '@/components/formation/FormationProvider';
 import { processTileData } from '@/components/formation/utils';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Logo from '@/components/hex-tiles/Logo';
-import { joinStrings } from '@/utils/utils';
+import { classMerge } from '@/utils/utils';
 
 interface TilePreviewProps {
   tileData: number[];
@@ -23,7 +23,7 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
     const isLast = row === formattedTiles.length - 1;
 
     return (
-      <div key={row} className={joinStrings('flex flex-row', row && '-mt-2', offset)}>
+      <div key={row} className={classMerge('flex flex-row', row && '-mt-2', offset)}>
         {isLast && (
           <>
             <HexImage src="Artifact-Hex" hideLabel path="artifact" disabled hideImage size={size} />

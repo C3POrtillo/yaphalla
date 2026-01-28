@@ -13,6 +13,8 @@ import { unitType } from './unit';
 import { artifactType } from './artifact';
 import { seasonDataType } from './seasonData';
 import { hexAssetType } from './hexAsset';
+import { tierType } from './tier';
+import { damageType } from './damage';
 
 export const schemaTypes = [
   brandType,
@@ -23,6 +25,8 @@ export const schemaTypes = [
   pageType,
   classType,
   factionType,
+  tierType,
+  damageType,
   unitType,
   artifactType,
   seasonDataType,

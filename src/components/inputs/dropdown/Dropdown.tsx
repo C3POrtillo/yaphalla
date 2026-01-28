@@ -6,7 +6,7 @@ import type { FC, ReactNode } from 'react';
 
 import Button from '@/components/inputs/button/Button';
 import Text from '@/components/inputs/text/Text';
-import { cleanString, compareStrings, joinStrings, testRegExp } from '@/utils/utils';
+import { classMerge, cleanString, compareStrings, testRegExp } from '@/utils/utils';
 
 interface DropdownProps {
   label: string | number | ReactNode;
@@ -63,7 +63,7 @@ const Dropdown: FC<DropdownProps> = ({
   return (
     <div className="relative flex items-center justify-center w-full grow" ref={dropdownRef}>
       <Button
-        className={joinStrings('flex flex-row items-center w-full justify-between', isOpen && '!rounded-b-none')}
+        className={classMerge('flex flex-row items-center w-full justify-between', isOpen && '!rounded-b-none')}
         hierarchy={hierarchy}
         size="sm"
         onClick={() => toggleDropdown()}
@@ -91,7 +91,7 @@ const Dropdown: FC<DropdownProps> = ({
             {options.map((option, i) => (
               <Button
                 key={`${option}-${i}`}
-                className={joinStrings(
+                className={classMerge(
                   'flex flex-row items-center gap-2',
                   !!filterId && !testRegExp(String(option), filterRegExp) && '!hidden',
                 )}

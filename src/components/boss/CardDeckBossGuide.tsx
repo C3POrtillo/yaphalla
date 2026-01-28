@@ -6,7 +6,7 @@ import type { FC } from 'react';
 import { useBoss } from '@/components/boss/BossProvider';
 import CardGuide from '@/components/boss/CardGuide';
 import Button from '@/components/inputs/button/Button';
-import { SeasonNames } from '@/utils/types';
+import { SeasonNames } from '@/utils/hero-data/types';
 import { compareStrings } from '@/utils/utils';
 
 const CardDeckBossGuide: FC = () => {

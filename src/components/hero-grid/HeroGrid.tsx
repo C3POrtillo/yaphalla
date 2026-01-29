@@ -32,7 +32,7 @@ const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
 
   useEffect(() => {
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen, isXXlScreen, isXXXlScreen }, variant));
-  }, [isMdScreen, isXlScreen, variant]);
+  }, [isMdScreen, isXlScreen, isXXlScreen, isXXXlScreen, variant]);
 
   const unitOptions = (
     <div className="flex flex-row gap-1">

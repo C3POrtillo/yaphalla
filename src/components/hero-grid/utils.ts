@@ -12,11 +12,11 @@ import {
 } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 
-const getRowCount = ({ isXXXlScreen, isXXLScreen, isXlScreen, isMdScreen }: Record<string, boolean>) => {
-  if (isXXXlScreen) {
+const getRowCount = ({ isXxxlScreen, isXxlScreen, isXlScreen, isMdScreen }: Record<string, boolean>) => {
+  if (isXxxlScreen) {
     return 16;
   }
-  if (isXXLScreen) {
+  if (isXxlScreen) {
     return 12;
   }
   if (isXlScreen) {

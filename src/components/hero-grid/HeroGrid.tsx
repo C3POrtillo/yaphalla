@@ -24,7 +24,7 @@ const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
   const isDev = isDevMode(searchParams);
   const isMdScreen = useMediaQuery({ query: '(min-width: 768px)' });
   const isXlScreen = useMediaQuery({ query: '(min-width: 1280px)' });
-  const isXXlScreen = useMediaQuery({ query: '(min-width: 1440px)' });
+  const isXXlScreen = useMediaQuery({ query: '(min-width: 1920px)' });
   const isXXXlScreen = useMediaQuery({ query: '(min-width: 2560px)' });
   const [variant, setVariant] = useState<number>(0);
   const [formattedUnits, setFormattedUnits] = useState<UnitDivData[]>([]);

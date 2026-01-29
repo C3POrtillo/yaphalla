@@ -57,8 +57,9 @@ export const sortCreators = (a: [string, CreatorData], b: [string, CreatorData])
 
   const fallbackSort =
     compareProperties(a, b, 'YouTube') ||
-    compareProperties(a, b, 'Twitch') ||
+    compareProperties(a, b, 'Medal') ||
     compareProperties(a, b, 'Bilibili') ||
+    compareProperties(a, b, 'Twitch') ||
     compareStrings(creatorA, creatorB);
 
   if ('Discord' in dataA && 'Discord' in dataB) {

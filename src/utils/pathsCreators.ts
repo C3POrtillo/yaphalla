@@ -7,6 +7,7 @@ export type CreatorData = {
   Twitter?: string;
   Instagram?: string;
   TikTok?: string;
+  Medal?: string;
   image?: string;
   language?: string;
 };
@@ -18,11 +19,11 @@ export const creators = {
     Discord: 'https://discord.com/invite/fvHD3hNdpZ',
     Twitch: 'https://twitch.tv/puzzleafk',
   } as CreatorData,
-  '/zeeebo': {
-    label: 'Zeeebo',
-    YouTube: 'https://youtube.com/@Zeeebo',
-    Discord: 'https://discord.com/invite/fwSRxwyDSG',
-  } as CreatorData,
+  // '/zeeebo': {
+  //   label: 'Zeeebo',
+  //   YouTube: 'https://youtube.com/@Zeeebo',
+  //   Discord: 'https://discord.com/invite/fwSRxwyDSG',
+  // } as CreatorData,
   '/wraec': {
     label: 'Wraec',
     YouTube: 'https://youtube.com/@Wraec',
@@ -32,30 +33,30 @@ export const creators = {
     label: 'Brownie',
     YouTube: 'https://youtube.com/@browniegames865',
   } as CreatorData,
-  '/fredd': {
-    label: 'Fredd',
-    YouTube: 'https://youtube.com/@freddafkjourney',
-    Discord: 'https://discord.com/invite/SYqBjVAQtA',
-    Twitter: 'https://x.com/freddjourney',
-    language: 'es',
-  } as CreatorData,
-  '/zacess': {
-    label: 'Zacess',
-    YouTube: 'https://youtube.com/@Zacess',
-    Twitter: 'https://x.com/Zacess1',
-    Instagram: 'https://instagram.com/Zacess',
-  } as CreatorData,
+  // '/fredd': {
+  //   label: 'Fredd',
+  //   YouTube: 'https://youtube.com/@freddafkjourney',
+  //   Discord: 'https://discord.com/invite/SYqBjVAQtA',
+  //   Twitter: 'https://x.com/freddjourney',
+  //   language: 'es',
+  // } as CreatorData,
+  // '/zacess': {
+  //   label: 'Zacess',
+  //   YouTube: 'https://youtube.com/@Zacess',
+  //   Twitter: 'https://x.com/Zacess1',
+  //   Instagram: 'https://instagram.com/Zacess',
+  // } as CreatorData,
   '/ogya': {
     label: 'OgyaSan',
     YouTube: 'https://youtube.com/@OgyaSan',
     language: 'jp',
   } as CreatorData,
-  '/afkjuicers': {
-    label: 'AFK Juicers',
-    YouTube: 'https://youtube.com/@afkjuicers',
-    Twitter: 'https://x.com/AFKJuicers',
-    Instagram: 'https://instagram.com/afkjuicers',
-  } as CreatorData,
+  // '/afkjuicers': {
+  //   label: 'AFK Juicers',
+  //   YouTube: 'https://youtube.com/@afkjuicers',
+  //   Twitter: 'https://x.com/AFKJuicers',
+  //   Instagram: 'https://instagram.com/afkjuicers',
+  // } as CreatorData,
   '/halfmoon': {
     label: '半月 | HalfMoon',
     Bilibili: 'https://space.bilibili.com/430357373',
@@ -84,10 +85,10 @@ export const creators = {
     label: 'Elfe',
     YouTube: 'https://youtube.com/@ElfeYT',
   } as CreatorData,
-  '/danmanreal': {
-    label: 'DanManReal',
-    YouTube: 'https://youtube.com/@DanManREAL',
-  } as CreatorData,
+  // '/danmanreal': {
+  //   label: 'DanManReal',
+  //   YouTube: 'https://youtube.com/@DanManREAL',
+  // } as CreatorData,
   '/frosty': {
     label: '若隐寒星 | Frosty',
     Bilibili: 'https://space.bilibili.com/401793216',
@@ -99,18 +100,18 @@ export const creators = {
     Twitch: 'https://twitch.tv/atraxy316',
     image: '/assets/images/creators/atraxy.png',
   } as CreatorData,
-  '/bonvoya': {
-    label: 'Bon Voya',
-    YouTube: 'https://youtube.com/@bon.voya93',
-    TikTok: 'https://www.tiktok.com/@bon.voya',
-    language: 'id',
-  } as CreatorData,
-  '/squirrelfish': {
-    label: '松鼠年糕鱼 | SquirrelFish',
-    YouTube: 'https://www.youtube.com/@SquirrelFishGame',
-    Bilibili: 'https://space.bilibili.com/11018422',
-    language: 'cn',
-  } as CreatorData,
+  // '/bonvoya': {
+  //   label: 'Bon Voya',
+  //   YouTube: 'https://youtube.com/@bon.voya93',
+  //   TikTok: 'https://www.tiktok.com/@bon.voya',
+  //   language: 'id',
+  // } as CreatorData,
+  // '/squirrelfish': {
+  //   label: '松鼠年糕鱼 | SquirrelFish',
+  //   YouTube: 'https://www.youtube.com/@SquirrelFishGame',
+  //   Bilibili: 'https://space.bilibili.com/11018422',
+  //   language: 'cn',
+  // } as CreatorData,
   '/mistahhbean': {
     label: 'mistahhbean',
     Twitch: 'https://twitch.tv/mistahhbean1',
@@ -121,4 +122,13 @@ export const creators = {
     YouTube: 'https://www.youtube.com/@AKTUBE_',
     language: 'kr',
   } as CreatorData,
+  '/dreamer': {
+    label: 'Dreamer',
+    YouTube: 'https://www.youtube.com/@DreamerAFKJ',
+  } as CreatorData,
+  '/kai': {
+    label: 'Kai',
+    Medal: 'https://medal.tv/u/kaipybara?tab=home',
+    image: '/assets/images/creators/kai.png'
+  }
 } as const;

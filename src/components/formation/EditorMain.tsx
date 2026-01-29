@@ -83,7 +83,7 @@ const EditorMain: FC = () => {
             setExport(false);
           }}
         />
-        <div className="size-full grow flex flex-col-reverse sm:flex-row gap-2">
+        <div className="size-full grow flex flex-col-reverse sm:flex-row gap-2 2xl:max-w-3/8">
           <SelectHero />
           <div className="w-full 2xl:hidden">
             <SelectArenaPreset variant="sm" />

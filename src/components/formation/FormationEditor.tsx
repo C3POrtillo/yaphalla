@@ -13,7 +13,7 @@ const FormationEditor: FC = () => {
   return (
     id === currentId && (
       <>
-        <Container>
+        <Container className='max-w-[1920px]'>
           <EditorMain />
         </Container>
         <Container className="hidden 2xl:flex">

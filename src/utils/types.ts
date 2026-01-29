@@ -77,7 +77,7 @@ export type ImagePath =
   | `unit/${'wildcard' | 'phantimal'}`
   | `artifact/${'honor-duel' | 'pre-season' | `season-${number}`}`;
 export type ArtifactSource = 'Pre-Season' | `Season ${number}` | 'Honor Duel';
-export const CurrentSeason = 'Season 5' as const;
+export const CurrentSeason = 'Season 6' as const;
 export const Artifacts = {
   'Pre-Season': ['Awakening', 'Starshard', 'Enlightening', 'Blazing', 'Confining', 'Ironwall'],
   'Honor Duel': [
@@ -162,6 +162,20 @@ export const Artifacts = {
     'Starbless',
     'Swordward',
   ],
+  'Season 6': [
+    'Arcanewild',
+    'Bladechaser',
+    'Blazeburn',
+    'Bulwark',
+    'Crescent',
+    'Earthshell',
+    'Lightheal',
+    'Manawake',
+    'Razorbeam',
+    'Resonating',
+    'Rockbind',
+    'Starshower',
+  ],
 } as Record<ArtifactSource, string[]>;
 
 export const HonorDuelSet = new Set(Artifacts['Honor Duel']);
@@ -172,7 +186,7 @@ export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet, ...HonorDuelS
 const Lightbearer = {
   Tank: ['Chippy', 'Lucca', 'Lucius', 'Temesia'],
   Support: ['Fay', 'Hugin', 'Rowan'],
-  Marksman: ['Atalanta', 'Marilee', 'Zanie', 'Zanie Turret'],
+  Marksman: ['Atalanta', 'Marilee', 'Silven', 'Zanie', 'Zanie Turret'],
   Mage: ['Cassadee', 'Hammie', 'Mirael', 'Cyran'],
   Rogue: ['Sinbad', 'Vala', 'Walker'],
   Warrior: ['Korin', 'Perseus', 'Sonja', 'Valen'],
@@ -180,7 +194,7 @@ const Lightbearer = {
 
 const Wilder = {
   Tank: ['Granny Dahnie', 'Thador', 'Ulmus'],
-  Support: ['Damian', 'Hewynn', 'Lorsan', 'Velara'],
+  Support: ['Damian', 'Hewynn', 'Lorsan', 'Solise', 'Velara'],
   Marksman: ['Bryon', 'Indris', 'Lyca'],
   Mage: ['Arden', 'Parisa', 'Tasi'],
   Rogue: ['Eironn', 'Faramor', 'Lenya', 'Lily May', 'Ravion'],
@@ -209,7 +223,7 @@ const Celestial = {
   Tank: ['Alna', 'Dunlingr'],
   Support: ['Elijah & Lailah', 'Elijah', 'Lailah'],
   Marksman: ['Aliceth', 'Dionel'],
-  Mage: ['Talene'],
+  Mage: ['Aurora', 'Talene'],
   Rogue: ['Athalia'],
   Warrior: ['Baelran', 'Scarlita'],
 } as ClassData;
@@ -262,6 +276,28 @@ export const Phantimals = {
     'Celestial-Hypogean': {
       hero: 'Illucia',
       heroClass: 'Mage',
+    },
+  },
+  'Season 6': {
+    Lightbearer: {
+      hero: 'Sigmund',
+      heroClass: 'Warrior',
+    },
+    Wilder: {
+      hero: 'Bloom Mother',
+      heroClass: 'Mage',
+    },
+    Mauler: {
+      hero: 'Alpha Bear',
+      heroClass: 'Marksman',
+    },
+    Graveborn: {
+      hero: 'Shadowed Charon',
+      heroClass: 'Mage',
+    },
+    'Celestial-Hypogean': {
+      hero: 'Skyclops',
+      heroClass: 'Support',
     },
   },
 } as Record<`Season ${number}`, Record<Talents, Phantimal>>;

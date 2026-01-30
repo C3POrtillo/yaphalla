@@ -17,7 +17,7 @@ const getRowCount = ({ isXxxlScreen, isXxlScreen, isXlScreen, isMdScreen }: Reco
     return 16;
   }
   if (isXxlScreen) {
-    return 12;
+    return 10;
   }
   if (isXlScreen) {
     return 8;

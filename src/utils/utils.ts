@@ -121,7 +121,14 @@ export const getParamTab = (searchParams: ReadonlyURLSearchParams) => searchPara
 export const internalLinkFilter = ({ href }: { href?: string }) => href === undefined || href[0] === '/';
 export const getHref = ({ href }: { href?: string }) => href;
 
-export const brandIcon = (string: string) => `fa6-brands:${string}` as const;
+export const brandIcon = (string: string) => {
+  switch(string) {
+    case 'medal': 
+      return 'arcticons:medal-tv' as const;
+    default:
+      return `fa6-brands:${string}` as const
+  }
+};
 
 export const generateCookie = (key: string, value: string | number, age: number = 31536000) =>
   `${key}=${value}; path=/; max-age=${age}` as Cookie;

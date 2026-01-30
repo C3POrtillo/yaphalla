@@ -14,7 +14,7 @@ export type PathType = {
   hideMobileOptions?: boolean;
 };
 
-type ValidHrefs = ('Discord' | 'YouTube' | 'Twitch' | 'Bilibili')[];
+type ValidHrefs = ('Discord' | 'YouTube' | 'Twitch' | 'Bilibili' | 'Medal')[];
 
 const processCreators = (filter: (creator: CreatorData) => boolean, hrefs: ValidHrefs) =>
   Object.values(creators)

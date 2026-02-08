@@ -191,7 +191,7 @@ const paths = {
           },
           {
             href: 'supremacy-calculator',
-            label: "Guild Supremacy Calculator"
+            label: 'Guild Supremacy Calculator'
           },
           // {
           //   href: '/paragon-form',

@@ -88,7 +88,7 @@ const google = {
     image: 'https://www.yaphalla.com/assets/images/graphics/paragon-priority.png',
   } as RedirectType,
   '/hs-sheet': {
-    redirect: "/hs-sheet",
+    redirect: '/hs-sheet',
     label: 'Homestead Guide',
     href: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTkwoy0_IKEWZZWoCebVXn3zNEVOGbAvTdtn4d1tznfqT5n9SdnKM0oIIo6fCDFV2SharTIEnOx91v3/pubhtml#gid=75195883',
     description: 'All in one spreadsheet for homestead decks and upgrade order',

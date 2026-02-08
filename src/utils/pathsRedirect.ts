@@ -87,6 +87,15 @@ const google = {
     themeColor: '#ae3fcd',
     image: 'https://www.yaphalla.com/assets/images/graphics/paragon-priority.png',
   } as RedirectType,
+  '/hs-sheet': {
+    redirect: "/hs-sheet",
+    label: 'Homestead Guide',
+    href: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTkwoy0_IKEWZZWoCebVXn3zNEVOGbAvTdtn4d1tznfqT5n9SdnKM0oIIo6fCDFV2SharTIEnOx91v3/pubhtml#gid=75195883',
+    description: 'All in one spreadsheet for homestead decks and upgrade order',
+    site: 'Google Sheets',
+    keywords: ['Homestead Guide', 'AFK Journey Homestead', 'Yaphalla Homestead'],
+    themeColor: '#42b15b',
+  } as RedirectType
 };
 
 const getLogo = (name: string) => `https://www.yaphalla.com/assets/images/logos/${name}.png`;
@@ -361,6 +370,14 @@ const misc = {
     description: 'How to use the Yaphalla Figma',
     noIndex: true,
   } as RedirectType,
+  '/supremacy-calculator': {
+    redirect: '/supremacy-calculator',
+    label: 'Supremacy Calculator',
+    href: 'https://supremacy-calculator.vercel.app/',
+    title: 'Supremacy Calculator',
+    description: 'A comprehensive web-based tool designed to help guild members in Guild Supremacy',
+    keywords: ['Guild Supremacy Calculator'],
+  } as RedirectType
 };
 
 export const redirects = {

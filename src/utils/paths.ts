@@ -189,6 +189,10 @@ const paths = {
             href: '/arena-sim',
             label: 'Stargazer - Arena Simulator',
           },
+          {
+            href: 'supremacy-calculator',
+            label: "Guild Supremacy Calculator"
+          },
           // {
           //   href: '/paragon-form',
           //   label: 'Paragon Form',
@@ -203,9 +207,13 @@ const paths = {
         label: 'Homestead',
         options: [
           {
-            href: '/camelossus',
-            label: 'Camelossus',
+            href: '/hs-sheets',
+            label: 'Homestead Decks'
           },
+          // {
+          //   href: '/camelossus',
+          //   label: 'Camelossus - Deck Simulator',
+          // },
           {
             href: '/hs-deck-calc',
             label: 'Deck Calculator',

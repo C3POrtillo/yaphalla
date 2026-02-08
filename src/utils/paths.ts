@@ -190,7 +190,7 @@ const paths = {
             label: 'Stargazer - Arena Simulator',
           },
           {
-            href: 'supremacy-calculator',
+            href: '/supremacy-calculator',
             label: 'Guild Supremacy Calculator'
           },
           // {

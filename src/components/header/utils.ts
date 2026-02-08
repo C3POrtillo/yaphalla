@@ -24,7 +24,7 @@ export const getLgCols = (length: number) => {
 };
 
 const discordSlugs = /^\/emotes/;
-const sheetSlugs = new Set(['/primal-lord', '/battle-drills', 'Leaderboards']);
+const sheetSlugs = new Set(['/primal-lord', '/battle-drills', 'Leaderboards', '/hs-sheets']);
 const formSlugs = new Set(['/paragon-form']);
 
 const staticSlugs: Record<string, string> = {
@@ -33,6 +33,7 @@ const staticSlugs: Record<string, string> = {
   '/creators': 'mdi:tv-classic',
   '/auto-player': 'fa6-solid:robot',
   '/hs-deck-calc': 'mdi:calculator-variant',
+  '/supremacy-calculator': 'mdi:calculator-variant',
   '/camelossus': 'mdi:calculator-variant',
   'https://afk-journey.fandom.com': 'fa-solid:book',
   '/heroes': 'heroicons:user-16-solid',

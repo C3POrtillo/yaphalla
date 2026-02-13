@@ -501,6 +501,16 @@ export const HexHeroes = (() => {
 const UnusedBosses = new Set(['Alpha Bear', 'Lone Gaze', 'Orson', 'Setsahara', 'Skyclops', 'Snow Stomper']);
 // Add Bosses to Set as guides begin to Exist
 export const DreamRealmBosses = {
+  'Season 6': new Set([
+    'Sarathiel',
+    'Gloommaw',
+    'Doomscourge',
+    'Blightshroom',
+    'Nocturne Judicator',
+    'Magmazard',
+    'Necrodrakon',
+    'King Croaker'
+  ]),
   'Season 5': new Set([
     'King Croaker',
     'Necrodrakon',
@@ -524,13 +534,14 @@ export const DreamRealmBosses = {
 };
 
 export const PrimalLordBosses = new Set([
+  'Doomscourge',
+  'Gloommaw',
+  'Cinderwings',
   'Crystal Crawler',
   'Magmazard',
   'Blightshroom',
   'Nocturne Judicator',
   'Mirage Frostspike',
-  'Cinderwings',
-  'Gloommaw'
 ] as const);
 
 export const RavagedRealmBosses = new Set(['Azora', "Azkarion'Sol", 'Novik'] as const);

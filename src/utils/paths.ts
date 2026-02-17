@@ -127,18 +127,18 @@ const paths = {
             href: redirects['/prydwen'].href,
             label: 'Prydwen',
           },
-          {
-            href: redirects['/fight-club'].href,
-            label: 'Fight Club',
-          },
-          {
-            href: redirects['/honor-duel-hq'].href,
-            label: 'Honor Duel HQ',
-          },
-          {
-            href: redirects['/drills-archive'].href,
-            label: 'Drills Archive',
-          },
+          // {
+          //   href: redirects['/fight-club'].href,
+          //   label: 'Fight Club',
+          // },
+          // {
+          //   href: redirects['/honor-duel-hq'].href,
+          //   label: 'Honor Duel HQ',
+          // },
+          // {
+          //   href: redirects['/drills-archive'].href,
+          //   label: 'Drills Archive',
+          // },
           // {
           //   href: redirects['/weirdos-club'].href,
           //   label: "Weirdo's Club",

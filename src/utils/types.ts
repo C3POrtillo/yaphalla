@@ -534,6 +534,7 @@ export const DreamRealmBosses = {
 };
 
 export const PrimalLordBosses = new Set([
+  'Lady Starfallen',
   'Doomscourge',
   'Gloommaw',
   'Cinderwings',

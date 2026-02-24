@@ -196,7 +196,7 @@ const Wilder = {
   Tank: ['Granny Dahnie', 'Thador', 'Ulmus'],
   Support: ['Damian', 'Hewynn', 'Lorsan', 'Solise', 'Velara'],
   Marksman: ['Bryon', 'Indris', 'Lyca'],
-  Mage: ['Arden', 'Parisa', 'Tasi'],
+  Mage: ['Arden', 'Parisa', 'Pippa', 'Tasi'],
   Rogue: ['Eironn', 'Faramor', 'Lenya', 'Lily May', 'Ravion'],
   Warrior: ['Florabelle', 'Kafra', 'Pang', 'Tilaya'],
 } as ClassData;
@@ -216,7 +216,7 @@ const Graveborn = {
   Marksman: ['Bonnie', 'Cecia'],
   Mage: ['Carolina', 'Shemira', 'Viperian'],
   Rogue: ['Nara', 'Salazer', 'Silvina', 'Shadewing'],
-  Warrior: ['Hodgkin', 'Igor', 'Valka'],
+  Warrior: ['Hodgkin', 'Igor', 'Valka', 'Zorya'],
 } as ClassData;
 
 const Celestial = {

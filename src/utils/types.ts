@@ -229,7 +229,7 @@ const Celestial = {
 } as ClassData;
 
 const Hypogean = {
-  Tank: ['Phraesto', 'Phraesto Clone'],
+  Tank: ['Gunnar', 'Phraesto', 'Phraesto Clone'],
   Support: ['Reinier'],
   Marksman: ['Kulu'],
   Mage: ['Cryonaia', 'Mehira'],

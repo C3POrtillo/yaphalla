@@ -230,7 +230,7 @@ const Celestial = {
 
 const Hypogean = {
   Tank: ['Gunnar', 'Phraesto', 'Phraesto Clone'],
-  Support: ['Reinier'],
+  Support: ['Contess', 'Reinier'],
   Marksman: ['Kulu'],
   Mage: ['Cryonaia', 'Mehira'],
   Rogue: ['Berial', 'Saida'],

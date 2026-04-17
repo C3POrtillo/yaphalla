@@ -202,7 +202,7 @@ const Wilder = {
 } as ClassData;
 
 const Mauler = {
-  Tank: ['Antandra', 'Gerda', 'Lumont'],
+  Tank: ['Antandra', 'Hepler', 'Gerda', 'Lumont'],
   Support: ['Koko', 'Mikola', 'Smokey & Meerky'],
   Marksman: ['Nazrik', 'Odie', 'Rhys'],
   Mage: ['Alsa', 'Gala', 'Satrana'],

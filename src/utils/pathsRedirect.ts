@@ -377,7 +377,7 @@ const misc = {
     title: 'Supremacy Calculator',
     description: 'A comprehensive web-based tool designed to help guild members in Guild Supremacy',
     keywords: ['Guild Supremacy Calculator'],
-  } as RedirectType
+  } as RedirectType,
   '/tracker': {
     redirect: '/tracker',
     label: 'AFKJ Tracker',

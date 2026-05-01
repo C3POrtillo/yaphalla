@@ -378,6 +378,14 @@ const misc = {
     description: 'A comprehensive web-based tool designed to help guild members in Guild Supremacy',
     keywords: ['Guild Supremacy Calculator'],
   } as RedirectType
+  '/tracker': {
+    redirect: '/tracker',
+    label: 'AFKJ Tracker',
+    href: 'https://afkj-tracker.vercel.app/',
+    title: 'AFKJ Tracker',
+    description: 'Free web-based tracker for AFK Journey. Track hero ascension, dupes, EX weapons, and tier list priorities. Stay organized and optimize your hero progression.',
+    keywords: ['Tracker'],
+  } as RedirectType
 };
 
 export const redirects = {

@@ -193,6 +193,10 @@ const paths = {
             href: '/supremacy-calculator',
             label: 'Guild Supremacy Calculator'
           },
+          {
+            href: '/tracker',
+            label: 'AFKJ Tracker'
+          },
           // {
           //   href: '/paragon-form',
           //   label: 'Paragon Form',

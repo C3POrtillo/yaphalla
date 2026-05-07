@@ -185,7 +185,7 @@ export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet, ...HonorDuelS
 
 const Lightbearer = {
   Tank: ['Chippy', 'Lucca', 'Lucius', 'Temesia'],
-  Support: ['Fay', 'Hugin', 'Rowan'],
+  Support: ['Evie', 'Fay', 'Hugin', 'Rowan'],
   Marksman: ['Atalanta', 'Marilee', 'Silven', 'Zanie', 'Zanie Turret'],
   Mage: ['Cassadee', 'Hammie', 'Mirael', 'Cyran'],
   Rogue: ['Sinbad', 'Vala', 'Walker'],

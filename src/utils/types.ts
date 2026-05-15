@@ -213,7 +213,7 @@ const Mauler = {
 const Graveborn = {
   Tank: ['Callan', 'Daimon', 'Thoran'],
   Support: ['Isabella', 'Ludovic', 'Niru'],
-  Marksman: ['Bonnie', 'Cecia'],
+  Marksman: ['Bonnie', 'Cecia', 'Neron'],
   Mage: ['Carolina', 'Shemira', 'Viperian'],
   Rogue: ['Nara', 'Salazer', 'Silvina', 'Shadewing'],
   Warrior: ['Hodgkin', 'Igor', 'Valka', 'Zorya'],

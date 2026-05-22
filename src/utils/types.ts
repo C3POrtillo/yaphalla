@@ -176,6 +176,20 @@ export const Artifacts = {
     'Rockbind',
     'Starshower',
   ],
+  'Season 7': [
+    'Arc Burst',
+    'Breakthrough',
+    'Frontline',
+    'Magicsurge',
+    'Sunlance',
+    'Surging',
+    'Swiftheal',
+    'Valorshield',
+    'Vanguard',
+    'Vinesnare',
+    'Windcall',
+    'Wing Guard'
+  ],
 } as Record<ArtifactSource, string[]>;
 
 export const HonorDuelSet = new Set(Artifacts['Honor Duel']);
@@ -186,7 +200,7 @@ export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet, ...HonorDuelS
 const Lightbearer = {
   Tank: ['Chippy', 'Lucca', 'Lucius', 'Temesia'],
   Support: ['Evie', 'Fay', 'Hugin', 'Rowan'],
-  Marksman: ['Atalanta', 'Marilee', 'Silven', 'Zanie', 'Zanie Turret'],
+  Marksman: ['Atalanta', 'Gwyneth', 'Marilee', 'Silven', 'Zanie', 'Zanie Turret'],
   Mage: ['Cassadee', 'Hammie', 'Mirael', 'Cyran'],
   Rogue: ['Sinbad', 'Vala', 'Walker'],
   Warrior: ['Korin', 'Perseus', 'Sonja', 'Valen'],
@@ -224,7 +238,7 @@ const Celestial = {
   Support: ['Elijah & Lailah', 'Elijah', 'Lailah'],
   Marksman: ['Aliceth', 'Dionel'],
   Mage: ['Aurora', 'Talene'],
-  Rogue: ['Athalia'],
+  Rogue: ['Athalia', 'Sylphira'],
   Warrior: ['Baelran', 'Scarlita'],
 } as ClassData;
 
@@ -498,11 +512,21 @@ export const HexHeroes = (() => {
 })();
 
 // Remove from Set as guides get uploaded
-const UnusedBosses = new Set(['Alpha Bear', 'Lone Gaze', 'Orson', 'Setsahara', 'Skyclops', 'Snow Stomper']);
+const UnusedBosses = new Set(['Alpha Bear', 'Lone Gaze', 'Orson', 'Setsahara', 'Skyclops']);
 // Add Bosses to Set as guides begin to Exist
 export const DreamRealmBosses = {
+  'Season 7': new Set([
+    'Gloommaw',
+    'Snow Stomper',
+    'King Croaker',
+    'Midnight Harvester',
+    'Illucia The Unveiler',
+    'Sarethiel',
+    'Lady Starfallen',
+    'Doomscourge'
+  ]),
   'Season 6': new Set([
-    'Sarathiel',
+    'Sarethiel',
     'Gloommaw',
     'Doomscourge',
     'Blightshroom',
@@ -545,7 +569,7 @@ export const PrimalLordBosses = new Set([
   'Mirage Frostspike',
 ] as const);
 
-export const RavagedRealmBosses = new Set(['Azora', "Azkarion'Sol", 'Novik'] as const);
+export const RavagedRealmBosses = new Set(['Gervan', 'Azora', "Azkarion'Sol", 'Novik'] as const);
 
 export const GuildSupremacyBosses = new Set(['Glyphshade'] as const);
 

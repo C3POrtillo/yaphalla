@@ -334,7 +334,7 @@ export const formatApiData = async (hero: string, id: string) => {
     return [hero, { ...staticData, ...images }];
   }
 
-  const { DamageType, DisplayTitle, Description } = heroData.Info;
+  const { DamageType, DisplayTitle, Description, UnitRarity = 'R' } = heroData.Info;
 
   return [
     hero,
@@ -342,8 +342,10 @@ export const formatApiData = async (hero: string, id: string) => {
       ...staticData,
       title: DisplayTitle,
       description: Description,
+      tier: UnitRarity,
       damageType: DamageType,
       ...images,
+      tierImage: `yaphalla.com/assets/images/tier/${UnitRarity.toLocaleLowerCase()}.png`,
       damageTypeImage: `yaphalla.com/assets/images/damage/${DamageType.toLocaleLowerCase()}.png`,
     },
   ];

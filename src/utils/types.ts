@@ -186,7 +186,7 @@ export const Artifacts = {
     'Swiftheal',
     'Valorshield',
     'Vanguard',
-    'Vinesnare',
+    'Vine Snare',
     'Windcall',
     'Wing Guard'
   ],

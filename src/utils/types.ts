@@ -314,6 +314,28 @@ export const Phantimals = {
       heroClass: 'Support',
     },
   },
+  'Season 7': {
+    Lightbearer: {
+      hero: 'Aurelian',
+      heroClass: 'Support',
+    },
+    Wilder: {
+      hero: 'Blightshroom',
+      heroClass: 'Mage',
+    },
+    Mauler: {
+      hero: 'Orson',
+      heroClass: 'Tank',
+    },
+    Graveborn: {
+      hero: 'Necrodrakon',
+      heroClass: 'Mage',
+    },
+    'Celestial-Hypogean': {
+      hero: 'Midnight Hunter',
+      heroClass: 'Warrior',
+    },
+  }
 } as Record<`Season ${number}`, Record<Talents, Phantimal>>;
 
 const Heroes = {

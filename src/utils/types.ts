@@ -218,7 +218,7 @@ const Wilder = {
 const Mauler = {
   Tank: ['Antandra', 'Hepler', 'Gerda', 'Lumont'],
   Support: ['Koko', 'Mikola', 'Smokey & Meerky'],
-  Marksman: ['Nazrik', 'Odie', 'Rhys'],
+  Marksman: ['Kazim', 'Nazrik', 'Odie', 'Rhys'],
   Mage: ['Alsa', 'Gala', 'Satrana'],
   Rogue: ['Seth', 'Shakir', 'Soren'],
   Warrior: ['Brutus', 'Kordan', 'Kruger', 'Zandrok'],

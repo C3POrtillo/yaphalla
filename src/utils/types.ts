@@ -199,11 +199,11 @@ export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet, ...HonorDuelS
 
 const Lightbearer = {
   Tank: ['Chippy', 'Lucca', 'Lucius', 'Temesia'],
-  Support: ['Evie', 'Fay', 'Hugin', 'Rowan'],
+  Support: ['Evie', 'Fay', 'Hugin', 'Peggy', 'Rowan'],
   Marksman: ['Atalanta', 'Gwyneth', 'Marilee', 'Silven', 'Zanie', 'Zanie Turret'],
   Mage: ['Cassadee', 'Hammie', 'Mirael', 'Cyran'],
   Rogue: ['Sinbad', 'Vala', 'Walker'],
-  Warrior: ['Korin', 'Perseus', 'Sonja', 'Valen'],
+  Warrior: ['Korin', 'Orion', 'Perseus', 'Sonja', 'Valen'],
 } as ClassData;
 
 const Wilder = {
@@ -245,7 +245,7 @@ const Celestial = {
 const Hypogean = {
   Tank: ['Gunnar', 'Phraesto', 'Phraesto Clone'],
   Support: ['Contess', 'Reinier'],
-  Marksman: ['Kulu'],
+  Marksman: ['Kulu', 'Lamentis'],
   Mage: ['Cryonaia', 'Mehira'],
   Rogue: ['Berial', 'Saida'],
   Warrior: ['Harak'],

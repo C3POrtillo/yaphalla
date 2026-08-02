@@ -219,7 +219,7 @@ const Mauler = {
   Tank: ['Antandra', 'Hepler', 'Gerda', 'Lumont'],
   Support: ['Koko', 'Mikola', 'Smokey & Meerky'],
   Marksman: ['Kazim', 'Nazrik', 'Odie', 'Rhys'],
-  Mage: ['Alsa', 'Gala', 'Satrana'],
+  Mage: ['Alsa', 'Gala', 'Satrana', 'Voracia'],
   Rogue: ['Seth', 'Shakir', 'Soren'],
   Warrior: ['Brutus', 'Kordan', 'Kruger', 'Zandrok'],
 } as ClassData;
@@ -235,7 +235,7 @@ const Graveborn = {
 
 const Celestial = {
   Tank: ['Alna', 'Dunlingr'],
-  Support: ['Elijah & Lailah', 'Elijah', 'Lailah'],
+  Support: ['Elijah & Lailah', 'Elijah', 'Lailah', 'Rolan'],
   Marksman: ['Aliceth', 'Dionel'],
   Mage: ['Aurora', 'Talene'],
   Rogue: ['Athalia', 'Sylphira'],

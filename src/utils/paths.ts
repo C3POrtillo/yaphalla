@@ -197,6 +197,14 @@ const paths = {
             href: '/tracker',
             label: 'AFKJ Tracker'
           },
+          {
+            href: '/guild-manager',
+            label: 'AFKJ Guild Manager'
+          },
+          {
+            href: '/gamba-tool',
+            label: 'AFKJ Pull Simulator'
+          },
           // {
           //   href: '/paragon-form',
           //   label: 'Paragon Form',
@@ -218,48 +226,18 @@ const paths = {
           //   href: '/camelossus',
           //   label: 'Camelossus - Deck Simulator',
           // },
-          {
-            href: '/hs-deck-calc',
-            label: 'Deck Calculator',
-          },
+          // {
+          //   href: '/hs-deck-calc',
+          //   label: 'Deck Calculator',
+          // },
         ],
       },
       {
         label: 'Yapmojis',
-        options: [
-          {
-            href: '/emotes',
-            label: 'CeleHypo/Dimensional',
-          },
-          {
-            href: '/emotes-2',
-            label: 'Lightbearer/Wilder',
-          },
-          {
-            href: '/emotes-3',
-            label: 'Graveborn/Mauler',
-          },
-          {
-            href: '/emotes-artifacts',
-            label: 'Artifacts',
-          },
-          {
-            href: '/emotes-charms',
-            label: 'Charms',
-          },
-          {
-            href: '/emotes-hd',
-            label: 'Honor Duel',
-          },
-          {
-            href: '/emotes-base',
-            label: 'Base Hexes',
-          },
-          {
-            href: '/emotes-range',
-            label: 'Range Icons',
-          },
-        ],
+        options: Object.entries(redirects).filter(([key, _]) => key.startsWith('/emotes')).map(([key, value]) => ({
+          href: key,
+          label: value?.title?.split(' ')?.[0] || 'Yapmoji'
+        }) as { href: string; label: string })
       },
     ],
   },

@@ -24,7 +24,7 @@ export const getLgCols = (length: number) => {
 };
 
 const discordSlugs = /^\/emotes/;
-const sheetSlugs = new Set(['/primal-lord', '/battle-drills', 'Leaderboards', '/hs-sheets', '/tracker']);
+const sheetSlugs = new Set(['/primal-lord', '/battle-drills', 'Leaderboards', '/hs-sheets', '/tracker', '/guild-manager', '/gamba-tool']);
 const formSlugs = new Set(['/paragon-form']);
 
 const staticSlugs: Record<string, string> = {

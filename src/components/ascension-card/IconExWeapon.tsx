@@ -3,6 +3,7 @@ import Image from 'next/image';
 import type { AscensionCardType, ExWeapon } from '@/components/ascension-card/types';
 import type { FC } from 'react';
 
+import { getSrc } from '@/components/ascension-card/utils';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
 interface IconExWeaponProps {
@@ -19,18 +20,11 @@ const IconExWeapon: FC<IconExWeaponProps> = ({ src, type, hasAlt, size, classNam
     return null;
   }
 
-  const getSrc = () => {
-    const srcAsNumber = Number(src)
-    if(srcAsNumber >= 30) {
-      return `r${(srcAsNumber - 25) / 5}`
-    }
-    return src
-  }
 
   return (
     <div className={joinStrings(`${path}-ex-weapon`, 'relative', size, className)}>
       <Image
-        src={`/assets/images/ex-weapon/${path}/${getSrc().toLowerCase()}.png`}
+        src={`/assets/images/ex-weapon/${path}/${getSrc(src).toLowerCase()}.png`}
         alt={hasAlt ? src : ''}
         fill
         objectFit="cover"

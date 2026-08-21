@@ -19,10 +19,18 @@ const IconExWeapon: FC<IconExWeaponProps> = ({ src, type, hasAlt, size, classNam
     return null;
   }
 
+  const getSrc = () => {
+    const srcAsNumber = Number(src)
+    if(srcAsNumber >= 30) {
+      return `r${(srcAsNumber - 25) / 5}`
+    }
+    return src
+  }
+
   return (
     <div className={joinStrings(`${path}-ex-weapon`, 'relative', size, className)}>
       <Image
-        src={`/assets/images/ex-weapon/${path}/${src.toLowerCase()}.png`}
+        src={`/assets/images/ex-weapon/${path}/${getSrc().toLowerCase()}.png`}
         alt={hasAlt ? src : ''}
         fill
         objectFit="cover"

@@ -3,12 +3,9 @@ export type AscensionCardType = (typeof AscensionCardType)[number];
 
 export const ExWeapon = [
   'None',
-  ...Array(4)
+  ...Array(10)
     .fill(null)
-    .map((_, i) => `R${4 - i}` as `R${number}`),
-  ...Array(6)
-    .fill(null)
-    .map((_, i) => `+${25 - 5 * i}` as `+${number}`),
+    .map((_, i) => `+${45 - 5 * i}` as `+${number}`),
 ] as const;
 export type ExWeapon = (typeof ExWeapon)[number];
 

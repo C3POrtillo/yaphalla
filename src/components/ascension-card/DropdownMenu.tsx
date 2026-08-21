@@ -69,7 +69,7 @@ const DropdownMenu: FC = () => {
       )),
       callback: (option: string | number | boolean) => setExWeapon(forceExWeapon(option as ExWeapon, ascension)),
       optionIconPosition: 'right',
-      disabled: !hasEx || !compareStrings(ascension, 'Crown'),
+      disabled: !hasEx,
     } as const,
   ];
 

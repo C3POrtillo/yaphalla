@@ -25,8 +25,9 @@ export const enableExWeapon = (ascension: Ascension) => {
 const limitExWeapon = (ascension: Ascension): string | false => WeaponLimits[ascension] ?? false;
 
 export const forceExWeapon = (exWeapon: ExWeapon, ascension: Ascension) => {
+  const isNone = !compareStrings(exWeapon, 'None')
 
-  if (!compareStrings(ascension, 'Crown')) {
+  if (!isNone && !compareStrings(ascension, 'Crown')) {
     const minEx = limitExWeapon('Supreme+')
     const currentOrMin = Math.max(...[minEx, exWeapon].map(Number));
 
@@ -35,7 +36,7 @@ export const forceExWeapon = (exWeapon: ExWeapon, ascension: Ascension) => {
 
   const maxEx = limitExWeapon(ascension);
 
-  if (!compareStrings(exWeapon, 'None') || !maxEx) {
+  if (isNone || !maxEx) {
     return exWeapon;
   }
 

@@ -6,7 +6,7 @@ import { useHeroData } from '@/components/ascension-card/HeroDataProvider';
 import IconAscension from '@/components/ascension-card/IconAscension';
 import IconExWeapon from '@/components/ascension-card/IconExWeapon';
 import { AscensionCardType, CardIcons, ExWeapon } from '@/components/ascension-card/types';
-import { filterExWeapons, forceExWeapon } from '@/components/ascension-card/utils';
+import { filterExWeapons, forceExWeapon, getSrc } from '@/components/ascension-card/utils';
 import Dropdown from '@/components/inputs/dropdown/Dropdown';
 import { Ascension } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
@@ -55,7 +55,7 @@ const DropdownMenu: FC = () => {
     {
       label: (
         <span className="flex flex-row items-center gap-2">
-          <span className="min-w-7 text-right pl-1">{exWeapon}</span>
+          <span className="min-w-7 text-right pl-1">{getSrc(exWeapon)}</span>
           {!exWeaponIsNone && (
             <span className="inline-flex flex-row align-middle">
               <IconExWeapon src={exWeapon} type={type} size="h-6" />
@@ -64,12 +64,18 @@ const DropdownMenu: FC = () => {
         </span>
       ),
       options: filteredExWeapons,
+      optionLabels: {
+        '+30': 'R1',
+        '+35': 'R2',
+        '+40': 'R3',
+        '+45': 'R4'
+      },
       optionIcons: filteredExWeapons.map((src, i) => (
         <IconExWeapon key={`${src}-${i}`} src={src} type={type} size="h-6" />
       )),
       callback: (option: string | number | boolean) => setExWeapon(forceExWeapon(option as ExWeapon, ascension)),
       optionIconPosition: 'right',
-      disabled: !hasEx || !compareStrings(ascension, 'Crown'),
+      disabled: !hasEx,
     } as const,
   ];
 

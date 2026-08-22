@@ -1,5 +1,6 @@
 import type { ExWeapon } from '@/components/ascension-card/types';
 
+import { WeaponLimits } from '@/components/ascension-card/types';
 import { Ascension } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 
@@ -14,52 +15,57 @@ export const filterPairs = (unit: string) => {
       return true;
   }
 };
-const mythicPlusIndex = Ascension.indexOf('Mythic+');
-const supremeIndex = Ascension.indexOf('Supreme');
 
 export const enableExWeapon = (ascension: Ascension) => {
   const currentIndex = Ascension.indexOf(ascension);
 
-  return currentIndex <= mythicPlusIndex;
+  return currentIndex <= Ascension.indexOf('Mythic+');
 };
 
-const limitExWeapon = (ascension: Ascension) => {
-  const currentIndex = Ascension.indexOf(ascension);
-  if (currentIndex === mythicPlusIndex) {
-    return '+10';
-  }
-
-  if (currentIndex === supremeIndex) {
-    return '+15';
-  }
-
-  return false;
-};
+const limitExWeapon = (ascension: Ascension): string | false => WeaponLimits[ascension] ?? false;
 
 export const forceExWeapon = (exWeapon: ExWeapon, ascension: Ascension) => {
+
   if (!compareStrings(ascension, 'Crown')) {
-    return '+25' as const;
+    const minEx = limitExWeapon('Supreme+')
+    const currentOrMin = Math.max(...[minEx, exWeapon].map(Number));
+
+    return `+${currentOrMin}` as const;
   }
 
   const maxEx = limitExWeapon(ascension);
+
   if (!compareStrings(exWeapon, 'None') || !maxEx) {
     return exWeapon;
   }
 
-  const minOrMax = Math.min(...[maxEx, exWeapon].map(Number));
+  const currentOrMax = Math.min(...[maxEx, exWeapon].map(Number));
 
-  return `+${minOrMax}` as const;
+  return `+${currentOrMax}` as const;
 };
 
 export const filterExWeapons = (exWeapon: ExWeapon, ascension: Ascension) => {
   const isNone = !compareStrings(exWeapon, 'None');
-  const isMythicPlus = !compareStrings(ascension, 'Mythic+');
-  const isSupreme = !compareStrings(ascension, 'Supreme');
-  if ((!isMythicPlus && !isSupreme) || isNone) {
+  const needsFilter = Object.hasOwn(WeaponLimits, ascension)
+
+  if ((!needsFilter) || isNone) {
     return true;
   }
 
-  const [maxEx, exNumber] = [limitExWeapon(ascension), exWeapon].map(Number);
+  const [exLimit, exNumber] = [limitExWeapon(ascension), exWeapon].map(Number);
 
-  return exNumber <= maxEx;
+  if (ascension === 'Crown') {
+    return exNumber >= exLimit
+  }
+
+  return exNumber <= exLimit;
 };
+
+export const getSrc = (src: ExWeapon) => {
+  const srcAsNumber = Number(src)
+  if(srcAsNumber >= 30) {
+    return `R${(srcAsNumber - 25) / 5}`
+  }
+
+  return src
+}

@@ -1,14 +1,13 @@
+import { Ascension } from '@/utils/types';
+
 export const AscensionCardType = ['Hex', 'Card'] as const;
 export type AscensionCardType = (typeof AscensionCardType)[number];
 
 export const ExWeapon = [
   'None',
-  ...Array(4)
+  ...Array(10)
     .fill(null)
-    .map((_, i) => `R${4 - i}` as `R${number}`),
-  ...Array(6)
-    .fill(null)
-    .map((_, i) => `+${25 - 5 * i}` as `+${number}`),
+    .map((_, i) => `+${45 - 5 * i}` as `+${number}`),
 ] as const;
 export type ExWeapon = (typeof ExWeapon)[number];
 
@@ -56,3 +55,14 @@ export const ManualAdjustments = {
     left: '-left-6',
   } 
 } as Record<string, Adjustment>;
+
+export const WeaponLimits: Partial<Record<Ascension, string>> = {
+  'Mythic+': '+10',
+  'Supreme': '+15',
+  'Supreme+': '+25',
+  'Paragon 1': '+30',
+  'Paragon 2': '+35',
+  'Paragon 3': '+40',
+  'Paragon 4': '+45',
+  'Crown': '+25'
+} as const;

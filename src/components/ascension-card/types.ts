@@ -1,3 +1,5 @@
+import { Ascension } from '@/utils/types';
+
 export const AscensionCardType = ['Hex', 'Card'] as const;
 export type AscensionCardType = (typeof AscensionCardType)[number];
 

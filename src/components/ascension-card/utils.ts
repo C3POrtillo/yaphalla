@@ -55,17 +55,15 @@ export const forceExWeapon = (exWeapon: ExWeapon, ascension: Ascension) => {
 
 export const filterExWeapons = (exWeapon: ExWeapon, ascension: Ascension) => {
   const isNone = !compareStrings(exWeapon, 'None');
-  const isMythicPlus = !compareStrings(ascension, 'Mythic+');
-  const isSupreme = !compareStrings(ascension, 'Supreme');
-  const isCrown = !compareStrings(ascension, 'Crown');
+  const needsFilter = Object.hasOwn(weaponLimits, ascension)
 
-  if ((!isMythicPlus && !isSupreme && !isCrown) || isNone) {
+  if ((!needsFilter) || isNone) {
     return true;
   }
 
   const [maxEx, exNumber] = [limitExWeapon(ascension), exWeapon].map(Number);
-  
-  if (isCrown) {
+
+  if (ascension === 'Crown') {
     return exNumber >= 25
   }
 

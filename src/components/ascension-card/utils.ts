@@ -1,5 +1,6 @@
 import type { ExWeapon } from '@/components/ascension-card/types';
 
+import { WeaponLimits } from '@/components/ascension-card/types';
 import { Ascension } from '@/utils/types';
 import { compareStrings } from '@/utils/utils';
 
@@ -21,17 +22,7 @@ export const enableExWeapon = (ascension: Ascension) => {
   return currentIndex <= Ascension.indexOf('Mythic+');
 };
 
-const weaponLimits: Partial<Record<Ascension, string>> = {
-  'Mythic+': '+10',
-  'Supreme': '+15',
-  'Supreme+': '+25',
-  'Paragon 1': '+30',
-  'Paragon 2': '+35',
-  'Paragon 3': '+40',
-  'Paragon 4': '+45',
-} as const;
-
-const limitExWeapon = (ascension: Ascension): string | false => weaponLimits[ascension] ?? false;
+const limitExWeapon = (ascension: Ascension): string | false => WeaponLimits[ascension] ?? false;
 
 export const forceExWeapon = (exWeapon: ExWeapon, ascension: Ascension) => {
 
@@ -55,19 +46,19 @@ export const forceExWeapon = (exWeapon: ExWeapon, ascension: Ascension) => {
 
 export const filterExWeapons = (exWeapon: ExWeapon, ascension: Ascension) => {
   const isNone = !compareStrings(exWeapon, 'None');
-  const needsFilter = Object.hasOwn(weaponLimits, ascension)
+  const needsFilter = Object.hasOwn(WeaponLimits, ascension)
 
   if ((!needsFilter) || isNone) {
     return true;
   }
 
-  const [maxEx, exNumber] = [limitExWeapon(ascension), exWeapon].map(Number);
+  const [exLimit, exNumber] = [limitExWeapon(ascension), exWeapon].map(Number);
 
   if (ascension === 'Crown') {
-    return exNumber >= 25
+    return exNumber >= exLimit
   }
 
-  return exNumber <= maxEx;
+  return exNumber <= exLimit;
 };
 
 export const getSrc = (src: ExWeapon) => {

@@ -53,3 +53,14 @@ export const ManualAdjustments = {
     left: '-left-6',
   } 
 } as Record<string, Adjustment>;
+
+export const WeaponLimits: Partial<Record<Ascension, string>> = {
+  'Mythic+': '+10',
+  'Supreme': '+15',
+  'Supreme+': '+25',
+  'Paragon 1': '+30',
+  'Paragon 2': '+35',
+  'Paragon 3': '+40',
+  'Paragon 4': '+45',
+  'Crown': '+25'
+} as const;

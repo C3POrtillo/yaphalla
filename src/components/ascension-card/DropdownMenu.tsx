@@ -64,6 +64,12 @@ const DropdownMenu: FC = () => {
         </span>
       ),
       options: filteredExWeapons,
+      optionLabels: {
+        '+30': 'R1',
+        '+35': 'R2',
+        '+40': 'R3',
+        '+45': 'R4'
+      },
       optionIcons: filteredExWeapons.map((src, i) => (
         <IconExWeapon key={`${src}-${i}`} src={src} type={type} size="h-6" />
       )),

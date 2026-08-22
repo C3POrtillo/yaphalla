@@ -11,6 +11,7 @@ import { cleanString, compareStrings, joinStrings, testRegExp } from '@/utils/ut
 interface DropdownProps {
   label: string | number | ReactNode;
   options: (string | number | boolean)[] | readonly (string | number | boolean)[];
+  optionLabels?: Record<string | number, string>;
   optionIcons?: ReactNode[] | readonly ReactNode[];
   optionIconPosition?: 'left' | 'right';
   hierarchy?: HierarchyTypes;
@@ -22,6 +23,7 @@ interface DropdownProps {
 const Dropdown: FC<DropdownProps> = ({
   label,
   options,
+  optionLabels,
   optionIcons,
   optionIconPosition,
   hierarchy,
@@ -88,26 +90,33 @@ const Dropdown: FC<DropdownProps> = ({
                 />
               </div>
             )}
-            {options.map((option, i) => (
-              <Button
-                key={`${option}-${i}`}
-                className={joinStrings(
-                  'flex flex-row items-center gap-2',
-                  !!filterId && !testRegExp(String(option), filterRegExp) && '!hidden',
-                )}
-                hierarchy="tertiary"
-                size="sm"
-                onClick={() => {
-                  callback(option);
-                  setOpen(false);
-                  setFilterSearch('');
-                }}
-              >
-                {!optionIconIsRight && optionIcons?.[i]}
-                <span className="min-w-7 text-right">{option}</span>
-                {optionIconIsRight && optionIcons?.[i]}
-              </Button>
-            ))}
+            {options.map((option, i) => {
+              let optionLabel = option
+              if (typeof option !== 'boolean') {
+                optionLabel = optionLabels?.[option] ?? option
+              }
+              
+              return (
+                <Button
+                  key={`${option}-${i}`}
+                  className={joinStrings(
+                    'flex flex-row items-center gap-2',
+                    !!filterId && !testRegExp(String(option), filterRegExp) && '!hidden',
+                  )}
+                  hierarchy="tertiary"
+                  size="sm"
+                  onClick={() => {
+                    callback(option);
+                    setOpen(false);
+                    setFilterSearch('');
+                  }}
+                >
+                  {!optionIconIsRight && optionIcons?.[i]}
+                  <span className="min-w-7 text-right">{optionLabel}</span>
+                  {optionIconIsRight && optionIcons?.[i]}
+                </Button>
+              )
+            })}
           </div>
         </div>
       )}

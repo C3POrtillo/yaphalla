@@ -189,10 +189,10 @@ const paths = {
             href: '/arena-sim',
             label: 'Stargazer - Arena Simulator',
           },
-          {
-            href: '/supremacy-calculator',
-            label: 'Guild Supremacy Calculator'
-          },
+          // {
+          //   href: '/supremacy-calculator',
+          //   label: 'Guild Supremacy Calculator'
+          // },
           {
             href: '/tracker',
             label: 'AFKJ Tracker'

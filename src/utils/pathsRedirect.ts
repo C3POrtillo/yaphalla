@@ -378,8 +378,8 @@ const misc = {
     label: 'Stargazer - Arena helper',
     href: 'https://stargazer.tmdict.com/',
     title: 'AFK Journey Arena Helper by Unii',
-    description:
-      'Plan and simulate AFK Journey arena battles. Test hero formations, visualize skill targeting, save, and share team compositions.',
+    // description:
+    //   'Plan and simulate AFK Journey arena battles. Test hero formations, visualize skill targeting, save, and share team compositions.',
     image: 'https://stargazer.tmdict.com/stellarcrystal.png',
     keywords: ['AFK Journey Arena Helper'],
   } as RedirectType,

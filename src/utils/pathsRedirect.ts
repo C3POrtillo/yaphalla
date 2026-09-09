@@ -373,15 +373,15 @@ const misc = {
   //   themeColor: '#5CB38F',
   //   keywords: ['Homestead Deck Calculator', 'Homestead Deck Optimizer'],
   // } as RedirectType,
-  '/arena-sim': {
+  '/arena-helper': {
     redirect: '/arena-sim',
-    label: 'Stargazer',
+    label: 'Stargazer - Arena helper',
     href: 'https://stargazer.tmdict.com/',
-    title: 'AFK Journey Arena Simulator by Unii',
+    title: 'AFK Journey Arena Helper by Unii',
     description:
-      'Plan and simulate AFK Journey arena battles. Test hero formations, visualize skill targeting, and share team compositions.',
+      'Plan and simulate AFK Journey arena battles. Test hero formations, visualize skill targeting, save, and share team compositions.',
     image: 'https://stargazer.tmdict.com/stellarcrystal.png',
-    keywords: ['AFK Journey Arena Simulator'],
+    keywords: ['AFK Journey Arena Helper'],
   } as RedirectType,
   // '/camelossus': {
   //   redirect: '/camelossus',

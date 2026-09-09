@@ -186,8 +186,8 @@ const paths = {
             label: 'ADB Auto Player',
           },
           {
-            href: '/arena-sim',
-            label: 'Stargazer - Arena Simulator',
+            href: '/arena-helper',
+            label: 'Stargazer - Arena Helper',
           },
           // {
           //   href: '/supremacy-calculator',

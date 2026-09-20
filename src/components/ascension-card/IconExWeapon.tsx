@@ -20,7 +20,6 @@ const IconExWeapon: FC<IconExWeaponProps> = ({ src, type, hasAlt, size, classNam
     return null;
   }
 
-
   return (
     <div className={joinStrings(`${path}-ex-weapon`, 'relative', size, className)}>
       <Image

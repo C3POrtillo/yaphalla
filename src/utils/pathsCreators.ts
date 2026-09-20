@@ -129,6 +129,6 @@ export const creators = {
   '/kai': {
     label: 'Kai',
     Medal: 'https://medal.tv/u/kaipybara?tab=home',
-    image: '/assets/images/creators/kai.png'
+    image: '/assets/images/creators/kai.png',
   } as CreatorData,
 } as const;

@@ -1,4 +1,4 @@
-import { Ascension } from '@/utils/types';
+import type { Ascension } from '@/utils/types';
 
 export const AscensionCardType = ['Hex', 'Card'] as const;
 export type AscensionCardType = (typeof AscensionCardType)[number];
@@ -32,7 +32,7 @@ type Adjustment = {
   bottom?: string;
   left?: string;
   size?: string;
-}
+};
 
 export const ManualAdjustments = {
   Temesia: {
@@ -53,16 +53,16 @@ export const ManualAdjustments = {
   },
   Phraesto: {
     left: '-left-6',
-  } 
+  },
 } as Record<string, Adjustment>;
 
 export const WeaponLimits: Partial<Record<Ascension, string>> = {
   'Mythic+': '+10',
-  'Supreme': '+15',
+  Supreme: '+15',
   'Supreme+': '+25',
   'Paragon 1': '+30',
   'Paragon 2': '+35',
   'Paragon 3': '+40',
   'Paragon 4': '+45',
-  'Crown': '+25'
+  Crown: '+25',
 } as const;

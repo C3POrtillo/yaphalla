@@ -95,7 +95,7 @@ const google = {
     site: 'Google Sheets',
     keywords: ['Homestead Guide', 'AFK Journey Homestead', 'Yaphalla Homestead'],
     themeColor: '#42b15b',
-  } as RedirectType
+  } as RedirectType,
 };
 
 const getLogo = (name: string) => `https://www.yaphalla.com/assets/images/logos/${name}.png`;
@@ -413,7 +413,8 @@ const misc = {
     label: 'AFKJ Tracker',
     href: 'https://afkj-tracker.vercel.app/',
     title: 'AFKJ Tracker',
-    description: 'Free web-based tracker for AFK Journey. Track hero ascension, dupes, EX weapons, and tier list priorities. Stay organized and optimize your hero progression.',
+    description:
+      'Free web-based tracker for AFK Journey. Track hero ascension, dupes, EX weapons, and tier list priorities. Stay organized and optimize your hero progression.',
     keywords: ['Tracker'],
   } as RedirectType,
   '/guild-manager': {
@@ -421,7 +422,8 @@ const misc = {
     label: 'AFKJ Guild Manager',
     href: 'https://afkj-guildmanager.vercel.app/',
     title: 'AFKJ Guild Manager',
-    description: 'Free web-based guild management tool for AFK Journey. Manage your guild\'s rosters, track hero progression of members, coordinate events, and view detailed guild statistics in one place.',
+    description:
+      "Free web-based guild management tool for AFK Journey. Manage your guild's rosters, track hero progression of members, coordinate events, and view detailed guild statistics in one place.",
     keywords: ['Tracker'],
   } as RedirectType,
   '/gamba-tool': {
@@ -429,7 +431,8 @@ const misc = {
     label: 'AFKJ Gamba Tool',
     href: 'https://gamba-tool.vercel.app/',
     title: 'AFKJ Gamba Tool',
-    description: 'Gamba Tool is a collection of calculators and simulators for understanding game economy and luck-based mechanics.',
+    description:
+      'Gamba Tool is a collection of calculators and simulators for understanding game economy and luck-based mechanics.',
     keywords: ['Tracker'],
   } as RedirectType,
 };

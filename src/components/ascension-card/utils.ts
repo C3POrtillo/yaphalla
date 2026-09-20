@@ -25,10 +25,10 @@ export const enableExWeapon = (ascension: Ascension) => {
 const limitExWeapon = (ascension: Ascension): string | false => WeaponLimits[ascension] ?? false;
 
 export const forceExWeapon = (exWeapon: ExWeapon, ascension: Ascension) => {
-  const isNone = !compareStrings(exWeapon, 'None')
+  const isNone = !compareStrings(exWeapon, 'None');
 
   if (!isNone && !compareStrings(ascension, 'Crown')) {
-    const minEx = limitExWeapon('Supreme+')
+    const minEx = limitExWeapon('Supreme+');
     const currentOrMin = Math.max(...[minEx, exWeapon].map(Number));
 
     return `+${currentOrMin}` as const;
@@ -47,26 +47,26 @@ export const forceExWeapon = (exWeapon: ExWeapon, ascension: Ascension) => {
 
 export const filterExWeapons = (exWeapon: ExWeapon, ascension: Ascension) => {
   const isNone = !compareStrings(exWeapon, 'None');
-  const needsFilter = Object.hasOwn(WeaponLimits, ascension)
+  const needsFilter = Object.hasOwn(WeaponLimits, ascension);
 
-  if ((!needsFilter) || isNone) {
+  if (!needsFilter || isNone) {
     return true;
   }
 
   const [exLimit, exNumber] = [limitExWeapon(ascension), exWeapon].map(Number);
 
   if (ascension === 'Crown') {
-    return exNumber >= exLimit
+    return exNumber >= exLimit;
   }
 
   return exNumber <= exLimit;
 };
 
 export const getSrc = (src: ExWeapon) => {
-  const srcAsNumber = Number(src)
-  if(srcAsNumber >= 30) {
-    return `R${(srcAsNumber - 25) / 5}`
+  const srcAsNumber = Number(src);
+  if (srcAsNumber >= 30) {
+    return `R${(srcAsNumber - 25) / 5}`;
   }
 
-  return src
-}
+  return src;
+};

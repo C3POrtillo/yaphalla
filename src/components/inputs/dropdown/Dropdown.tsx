@@ -91,11 +91,11 @@ const Dropdown: FC<DropdownProps> = ({
               </div>
             )}
             {options.map((option, i) => {
-              let optionLabel = option
+              let optionLabel = option;
               if (typeof option !== 'boolean') {
-                optionLabel = optionLabels?.[option] ?? option
+                optionLabel = optionLabels?.[option] ?? option;
               }
-              
+
               return (
                 <Button
                   key={`${option}-${i}`}
@@ -115,7 +115,7 @@ const Dropdown: FC<DropdownProps> = ({
                   <span className="min-w-7 text-right">{optionLabel}</span>
                   {optionIconIsRight && optionIcons?.[i]}
                 </Button>
-              )
+              );
             })}
           </div>
         </div>

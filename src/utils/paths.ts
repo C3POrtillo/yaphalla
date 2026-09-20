@@ -195,15 +195,15 @@ const paths = {
           // },
           {
             href: '/tracker',
-            label: 'AFKJ Tracker'
+            label: 'AFKJ Tracker',
           },
           {
             href: '/guild-manager',
-            label: 'AFKJ Guild Manager'
+            label: 'AFKJ Guild Manager',
           },
           {
             href: '/gamba-tool',
-            label: 'AFKJ Pull Simulator'
+            label: 'AFKJ Pull Simulator',
           },
           // {
           //   href: '/paragon-form',
@@ -220,7 +220,7 @@ const paths = {
         options: [
           {
             href: '/hs-sheets',
-            label: 'Homestead Decks'
+            label: 'Homestead Decks',
           },
           // {
           //   href: '/camelossus',
@@ -234,10 +234,15 @@ const paths = {
       },
       {
         label: 'Yapmojis',
-        options: Object.entries(redirects).filter(([key, _]) => key.startsWith('/emotes')).map(([key, value]) => ({
-          href: key,
-          label: value?.title?.split(' ')?.[0] || 'Yapmoji'
-        }) as { href: string; label: string })
+        options: Object.entries(redirects)
+          .filter(([key, _]) => key.startsWith('/emotes'))
+          .map(
+            ([key, value]) =>
+              ({
+                href: key,
+                label: value?.title?.split(' ')?.[0] || 'Yapmoji',
+              }) as { href: string; label: string },
+          ),
       },
     ],
   },

@@ -1,4 +1,5 @@
 import { CommunityLogos } from '@/components/hex-tiles/types';
+import { DreamRealmBosses, HonorDuel, PreSeason, Season7, Season8 } from '@/utils/seasonal';
 import { compareStrings, encodeIndex, hashHeroName, sortData, toBase62 } from '@/utils/utils';
 
 export const HeroClass = ['Tank', 'Support', 'Marksman', 'Mage', 'Rogue', 'Warrior'] as const;
@@ -79,123 +80,19 @@ export type ImagePath =
 export type ArtifactSource = 'Pre-Season' | `Season ${number}` | 'Honor Duel';
 export const CurrentSeason = 'Season 7' as const;
 export const Artifacts = {
-  'Pre-Season': ['Awakening', 'Starshard', 'Enlightening', 'Blazing', 'Confining', 'Ironwall'],
-  'Honor Duel': [
-    'Art of Ruling',
-    'Gruglin Mask',
-    'Proud Greaves',
-    'Bloodlust Cleaver',
-    'Illusion Censer',
-    'Pure Nectar',
-    'Bone Scroll',
-    'Immortal Flame',
-    'Pyro Catalyst',
-    'Breeze Rider',
-    'Inspiring Horn',
-    'Relic Shard',
-    'Crimson Gem',
-    'Lethal Elixer',
-    'Rock Necklace',
-    'Crystal Cell',
-    'Lithe Larkspur',
-    'Snow Herb',
-    'Crystal Dew',
-    'Lucky Cage',
-    'Solidarity Fruit',
-    'Dawn Antlers',
-    'Luxurious Sachet',
-    'Speed Seed',
-    'Fang Pendant',
-    'Misery Lamp',
-    'Swifty Book',
-    'Flame Orb',
-    'Mystic Crystals',
-    'Thorn Bloom',
-    'Fragrant Bag',
-    'Obsidian Earring',
-    'Tranquil Flask',
-    'Glowing Blossom',
-    'Oracle Sculpture',
-    'Unity Pompom',
-    'Golden Blooms',
-    'Pale Crown',
-  ],
-  'Season 3': [
-    'Lightforge',
-    'Overcharge',
-    'Soulbound',
-    'Banishing',
-    'Snowman',
-    'Bladesummon',
-    'Sanctum',
-    'Surging',
-    'Harmonic',
-    'Frostfall',
-    'Stormstrike',
-    'Iceguard',
-  ],
-  'Season 4': [
-    'Bladering',
-    'Bloodrage',
-    'Coreforge',
-    'Dragonroar',
-    'Elderbow',
-    'Guardian',
-    'Lightcall',
-    'Malison',
-    'Shadowblast',
-    'Shieldnova',
-    'Stormlash',
-    'Vilespring',
-  ],
-  'Season 5': [
-    'Arrowstorm',
-    'Bloodmoon',
-    'Divinefavor',
-    'Grovetrap',
-    'Impaling',
-    'Pactbond',
-    'Phalanxrush',
-    'Raycage',
-    'Seismic',
-    'Sootherain',
-    'Starbless',
-    'Swordward',
-  ],
-  'Season 6': [
-    'Arcanewild',
-    'Bladechaser',
-    'Blazeburn',
-    'Bulwark',
-    'Crescent',
-    'Earthshell',
-    'Lightheal',
-    'Manawake',
-    'Razorbeam',
-    'Resonating',
-    'Rockbind',
-    'Starshower',
-  ],
-  'Season 7': [
-    'Arc Burst',
-    'Breakthrough',
-    'Frontline',
-    'Magicsurge',
-    'Sunlance',
-    'Surging',
-    'Swiftheal',
-    'Valorshield',
-    'Vanguard',
-    'Vine Snare',
-    'Windcall',
-    'Wing Guard'
-  ],
+  ...PreSeason,
+  ...HonorDuel,
+  'Season 7': Season7['artifacts'],
+  'Season 8': Season8['artifacts'],
 } as Record<ArtifactSource, string[]>;
 
 export const HonorDuelSet = new Set(Artifacts['Honor Duel']);
 export const PreSeasonSet = new Set(Artifacts['Pre-Season']);
 export const SeasonSet = new Set(Artifacts[CurrentSeason]);
 export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet, ...HonorDuelSet]);
+export const Phantimals = {
+  'Season 7': Season7['phantimals'],
+} as Record<`Season ${number}`, Record<Talents, Phantimal>>;
 
 const Lightbearer = {
   Tank: ['Chippy', 'Lucca', 'Lucius', 'Temesia'],
@@ -225,10 +122,10 @@ const Mauler = {
 } as ClassData;
 
 const Graveborn = {
-  Tank: ['Callan', 'Daimon', 'Thoran'],
+  Tank: ['Callan', 'Daimon', 'Karma', 'Thoran'],
   Support: ['Isabella', 'Ludovic', 'Niru'],
   Marksman: ['Bonnie', 'Cecia', 'Nerion'],
-  Mage: ['Carolina', 'Eryndor', 'Shemira', 'Viperian'],
+  Mage: ['Carolina', 'Senea', 'Eryndor', 'Shemira', 'Viperian'],
   Rogue: ['Nara', 'Salazer', 'Silvina', 'Shadewing'],
   Warrior: ['Hodgkin', 'Igor', 'Valka', 'Zorya'],
 } as ClassData;
@@ -246,7 +143,7 @@ const Hypogean = {
   Tank: ['Gunnar', 'Phraesto', 'Phraesto Clone'],
   Support: ['Contess', 'Reinier'],
   Marksman: ['Kulu', 'Lamentis'],
-  Mage: ['Cryonaia', 'Mehira'],
+  Mage: ['Aster', 'Cryonaia', 'Mehira'],
   Rogue: ['Berial', 'Saida'],
   Warrior: ['Harak'],
 } as ClassData;
@@ -268,75 +165,6 @@ const Other = {
   Rogue: [],
   Warrior: ['Hogan', 'Midnight Hunter'],
 } as ClassData;
-
-export const Phantimals = {
-  'Season 5': {
-    Lightbearer: {
-      hero: 'Tesio',
-      heroClass: 'Support',
-    },
-    Wilder: {
-      hero: 'Snow Stomper',
-      heroClass: 'Marksman',
-    },
-    Mauler: {
-      hero: 'Lone Gaze',
-      heroClass: 'Rogue',
-    },
-    Graveborn: {
-      hero: 'Grim Executioner',
-      heroClass: 'Tank',
-    },
-    'Celestial-Hypogean': {
-      hero: 'Illucia',
-      heroClass: 'Mage',
-    },
-  },
-  'Season 6': {
-    Lightbearer: {
-      hero: 'Sigmund',
-      heroClass: 'Warrior',
-    },
-    Wilder: {
-      hero: 'Bloom Mother',
-      heroClass: 'Mage',
-    },
-    Mauler: {
-      hero: 'Alpha Bear',
-      heroClass: 'Marksman',
-    },
-    Graveborn: {
-      hero: 'Shadowed Charon',
-      heroClass: 'Mage',
-    },
-    'Celestial-Hypogean': {
-      hero: 'Skyclops',
-      heroClass: 'Support',
-    },
-  },
-  'Season 7': {
-    Lightbearer: {
-      hero: 'Aurelian',
-      heroClass: 'Support',
-    },
-    Wilder: {
-      hero: 'Blightshroom',
-      heroClass: 'Mage',
-    },
-    Mauler: {
-      hero: 'Orson',
-      heroClass: 'Tank',
-    },
-    Graveborn: {
-      hero: 'Necrodrakon',
-      heroClass: 'Mage',
-    },
-    'Celestial-Hypogean': {
-      hero: 'Midnight Hunter',
-      heroClass: 'Warrior',
-    },
-  }
-} as Record<`Season ${number}`, Record<Talents, Phantimal>>;
 
 const Heroes = {
   Lightbearer,
@@ -535,49 +363,6 @@ export const HexHeroes = (() => {
 
 // Remove from Set as guides get uploaded
 const UnusedBosses = new Set(['Alpha Bear', 'Lone Gaze', 'Orson', 'Setsahara', 'Skyclops']);
-// Add Bosses to Set as guides begin to Exist
-export const DreamRealmBosses = {
-  'Season 7': new Set([
-    'Gloommaw',
-    'Snow Stomper',
-    'King Croaker',
-    'Midnight Harvester',
-    'Illucia The Unveiler',
-    'Sarethiel',
-    'Lady Starfallen',
-    'Doomscourge'
-  ]),
-  'Season 6': new Set([
-    'Sarethiel',
-    'Gloommaw',
-    'Doomscourge',
-    'Blightshroom',
-    'Nocturne Judicator',
-    'Magmazard',
-    'Necrodrakon',
-    'King Croaker'
-  ]),
-  'Season 5': new Set([
-    'King Croaker',
-    'Necrodrakon',
-    'Thalassa',
-    'Nocturne Judicator',
-    'Sigmund',
-    'Mirage Frostspike',
-    'Magmazard',
-    'Blightshroom',
-  ] as const),
-  'Season 4': new Set([
-    'Sigmund',
-    'Nocturne Judicator',
-    'Plague Creeper',
-    'Thalassa',
-    'Crystal Beetle',
-    'Illucia',
-    'Crazed Shellbrute',
-    'Necrodrakon',
-  ] as const),
-};
 
 export const PrimalLordBosses = new Set([
   'Lady Starfallen',

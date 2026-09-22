@@ -51,20 +51,22 @@ export const DreamRealmBosses = {
   ] as const),
 };
 
-export const Season8 = { artifacts: [
-  'Bladestorm',
-  'Bladesummon',
-  'Candleflame',
-  'Coreforge',
-  'Healwind',
-  'Hurricane',
-  'Meteorfall',
-  'Soulbound',
-  'Soulshock',
-  'Synergy',
-  'Thundermight',
-  'Tidesurge'
-], phantimals: {
+export const Season8 = { 
+  artifacts: [
+    'Bladestorm',
+    'Bladesummon',
+    'Candleflame',
+    'Coreforge',
+    'Healwind',
+    'Hurricane',
+    'Meteorfall',
+    'Soulbound',
+    'Soulshock',
+    'Synergy',
+    'Thundermight',
+    'Tidesurge'
+  ],
+  phantimals: {
     Lightbearer: {
       hero: 'Gervan',
       heroClass: 'Mage',

@@ -65,7 +65,7 @@ export const Season8 = { artifacts: [
   'Thundermight',
   'Tidesurge'
 ], phantimals: {
-  Lightbearer: {
+    Lightbearer: {
       hero: 'Gervan',
       heroClass: 'Mage',
     },

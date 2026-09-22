@@ -52,19 +52,41 @@ export const DreamRealmBosses = {
 };
 
 export const Season8 = { artifacts: [
-  'Candleflame',
-  'Tidesurge',
-  'Soulshock',
-  'Meteorfall',
-  'Healwind',
-  'Thundermight',
-  'Bladesummon',
-  'Soulbound',
-  'Coreforge',
   'Bladestorm',
+  'Bladesummon',
+  'Candleflame',
+  'Coreforge',
+  'Healwind',
   'Hurricane',
-  'Synergy'
-], phantimals: {} };
+  'Meteorfall',
+  'Soulbound',
+  'Soulshock',
+  'Synergy',
+  'Thundermight',
+  'Tidesurge'
+], phantimals: {
+  Lightbearer: {
+      hero: 'Gervan',
+      heroClass: 'Mage',
+    },
+    Wilder: {
+      hero: 'Seralyth',
+      heroClass: 'Warrior',
+    },
+    Mauler: {
+      hero: 'Crystal Beetle',
+      heroClass: 'Rogue',
+    },
+    Graveborn: {
+      hero: 'Plague Creeper',
+      heroClass: 'Tank',
+    },
+    'Celestial-Hypogean': {
+      hero: 'Wedge of Matter',
+      heroClass: 'Support',
+    },
+  }
+};
 
 export const Season7 = {
   artifacts: [

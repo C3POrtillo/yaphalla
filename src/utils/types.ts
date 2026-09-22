@@ -78,7 +78,7 @@ export type ImagePath =
   | `unit/${'wildcard' | 'phantimal'}`
   | `artifact/${'honor-duel' | 'pre-season' | `season-${number}`}`;
 export type ArtifactSource = 'Pre-Season' | `Season ${number}` | 'Honor Duel';
-export const CurrentSeason = 'Season 7' as const;
+export const CurrentSeason = 'Season 8' as const;
 export const Artifacts = {
   ...PreSeason,
   ...HonorDuel,
@@ -92,6 +92,7 @@ export const SeasonSet = new Set(Artifacts[CurrentSeason]);
 export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet, ...HonorDuelSet]);
 export const Phantimals = {
   'Season 7': Season7['phantimals'],
+  'Season 8': Season8['phantimals'],
 } as Record<`Season ${number}`, Record<Talents, Phantimal>>;
 
 const Lightbearer = {

@@ -93,7 +93,7 @@ export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet, ...HonorDuelS
 export const Phantimals = {
   'Season 7': Season7['phantimals'],
   'Season 8': Season8['phantimals'],
-} as Record<`Season ${number}`, Record<Talents, Phantimal>>;
+} as Record<`Season ${number}`, Record<Talents, Phantimal | Phantimal[]>>;
 
 const Lightbearer = {
   Tank: ['Chippy', 'Lucca', 'Lucius', 'Temesia'],

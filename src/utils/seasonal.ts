@@ -51,7 +51,7 @@ export const DreamRealmBosses = {
   ] as const),
 };
 
-export const Season8 = { 
+export const Season8 = {
   artifacts: [
     'Bladestorm',
     'Bladesummon',
@@ -64,7 +64,7 @@ export const Season8 = {
     'Soulshock',
     'Synergy',
     'Thundermight',
-    'Tidesurge'
+    'Tidesurge',
   ],
   phantimals: {
     Lightbearer: {
@@ -87,13 +87,13 @@ export const Season8 = {
       {
         hero: 'Wedge of Matter',
         heroClass: 'Support',
-      }, 
+      },
       {
-        hero: 'Wedge of Matter',
+        hero: 'Wedge of Power',
         heroClass: 'Support',
-      }
+      },
     ],
-  }
+  },
 };
 
 export const Season7 = {

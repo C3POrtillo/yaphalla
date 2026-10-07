@@ -30,13 +30,22 @@ const getRowCount = ({ isXxxlScreen, isXxlScreen, isXlScreen, isMdScreen }: Reco
 };
 
 export const SeasonalPhantimals = (() =>
-  Object.entries(Phantimals[CurrentSeason]).map(
-    ([faction, phantimal]) =>
-      ({
+  Object.entries(Phantimals[CurrentSeason]).flatMap(([faction, phantimal]) => {
+    if (!Array.isArray(phantimal)) {
+      return {
         ...phantimal,
         faction,
-      }) as Phantimal,
-  ))();
+      } as Phantimal;
+    }
+
+    return phantimal.map(
+      item =>
+        ({
+          ...item,
+          faction,
+        }) as Phantimal,
+    );
+  }))();
 
 export const getFormattedUnits = (mediaQueries: Record<string, boolean>, variant = 0) => {
   const data = (() => {

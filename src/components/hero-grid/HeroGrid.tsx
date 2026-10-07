@@ -53,7 +53,7 @@ const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
     <div className="container-primary w-full flex flex-col grow gap-2 p-2">
       <HeroFilter {...filterProps}>{unitOptions}</HeroFilter>
       <div className="inset-secondary scroll-bar-thin scroll-bar-auto relative flex grow flex-row justify-center min-h-[41rem] max-h-[41rem] overflow-auto">
-        <div className="z-10 flex flex-col p-4 pt-8">
+        <div className="z-10 flex flex-col p-4 pt-8 h-max mb-2">
           <HeroButtons disabled={disabled} formattedUnits={formattedUnits} {...filterProps} {...props} />
         </div>
       </div>

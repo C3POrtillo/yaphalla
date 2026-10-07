@@ -549,8 +549,9 @@ export const FormationProvider: FC<FormationProviderProps> = ({
           return;
         }
         const index = tile as unknown as number;
+        const phantimalObject = Phantimals[CurrentSeason][playerFaction]
         newUnits[index] = {
-          unit: Phantimals[CurrentSeason][playerFaction].hero,
+          unit: (Array.isArray(phantimalObject) ? phantimalObject[0] : phantimalObject).hero,
           type: newUnits[index].type,
         };
       });

@@ -83,10 +83,16 @@ export const Season8 = {
       hero: 'Plague Creeper',
       heroClass: 'Tank',
     },
-    'Celestial-Hypogean': {
-      hero: 'Wedge of Matter',
-      heroClass: 'Support',
-    },
+    'Celestial-Hypogean': [
+      {
+        hero: 'Wedge of Matter',
+        heroClass: 'Support',
+      }, 
+      {
+        hero: 'Wedge of Matter',
+        heroClass: 'Support',
+      }
+    ],
   }
 };
 

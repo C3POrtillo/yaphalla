@@ -390,7 +390,7 @@ export const GuideSet = new Set([
 
 export const AllBossesSet = new Set([...GuideSet, ...UnusedBosses]);
 
-export const PhantimalSet = new Set(Object.values(Phantimals[CurrentSeason]).map(phantimal => phantimal.hero));
+export const PhantimalSet = new Set(Object.values(Phantimals[CurrentSeason]).flatMap(phantimal => phantimal).map(phantimal => phantimal.hero));
 
 export const SeasonNames = {
   'Season 1': 'Song of Strife',

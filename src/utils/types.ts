@@ -100,7 +100,7 @@ const Lightbearer = {
   Support: ['Evie', 'Fay', 'Hugin', 'Peggy', 'Rowan'],
   Marksman: ['Atalanta', 'Gwyneth', 'Marilee', 'Silven', 'Zanie', 'Zanie Turret'],
   Mage: ['Cassadee', 'Hammie', 'Mirael', 'Cyran'],
-  Rogue: ['Sinbad', 'Vala', 'Walker'],
+  Rogue: ['Estrilda', 'Sinbad', 'Vala', 'Walker'],
   Warrior: ['Korin', 'Orion', 'Perseus', 'Sonja', 'Valen'],
 } as ClassData;
 

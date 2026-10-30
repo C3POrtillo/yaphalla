@@ -127,7 +127,7 @@ const Graveborn = {
   Support: ['Isabella', 'Ludovic', 'Niru'],
   Marksman: ['Bonnie', 'Cecia', 'Nerion', 'Senea'],
   Mage: ['Carolina', 'Eryndor', 'Shemira', 'Viperian'],
-  Rogue: ['Nara', 'Salazer', 'Silvina', 'Shadewing'],
+  Rogue: ['Baden', 'Nara', 'Salazer', 'Silvina', 'Shadewing'],
   Warrior: ['Hodgkin', 'Igor', 'Valka', 'Zorya'],
 } as ClassData;
 
@@ -135,7 +135,7 @@ const Celestial = {
   Tank: ['Alna', 'Dunlingr'],
   Support: ['Elijah & Lailah', 'Elijah', 'Lailah', 'Rolan'],
   Marksman: ['Aliceth', 'Dionel'],
-  Mage: ['Aurora', 'Talene'],
+  Mage: ['Aurora', 'Marene', 'Talene'],
   Rogue: ['Athalia', 'Sylphira'],
   Warrior: ['Baelran', 'Scarlita'],
 } as ClassData;

@@ -35,7 +35,7 @@ const EditorSidebar: FC = () => {
   } = useFormation();
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
-  const isDevAdvanced = isDev && tab === 1;
+  const isDevTiles = isDev && tab === 1;
 
   const spanPlayer = <span className="text-neutral-300">Player</span>;
   const spanEnemy = <span className="text-hex-enemy-400">Enemy</span>;
@@ -94,7 +94,7 @@ const EditorSidebar: FC = () => {
       getPlaceProps('Enemy', -1),
       getPlaceProps('Breakable', -2),
       getPlaceProps('Unbreakable', -3),
-      isDev && getPlaceProps('Hero Swap', 2),
+      getPlaceProps('Hero Swap', 2),
     ] as const
   ).filter(item => !!item);
 
@@ -167,7 +167,7 @@ const EditorSidebar: FC = () => {
     //     Double Artifact Arena 1
     //   </Button>
     // </div>,
-    <div key="Logo Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
+    isDevTiles && <div key="Logo Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
       {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Logo</h2>}
       <div className="flex flex-row gap-1 flex-wrap justify-center items-center">
         {Object.entries(CommunityLogos).map(([key, brand]) => {
@@ -254,7 +254,7 @@ const EditorSidebar: FC = () => {
             defaultChecked={background}
           />
         )}
-        {isDevAdvanced && (
+        {isDevTiles && (
           <Toggle
             className="w-full"
             variant="switch"
@@ -269,7 +269,7 @@ const EditorSidebar: FC = () => {
       <div className="flex w-full flex-col gap-2 items-center">
         {tab === 0 && <ArtifactGrid />}
         {tab === 1 && <div className="w-full flex flex-col gap-2 items-center">{options}</div>}
-        {isDevAdvanced && <div className="w-full flex flex-col gap-2 items-center">{advancedOptions}</div>}
+        <div className="w-full flex flex-col gap-2 items-center">{advancedOptions}</div>
       </div>
     </div>
   );

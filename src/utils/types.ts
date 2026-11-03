@@ -406,4 +406,7 @@ export const SeasonNames = {
   'Season 3': 'Chains of Eternity',
   'Season 4': 'Echoes of Dissent',
   'Season 5': 'Thorns of Devotion',
+  'Season 6': 'Tower of Memory',
+  'Season 7': 'Crown of AShes',
+  'Season 8': 'Veil of Memories', 
 } as const;

@@ -3,7 +3,7 @@ import { createContext, useCallback, useContext, useEffect, useRef, useState } f
 
 import type { ArtifactFormationData, TileData, UnitFormationData } from '@/components/formation/types';
 import type { CommunityLogos } from '@/components/hex-tiles/types';
-import type { BaseHexes, ImagePath, Talents } from '@/utils/types';
+import type { BaseHexes, ImagePath, Phantimal, Talents } from '@/utils/types';
 import type { Dispatch, DragEvent, FC, PropsWithChildren, SetStateAction } from 'react';
 
 import { AlwaysShowStates, ArenaPresets } from '@/components/formation/types';
@@ -544,14 +544,28 @@ export const FormationProvider: FC<FormationProviderProps> = ({
   useEffect(() => {
     setUnits(prev => {
       const newUnits = { ...prev };
+      let phantimalCount = 0;
       Object.entries(newUnits).forEach(([tile, hero]) => {
         if (!PhantimalSet.has(hero.unit) || playerFaction === undefined) {
           return;
         }
         const index = tile as unknown as number;
         const phantimalObject = Phantimals[CurrentSeason][playerFaction];
+        let replacement = phantimalObject;
+        if (Array.isArray(phantimalObject)) {
+          if (phantimalObject[phantimalCount]) {
+            replacement = phantimalObject[phantimalCount++];
+          } else {
+            delete newUnits[index];
+            return;
+          }
+        } else if (phantimalCount >= 1) {
+          delete newUnits[index];
+          return;
+        }
+
         newUnits[index] = {
-          unit: (Array.isArray(phantimalObject) ? phantimalObject[0] : phantimalObject).hero,
+          unit: (replacement as Phantimal).hero,
           type: newUnits[index].type,
         };
       });

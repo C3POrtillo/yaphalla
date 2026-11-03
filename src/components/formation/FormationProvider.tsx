@@ -554,7 +554,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
         let replacement = phantimalObject;
         if (Array.isArray(phantimalObject)) {
           if (phantimalObject[phantimalCount]) {
-            replacement = phantimalObject[phantimalCount++];
+            replacement = phantimalObject[phantimalCount];
           } else {
             delete newUnits[index];
             return;
@@ -563,7 +563,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
           delete newUnits[index];
           return;
         }
-
+        phantimalCount++;
         newUnits[index] = {
           unit: (replacement as Phantimal).hero,
           type: newUnits[index].type,

@@ -10,6 +10,16 @@ import Tooltip from '@/components/tooltip/Tooltip';
 import { BaseHexData } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
+const Header: FC<{ title: string, tooltip: ReactNode }> = ({ title, tooltip }) => (
+  <h2 className="relative flex flex-row justify-center items-center gap-2 text-center border-b-2 pb-1">
+    {title}
+    <span className="group text-white hover:text-tertiary-400">
+      <Icon icon="mdi:question-mark-circle-outline" />
+      {tooltip}
+    </span>
+  </h2>
+);
+
 const SelectBackgroundHex: FC = () => {
   const { baseHex, setBaseHex, outline: selectedOutline, setOutline } = useFormation();
 
@@ -71,26 +81,20 @@ const SelectBackgroundHex: FC = () => {
     },
   ] as const;
 
-  const Header: FC<{ title: string }> = ({ title }) => (
-    <h2 className="relative flex flex-row justify-center items-center gap-2 text-center border-b-2 pb-1">
-      {title}
-      <span className="group text-white hover:text-tertiary-400">
-        <Icon icon="mdi:question-mark-circle-outline" />
-        <Tooltip className="text-left font-medium text-base bottom-0 translate-y-full left-1/2 -translate-x-1/2">
-          <span className="text-lg underline">{'How to have transparent tiles\n'}</span>
-          1. Select <span className="text-tertiary-600">{containers[1].title}</span>
-          {'\n'}
-          2. Deselect <span className="text-tertiary-600">{containers[0].title}</span>
-        </Tooltip>
-      </span>
-    </h2>
-  );
+  const tooltip = ( 
+    <Tooltip className="text-left font-medium text-base bottom-0 translate-y-full left-1/2 -translate-x-1/2">
+      <span className="text-lg underline">{'How to have transparent tiles\n'}</span>
+      1. Select <span className="text-tertiary-600">{containers[1].title}</span>
+      {'\n'}
+      2. Deselect <span className="text-tertiary-600">{containers[0].title}</span>
+    </Tooltip>
+  )
 
   return (
     <div className="flex flex-row gap-2 justify-center items-start text-center">
       {containers.map(({ title, options }) => (
         <div key={title} className="container-primary flex flex-col gap-2 items-center h-full">
-          <Header title={title} />
+          <Header title={title} tooltip={tooltip} />
           <div className="inset-secondary flex flex-col flex-wrap items-center gap-1 grow justify-center">
             {options}
           </div>

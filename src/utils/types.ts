@@ -320,8 +320,8 @@ export const { GenericHexSet, FactionHexSet, ArtifactHexSet, RarityHexSet, ModeH
   const [mode, modeHexSet] = generateHexName(Modes, [hex, outline]);
   const artifactSeasons = [ 
     'Pre-Season',
-    ...Array.from({ length: Number(CurrentSeason.split(' ')[1]) - 2 }, (_, i) => `Season ${i + 3}`
-  )] as const
+    ...Array.from({ length: Number(CurrentSeason.split(' ')[1]) - 2 }, (_, i) => `Season ${i + 3}`)
+  ] as const
   const [artifact, artifactHexSet] = generateHexName(artifactSeasons, [outline]);
 
   const baseHexData = Object.fromEntries(

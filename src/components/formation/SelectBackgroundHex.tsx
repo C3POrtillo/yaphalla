@@ -10,7 +10,7 @@ import Tooltip from '@/components/tooltip/Tooltip';
 import { BaseHexData } from '@/utils/types';
 import { compareStrings, joinStrings } from '@/utils/utils';
 
-const Header: FC<{ title: string, tooltip: ReactNode }> = ({ title, tooltip }) => (
+const Header: FC<{ title: string; tooltip: ReactNode }> = ({ title, tooltip }) => (
   <h2 className="relative flex flex-row justify-center items-center gap-2 text-center border-b-2 pb-1">
     {title}
     <span className="group text-white hover:text-tertiary-400">

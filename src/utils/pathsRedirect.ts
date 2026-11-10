@@ -376,7 +376,7 @@ const misc = {
   '/arena-helper': {
     redirect: '/arena-sim',
     label: 'Stargazer - Arena helper',
-    href: 'https://stargazer.tmdict.com/',
+    href: 'https://afkstargazer.com/',
     title: 'AFK Journey Arena Helper by Unii',
     // description:
     //   'Plan and simulate AFK Journey arena battles. Test hero formations, visualize skill targeting, save, and share team compositions.',

@@ -557,7 +557,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
             replacement = phantimalObject[phantimalCount];
           } else {
             delete newUnits[index];
-            
+
             return;
           }
         } else if (phantimalCount >= 1) {

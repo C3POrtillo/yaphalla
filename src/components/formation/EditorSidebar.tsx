@@ -167,33 +167,35 @@ const EditorSidebar: FC = () => {
     //     Double Artifact Arena 1
     //   </Button>
     // </div>,
-    isDevTiles && <div key="Logo Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
-      {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Logo</h2>}
-      <div className="flex flex-row gap-1 flex-wrap justify-center items-center">
-        {Object.entries(CommunityLogos).map(([key, brand]) => {
-          const logoSelected = logo && !compareStrings(logo, key);
+    isDevTiles && (
+      <div key="Logo Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
+        {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Logo</h2>}
+        <div className="flex flex-row gap-1 flex-wrap justify-center items-center">
+          {Object.entries(CommunityLogos).map(([key, brand]) => {
+            const logoSelected = logo && !compareStrings(logo, key);
 
-          return (
-            <ButtonTile
-              key={key}
-              src={`Hex ${brand}`}
-              path="unit"
-              size="xs"
-              forceOutline={logoSelected && 'Pre-Season-Outline'}
-              disabledOverlay={logoSelected}
-              onClick={() => {
-                if (logoSelected) {
-                  setLogo(undefined);
-                } else {
-                  setLogo(key as CommunityLogos);
-                }
-              }}
-              tooltip={brand}
-            />
-          );
-        })}
+            return (
+              <ButtonTile
+                key={key}
+                src={`Hex ${brand}`}
+                path="unit"
+                size="xs"
+                forceOutline={logoSelected && 'Pre-Season-Outline'}
+                disabledOverlay={logoSelected}
+                onClick={() => {
+                  if (logoSelected) {
+                    setLogo(undefined);
+                  } else {
+                    setLogo(key as CommunityLogos);
+                  }
+                }}
+                tooltip={brand}
+              />
+            );
+          })}
+        </div>
       </div>
-    </div>,
+    ),
 
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
       {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Menu Tab</h2>}

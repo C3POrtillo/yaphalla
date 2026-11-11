@@ -318,10 +318,10 @@ export const { GenericHexSet, FactionHexSet, ArtifactHexSet, RarityHexSet, ModeH
   const [faction, factionHexSet] = generateHexName([...WildcardSet], HexSuffix);
   const [rarity, rarityHexSet] = generateHexName(Rarity, [hex, outline]);
   const [mode, modeHexSet] = generateHexName(Modes, [hex, outline]);
-  const artifactSeasons = [ 
+  const artifactSeasons = [
     'Pre-Season',
-    ...Array.from({ length: Number(CurrentSeason.split(' ')[1]) - 2 }, (_, i) => `Season ${i + 3}` as ArtifactSource)
-  ] as const
+    ...Array.from({ length: Number(CurrentSeason.split(' ')[1]) - 2 }, (_, i) => `Season ${i + 3}` as ArtifactSource),
+  ] as const;
   const [artifact, artifactHexSet] = generateHexName(artifactSeasons, [outline]);
 
   const baseHexData = Object.fromEntries(
@@ -408,5 +408,5 @@ export const SeasonNames = {
   'Season 5': 'Thorns of Devotion',
   'Season 6': 'Tower of Memory',
   'Season 7': 'Crown of AShes',
-  'Season 8': 'Veil of Memories', 
+  'Season 8': 'Veil of Memories',
 } as const;

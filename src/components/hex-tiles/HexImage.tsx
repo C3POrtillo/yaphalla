@@ -7,7 +7,7 @@ import { exclusionClasses } from '@/components/export-image/types';
 import { getPath, getSizeClass } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { HexPath, LogoRegExp } from '@/utils/types';
-import { compareStrings, joinStrings, testRegExp } from '@/utils/utils';
+import { compareStrings, getImageURL, joinStrings, testRegExp } from '@/utils/utils';
 
 export interface HexImageProps {
   src: string;
@@ -28,6 +28,23 @@ export interface HexImageProps {
   draggable?: boolean;
 }
 
+const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
+  imageSrc,
+  zIndex,
+  className,
+}) => (
+  <Image
+    key={imageSrc}
+    className={joinStrings(className, zIndex)}
+    src={getImageURL(`${HexPath}${imageSrc}.png`)}
+    alt=""
+    fill
+    sizes="256px"
+    unoptimized
+    priority
+  />
+);
+
 const HexImage: FC<HexImageProps> = ({
   src,
   path = 'base',
@@ -46,23 +63,6 @@ const HexImage: FC<HexImageProps> = ({
   tooltip,
   draggable = false,
 }) => {
-  const Asset: FC<{ imageSrc: string; zIndex?: `z-${number}`; className?: string }> = ({
-    imageSrc,
-    zIndex,
-    className,
-  }) => (
-    <Image
-      key={imageSrc}
-      className={joinStrings(className, zIndex)}
-      src={`${HexPath}${imageSrc}.png`}
-      alt=""
-      fill
-      sizes="256px"
-      unoptimized
-      priority
-    />
-  );
-
   const assetSrcs = [
     !hideImage && `${path}/${src}`,
     isEnemy &&

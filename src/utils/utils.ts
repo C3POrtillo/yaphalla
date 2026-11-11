@@ -179,3 +179,11 @@ export const toBase62 = (number: number) => {
 
   return s;
 };
+
+export const getImageURL = (path: string) => {
+  const splitPath = path.split('/');
+  const sanitizedFileName = encodeURIComponent(splitPath.at(-1) || '').replaceAll(/(?:\s|%|20|26)+/g, '_');
+  const sanitizedPath = splitPath.with(-1, sanitizedFileName).join('/');
+
+  return `https://res.cloudinary.com/vvib7uec/image/upload/${sanitizedPath}`;
+};

@@ -81,14 +81,14 @@ const SelectBackgroundHex: FC = () => {
     },
   ] as const;
 
-  const tooltip = ( 
+  const tooltip = (
     <Tooltip className="text-left font-medium text-base bottom-0 translate-y-full left-1/2 -translate-x-1/2">
       <span className="text-lg underline">{'How to have transparent tiles\n'}</span>
       1. Select <span className="text-tertiary-600">{containers[1].title}</span>
       {'\n'}
       2. Deselect <span className="text-tertiary-600">{containers[0].title}</span>
     </Tooltip>
-  )
+  );
 
   return (
     <div className="flex flex-row gap-2 justify-center items-start text-center">

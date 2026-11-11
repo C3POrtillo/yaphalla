@@ -8,7 +8,7 @@ import type { ReactNode } from 'react';
 import { IconMap, RavagedRealmMap } from '@/components/hero/types';
 import { BossPaths, HeroPaths, UnitOverride } from '@/utils/pathsHeroes';
 import { Damage, Difficulties, Faction, HeroClass, HeroSet, Tier, UnitsByClass, UnitsByFaction } from '@/utils/types';
-import { cleanString, compareStrings } from '@/utils/utils';
+import { cleanString, compareStrings, getImageURL } from '@/utils/utils';
 
 export const getDetailIconSize = (size: InputSizeTypes) => {
   switch (size) {
@@ -312,7 +312,7 @@ export const getAllHeroMiniDetails = async (path: keyof typeof pathMap = 'heroes
     )
   ).filter(Boolean) as HeroDetailProps[];
 
-const imagePath = 'yaphalla.com/assets/images/';
+const imagePath = '/assets/images/';
 
 export const formatApiData = async (hero: string, id: string) => {
   const heroData = await getHeroAllDetails(hero);
@@ -325,10 +325,10 @@ export const formatApiData = async (hero: string, id: string) => {
     name: hero,
   };
   const images = {
-    hexImage: `yaphalla.com/assets/images/hexes/unit/${hero}.png`,
-    portraitImage: `yaphalla.com/assets/images/portraits/${hero}.png`,
-    factionImage: `${imagePath}factions/${faction.toLocaleLowerCase()}.png`,
-    classImage: `${imagePath}class/${heroClass.toLocaleLowerCase()}.png`,
+    hexImage: getImageURL(`${imagePath}images/hexes/unit/${hero}.png`),
+    portraitImage: getImageURL(`${imagePath}portraits/${hero}.png`),
+    factionImage: getImageURL(`${imagePath}factions/${faction.toLocaleLowerCase()}.png`),
+    classImage: getImageURL(`${imagePath}class/${heroClass.toLocaleLowerCase()}.png`),
   };
   if (!heroData) {
     return [hero, { ...staticData, ...images }];
@@ -345,8 +345,8 @@ export const formatApiData = async (hero: string, id: string) => {
       tier: UnitRarity,
       damageType: DamageType,
       ...images,
-      tierImage: `yaphalla.com/assets/images/tier/${UnitRarity.toLocaleLowerCase()}.png`,
-      damageTypeImage: `yaphalla.com/assets/images/damage/${DamageType.toLocaleLowerCase()}.png`,
+      tierImage: getImageURL(`${imagePath}tier/${UnitRarity.toLocaleLowerCase()}.png`),
+      damageTypeImage: getImageURL(`${imagePath}damage/${DamageType.toLocaleLowerCase()}.png`),
     },
   ];
 };

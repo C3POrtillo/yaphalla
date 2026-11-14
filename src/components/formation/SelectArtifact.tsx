@@ -21,7 +21,7 @@ const SelectArtifact: FC = () => {
   const disabled = artifactDisabled && notArtifactTile;
   const key = currentArtifact ? 'enemy' : 'player';
 
-  const buttonLabels = ['Seasonal', 'Pre-Season', 'Honor Duel'] as const;
+  const buttonLabels = ['Seasonal', 'Pre-Season'] as const;
 
   const getArtifactButtons = (artifacts: string[], hierarchy?: HierarchyTypes) =>
     artifacts.map(artifact => {

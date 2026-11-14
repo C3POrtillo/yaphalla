@@ -6,6 +6,7 @@ import type { FC } from 'react';
 
 import IconDetail from '@/components/hero/IconDetail';
 import { RavagedRealmMap } from '@/components/hero/types';
+import { getImageURL } from '@/utils/utils';
 
 interface CardGuideProps {
   src: string;
@@ -29,7 +30,7 @@ const CardGuide: FC<CardGuideProps> = ({ src, ...props }) => {
         {title}
       </h2>
       <div className="relative size-64 group-hover:brightness-125">
-        <Image src={src} alt={src} fill objectFit="cover" objectPosition="top" />
+        <Image src={getImageURL(src)} alt={src} fill objectFit="cover" objectPosition="top" />
       </div>
     </Link>
   );

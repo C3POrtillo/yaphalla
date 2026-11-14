@@ -1,6 +1,6 @@
 import { fetchYouTubePicture } from '@/components/creators/utils';
 import { creators } from '@/utils/pathsCreators';
-import { joinStrings } from '@/utils/utils';
+import { getImageURL, joinStrings } from '@/utils/utils';
 
 export type RedirectType = {
   redirect: string;
@@ -75,7 +75,7 @@ const google = {
     site: 'Google Sheets',
     keywords: createLeaderboardKeywords('Primal Lord'),
     themeColor: '#ebb614',
-    image: 'https://www.yaphalla.com/assets/images/graphics/primal-lord.png',
+    image: getImageURL('/assets/images/graphics/primal-lord.png'),
   } as RedirectType,
   '/paragon-form': {
     redirect: '/paragon-form',
@@ -85,7 +85,7 @@ const google = {
     site: 'Google Form',
     keywords: ['Paragon Priority Form', 'Yaphalla Paragon Priority Form', 'Paragon Form', 'Yaphalla Paragon Form'],
     themeColor: '#ae3fcd',
-    image: 'https://www.yaphalla.com/assets/images/graphics/paragon-priority.png',
+    image: getImageURL('/assets/images/graphics/paragon-priority.png'),
   } as RedirectType,
   '/hs-sheet': {
     redirect: '/hs-sheet',
@@ -98,7 +98,7 @@ const google = {
   } as RedirectType,
 };
 
-const getLogo = (name: string) => `https://www.yaphalla.com/assets/images/logos/${name}.png`;
+const getLogo = (name: string) => getImageURL(`/assets/images/logos/${name}.png`);
 const getCatLogo = (color?: string) => (color ? getLogo(`yaphalla-cat-${color}`) : getLogo('yaphalla-cat'));
 
 const discords = {

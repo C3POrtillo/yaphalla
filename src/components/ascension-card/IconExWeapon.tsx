@@ -4,7 +4,7 @@ import type { AscensionCardType, ExWeapon } from '@/components/ascension-card/ty
 import type { FC } from 'react';
 
 import { getSrc } from '@/components/ascension-card/utils';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { compareStrings, getImageURL, joinStrings } from '@/utils/utils';
 
 interface IconExWeaponProps {
   src: ExWeapon;
@@ -23,7 +23,7 @@ const IconExWeapon: FC<IconExWeaponProps> = ({ src, type, hasAlt, size, classNam
   return (
     <div className={joinStrings(`${path}-ex-weapon`, 'relative', size, className)}>
       <Image
-        src={`/assets/images/ex-weapon/${path}/${getSrc(src).toLowerCase()}.png`}
+        src={getImageURL(`/assets/images/ex-weapon/${path}/${getSrc(src)}.png`)}
         alt={hasAlt ? src : ''}
         fill
         objectFit="cover"

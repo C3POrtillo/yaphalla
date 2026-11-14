@@ -3,6 +3,8 @@ import Image from 'next/image';
 import type { FilterPaths, FilterValues } from '@/components/hero-filter/types';
 import type { FC } from 'react';
 
+import { getImageURL } from '@/utils/utils';
+
 interface ButtonFilterProps {
   src: FilterValues;
   path: FilterPaths;
@@ -16,7 +18,7 @@ const ButtonFilter: FC<ButtonFilterProps> = ({ src, path, selected, onClick }) =
       <div className="ease-in-out absolute top-0 z-10 size-8 rounded-full bg-black opacity-50 hover:opacity-0"></div>
     )}
     <Image
-      src={`/assets/images/${path}/${src.toLocaleLowerCase()}.png`}
+      src={getImageURL(`/assets/images/${path}/${src.toLocaleLowerCase()}.png`)}
       alt={src}
       fill
       sizes="64px"

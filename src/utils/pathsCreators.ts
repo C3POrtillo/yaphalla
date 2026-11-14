@@ -1,3 +1,5 @@
+import { getImageURL } from '@/utils/utils';
+
 export type CreatorData = {
   label: string;
   YouTube?: string;
@@ -29,10 +31,10 @@ export const creators = {
     YouTube: 'https://youtube.com/@Wraec',
     Discord: 'https://discord.com/invite/B2zkb8Ep9D',
   } as CreatorData,
-  '/brownie': {
-    label: 'Brownie',
-    YouTube: 'https://youtube.com/@browniegames865',
-  } as CreatorData,
+  // '/brownie': {
+  //   label: 'Brownie',
+  //   YouTube: 'https://youtube.com/@browniegames865',
+  // } as CreatorData,
   // '/fredd': {
   //   label: 'Fredd',
   //   YouTube: 'https://youtube.com/@freddafkjourney',
@@ -46,11 +48,11 @@ export const creators = {
   //   Twitter: 'https://x.com/Zacess1',
   //   Instagram: 'https://instagram.com/Zacess',
   // } as CreatorData,
-  '/ogya': {
-    label: 'OgyaSan',
-    YouTube: 'https://youtube.com/@OgyaSan',
-    language: 'jp',
-  } as CreatorData,
+  // '/ogya': {
+  //   label: 'OgyaSan',
+  //   YouTube: 'https://youtube.com/@OgyaSan',
+  //   language: 'jp',
+  // } as CreatorData,
   // '/afkjuicers': {
   //   label: 'AFK Juicers',
   //   YouTube: 'https://youtube.com/@afkjuicers',
@@ -60,27 +62,27 @@ export const creators = {
   '/halfmoon': {
     label: '半月 | HalfMoon',
     Bilibili: 'https://space.bilibili.com/430357373',
-    image: '/assets/images/creators/halfmoon.png',
+    image: getImageURL('/assets/images/creators/halfmoon.png'),
     language: 'cn',
   } as CreatorData,
   '/becky': {
     label: '贝姬 | Becky',
     Bilibili: 'https://space.bilibili.com/3546739751520445',
-    image: '/assets/images/creators/becky.png',
+    image: getImageURL('/assets/images/creators/becky.png'),
     language: 'cn',
   } as CreatorData,
-  '/makko': {
-    label: 'Makk0',
-    YouTube: 'https://youtube.com/@makkoafk',
-    Discord: 'https://discord.com/invite/BM8kSxXGFX',
-    language: 'es',
-  } as CreatorData,
-  '/turtlelagz': {
-    label: 'Turtlelagz',
-    YouTube: 'https://youtube.com/@turtlelagzgaming',
-    Discord: 'https://discord.com/invite/EFdpaBqek5',
-    Twitch: 'https://twitch.tv/turtlelagz',
-  } as CreatorData,
+  // '/makko': {
+  //   label: 'Makk0',
+  //   YouTube: 'https://youtube.com/@makkoafk',
+  //   Discord: 'https://discord.com/invite/BM8kSxXGFX',
+  //   language: 'es',
+  // } as CreatorData,
+  // '/turtlelagz': {
+  //   label: 'Turtlelagz',
+  //   YouTube: 'https://youtube.com/@turtlelagzgaming',
+  //   Discord: 'https://discord.com/invite/EFdpaBqek5',
+  //   Twitch: 'https://twitch.tv/turtlelagz',
+  // } as CreatorData,
   '/elfe': {
     label: 'Elfe',
     YouTube: 'https://youtube.com/@ElfeYT',
@@ -92,14 +94,14 @@ export const creators = {
   '/frosty': {
     label: '若隐寒星 | Frosty',
     Bilibili: 'https://space.bilibili.com/401793216',
-    image: '/assets/images/creators/frosty.png',
+    image: getImageURL('/assets/images/creators/frosty.png'),
     language: 'cn',
   } as CreatorData,
-  '/atraxy': {
-    label: 'Atraxy',
-    Twitch: 'https://twitch.tv/atraxy316',
-    image: '/assets/images/creators/atraxy.png',
-  } as CreatorData,
+  // '/atraxy': {
+  //   label: 'Atraxy',
+  //   Twitch: 'https://twitch.tv/atraxy316',
+  //   image: getImageURL('/assets/images/creators/atraxy.png'),
+  // } as CreatorData,
   // '/bonvoya': {
   //   label: 'Bon Voya',
   //   YouTube: 'https://youtube.com/@bon.voya93',
@@ -115,7 +117,7 @@ export const creators = {
   '/mistahhbean': {
     label: 'mistahhbean',
     Twitch: 'https://twitch.tv/mistahhbean1',
-    image: '/assets/images/creators/mistahhbean.png',
+    image: getImageURL('/assets/images/creators/mistahhbean.png'),
   } as CreatorData,
   '/aktube': {
     label: 'AKTUBE',
@@ -129,6 +131,6 @@ export const creators = {
   '/kai': {
     label: 'Kai',
     Medal: 'https://medal.tv/u/kaipybara?tab=home',
-    image: '/assets/images/creators/kai.png',
+    image: getImageURL('/assets/images/creators/kai.png'),
   } as CreatorData,
 } as const;

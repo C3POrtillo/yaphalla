@@ -4,6 +4,7 @@ import type { Faction, HeroClass, Talents } from '@/utils/types';
 import type { FC } from 'react';
 
 import { DisplayOverride } from '@/components/hero-grid/types';
+import { getImageURL } from '@/utils/utils';
 
 interface HeroTooltipProps {
   faction?: Faction | Talents | '';
@@ -15,7 +16,7 @@ const HeroTooltip: FC<HeroTooltipProps> = ({ hero, faction, heroClass }) => {
   const createImage = (string: string, path: 'factions' | 'class') => (
     <div className="relative size-5 min-w-5">
       <Image
-        src={`/assets/images/${path}/${string.toLocaleLowerCase()}.png`}
+        src={getImageURL(`/assets/images/${path}/${string.toLocaleLowerCase()}.png`)}
         alt={string}
         fill
         sizes="64px"

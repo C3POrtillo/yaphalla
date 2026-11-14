@@ -13,7 +13,7 @@ import { AlwaysShowStates, ObstacleStates, TileIndexToPosition } from '@/compone
 import { getIsTopRight, getRelativeTileLabels, processTileData } from '@/components/formation/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 // import Text from '@/components/inputs/text/Text';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { compareStrings, getImageURL, joinStrings } from '@/utils/utils';
 
 interface EditorArena {
   id?: string;
@@ -228,7 +228,7 @@ const EditorArena: FC<EditorArena> = ({
               <span className="inline-flex w-full text-sm text-outline items-center justify-end whitespace-pre pt-1 pr-2">
                 {'Powered by '}
                 <div className="relative logo h-6">
-                  <Image src="/assets/images/yaphalla-logo.png" alt="Yaphalla" fill priority />
+                  <Image src={getImageURL('/assets/images/yaphalla-logo.png')} alt="Yaphalla" fill priority />
                 </div>
               </span>
             )}

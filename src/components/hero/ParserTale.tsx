@@ -9,7 +9,7 @@ import { cleanToken, joinTokens, mergeTokens } from '@/components/hero/utils';
 import HexImage from '@/components/hex-tiles/HexImage';
 import Link from '@/components/link/Link';
 import { UnitOverride } from '@/utils/pathsHeroes';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { compareStrings, getImageURL, joinStrings } from '@/utils/utils';
 
 interface ParserTaleProps extends HeroStory {
   hero: string;
@@ -93,7 +93,12 @@ const ParserTale: FC<ParserTaleProps> = ({ hero, StoryID, Story, IsDefaultUnlock
       aria-disabled={isOpen}
     >
       <div className="tale-book flex relative size-16 min-w-16 items-center justify-center -mt-2">
-        <Image className="rotate-[15deg] mt-2" src="/assets/images/misc/tale.png" alt={`Tale ${StoryID}`} fill />
+        <Image
+          className="rotate-[15deg] mt-2"
+          src={getImageURL('/assets/images/misc/tale.png')}
+          alt={`Tale ${StoryID}`}
+          fill
+        />
         <div className="absolute text-outline inset-0 z-10 flex size-full items-center justify-center text-center text-2xl text-tertiary-600 pt-2">
           {StoryID}
         </div>

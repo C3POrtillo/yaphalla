@@ -28,7 +28,12 @@ const Header: FC = () => {
     const rootIcon = !!rootIconName && <Icon icon={rootIconName} className="size-5" />;
     const isCol = rootOptions?.every(({ options }) => options && options?.length <= 4);
     const tooltip = rootOptions && (
-      <div className={joinStrings('flex flex-col gap-2 overflow-auto', !isCol && 'lg:flex-row')}>
+      <div
+        className={joinStrings(
+          'flex flex-col gap-2 overflow-auto',
+          !isCol && 'lg:grid lg:grid-cols-[max-content_max-content]',
+        )}
+      >
         {rootOptions.map(
           ({ label, options }, j) =>
             options && (

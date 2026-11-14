@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 import { CommunityLogos } from '@/components/hex-tiles/types';
 import { getSizeClass } from '@/components/hex-tiles/utils';
-import { joinStrings } from '@/utils/utils';
+import { getImageURL, joinStrings } from '@/utils/utils';
 
 interface LogoProps {
   logo?: CommunityLogos;
@@ -16,7 +16,7 @@ const Logo: FC<LogoProps> = ({ logo = 'dog', hideLogo, size = 'md' }) => (
   <div className={joinStrings('hex-button hex-icon relative', getSizeClass(size))}>
     {!hideLogo && (
       <Image
-        src={`/assets/images/hexes/unit/Hex ${CommunityLogos[logo] || 'Yaphalla Dog'}.png`}
+        src={getImageURL(`/assets/images/hexes/unit/Hex ${CommunityLogos[logo] || 'Yaphalla Dog'}.png`)}
         alt="Yaphalla Logo"
         fill
         sizes="256px"

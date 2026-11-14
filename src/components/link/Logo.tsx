@@ -3,6 +3,7 @@ import Image from 'next/image';
 import type { FC } from 'react';
 
 import Link from '@/components/link/Link';
+import { getImageURL } from '@/utils/utils';
 
 interface LogoLinkProps {
   alt?: string;
@@ -10,7 +11,7 @@ interface LogoLinkProps {
 
 const LogoLink: FC<LogoLinkProps> = ({ alt }) => (
   <Link href="/" className="relative logo input-tertiary p-1 rounded-lg">
-    <Image src="/assets/images/yaphalla-logo.png" alt={alt || 'Homepage'} fill priority />
+    <Image src={getImageURL('/assets/images/yaphalla-logo.png')} alt={alt || 'Homepage'} fill priority />
   </Link>
 );
 

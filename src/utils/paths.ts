@@ -216,6 +216,18 @@ const paths = {
         ],
       },
       {
+        label: 'Yapmojis',
+        options: Object.entries(redirects)
+          .filter(([key, _]) => key.startsWith('/emotes'))
+          .map(
+            ([key, value]) =>
+              ({
+                href: key,
+                label: value?.title?.split(' ')?.[0] || 'Yapmoji',
+              }) as { href: string; label: string },
+          ),
+      },
+      {
         label: 'Homestead',
         options: [
           {
@@ -231,18 +243,6 @@ const paths = {
           //   label: 'Deck Calculator',
           // },
         ],
-      },
-      {
-        label: 'Yapmojis',
-        options: Object.entries(redirects)
-          .filter(([key, _]) => key.startsWith('/emotes'))
-          .map(
-            ([key, value]) =>
-              ({
-                href: key,
-                label: value?.title?.split(' ')?.[0] || 'Yapmoji',
-              }) as { href: string; label: string },
-          ),
       },
     ],
   },

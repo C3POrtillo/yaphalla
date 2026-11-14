@@ -4,7 +4,7 @@ export const CommunityLogos = {
   prydwen: 'Prydwen',
   radiant: 'Radiant',
   tea: 'TEA',
-  'weirdos-club': "Weirdo's Club",
+  // 'weirdos-club': "Weirdo's Club",
   'fight-club': 'Fight Club',
   vn: 'VN',
   'the-eight': 'TheEight',

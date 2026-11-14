@@ -89,7 +89,7 @@ export const Artifacts = {
 export const HonorDuelSet = new Set(Artifacts['Honor Duel']);
 export const PreSeasonSet = new Set(Artifacts['Pre-Season']);
 export const SeasonSet = new Set(Artifacts[CurrentSeason]);
-export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet, ...HonorDuelSet]);
+export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet]);
 export const Phantimals = {
   'Season 7': Season7['phantimals'],
   'Season 8': Season8['phantimals'],

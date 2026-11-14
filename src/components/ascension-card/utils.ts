@@ -65,8 +65,8 @@ export const filterExWeapons = (exWeapon: ExWeapon, ascension: Ascension) => {
 export const getSrc = (src: ExWeapon) => {
   const srcAsNumber = Number(src);
   if (srcAsNumber >= 30) {
-    return `R${(srcAsNumber - 25) / 5}`;
+    return `r${(srcAsNumber - 25) / 5}`;
   }
 
-  return src;
+  return srcAsNumber;
 };

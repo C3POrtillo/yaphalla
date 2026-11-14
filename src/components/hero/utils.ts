@@ -170,6 +170,8 @@ export const correctSrc = (src: string) => {
   }
 };
 
+const imagePath = '/assets/images/';
+
 export const getDetailSrc = (src: string) => {
   if (!src) {
     return null;
@@ -177,7 +179,7 @@ export const getDetailSrc = (src: string) => {
   const correctedSrc = correctSrc(src);
   const path = getDetailPath(correctedSrc);
 
-  return `/assets/images/${path}/${correctedSrc.toLocaleLowerCase()}.png`;
+  return getImageURL(`${imagePath}${path}/${correctedSrc.toLocaleLowerCase()}.png`);
 };
 
 export const mergeTokens = (tokens: (string | ReactNode)[]) =>
@@ -311,8 +313,6 @@ export const getAllHeroMiniDetails = async (path: keyof typeof pathMap = 'heroes
       pathMap[path].map(async ({ label }) => getHeroMiniDetails(label, !!compareStrings(path, 'heroes'))),
     )
   ).filter(Boolean) as HeroDetailProps[];
-
-const imagePath = '/assets/images/';
 
 export const formatApiData = async (hero: string, id: string) => {
   const heroData = await getHeroAllDetails(hero);

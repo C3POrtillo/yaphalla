@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRef, useState } from 'react';
 
 import type { HexImageProps } from '@/components/hex-tiles/HexImage';
-import type { DragEvent, FC, ReactNode } from 'react';
+import type { DragEvent, FC, MouseEventHandler, ReactNode } from 'react';
 
 import HexImage from '@/components/hex-tiles/HexImage';
 import { ModeChanges } from '@/components/hex-tiles/types';
@@ -20,6 +20,7 @@ interface ButtonTileProps extends HexImageProps {
   onDragStart?: (e: DragEvent<HTMLButtonElement>) => void;
   onDragOver?: (e: DragEvent<HTMLButtonElement>) => void;
   onDrop?: (e: DragEvent<HTMLButtonElement>) => void;
+  onContextMenu?: MouseEventHandler<HTMLButtonElement>;
   modeChange?: ModeChanges;
 }
 
@@ -32,6 +33,7 @@ const ButtonTile: FC<ButtonTileProps> = ({
   onDragStart,
   onDragOver,
   onDrop,
+  onContextMenu,
   className,
   tooltip,
   modeChange,
@@ -97,6 +99,7 @@ const ButtonTile: FC<ButtonTileProps> = ({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onDragEnd={handleDragLeave}
+        onContextMenu={onContextMenu}
       >
         <HexImage src={src} disabled={disabled} draggable={draggable} {...props} />
       </button>

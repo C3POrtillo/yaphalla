@@ -10,6 +10,7 @@ import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import { getPath } from '@/components/hex-tiles/utils';
 import { type Faction, type HeroClass } from '@/utils/types';
 import { joinStrings } from '@/utils/utils';
+import { HeroSet } from '@/utils/pathsHeroes';
 
 interface HeroButtonProps extends HeroGridProps {
   formattedUnits: UnitDivData[];
@@ -63,6 +64,11 @@ const HeroButtons: FC<HeroButtonProps> = ({
             onClick={() => onClick(hero, sameUnit)}
             draggable={isValid && !inAllUnits}
             onDragStart={e => handleDragStart(e, hero, sameUnit)}
+            onContextMenu={e => {
+              if (HeroSet.has(hero)) {
+                window.open(`/heroes/${encodeURIComponent(hero)}`, '_blank');
+              }
+            }}
           />
         );
       })}

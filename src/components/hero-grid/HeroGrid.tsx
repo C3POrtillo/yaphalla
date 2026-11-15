@@ -35,7 +35,8 @@ const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
   }, [isMdScreen, isXlScreen, isXxlScreen, isXxxlScreen, variant]);
 
   const unitOptions = (
-    <div className="flex flex-row gap-1">
+    <div className="flex flex-row gap-1 items-center">
+      <span className='text-xs text-neutral-500'>Right click Hero to open skills page</span>
       {['Units', 'Other', isDev && 'Artifacts', isDev && 'Tiles']
         .map(
           (label, i) =>

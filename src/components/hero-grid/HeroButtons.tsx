@@ -8,9 +8,9 @@ import HeroTooltip from '@/components/hero-grid/HeroTooltip';
 import { hasUnit } from '@/components/hero-grid/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import { getPath } from '@/components/hex-tiles/utils';
+import { HeroPairMap, HeroSet } from '@/utils/pathsHeroes';
 import { type Faction, type HeroClass } from '@/utils/types';
 import { joinStrings } from '@/utils/utils';
-import { HeroPairMap, HeroSet } from '@/utils/pathsHeroes';
 
 interface HeroButtonProps extends HeroGridProps {
   formattedUnits: UnitDivData[];
@@ -64,11 +64,11 @@ const HeroButtons: FC<HeroButtonProps> = ({
             onClick={() => onClick(hero, sameUnit)}
             draggable={isValid && !inAllUnits}
             onDragStart={e => handleDragStart(e, hero, sameUnit)}
-            onContextMenu={e => {
+            onContextMenu={() => {
               if (HeroSet.has(hero)) {
                 window.open(`/heroes/${encodeURIComponent(hero)}`, '_blank');
               }
-              if ((HeroPairMap[hero])) {
+              if (HeroPairMap[hero]) {
                 window.open(`/heroes/${encodeURIComponent(HeroPairMap[hero])}`, '_blank');
               }
             }}

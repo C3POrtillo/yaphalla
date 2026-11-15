@@ -17,7 +17,7 @@ const SkillKeyword: FC<SkillKeywordProps> = ({ value, label }) => {
   }
 
   const keywordTooltip = Keywords[label as Keywords];
-  const displayText = typeof keywordTooltip === 'string' ? keywordTooltip : keywordTooltip[0];
+  const displayText = typeof keywordTooltip === 'string' ? keywordTooltip : keywordTooltip?.[0];
 
   return (
     <div className="relative inline-flex group justify-center align-bottom">
@@ -29,7 +29,7 @@ const SkillKeyword: FC<SkillKeywordProps> = ({ value, label }) => {
           className="text-xs top-0 -translate-y-full !bg-primary-950 w-max max-w-48 text-wrap items-center"
           preWrapText={false}
         >
-          <div className="flex flex-col w-full items-center gap-1">
+          <div className="flex flex-col min-w-45.5 items-center gap-1">
             {(keywordTooltip.length === 0 || typeof keywordTooltip === 'object') && label && (
               <div className="relative w-full aspect-[4/3] flex justify-center">
                 <Image src={getTooltipImage(label)} alt={displayText || value} fill sizes="64px" unoptimized priority />

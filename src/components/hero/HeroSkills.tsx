@@ -10,8 +10,7 @@ interface HeroSkillsProps {
   isNPC?: boolean;
 }
 
-const HeroSkills: FC<HeroSkillsProps> = ({ hero, skills, isNPC }) => {
-  return (
+const HeroSkills: FC<HeroSkillsProps> = ({ hero, skills, isNPC }) => (
   <div className="w-full flex flex-row flex-wrap justify-center">
     {skills
       .filter(Boolean)
@@ -23,6 +22,6 @@ const HeroSkills: FC<HeroSkillsProps> = ({ hero, skills, isNPC }) => {
         </div>
       ))}
   </div>
-)};
+);
 
 export default HeroSkills;

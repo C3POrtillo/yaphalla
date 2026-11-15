@@ -62,11 +62,11 @@ export const filterExWeapons = (exWeapon: ExWeapon, ascension: Ascension) => {
   return exNumber <= exLimit;
 };
 
-export const getSrc = (src: ExWeapon) => {
+export const getSrc = (src: ExWeapon, omitPlus = false) => {
   const srcAsNumber = Number(src);
   if (srcAsNumber >= 30) {
     return `r${(srcAsNumber - 25) / 5}`;
   }
 
-  return srcAsNumber;
+  return omitPlus ? srcAsNumber : src;
 };

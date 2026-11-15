@@ -23,7 +23,7 @@ const IconExWeapon: FC<IconExWeaponProps> = ({ src, type, hasAlt, size, classNam
   return (
     <div className={joinStrings(`${path}-ex-weapon`, 'relative', size, className)}>
       <Image
-        src={getImageURL(`/assets/images/ex-weapon/${path}/${getSrc(src)}.png`)}
+        src={getImageURL(`/assets/images/ex-weapon/${path}/${getSrc(src, true)}.png`)}
         alt={hasAlt ? src : ''}
         fill
         objectFit="cover"

@@ -30,11 +30,7 @@ const SubLinks: FC<SubLinksProps> = ({ className, href: slug, options, rootIcon,
         const icon = !!iconName && <Icon icon={iconName} className="size-5" />;
 
         return (
-          <Link
-            key={contentLabel}
-            className={joinStrings(LinkClasses, 'p-1 !justify-start !w-full')}
-            {...contentData}
-          >
+          <Link key={contentLabel} className={joinStrings(LinkClasses, 'p-1 !justify-start !w-full')} {...contentData}>
             {icon}
           </Link>
         );

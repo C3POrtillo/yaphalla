@@ -1,11 +1,13 @@
 'use client';
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 
 import type { HexImageProps } from '@/components/hex-tiles/HexImage';
 import type { DragEvent, FC, ReactNode } from 'react';
 
 import HexImage from '@/components/hex-tiles/HexImage';
-import { createDragClone } from '@/components/hex-tiles/utils';
+import { ModeChanges } from '@/components/hex-tiles/types';
+import { createDragClone, getModeChangeURL } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { joinStrings } from '@/utils/utils';
 
@@ -18,6 +20,7 @@ interface ButtonTileProps extends HexImageProps {
   onDragStart?: (e: DragEvent<HTMLButtonElement>) => void;
   onDragOver?: (e: DragEvent<HTMLButtonElement>) => void;
   onDrop?: (e: DragEvent<HTMLButtonElement>) => void;
+  modeChange?: ModeChanges;
 }
 
 const ButtonTile: FC<ButtonTileProps> = ({
@@ -31,10 +34,13 @@ const ButtonTile: FC<ButtonTileProps> = ({
   onDrop,
   className,
   tooltip,
+  modeChange,
   ...props
 }) => {
   const ref = useRef<HTMLButtonElement>(null);
   const [isDragOver, setIsDragOver] = useState<boolean>(false);
+  const [currentMode, setCurrentMode] = useState<boolean>(false);
+  const modeString = ModeChanges[modeChange as ModeChanges]?.[currentMode ? 1 : 0];
 
   const handleDragStart = (e: DragEvent<HTMLButtonElement>) => {
     if (onDragStart) {
@@ -94,6 +100,27 @@ const ButtonTile: FC<ButtonTileProps> = ({
       >
         <HexImage src={src} disabled={disabled} draggable={draggable} {...props} />
       </button>
+      {modeChange && !!ModeChanges[modeChange] && (
+        <button
+          className={joinStrings(
+            `${modeChange.toLocaleLowerCase()}-icon`,
+            `${modeChange}-${modeString}`.toLocaleLowerCase(),
+            'mode-icon absolute bottom-0 left-0 z-100 !h-8 cursor-pointer pointer-events-auto ml-0.5 hover:scale-105',
+          )}
+          onClick={() => {
+            setCurrentMode(!currentMode);
+          }}
+        >
+          <Image
+            src={getModeChangeURL(modeChange, modeString)}
+            alt={`${modeChange} ${modeString}`}
+            fill
+            sizes="64px"
+            unoptimized
+            priority
+          />
+        </button>
+      )}
       {tooltip && (
         <Tooltip className="text-xs bottom-0 translate-y-2/3 text-center" preWrapText={false}>
           {tooltip}

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
 import type { TileData } from '@/components/formation/types';
+import type { ModeChanges } from '@/components/hex-tiles/types';
 // import type { Talents } from '@/utils/types';
 import type { DragEvent, FC } from 'react';
 
@@ -195,6 +196,7 @@ const EditorArena: FC<EditorArena> = ({
               onDragStart={showUnit ? e => handleInternalDragStart(e, tile) : undefined}
               onDragOver={handleDragOver}
               onDrop={(e: DragEvent<HTMLButtonElement>) => handleDrop(e, tile)}
+              modeChange={unit as ModeChanges}
             />
           );
         })}

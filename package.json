@@ -18,7 +18,7 @@
     "argon2": "^0.41.1",
     "flag-icons": "^7.3.2",
     "he": "^1.2.0",
-    "html-to-image": "^1.11.11",
+    "html-to-image": "^1.11.13",
     "lodash": "^4.17.21",
     "next": "15.5.7",
     "next-seo": "^6.5.0",

@@ -16,7 +16,7 @@ import {
   RarityHexSet,
   SeasonSet,
 } from '@/utils/types';
-import { compareStrings, kebabCase } from '@/utils/utils';
+import { compareStrings, getImageURL, kebabCase } from '@/utils/utils';
 
 export const getSizeClass = (size: 'md' | 'sm' | 'xs' | '2xs') => {
   if (!compareStrings(size, 'sm')) {
@@ -117,3 +117,6 @@ export const createDragClone = (e: DragEvent<HTMLButtonElement>, options?: { wid
     document.body.removeChild(clone);
   });
 };
+
+export const getModeChangeURL = (unit: string, mode: string) =>
+  getImageURL(`/assets/images/misc/${unit.toLocaleLowerCase()}/${mode}`);

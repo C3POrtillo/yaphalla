@@ -13,3 +13,10 @@ export const CommunityLogos = {
 } as const;
 
 export type CommunityLogos = keyof typeof CommunityLogos;
+
+export const ModeChanges = {
+  Dunlingr: ['spellbind', 'curelock'],
+  Natsu: ['lightning', 'fire'],
+} as const;
+
+export type ModeChanges = keyof typeof ModeChanges;

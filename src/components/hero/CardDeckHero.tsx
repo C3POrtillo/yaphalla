@@ -41,7 +41,7 @@ const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes, hasFilters = true, path =
             return noFilter ? validSearch : withFilter;
           })
           .map(({ hero, ...props }) => (
-            <div key={hero} className="p-1 basis-1/1 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5">
+            hero && <div key={hero} className="p-1 basis-1/1 md:basis-1/2 lg:basis-1/3 xl:basis-1/4 2xl:basis-1/5">
               <CardHero hero={hero} href={`/${path}/${encodeURIComponent(hero)}`} hasDetails={false} {...props} />
             </div>
           ))}

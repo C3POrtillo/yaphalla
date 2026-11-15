@@ -154,7 +154,7 @@ export const getSkillStatValue = (value: string, args: HeroSkillArgs) => {
 };
 
 export const correctSrc = (src: string) => {
-  const match = src.match(skillStatRegExp);
+  const match = String(src).match(skillStatRegExp);
   if (match) {
     return match[1];
   }
@@ -166,7 +166,7 @@ export const correctSrc = (src: string) => {
     case 'Marksmen':
       return 'Marksman';
     default:
-      return src;
+      return String(src);
   }
 };
 

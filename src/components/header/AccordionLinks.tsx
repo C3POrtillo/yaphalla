@@ -18,10 +18,10 @@ interface AccordionLinksProps {
 
 const AccordionLinks: FC<AccordionLinksProps> = ({ slug, title, rootOptions, rootIcon }) => (
   <div className="w-full block xl:hidden">
-    <Accordion key={`${slug || title} Accordion`} label={slug ? rootOptions[0].label : title} hierarchy="primary">
+    <Accordion key={`${slug || title} Accordion`} label={slug ? rootOptions[0].label : title} hierarchy="secondary">
       <div className="inset-secondary grid gap-1 grid-cols-1 !p-1 !rounded-t-none">
         {slug && (
-          <Link key={slug} className={joinStrings(LinkClasses, 'p-1')} href={slug} label={title}>
+          <Link key={slug} className={joinStrings(LinkClasses, 'p-1 bg-secondary')} href={slug} label={title}>
             {rootIcon}
           </Link>
         )}
@@ -38,7 +38,7 @@ const AccordionLinks: FC<AccordionLinksProps> = ({ slug, title, rootOptions, roo
                 key={`${label}-${i}`}
                 href={href}
                 label={isEmote ? `Emojis: ${label}` : label}
-                className={joinStrings(LinkClasses, 'p-1')}
+                className={joinStrings(LinkClasses, 'p-1 bg-secondary')}
               >
                 {icon}
               </Link>

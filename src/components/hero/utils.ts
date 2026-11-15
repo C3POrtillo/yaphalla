@@ -43,7 +43,7 @@ export const joinTokens = (...tokens: (string | boolean)[]) => tokens.filter(Boo
 
 const skillStatRegExp = /<([A-Za-z]+)>/;
 const sArgRegExp = /\{(SArg\d+|PlusRatio|KnockBack)(%)?\}(s(?:[^\w\s%])?|[^\w\s%])?/;
-const labelRegExp = /\[\w+](.*?)\[\/]/;
+const labelRegExp = /(\[\w+])(.*?)\[\/]/;
 
 export const mergeLabeledTokens = (tokens: string[]): string[] => {
   const merged: string[] = [];
@@ -104,7 +104,9 @@ export const mergeLabeledTokens = (tokens: string[]): string[] => {
   return merged;
 };
 
-export const parseSkillToken = (token: string): string | { name?: string; value?: string; icon?: string } => {
+export const parseSkillToken = (
+  token: string,
+): string | { name?: string; value?: string; icon?: string; label?: string } => {
   const skillMatch = token.match(skillStatRegExp);
   const sArgMatch = token.match(sArgRegExp);
 
@@ -117,7 +119,10 @@ export const parseSkillToken = (token: string): string | { name?: string; value?
 
   const labelMatch = token.match(labelRegExp);
   if (labelMatch) {
-    return labelMatch[1];
+    return {
+      label: labelMatch[1],
+      value: labelMatch[2],
+    };
   }
 
   let iconSprite = token.match(/^"?<sprite[^>]*>/)?.[0] ?? '';
@@ -350,3 +355,6 @@ export const formatApiData = async (hero: string, id: string) => {
     },
   ];
 };
+
+export const getTooltipImage = (label: string) =>
+  getImageURL(`${imagePath}tooltips/${label.replace(/[[\]]/g, '')}.png`);

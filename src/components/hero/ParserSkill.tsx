@@ -2,6 +2,7 @@ import type { HeroSkillArgs } from '@/components/hero/types';
 import type { FC, ReactNode } from 'react';
 
 import IconDetail from '@/components/hero/IconDetail';
+import SkillKeyword from '@/components/hero/SkillKeyword';
 import SkillStat from '@/components/hero/SkillStat';
 import { getSkillStatValue, mergeLabeledTokens, mergeTokens, parseSkillToken } from '@/components/hero/utils';
 
@@ -48,6 +49,9 @@ const ParserSkill: FC<ParserSkillProps> = ({ Description, Args, PlusArgs, prefix
           '',
           value,
         );
+      } else if (parsedToken.label) {
+        const { label, value } = parsedToken;
+        push(preSpace, <SkillKeyword key={`${i}-${label}-${value}`} label={label} value={value} />, preSpace);
       } else {
         const { value, name } = parsedToken;
         const hasPlusArg = !!(value && PlusArgs && getSkillStatValue(value, PlusArgs));

@@ -14,7 +14,7 @@ export const DreamRealmBosses = {
     'Snow Stomper',
     'King Croaker',
     'Midnight Harvester',
-    'Illucia The Unveiler',
+    'Illucia the Unveiler',
     'Sarethiel',
     'Lady Starfallen',
     'Doomscourge',

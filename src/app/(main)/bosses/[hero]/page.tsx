@@ -25,7 +25,7 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
   if (HeroSet.has(sanitizedUnit)) {
     redirect(`/heroes/${sanitizedUnit}`);
   }
-  const heroDetails = await getHeroAllDetails(hero);
+  const heroDetails = await getHeroAllDetails(hero, true);
 
   if (!heroDetails) {
     notFound();

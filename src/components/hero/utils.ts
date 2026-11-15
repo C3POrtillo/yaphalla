@@ -275,11 +275,11 @@ const apiHeader = {
 };
 const fetchAPI = async (string: string) => await fetch(`${AFKJ_API}${string}`, apiHeader);
 
-export const getHeroAllDetails = async (hero: string) => {
+export const getHeroAllDetails = async (hero: string, isNPC = false) => {
   if (!hero) {
     return null;
   }
-  const res = await fetchAPI(hero);
+  const res = await fetchAPI(`${isNPC ? 'boss/' : ''}${hero}`);
 
   if (res.status !== 200) {
     return null;
@@ -289,17 +289,20 @@ export const getHeroAllDetails = async (hero: string) => {
   return { Info, Story, Skills };
 };
 
+const nullOrValue = (data: unknown) => Number(data) === -1 ? null : data
+
 const getHeroMiniDetails = async (hero: string, isNPC = false) => {
   try {
-    const res = await fetchAPI(hero);
+    const res = await fetchAPI(`${isNPC ? 'boss/' : ''}${hero}`);
     const { Info } = (await res.json()) as HeroJSON;
     const { DamageType, UnitRace, UnitJob, UnitRarity = isNPC ? null : 'R' } = Info;
+    const heroClass = !compareStrings(UnitJob.toLowerCase(), 'marksmen') ? 'Marksman' : UnitJob;
 
     return {
       hero,
-      tier: UnitRarity,
-      heroClass: !compareStrings(UnitJob.toLowerCase(), 'marksmen') ? 'Marksman' : UnitJob,
-      faction: UnitRace,
+      tier: nullOrValue(UnitRarity),
+      heroClass: nullOrValue(heroClass),
+      faction: nullOrValue(UnitRace),
       damage: DamageType,
     };
   } catch {

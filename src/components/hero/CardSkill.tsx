@@ -61,7 +61,7 @@ const CardSkill: FC<CardSkillProps> = ({
         />
       </div>
       {(!!CD || !!InitCD) && (
-        <div className="flex flex-row gap-1 border-b-2 border-primary-750 mt-1 pb-0.5 justify-between text-sm">
+        <div className="flex flex-row gap-1 pb-1 border-b-2 border-primary-750 mt-1 pb-0.5 justify-between text-sm">
           {!!CD && (
             <span>
               <span className="text-neutral-400">Cooldown:</span> {CD}s

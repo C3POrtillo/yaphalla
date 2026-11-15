@@ -45,7 +45,13 @@ const SelectArenaPreset: FC<SelectArenaPresetProps> = ({ variant = 'base' }) => 
         {Object.entries(ArenaPresets)
           .slice(1)
           .map(([label, data]) => (
-            <Button key={label} onClick={() => setPreset(label)} selected={label === preset} hasActiveBorder>
+            <Button
+              key={label}
+              onClick={() => setPreset(label)}
+              selected={label === preset}
+              hierarchy="tertiary"
+              hasActiveBorder
+            >
               <div className="flex flex-col gap-2">
                 <h2 className="text-lg lg:text-xl">{label}</h2>
                 <div className="hidden 2xl:block">

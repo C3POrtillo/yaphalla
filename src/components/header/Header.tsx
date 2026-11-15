@@ -148,7 +148,7 @@ const Header: FC = () => {
           ariaLabel="Toggle Navigation Menu"
           labelIsClickable={false}
         >
-          <div className="inset-primary flex flex-col gap-2 items-center p-2 bg-primary-800 overflow-auto mb-2">
+          <div className="inset-secondary flex flex-col gap-2 items-center p-2 bg-primary-800 overflow-auto mb-2">
             {navLinks}
             <Socials />
           </div>

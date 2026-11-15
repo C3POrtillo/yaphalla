@@ -56,12 +56,14 @@ const Index: FC = () => {
             window.scrollTo({ top, behavior: 'smooth' });
           }
         }}
-        hierarchy="primary"
+        className="flex grow justify-center"
+        hierarchy="tertiary"
         selected={isFormation && teamIndex === i}
         size="sm"
         hasActiveBorder
+        disabled={tab !== 0}
       >
-        {`Team ${i + 1}`}
+        {`Team ${['A', 'B', 'C'][Math.floor(i / 5)] ?? ''}${(i % 5) + 1}`}
       </Button>
       {(i - 4) % 5 === 0 && i < maxTeams - 1 && (
         <hr key={`${i}-divider`} className="hidden h-full border-x-1 border-primary-750 2xl:block" />

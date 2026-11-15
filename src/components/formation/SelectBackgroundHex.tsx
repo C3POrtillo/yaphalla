@@ -95,9 +95,7 @@ const SelectBackgroundHex: FC = () => {
       {containers.map(({ title, options }) => (
         <div key={title} className="container-primary flex flex-col gap-2 items-center h-full">
           <Header title={title} tooltip={tooltip} />
-          <div className="inset-secondary flex flex-col flex-wrap items-center gap-1 grow justify-center">
-            {options}
-          </div>
+          <div className="inset-black flex flex-col flex-wrap items-center gap-1 grow justify-center">{options}</div>
         </div>
       ))}
     </div>

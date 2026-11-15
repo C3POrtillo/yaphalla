@@ -73,7 +73,7 @@ const Text: FC<TextProps> = ({
 
   return (
     <div className="flex w-full flex-col gap-1">
-      <div className="flex flex-row gap-1 items-end justify-between">
+      <div className="flex flex-row gap-1 items-end justify-between px-1">
         {!labelHidden && (
           <label className={joinStrings('flex', labelClassName)} htmlFor={id}>
             {label}

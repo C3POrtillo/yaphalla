@@ -220,20 +220,20 @@ const EditorArena: FC<EditorArena> = ({
         />
       )} */}
       <EditorToggles />
-      <div className="inset-secondary p-2 rounded-lg size-full flex items-center justify-center m-auto">
-        <div className="inset-primary">
-          <div id={id} className="relative flex flex-col">
-            {tileDivs}
-            {['dog', 'cat'].every(check => logo && compareStrings(logo, check)) && (
-              <span className="inline-flex w-full text-sm text-outline items-center justify-end whitespace-pre pt-1 pr-2">
-                {'Powered by '}
-                <div className="relative logo h-6">
-                  <Image src={getImageURL('/assets/images/yaphalla-logo.png')} alt="Yaphalla" fill priority />
-                </div>
-              </span>
-            )}
-          </div>
+      <div className="inset-black p-2 rounded-lg size-full flex items-center justify-center m-auto">
+        {/* <div className="inset-primary"> */}
+        <div id={id} className="relative flex flex-col">
+          {tileDivs}
+          {['dog', 'cat'].every(check => logo && compareStrings(logo, check)) && (
+            <span className="inline-flex w-full text-sm text-outline items-center justify-end whitespace-pre pt-1 pr-2">
+              {'Powered by '}
+              <div className="relative logo h-6">
+                <Image src={getImageURL('/assets/images/yaphalla-logo.png')} alt="Yaphalla" fill priority />
+              </div>
+            </span>
+          )}
         </div>
+        {/* </div> */}
       </div>
       <EditorClearButtons isRow />
     </div>

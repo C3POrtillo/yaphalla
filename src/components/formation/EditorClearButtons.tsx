@@ -13,7 +13,7 @@ interface EditorClearButtonsProps {
 }
 
 const EditorClearButtons: FC<EditorClearButtonsProps> = ({ isRow }) => {
-  const { setTileData, setEditArena, setUnits, setDrawType, setPreset } = useFormation();
+  const { setTileData, setEditArena, setUnits, setDrawType, setPreset, setArtifactData } = useFormation();
 
   const buttons = [
     {
@@ -47,6 +47,10 @@ const EditorClearButtons: FC<EditorClearButtonsProps> = ({ isRow }) => {
         setPreset('Custom');
         setTileData(ArenaPresets['Custom'] as number[]);
         setUnits({});
+        setArtifactData({
+          player: [],
+          enemy: [],
+        });
       },
     },
   ] as const;

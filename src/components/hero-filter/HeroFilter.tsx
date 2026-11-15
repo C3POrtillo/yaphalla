@@ -31,12 +31,12 @@ const HeroFilter: FC<HeroFilterProps> = ({
   children,
 }) => (
   <div className="flex w-full flex-row flex-wrap gap-2 items-end">
-    <div className="inset-secondary flex flex-col gap-2 p-2">
+    <div className="inset-black flex flex-col gap-2 p-2">
       <FilterCategory items={HeroClass} filter={filterClass} setFilter={setFilterClass} path="class" />
       <FilterCategory items={Faction} filter={filterFaction} setFilter={setFilterFaction} path="factions" />
     </div>
     {(setFilterTier || setFilterDamage) && (
-      <div className="inset-secondary flex flex-col gap-2 p-2">
+      <div className="inset-black flex flex-col gap-2 p-2">
         {setFilterTier && <FilterCategory items={Tier} filter={filterTier} setFilter={setFilterTier} path="tier" />}
         {setFilterDamage && (
           <FilterCategory items={Damage} filter={filterDamage} setFilter={setFilterDamage} path="damage" />

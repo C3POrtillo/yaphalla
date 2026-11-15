@@ -21,15 +21,15 @@ const Index: FC = () => (
           <h2 className="text-tertiary-600">Announcements</h2>
           <div className="inset-secondary flex flex-col items-center w-full gap-2 whitespace-normal">
             <h3 className="flex flex-row whitespace-pre-wrap items-center wrap gap-2">
-              <Link href="/editor" className="bg-primary input-primary size-base text-tertiary-600">
+              <Link href="/editor" className="bg-tertiary input-tertiary size-base text-tertiary-600">
                 YapBuilder
               </Link>
               {' | '}
-              <Link href="/editor/priority" className="bg-primary input-primary size-base text-tertiary-600">
+              <Link href="/editor/priority" className="bg-tertiary input-tertiary size-base text-tertiary-600">
                 YapPriority
               </Link>
               {' | '}
-              <Link href="/editor/ascension" className="bg-primary input-primary size-base text-tertiary-600">
+              <Link href="/editor/ascension" className="bg-tertiary input-tertiary size-base text-tertiary-600">
                 YapAscend
               </Link>
             </h3>
@@ -87,9 +87,9 @@ const Index: FC = () => (
             <Link
               key={label}
               href={href}
-              className="w-full bg-primary input-primary size-base gap-2 text-lg md:text-xl justify-center"
+              className="w-full bg-tertiary input-tertiary size-base gap-2 text-lg md:text-xl justify-left"
             >
-              <Icon icon={`fa6-brands:${site}`} />
+              <Icon icon={`fa6-brands:${site}`} className="size-6" />
               {label}
             </Link>
           ))}

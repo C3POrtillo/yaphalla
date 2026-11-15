@@ -101,14 +101,12 @@ const EditorSidebar: FC = () => {
   const subMenuProps = [
     {
       label: 'Arena Presets',
-      hierarchy: 'primary',
       onClick: () => {
         setSubMenu(0);
       },
     },
     {
       label: 'Customize Player',
-      hierarchy: 'primary',
       onClick: () => {
         setEditArena(false);
         setSubMenu(1);
@@ -120,7 +118,15 @@ const EditorSidebar: FC = () => {
     {
       label: 'Place',
       divs: placeProps.map(({ onClick, label, selected }) => (
-        <Button key={label} size="sm" className="w-full" onClick={onClick} selected={selected} hasActiveBorder>
+        <Button
+          key={label}
+          size="sm"
+          className="w-full"
+          onClick={onClick}
+          selected={selected}
+          hierarchy="tertiary"
+          hasActiveBorder
+        >
           <div className="flex flex-row gap-2 items-center">
             <HexImage {...getDrawImage(label, !!background)} size="2xs" disabledOverlay={selected} />
             <span>{label}</span>
@@ -169,7 +175,7 @@ const EditorSidebar: FC = () => {
     // </div>,
     isDevTiles && (
       <div key="Logo Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
-        {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Logo</h2>}
+        {<h2 className="w-full text-center text-base pb-1 border-b-2 border-primary-750 lg:text-lg">Logo</h2>}
         <div className="flex flex-row gap-1 flex-wrap justify-center items-center">
           {Object.entries(CommunityLogos).map(([key, brand]) => {
             const logoSelected = logo && !compareStrings(logo, key);
@@ -198,20 +204,23 @@ const EditorSidebar: FC = () => {
     ),
 
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
-      {<h2 className="w-full text-center text-base border-b-2 lg:text-lg">Menu Tab</h2>}
-      {subMenuProps.map(({ onClick, label, ...props }, i) => (
-        <Button
-          key={label}
-          className="w-full"
-          size="sm"
-          onClick={onClick}
-          selected={subMenu === i}
-          hasActiveBorder
-          {...props}
-        >
-          {label}
-        </Button>
-      ))}
+      {<h2 className="w-full text-center text-base pb-1 border-b-2 border-primary-750 lg:text-lg">Menu Tab</h2>}
+      <div className="inset-black w-full flex flex-col gap-2">
+        {subMenuProps.map(({ onClick, label, ...props }, i) => (
+          <Button
+            key={label}
+            className="w-full"
+            size="sm"
+            onClick={onClick}
+            selected={subMenu === i}
+            hasActiveBorder
+            hierarchy="tertiary"
+            {...props}
+          >
+            {label}
+          </Button>
+        ))}
+      </div>
     </div>,
   ];
 
@@ -219,8 +228,10 @@ const EditorSidebar: FC = () => {
     ({ label, divs }) =>
       !!divs && (
         <div key={label} className="container-primary w-full flex flex-col gap-2 items-center">
-          {!!label && <h2 className="w-full text-center text-base border-b-2 lg:text-lg">{label}</h2>}
-          <div className="w-full flex flex-col gap-2">{divs}</div>
+          {!!label && (
+            <h2 className="w-full text-center text-base pb-1 border-b-2 border-primary-750 lg:text-lg">{label}</h2>
+          )}
+          <div className="inset-black w-full flex flex-col gap-2">{divs}</div>
         </div>
       ),
   );

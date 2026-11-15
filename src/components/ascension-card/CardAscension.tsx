@@ -32,7 +32,7 @@ const CardAscension: FC<CardAscensionProps> = ({ styleType = 'container', cardCl
         cardClassName,
       )}
     >
-      <div className="flex flex-row items-center gap-2 border-b-2 border-primary-750 w-full justify-between pb-2">
+      <div className="flex flex-row items-center gap-2 border-b-1 border-primary-750 w-full justify-between pb-2">
         <div className="inline-flex items-center gap-2">
           <span className="inline-flex flex-row align-middle">
             <HexImage src={hero} path="unit" size="xs" disabled />

@@ -65,7 +65,7 @@ const TilePreview: FC<TilePreviewProps> = ({ tileData }) => {
   });
 
   return (
-    <div className="inset-primary size-full flex items-center justify-center m-auto">
+    <div className="inset-black size-full flex items-center justify-center m-auto">
       <div className="relative flex flex-col">{tileDivs}</div>
     </div>
   );

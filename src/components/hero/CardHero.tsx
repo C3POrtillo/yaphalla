@@ -40,7 +40,7 @@ const CardHero: FC<CardHeroProps> = ({
           </HeroDetail>
         </div>
       </div>
-      {hasDetails && description && <p className="inset-secondary">{description}</p>}
+      {hasDetails && description && <p className="px-2">{description}</p>}
     </div>
   );
 

@@ -15,7 +15,7 @@ import { compareStrings } from '@/utils/utils';
 
 const SelectArtifact: FC = () => {
   const [tab, setTab] = useState<number>(0);
-  const { currentArtifact, artifactData, setArtifactData, currentTile, tileData } = useFormation();
+  const { currentArtifact, setCurrentArtifact, artifactData, setArtifactData, currentTile, tileData } = useFormation();
   const artifactDisabled = currentArtifact === undefined;
   const notArtifactTile = currentTile ? tileData[currentTile] !== 2 : true;
   const disabled = artifactDisabled && notArtifactTile;
@@ -36,14 +36,13 @@ const SelectArtifact: FC = () => {
             selected={selected}
             hierarchy={hierarchy}
             onClick={() => {
-              if (!artifactDisabled) {
-                setArtifactData(prev => ({
-                  ...prev,
-                  [key]: prev[key]?.includes(artifact) ? prev[key].filter(a => a !== artifact) : [artifact],
-                }));
-              }
+              setArtifactData(prev => ({
+                ...prev,
+                [key]: prev[key]?.includes(artifact) ? prev[key].filter(a => a !== artifact) : [artifact],
+              }));
+              setCurrentArtifact(undefined);
             }}
-            disabled={disabled}
+            // disabled={disabled}
             hasActiveBorder
           >
             <div className="flex flex-row gap-2 items-center w-full">
@@ -52,7 +51,7 @@ const SelectArtifact: FC = () => {
                 path={getArtifactPath(artifact || '')}
                 size="2xs"
                 disabled
-                disabledOverlay={disabled}
+                // disabledOverlay={disabled}
               />
               <p className="text-lg">{artifact}</p>
             </div>
@@ -69,7 +68,7 @@ const SelectArtifact: FC = () => {
           .map(([label, artifacts]) => (
             <div key={label} className="relative h-10 w-full">
               <Accordion label={`${label.includes('Season ') ? 'Seasonal' : label} Artifacts`} keepOpen={false}>
-                <div className="scroll-bar-left scroll-bar-auto inset-secondary !rounded-t-none flex flex-col p-2 gap-1 max-h-[360px] overflow-auto z-100">
+                <div className="scroll-bar-left scroll-bar-auto inset-primary !rounded-t-none flex flex-col p-2 gap-1 max-h-[360px] overflow-auto z-100">
                   {getArtifactButtons(artifacts, 'tertiary')}
                 </div>
               </Accordion>
@@ -77,7 +76,7 @@ const SelectArtifact: FC = () => {
           ))}
       </div>
       <div className="container-primary hidden w-full flex-col gap-2 items-center justify-center sm:flex ">
-        <div className="w-full flex flex-col gap-2">
+        <div className="w-full flex flex-col gap-2 inset-black">
           {buttonLabels.map((label, i) => (
             <Button
               key={label}
@@ -87,15 +86,15 @@ const SelectArtifact: FC = () => {
                 setTab(i);
               }}
               selected={tab === i}
+              hierarchy="tertiary"
               hasActiveBorder
             >
               {label}
             </Button>
           ))}
         </div>
-        <hr className="w-full border-b-1 border-primary-750" />
-        <div className="inset-black scroll-bar-left scroll-bar-auto scroll-bar-thin w-full max-h-142 overflow-y-auto">
-          <div className="flex flex-col gap-1">{getArtifactButtons(getArtifacts(tab))}</div>
+        <div className="inset-black scroll-bar-left scroll-bar-auto scroll-bar-thin w-full max-h-142 overflow-y-auto !pl-1 !pr-0">
+          <div className="flex flex-col gap-1">{getArtifactButtons(getArtifacts(tab), 'tertiary')}</div>
         </div>
       </div>
     </>

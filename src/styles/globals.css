@@ -87,15 +87,15 @@
     @apply min-h-[100vh]; 
   }
   main {
-    @apply bg-gradient-to-b from-primary-900 via-primary-950 to-black;
+    @apply bg-linear-to-r/shorter bg-gradient-to-b from-black via-primary-900 to-black;
   }
   .header {
-    @apply w-full bg-gradient-to-r from-black to-primary-800 shadow-black relative flex flex-col place-items-center justify-center text-center shadow-sm shadow-black lg:py-3;
-    box-shadow: 0px 4px -4px 0px rgba(0, 0, 0, 0.50);
+    @apply w-full bg-black relative flex flex-col place-items-center justify-center text-center shadow-sm shadow-black lg:py-3 border-b-1 border-primary-900;
+    /* box-shadow: 0px 4px -4px 0px rgba(0, 0, 0, 0.50); */
   }
   .footer {
-    @apply mt-4 w-full bg-gradient-to-b from-primary-800 to-black shadow-black flex flex-col place-items-center content-center justify-center gap-2 p-4 text-center;
-    box-shadow: 0px -4px 4px 0px rgba(0, 0, 0, 0.50);
+    @apply mt-4 w-full flex flex-col place-items-center content-center justify-center gap-2 p-4 text-center border-t-1 border-primary-900;
+    /* box-shadow: 0px -4px 4px 0px rgba(0, 0, 0, 0.50); */
   }
   section {
     @apply flex w-full scroll-mt-[56px] lg:scroll-mt-[81px] content-center justify-center gap-4 place-self-center mx-auto;
@@ -375,13 +375,13 @@
     @apply p-2 rounded-lg shadow-sm shadow-black;
   }
   .container-primary {
-    @apply bg-primary-950/80;
+    @apply bg-primary-950/80 border-1 border-primary-900;
   }
   .container-secondary {
     @apply bg-primary-700/80;
   }
   .inset, .inset-primary, .inset-secondary, .inset-black {
-    box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.50) inset;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.50) inset;
   }
   .inset-primary, .inset-secondary, .inset-black {
     @apply p-2 rounded-lg;
@@ -390,7 +390,7 @@
     @apply bg-primary-950;
   }
   .inset-secondary {
-    @apply bg-primary-750;
+    @apply bg-primary-750/80;
   }
   .inset-black {
     @apply bg-black/50;

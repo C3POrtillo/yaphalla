@@ -40,7 +40,15 @@ const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
         .map(
           (label, i) =>
             label && (
-              <Button key={label} size="sm" selected={variant === i} hasActiveBorder onClick={() => setVariant(i)}>
+              <Button
+                key={label}
+                size="sm"
+                className="!px-2 !py-0.5"
+                selected={variant === i}
+                hasActiveBorder
+                hierarchy="primary"
+                onClick={() => setVariant(i)}
+              >
                 {label}
               </Button>
             ),
@@ -50,9 +58,9 @@ const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
   );
 
   return (
-    <div className="container-primary w-full flex flex-col grow gap-2 p-2">
+    <div className="container-primary w-full flex flex-col grow gap-2 p-2 max-h-fit">
       <HeroFilter {...filterProps}>{unitOptions}</HeroFilter>
-      <div className="inset-secondary scroll-bar-thin scroll-bar-auto relative flex grow flex-row justify-center min-h-[41rem] max-h-[41rem] overflow-auto">
+      <div className="inset-black scroll-bar-thin scroll-bar-auto relative flex grow flex-row justify-center min-h-[41rem] max-h-[41rem] overflow-auto">
         <div className="z-10 flex flex-col p-4 pt-8 h-max mb-2">
           <HeroButtons disabled={disabled} formattedUnits={formattedUnits} {...filterProps} {...props} />
         </div>

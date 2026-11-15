@@ -289,7 +289,7 @@ export const getHeroAllDetails = async (hero: string, isNPC = false) => {
   return { Info, Story, Skills };
 };
 
-const nullOrValue = (data: unknown) => Number(data) === -1 ? null : data
+const nullOrValue = (data: unknown) => (Number(data) === -1 ? null : data);
 
 const getHeroMiniDetails = async (hero: string, isNPC = false) => {
   try {

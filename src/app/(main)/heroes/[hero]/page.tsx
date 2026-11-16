@@ -27,9 +27,6 @@ const Index: FC<HeroPageProps> = async ({ params }) => {
   const hero = decodeURIComponent((await params).hero);
   const sanitizedUnit = sanitizeUnit(hero);
 
-  if (HeroPairMap[sanitizedUnit] && !compareStrings(HeroPairMap[sanitizedUnit], sanitizedUnit)) {
-    redirect(`/heroes/${sanitizedUnit}`);
-  }
   if (compareStrings(hero, sanitizedUnit)) {
     redirect(`/heroes/${sanitizedUnit}`);
   }

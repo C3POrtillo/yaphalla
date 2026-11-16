@@ -21,17 +21,18 @@ const EditorSidebar: FC = () => {
     setCurrentArtifact,
     setDrawType,
     setEditArena,
-    subMenu,
+    // subMenu,
     setSubMenu,
     isEditArena,
     hideLogo,
     setHideLogo,
     background,
-    setBackground,
+    // setBackground,
     tab,
     setTab,
     logo,
     setLogo,
+    setModalActive,
   } = useFormation();
   const searchParams = useSearchParams();
   const isDev = isDevMode(searchParams);
@@ -102,6 +103,7 @@ const EditorSidebar: FC = () => {
     {
       label: 'Arena Presets',
       onClick: () => {
+        setModalActive(true);
         setSubMenu(0);
       },
     },
@@ -109,6 +111,7 @@ const EditorSidebar: FC = () => {
       label: 'Customize Player',
       onClick: () => {
         setEditArena(false);
+        setModalActive(true);
         setSubMenu(1);
       },
     },
@@ -204,16 +207,16 @@ const EditorSidebar: FC = () => {
     ),
 
     <div key="Tab Buttons" className="container-primary w-full flex flex-col gap-2 items-center">
-      {<h2 className="w-full text-center text-base pb-1 border-b-2 border-primary-750 lg:text-lg">Menu Tab</h2>}
+      {/* {<h2 className="w-full text-center text-base pb-1 border-b-2 border-primary-750 lg:text-lg">Menu Tab</h2>} */}
       <div className="inset-black w-full flex flex-col gap-2">
-        {subMenuProps.map(({ onClick, label, ...props }, i) => (
+        {subMenuProps.map(({ onClick, label, ...props }) => (
           <Button
             key={label}
             className="w-full"
             size="sm"
             onClick={onClick}
-            selected={subMenu === i}
-            hasActiveBorder
+            // selected={subMenu === i}
+            // hasActiveBorder
             hierarchy="tertiary"
             {...props}
           >
@@ -255,7 +258,7 @@ const EditorSidebar: FC = () => {
             </Button>
           ))}
         </div>
-        {tab === 1 && (
+        {/* {tab === 1 && (
           <Toggle
             className="w-full"
             variant="switch"
@@ -266,7 +269,7 @@ const EditorSidebar: FC = () => {
             }}
             defaultChecked={background}
           />
-        )}
+        )} */}
         {isDevTiles && (
           <Toggle
             className="w-full"

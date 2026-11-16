@@ -13,7 +13,7 @@ interface TooltipProps extends PropsWithChildren {
 
 const Tooltip: FC<TooltipProps> = ({ className, pointerEvents = false, preWrapText = true, children }) => {
   const tooltipRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState('');
+  const [position, setPosition] = useState<string>('');
 
   const updatePosition = () => {
     const tooltip = tooltipRef.current;
@@ -64,7 +64,7 @@ const Tooltip: FC<TooltipProps> = ({ className, pointerEvents = false, preWrapTe
     <div
       ref={tooltipRef}
       className={joinStrings(
-        'container-primary !p-1 hidden absolute w-fit z-10 !text-white group-hover:block group-active:block peer-hover:block peer-active:block',
+        'container-primary !p-1 hidden absolute w-fit z-10 !text-white group-hover:block group-active:block peer-hover:block peer-active:block backdrop-blur-md',
         preWrapText && 'whitespace-pre',
         !pointerEvents && 'pointer-events-none',
         position,

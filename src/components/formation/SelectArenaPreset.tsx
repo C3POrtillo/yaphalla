@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import Accordion from '@/components/accordion/Accordion';
+// import Accordion from '@/components/accordion/Accordion';
 import { useFormation } from '@/components/formation/FormationProvider';
 import PreviewArena from '@/components/formation/PreviewArena';
 import { ArenaPresets } from '@/components/formation/types';
@@ -12,56 +12,39 @@ interface SelectArenaPresetProps {
 }
 
 const SelectArenaPreset: FC<SelectArenaPresetProps> = ({ variant = 'base' }) => {
-  const { preset, setPreset } = useFormation();
-  const isPreset = preset !== undefined && preset !== 'Custom';
-  const displayClasses = !compareStrings(variant, 'base')
-    ? 'xl:grid xl:grid-cols-4 2xl:grid-cols-5 3xl:grid-cols-6'
-    : 'flex-col flex-wrap sm:flex';
+  const { preset, setPreset, setModalActive } = useFormation();
+  // const isPreset = preset !== undefined && preset !== 'Custom';
 
   return (
-    <>
-      <div className="relative h-16 w-full block sm:hidden">
-        <div className="container-primary absolute top-0 left-0 z-20 w-full p-2">
-          <Accordion label={isPreset ? preset : 'Select Map'} keepOpen={false}>
-            <div className="scroll-bar-left scroll-bar-auto inset-secondary !rounded-t-none flex flex-col p-2 gap-1 max-h-[360px] overflow-auto">
-              {Object.keys(ArenaPresets)
-                .slice(1)
-                .map(label => (
-                  <Button
-                    key={label}
-                    hierarchy="tertiary"
-                    selected={preset === label}
-                    onClick={() => setPreset(label)}
-                    hasActiveBorder
-                  >
-                    {label}
-                  </Button>
-                ))}
-            </div>
-          </Accordion>
-        </div>
-      </div>
-      <div className={joinStrings('container-primary p-2 gap-2 justify-center hidden', displayClasses)}>
-        {Object.entries(ArenaPresets)
-          .slice(1)
-          .map(([label, data]) => (
-            <Button
-              key={label}
-              onClick={() => setPreset(label)}
-              selected={label === preset}
-              hierarchy="tertiary"
-              hasActiveBorder
-            >
-              <div className="flex flex-col gap-2">
-                <h2 className="text-lg lg:text-xl">{label}</h2>
-                <div className="hidden 2xl:block">
-                  <PreviewArena tileData={data as number[]} />
-                </div>
+    <div
+      className={joinStrings(
+        'container-primary p-2 gap-2 justify-center',
+        'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 3xl:grid-cols-8',
+        'scroll-bar-thin scroll-bar-auto relative justify-center h-full overflow-auto',
+      )}
+    >
+      {Object.entries(ArenaPresets)
+        .slice(1)
+        .map(([label, data]) => (
+          <Button
+            key={label}
+            onClick={() => {
+              setPreset(label);
+              setModalActive(false);
+            }}
+            selected={label === preset}
+            hierarchy="tertiary"
+            hasActiveBorder
+          >
+            <div className="flex flex-col gap-2">
+              <h2 className="text-lg lg:text-xl">{label}</h2>
+              <div className="block">
+                <PreviewArena tileData={data as number[]} />
               </div>
-            </Button>
-          ))}
-      </div>
-    </>
+            </div>
+          </Button>
+        ))}
+    </div>
   );
 };
 

@@ -5,6 +5,7 @@ import type { FC, ReactNode } from 'react';
 import { useFormation } from '@/components/formation/FormationProvider';
 import { getGroupIndex } from '@/components/formation/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
+import HexImage from '@/components/hex-tiles/HexImage';
 import { getPath } from '@/components/hex-tiles/utils';
 import Tooltip from '@/components/tooltip/Tooltip';
 import { BaseHexData } from '@/utils/types';
@@ -70,6 +71,15 @@ const SelectBackgroundHex: FC = () => {
     }),
   );
 
+  const preview = (
+    <HexImage
+      src={baseHex || 'Generic-Outline'}
+      path={baseHex ? getPath(baseHex) : undefined}
+      disabled
+      forceOutline={selectedOutline}
+    />
+  );
+
   const containers = [
     {
       title: 'Background',
@@ -91,13 +101,19 @@ const SelectBackgroundHex: FC = () => {
   );
 
   return (
-    <div className="flex flex-row gap-2 justify-center items-start text-center">
-      {containers.map(({ title, options }) => (
-        <div key={title} className="container-primary flex flex-col gap-2 items-center h-full">
-          <Header title={title} tooltip={tooltip} />
-          <div className="inset-black flex flex-col flex-wrap items-center gap-1 grow justify-center">{options}</div>
-        </div>
-      ))}
+    <div className="flex flex-col md:flex-row gap-2 items-center">
+      <div className="flex flex-col gap-2 justify-center text-center items-center">
+        {containers.map(({ title, options }) => (
+          <div key={title} className="container-primary flex flex-col gap-2 items-center">
+            <Header title={title} tooltip={tooltip} />
+            <div className="inset-black flex flex-col flex-wrap items-center gap-1 grow justify-center">{options}</div>
+          </div>
+        ))}
+      </div>
+      <div className="container-primary flex flex-col gap-2 items-center h-min">
+        <Header title="Preview" tooltip={tooltip} />
+        <div className="inset-black flex flex-col flex-wrap items-center gap-1 grow justify-center">{preview}</div>
+      </div>
     </div>
   );
 };

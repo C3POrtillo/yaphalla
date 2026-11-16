@@ -87,6 +87,8 @@ interface FormationContextType {
   handleDragOver: (e: DragEvent<HTMLButtonElement>) => void;
   handleInternalDragStart: (e: DragEvent<HTMLButtonElement>, tile: TileData) => void;
   handleDrop: (e: DragEvent<HTMLButtonElement>, tile: TileData) => void;
+  modalActive: boolean;
+  setModalActive: Dispatch<SetStateAction<boolean>>;
 }
 
 const FormationContext = createContext<FormationContextType | undefined>(undefined);
@@ -126,6 +128,7 @@ export const FormationProvider: FC<FormationProviderProps> = ({
   const [baseHex, setBaseHex] = useState<BaseHexes | undefined>();
   const [outline, setOutline] = useState<BaseHexes | undefined>();
   const [logo, setLogo] = useState<CommunityLogos>();
+  const [modalActive, setModalActive] = useState<boolean>(false);
 
   const draggedTileRef = useRef<number | null>(null);
   const validDropOccurred = useRef<boolean>(false);
@@ -636,6 +639,8 @@ export const FormationProvider: FC<FormationProviderProps> = ({
         handleDragOver,
         handleInternalDragStart,
         handleDrop,
+        modalActive,
+        setModalActive,
       }}
     >
       {children}

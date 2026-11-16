@@ -66,7 +66,7 @@ const matchRegExp = (href: string) => {
     return 'fa6-solid:sailboat';
   }
   if (href.match(/^\/editor(?:\/|$)/)) {
-    return 'mynaui:wrench-solid';
+    return 'fa7-solid:user-edit';
   }
 };
 

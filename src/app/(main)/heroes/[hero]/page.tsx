@@ -9,7 +9,6 @@ import CardHero from '@/components/hero/CardHero';
 import HeroSkills from '@/components/hero/HeroSkills';
 import HeroTales from '@/components/hero/HeroTales';
 import { getHeroAllDetails } from '@/components/hero/utils';
-import { HeroPairMap } from '@/utils/pathsHeroes';
 import { AllBossesSet, HeroSet, PhantimalSet, SortedHeroes } from '@/utils/types';
 import { compareStrings, sanitizeUnit } from '@/utils/utils';
 

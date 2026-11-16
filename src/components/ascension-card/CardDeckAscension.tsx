@@ -28,12 +28,12 @@ const CardDeckAscension: FC<CardDeckAscensionProps> = ({ units, hasLabel, label,
       id={label ? kebabCase(label) : undefined}
       className={joinStrings(
         !compareStrings(styleType || '', 'inset') && 'container-primary',
-        'flex flex-col gap-2 items-center justify-start mx-4',
+        'flex flex-col gap-2 items-center justify-start',
       )}
     >
       {!isTeam && (
         <div className="container-primary w-full">
-          <HeroFilter {...filterProps} />
+          <HeroFilter className="h-full" {...filterProps} />
         </div>
       )}
 

@@ -47,10 +47,12 @@ const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes, hasFilters = true, path =
   );
 
   return (
-    <Container className="flex-col mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3">
+    <Container className="flex-col mt-4 px-2 lg:px-12 4xl:!px-0 4xl:max-w-2/3 gap-1">
       {hasFilters && (
         <div className="container-primary w-full">
-          <HeroFilter {...filterProps}>{unitOptions}</HeroFilter>
+          <HeroFilter className="h-full" {...filterProps}>
+            {unitOptions}
+          </HeroFilter>
         </div>
       )}
       <div className="flex flex-row flex-wrap items-stretch">

@@ -87,7 +87,7 @@
     @apply min-h-[100vh]; 
   }
   main {
-    @apply bg-linear-to-r/shorter bg-gradient-to-b from-black via-primary-900 to-black;
+    @apply bg-linear-to-r/shorter bg-gradient-to-b from-black via-primary-950 to-black;
   }
   .header {
     @apply w-full bg-black relative flex flex-col place-items-center justify-center text-center shadow-sm shadow-black lg:py-3 border-b-1 border-primary-900;

@@ -5,13 +5,13 @@ import { useFormation } from '@/components/formation/FormationProvider';
 import PreviewArena from '@/components/formation/PreviewArena';
 import { ArenaPresets } from '@/components/formation/types';
 import Button from '@/components/inputs/button/Button';
-import { compareStrings, joinStrings } from '@/utils/utils';
+import { joinStrings } from '@/utils/utils';
 
 interface SelectArenaPresetProps {
   variant?: 'sm' | 'base';
 }
 
-const SelectArenaPreset: FC<SelectArenaPresetProps> = ({ variant = 'base' }) => {
+const SelectArenaPreset: FC<SelectArenaPresetProps> = () => {
   const { preset, setPreset, setModalActive } = useFormation();
   // const isPreset = preset !== undefined && preset !== 'Custom';
 

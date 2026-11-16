@@ -5,7 +5,7 @@ export const DreamRealmBosses = {
     'Mirage Frostspike',
     'Marshtoad',
     'Doomscourge',
-    'Sound Thresher',
+    'Talking Root',
     'Snow Stomper',
     'Midnight Harvester',
   ]),

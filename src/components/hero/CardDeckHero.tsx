@@ -64,7 +64,7 @@ const CardDeckHero: FC<CardDeckHeroProps> = ({ heroes, hasFilters = true, path =
                 return PhantimalSet.has(hero);
               default:
                 if (PhantimalSet.has(hero)) {
-                  return false;
+                  return path === 'bosses';
                 }
             }
 

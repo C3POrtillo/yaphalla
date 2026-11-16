@@ -16,7 +16,7 @@ export const generateStaticParams = () => [
   ...SortedHeroes.map(({ hero }) => ({
     hero: encodeURIComponent(hero),
   })),
-  ...[...PhantimalSet].map(hero => ({
+  ...Array.from(PhantimalSet, hero => ({
     hero: encodeURIComponent(hero),
   })),
 ];

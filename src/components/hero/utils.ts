@@ -323,13 +323,19 @@ const apiHeader = {
 };
 const fetchAPI = async (string: string) => await fetch(`${AFKJ_API}${string}`, apiHeader);
 
+const generatePath = (hero: string, isNPC = false) => {
+  const bossFolder = isNPC ? 'boss/' : '';
+  const phantimalFolder = !isNPC && PhantimalSet.has(hero) ? 'phantimals/' : '';
+  const path = [bossFolder, phantimalFolder, hero].join('');
+  
+  return path;
+};
+
 export const getHeroAllDetails = async (hero: string, isNPC = false) => {
   if (!hero) {
     return null;
   }
-  const bossFolder = isNPC ? 'boss/' : '';
-  const phantimalFolder = PhantimalSet.has(hero) ? 'phantimals/' : '';
-  const res = await fetchAPI([bossFolder, phantimalFolder, hero].join(''));
+  const res = await fetchAPI(generatePath(hero, isNPC));
 
   if (res.status !== 200) {
     return null;
@@ -343,9 +349,7 @@ const nullOrValue = (data: unknown) => (Number(data) === -1 ? null : data);
 
 const getHeroMiniDetails = async (hero: string, isNPC = false) => {
   try {
-    const bossFolder = isNPC ? 'boss/' : '';
-    const phantimalFolder = PhantimalSet.has(hero) ? 'phantimals/' : '';
-    const res = await fetchAPI([bossFolder, phantimalFolder, hero].join(''));
+    const res = await fetchAPI(generatePath(hero, isNPC));
     const { Info } = (await res.json()) as HeroJSON;
     const { DamageType, UnitRace, UnitJob, UnitRarity = isNPC ? null : 'R' } = Info;
     const heroClass = !compareStrings(UnitJob.toLowerCase(), 'marksmen') ? 'Marksman' : UnitJob;

@@ -3,7 +3,7 @@ import type { FC, PropsWithChildren } from 'react';
 
 import { metadata } from '@/app/(main)/layout';
 import { getHeroAllDetails } from '@/components/hero/utils';
-import { HeroSet } from '@/utils/types';
+import { HeroSet, PhantimalSet } from '@/utils/types';
 import { createMetadata, getImageURL, sanitizeUnit } from '@/utils/utils';
 
 export interface HeroPageProps {
@@ -15,8 +15,9 @@ export interface HeroPageProps {
 export const generateMetadata = async ({ params }: HeroPageProps): Promise<Metadata> => {
   const hero = sanitizeUnit(decodeURIComponent((await params).hero));
   const heroDetails = await getHeroAllDetails(hero);
+  const isPhantimal = PhantimalSet.has(hero);
 
-  if (!heroDetails || !HeroSet.has(hero)) {
+  if (!heroDetails || (!HeroSet.has(hero) && !isPhantimal)) {
     return metadata;
   }
 
@@ -27,7 +28,7 @@ export const generateMetadata = async ({ params }: HeroPageProps): Promise<Metad
     `${hero} | ${DisplayTitle}`,
     Description,
     'Yaphalla',
-    getImageURL(`/assets/images/hexes/unit/${hero}.png`),
+    getImageURL(`/assets/images/hexes/unit/${isPhantimal ? '/phantimals' : ''}${hero}.png`),
   );
 };
 

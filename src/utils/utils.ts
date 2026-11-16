@@ -150,10 +150,12 @@ export const setCookie = (cookie: Cookie) => {
   document.cookie = cookie;
 };
 
+const ignore = /of|the/g;
+
 const splitNameAndCapitalize = (name: string, character: string) =>
   name
     .split(character)
-    .map(word => word[0].toUpperCase() + word.slice(1))
+    .map(word => (ignore.test(word) ? word[0] : word[0].toUpperCase()) + word.slice(1))
     .join(character);
 
 export const sanitizeUnit = (unit: string) => {

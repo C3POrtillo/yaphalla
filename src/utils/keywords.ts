@@ -36,6 +36,15 @@ export const Keywords = {
   '[invincible]': 'Immune to all types of damage and control effects and becomes untargetable.',
   '[uncontrol]': 'Immune to all control effects.',
   '[stable]': 'Cannot be knocked into the air, knocked back, or involuntarily moved.',
+  '[power]': "A unit bearing a fragment of a Phantimal's power, gaining exclusive buffs.",
+  '[dotDmg]': 'Damage or HP loss caused by continuous debuffs such as Poison, Burn, or Bleed.',
+  '[remoteDmg]': 'Damage dealt to enemies more than 1 tile away from the caster.',
+  '[meleeDmg]': 'Damage dealt to enemies within 1 tile of the caster.',
+  '[hpLoss]':
+    "Refers to any effects that reduce a unit's current HP, including physical damage, magic damage, true damage, and other HP-reducing effects.",
+  '[hpCut]':
+    "This effect reduces a unit's maximum HP, with a cap of 25% of the unit's initial value. However, it does not apply in modes that track damage dealt, including modes like Dream Realm, Arcane Labyrinth, Battle Drills (battles against Elites and Bosses), Primal Lord, Guild Supremacy, Ravaged Realm, and Titan Reaver.",
+  '[carry]': 'The hero placed on a Talent Buff Tile.',
 } as const;
 
 export type Keywords = keyof typeof Keywords;

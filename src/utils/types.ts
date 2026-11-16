@@ -1,5 +1,5 @@
 import { CommunityLogos } from '@/components/hex-tiles/types';
-import { DreamRealmBosses, HonorDuel, PreSeason, Season7, Season8 } from '@/utils/seasonal';
+import { DreamRealmBosses, HonorDuel, PreSeason, Season5, Season6, Season7, Season8 } from '@/utils/seasonal';
 import { compareStrings, encodeIndex, hashHeroName, sortData, toBase62 } from '@/utils/utils';
 
 export const HeroClass = ['Tank', 'Support', 'Marksman', 'Mage', 'Rogue', 'Warrior'] as const;
@@ -91,8 +91,10 @@ export const PreSeasonSet = new Set(Artifacts['Pre-Season']);
 export const SeasonSet = new Set(Artifacts[CurrentSeason]);
 export const ArtifactSet = new Set([...PreSeasonSet, ...SeasonSet]);
 export const Phantimals = {
-  'Season 7': Season7['phantimals'],
   'Season 8': Season8['phantimals'],
+  'Season 7': Season7['phantimals'],
+  'Season 6': Season6['phantimals'],
+  'Season 5': Season5['phantimals'],
 } as Record<`Season ${number}`, Record<Talents, Phantimal | Phantimal[]>>;
 
 const Lightbearer = {
@@ -395,7 +397,8 @@ export const GuideSet = new Set([
 export const AllBossesSet = new Set([...GuideSet, ...UnusedBosses]);
 
 export const PhantimalSet = new Set(
-  Object.values(Phantimals[CurrentSeason])
+  Object.values(Phantimals)
+    .flatMap(phantimal => Object.values(phantimal))
     .flatMap(phantimal => phantimal)
     .map(phantimal => phantimal.hero),
 );

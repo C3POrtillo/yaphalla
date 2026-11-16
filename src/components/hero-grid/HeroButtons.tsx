@@ -1,5 +1,6 @@
 import type { HeroGridProps } from '@/components/hero-grid/HeroGrid';
 import type { UnitDivData } from '@/components/hero-grid/types';
+import type { Faction, HeroClass } from '@/utils/types';
 import type { Filters } from '@/utils/useHeroFilters';
 import type { DragEvent, FC } from 'react';
 
@@ -9,7 +10,7 @@ import { hasUnit } from '@/components/hero-grid/utils';
 import ButtonTile from '@/components/hex-tiles/ButtonTile';
 import { getPath } from '@/components/hex-tiles/utils';
 import { HeroPairMap, HeroSet } from '@/utils/pathsHeroes';
-import { type Faction, type HeroClass } from '@/utils/types';
+import { PhantimalSet } from '@/utils/types';
 import { joinStrings } from '@/utils/utils';
 
 interface HeroButtonProps extends HeroGridProps {
@@ -65,11 +66,15 @@ const HeroButtons: FC<HeroButtonProps> = ({
             draggable={isValid && !inAllUnits}
             onDragStart={e => handleDragStart(e, hero, sameUnit)}
             onContextMenu={() => {
-              if (HeroSet.has(hero)) {
-                window.open(`/heroes/${encodeURIComponent(hero)}`, '_blank');
-              }
               if (HeroPairMap[hero]) {
                 window.open(`/heroes/${encodeURIComponent(HeroPairMap[hero])}`, '_blank');
+
+                return;
+              }
+              if (HeroSet.has(hero) || PhantimalSet.has(hero)) {
+                window.open(`/heroes/${encodeURIComponent(hero)}`, '_blank');
+
+                return;
               }
             }}
           />

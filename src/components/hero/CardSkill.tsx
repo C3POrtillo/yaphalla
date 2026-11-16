@@ -7,6 +7,7 @@ import ParserSkill from '@/components/hero/ParserSkill';
 import { type HeroSkill, Label, SkillMap } from '@/components/hero/types';
 import { getBaseUnlock, getLevelUnlock } from '@/components/hero/utils';
 import Toggle from '@/components/inputs/toggle/Toggle';
+import { PhantimalSet } from '@/utils/types';
 
 interface CardSkillProps extends HeroSkill {
   hero: string;
@@ -26,9 +27,10 @@ const CardSkill: FC<CardSkillProps> = ({
   ...props
 }) => {
   const [isFull, setFull] = useState<boolean>(true);
-  const hasLabel = !isNPC && Label.has(DisplaySlot);
+  const isNPCorPhantimal = isNPC || PhantimalSet.has(hero);
+  const hasLabel = !isNPCorPhantimal && Label.has(DisplaySlot);
   const slot = isNPC ? undefined : DisplaySlot;
-  const { baseUnlock, classUnlock } = getBaseUnlock(DisplaySlot, UnlockLevel || 1);
+  const { baseUnlock, classUnlock } = getBaseUnlock(DisplaySlot, UnlockLevel || 1, PhantimalSet.has(hero));
   const heroLabel = hasLabel && <span className="text-tertiary-600">{SkillMap[DisplaySlot - 1]}</span>;
   const bossLabel = isNPC && (
     <span className="text-tertiary-600">{DisplaySlot === 1 ? 'Ultimate' : `Skill ${DisplaySlot}`}</span>
@@ -39,7 +41,7 @@ const CardSkill: FC<CardSkillProps> = ({
       <span className="text-xs lg:text-sm">
         {heroLabel || bossLabel}
         {hasLabel && ' - '}
-        {!isNPC && (
+        {!isNPC && baseUnlock && (
           <span className="text-neutral-400 text-xs lg:text-sm">
             Unlocks at <span className={classUnlock}>{baseUnlock}</span>
           </span>
@@ -91,7 +93,7 @@ const CardSkill: FC<CardSkillProps> = ({
       {isFull && Levels && (
         <div className="grow">
           {Levels?.map(({ DisplayLevel, UnlockLevel: unlock, ...level }, i) => {
-            const prefix = getLevelUnlock(DisplaySlot, DisplayLevel!, unlock, isNPC);
+            const prefix = getLevelUnlock(DisplaySlot, DisplayLevel!, unlock, isNPC, PhantimalSet.has(hero));
             const prefixSpan = <span className="text-neutral-400 text-xs">{`${prefix}\n`}</span>;
 
             return (

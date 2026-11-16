@@ -69,3 +69,28 @@ export const RavagedRealmMap = {
   Immortal: 'Graveborn',
   Sylvan: 'Wilder',
 } as const;
+
+export const PhantimalSkillUnlocks = {
+  1: {
+    2: 20,
+    3: 40,
+  },
+  2: {
+    2: 10,
+    3: 30,
+  },
+  3: {
+    1: 50,
+    2: 60,
+    3: 70,
+    4: 100,
+  },
+  4: {
+    1: 80,
+    2: 90,
+  },
+  5: {
+    1: 110,
+    2: 120,
+  },
+} as Record<number, Record<number, number>>;

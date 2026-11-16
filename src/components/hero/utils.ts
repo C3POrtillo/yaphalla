@@ -5,7 +5,7 @@ import type { HeroJSON, HeroSkillArgs } from '@/components/hero/types';
 import type { InputSizeTypes } from '@/utils/siteTypes';
 import type { ReactNode } from 'react';
 
-import { IconMap, RavagedRealmMap } from '@/components/hero/types';
+import { IconMap, PhantimalSkillUnlocks, RavagedRealmMap } from '@/components/hero/types';
 import { BossPaths, HeroPaths, PhantimalPaths, UnitOverride } from '@/utils/pathsHeroes';
 import {
   Damage,
@@ -230,7 +230,22 @@ export const cleanToken = (token: string) => {
   return undefined;
 };
 
-export const getBaseUnlock = (slot: number, level: number) => {
+const getPhantimalBaseUnlock = (slot: number) => {
+  let baseUnlock = 'Level 1';
+  if (1 in PhantimalSkillUnlocks[slot]) {
+    baseUnlock = `Level ${PhantimalSkillUnlocks[slot][1]}`;
+  }
+
+  return {
+    baseUnlock,
+    classUnlock: 'text-neutral-400',
+  };
+};
+
+export const getBaseUnlock = (slot: number, level: number, isPhantimal = false) => {
+  if (isPhantimal) {
+    return getPhantimalBaseUnlock(slot);
+  }
   switch (slot) {
     case 4:
       return {
@@ -256,12 +271,10 @@ export const getBaseUnlock = (slot: number, level: number) => {
 };
 
 const formatLevelUnlock = (text: string) => `Unlocks at ${text}`;
+const getDisplayText = (display: number) => `Level ${display}`;
 
-export const getLevelUnlock = (slot: number, display: number, unlock: number | undefined, isNPC = false) => {
-  const displayText = `Level ${display}`;
-  if (isNPC) {
-    return displayText;
-  }
+const getHeroUnlock = (slot: number, display: number, unlock: number | undefined) => {
+  const displayText = getDisplayText(display);
   let unlockText: string;
   switch (slot) {
     case 4:
@@ -275,6 +288,31 @@ export const getLevelUnlock = (slot: number, display: number, unlock: number | u
   }
 
   return `${displayText} | ${unlockText}`;
+};
+
+const getPhantimalUnlock = (slot: number, display: number) => {
+  const displayText = getDisplayText(display);
+  const unlockText = formatLevelUnlock(`Level ${PhantimalSkillUnlocks[slot][display]}`);
+  
+  return `${displayText} | ${unlockText}`;
+};
+
+export const getLevelUnlock = (
+  slot: number,
+  display: number,
+  unlock: number | undefined,
+  isNPC = false,
+  isPhantimal = false,
+) => {
+  const displayText = getDisplayText(display);
+  if (isNPC) {
+    return displayText;
+  }
+  if (isPhantimal) {
+    return getPhantimalUnlock(slot, display);
+  }
+
+  return getHeroUnlock(slot, display, unlock);
 };
 
 const { AFKJ_API, AFKJ_API_KEY } = process.env;

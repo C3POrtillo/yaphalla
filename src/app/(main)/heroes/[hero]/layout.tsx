@@ -1,3 +1,4 @@
+import type { HeroJSON } from '@/components/hero/types';
 import type { Metadata } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
@@ -21,14 +22,16 @@ export const generateMetadata = async ({ params }: HeroPageProps): Promise<Metad
     return metadata;
   }
 
-  const { Info } = heroDetails;
+  const { Info, Skills } = heroDetails as HeroJSON;
   const { DisplayTitle, Description } = Info;
+  const skillList = Skills.filter(Boolean).map(({ DisplayName }) => DisplayName);
 
   return createMetadata(
     `${hero} | ${DisplayTitle}`,
     Description,
     'Yaphalla',
     getImageURL(`/assets/images/hexes/unit/${isPhantimal ? '/phantimals' : ''}${hero}.png`),
+    [hero, DisplayTitle, ...skillList, 'Skills', 'Abilities', 'Exclusive Weapon', 'Ex Weapon', 'Ex'],
   );
 };
 

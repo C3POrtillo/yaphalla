@@ -84,10 +84,20 @@ export const createMetadata = (
   description: string,
   siteName = 'Yaphalla',
   image = imageURL,
+  keywords = [] as string[],
 ): Metadata => ({
   title,
   description,
-  keywords: ['Yaphalla', 'AFKJ', 'AFKJourney', 'AFK Journey', 'AFKJ Guides', 'AFKJourney Guides', 'AFK Journey Guides'],
+  keywords: [
+    'Yaphalla',
+    'AFKJ',
+    'AFKJourney',
+    'AFK Journey',
+    'AFKJ Guides',
+    'AFKJourney Guides',
+    'AFK Journey Guides',
+    ...keywords,
+  ],
   icons: {
     icon: image,
     shortcut: image,

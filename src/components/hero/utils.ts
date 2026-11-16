@@ -293,7 +293,7 @@ const getHeroUnlock = (slot: number, display: number, unlock: number | undefined
 const getPhantimalUnlock = (slot: number, display: number) => {
   const displayText = getDisplayText(display);
   const unlockText = formatLevelUnlock(`Level ${PhantimalSkillUnlocks[slot][display]}`);
-  
+
   return `${displayText} | ${unlockText}`;
 };
 

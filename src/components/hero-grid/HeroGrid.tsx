@@ -38,7 +38,7 @@ const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
 
   const tooltip = (
     <Tooltip className="text-left font-medium text-base bottom-0 translate-y-full left-1/2 -translate-x-1/2">
-      <span className="text-xs text-neutral-500">Right click Hero to open skills page</span>
+      <span className="text-xs">Right click Hero to open skills page</span>
     </Tooltip>
   );
 

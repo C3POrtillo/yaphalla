@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react/dist/iconify.js';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -9,6 +10,7 @@ import HeroFilter from '@/components/hero-filter/HeroFilter';
 import HeroButtons from '@/components/hero-grid/HeroButtons';
 import { getFormattedUnits } from '@/components/hero-grid/utils';
 import Button from '@/components/inputs/button/Button';
+import Tooltip from '@/components/tooltip/Tooltip';
 import useHeroFilters from '@/utils/useHeroFilters';
 import { isDevMode } from '@/utils/utils';
 
@@ -34,9 +36,18 @@ const HeroGrid: FC<HeroGridProps> = ({ disabled, ...props }) => {
     setFormattedUnits(getFormattedUnits({ isMdScreen, isXlScreen, isXxlScreen, isXxxlScreen }, variant));
   }, [isMdScreen, isXlScreen, isXxlScreen, isXxxlScreen, variant]);
 
+  const tooltip = (
+    <Tooltip className="text-left font-medium text-base bottom-0 translate-y-full left-1/2 -translate-x-1/2">
+      <span className="text-xs text-neutral-500">Right click Hero to open skills page</span>
+    </Tooltip>
+  );
+
   const unitOptions = (
     <div className="flex flex-row gap-1 items-center">
-      <span className="text-xs text-neutral-500">Right click Hero to open skills page</span>
+      <span className="relative group text-white hover:text-tertiary-400">
+        <Icon icon="mdi:question-mark-circle-outline" />
+        {tooltip}
+      </span>
       {['Units', 'Other', isDev && 'Artifacts', isDev && 'Tiles']
         .map(
           (label, i) =>

@@ -327,7 +327,7 @@ const generatePath = (hero: string, isNPC = false) => {
   const bossFolder = isNPC ? 'boss/' : '';
   const phantimalFolder = !isNPC && PhantimalSet.has(hero) ? 'phantimals/' : '';
   const path = [bossFolder, phantimalFolder, hero].join('');
-  
+
   return path;
 };
 

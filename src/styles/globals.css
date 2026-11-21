@@ -104,7 +104,7 @@
 
 @layer components {
   :root {
-    --hex-mask: url('https://res.cloudinary.com/vvib7uec/image/upload/assets/images/hexes/base/Generic-Hex.png');
+    --hex-mask: url('https://res.cloudinary.com/vvib7uec/image/upload/f_webp/q_auto:low/assets/images/hexes/base/Generic-Hex.png');
   } 
   .talents {
     .bg-lightbearer {
@@ -411,16 +411,16 @@
     aspect-ratio: 74 / 85;
   }
   .dunlingr-spellbind {
-    --icon-mask: url('https://res.cloudinary.com/vvib7uec/image/upload/assets/images/misc/dunlingr/spellbind.png');
+    --icon-mask: url('https://res.cloudinary.com/vvib7uec/image/upload/f_webp/q_auto:low/assets/images/misc/dunlingr/spellbind.png');
   }
   .dunlingr-curelock {
-    --icon-mask: url('https://res.cloudinary.com/vvib7uec/image/upload/assets/images/misc/dunlingr/curelock.png');
+    --icon-mask: url('https://res.cloudinary.com/vvib7uec/image/upload/f_webp/q_auto:low/assets/images/misc/dunlingr/curelock.png');
   }
   .natsu-lightning {
-    --icon-mask: url('https://res.cloudinary.com/vvib7uec/image/upload/assets/images/misc/natsu/lightning.png');
+    --icon-mask: url('https://res.cloudinary.com/vvib7uec/image/upload/f_webp/q_auto:low/assets/images/misc/natsu/lightning.png');
   }
   .natsu-fire {
-    --icon-mask: url('https://res.cloudinary.com/vvib7uec/image/upload/assets/images/misc/natsu/fire.png');
+    --icon-mask: url('https://res.cloudinary.com/vvib7uec/image/upload/f_webp/q_auto:low/assets/images/misc/natsu/fire.png');
   }
   .mode-icon::after {
     @apply absolute opacity-0 inset-0 pointer-events-none disabled:bg-none;

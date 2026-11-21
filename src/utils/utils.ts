@@ -69,15 +69,17 @@ export const roundToHundreth = (number: number) => number.toFixed(2);
 export const joinStrings = (...strings: (string | number | boolean | undefined | null)[]) =>
   strings.filter(Boolean).join(' ');
 
+const imageCDN = 'https://res.cloudinary.com/vvib7uec/image/upload/f_webp/q_auto:low/';
+
 export const getImageURL = (path: string) => {
   const splitPath = path.split('/');
   const sanitizedFileName = encodeURIComponent(splitPath.at(-1) || '').replaceAll(/(?:\s|%|20|26|')+/g, '_');
-  const sanitizedPath = splitPath.with(-1, sanitizedFileName).join('/');
+  const sanitizedPath = splitPath.with(-1, sanitizedFileName).join('/').replaceAll(/\/+/g, '/');
 
-  return `https://res.cloudinary.com/vvib7uec/image/upload/${sanitizedPath}`;
+  return `${imageCDN}${sanitizedPath}`;
 };
 
-const imageURL = 'https://res.cloudinary.com/vvib7uec/image/upload/assets/images/yaphalla-dog.png';
+const imageURL = `${imageCDN}/assets/images/yaphalla-dog.png`;
 
 export const createMetadata = (
   title: string,

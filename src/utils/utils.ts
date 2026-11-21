@@ -74,9 +74,9 @@ const imageCDN = 'https://res.cloudinary.com/vvib7uec/image/upload/f_webp/q_auto
 export const getImageURL = (path: string) => {
   const splitPath = path.split('/');
   const sanitizedFileName = encodeURIComponent(splitPath.at(-1) || '').replaceAll(/(?:\s|%|20|26|')+/g, '_');
-  const sanitizedPath = splitPath.with(-1, sanitizedFileName).join('/').replaceAll(/\/+/g, '/');
+  const sanitizedPath = splitPath.with(-1, sanitizedFileName).join('/');
 
-  return `${imageCDN}${sanitizedPath}`;
+  return `${imageCDN}${sanitizedPath}`.replaceAll(/\/+/g, '/');
 };
 
 const imageURL = `${imageCDN}/assets/images/yaphalla-dog.png`;

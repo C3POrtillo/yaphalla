@@ -8,7 +8,7 @@ import ExportImage from '@/components/export-image/ExportImage';
 import EditorArena from '@/components/formation/EditorArena';
 import EditorSidebar from '@/components/formation/EditorSidebar';
 import { useFormation } from '@/components/formation/FormationProvider';
-import SelectArenaPreset from '@/components/formation/SelectArenaPreset';
+// import SelectArenaPreset from '@/components/formation/SelectArenaPreset';
 import SelectHero from '@/components/formation/SelectHero';
 
 const EditorMain: FC = () => {
@@ -85,9 +85,9 @@ const EditorMain: FC = () => {
         />
         <div className="size-full grow flex flex-col-reverse sm:flex-row gap-2">
           <SelectHero />
-          <div className="w-full 2xl:hidden">
+          {/* <div className="w-full 2xl:hidden">
             <SelectArenaPreset variant="sm" />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

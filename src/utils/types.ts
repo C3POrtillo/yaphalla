@@ -148,12 +148,12 @@ const Hypogean = {
   Marksman: ['Kulu', 'Lamentis'],
   Mage: ['Aster', 'Cryonaia', 'Mehira'],
   Rogue: ['Berial', 'Saida'],
-  Warrior: ['Harak'],
+  Warrior: ['Aneva', 'Harak'],
 } as ClassData;
 
 const Dimensional = {
   Tank: [],
-  Support: ['Pandora'],
+  Support: ['Pandora', 'Sherlock Holmes'],
   Marksman: [],
   Mage: ['Frieren', 'Lucy', 'Marcille', 'Yamato & Gabumon'],
   Rogue: [],

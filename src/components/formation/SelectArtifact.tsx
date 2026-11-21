@@ -62,9 +62,9 @@ const SelectArtifact: FC = () => {
 
   return (
     <>
-      <div className="container-primary w-full flex flex-col gap-2 sm:hidden">
+      <div className="container-primary w-full flex flex-col gap-4 min-h-[124px] sm:hidden">
         {Object.entries(Artifacts)
-          .filter(([label]) => [CurrentSeason, 'Pre-Season', 'Honor Duel'].some(valid => !compareStrings(valid, label)))
+          .filter(([label]) => [CurrentSeason, 'Pre-Season'].some(valid => !compareStrings(valid, label)))
           .map(([label, artifacts]) => (
             <div key={label} className="relative h-10 w-full">
               <Accordion label={`${label.includes('Season ') ? 'Seasonal' : label} Artifacts`} keepOpen={false}>
